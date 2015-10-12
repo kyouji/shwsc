@@ -2032,7 +2032,9 @@ function priceSearch2${item_index}(priceid,boxid,x,y){
         <h3>养车宝典</h3>
         <#if curing_page??>
             <#list curing_page.content as item>
-                <a href="/info/content/${item.id?c}?mid=11">${item.title!''}</a>
+                <#if item_index < 9>
+                    <a href="/info/content/${item.id?c}?mid=11">${item.title!''}</a>
+                </#if>
             </#list>
         </#if>
     </section>

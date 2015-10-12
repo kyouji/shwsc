@@ -111,8 +111,8 @@ $(document).ready(function(){
     <menu class="column_qg main border-df">
         <div class="bt">热卖商品</div>
         <div class="clear10"></div>
-        <#if most_sold_list??>
-            <#list most_sold_list as item>
+        <#if hot_sale_list??>
+            <#list hot_sale_list as item>
                 <#if item_index < 3>
                     <a class="list" href="/goods/${item.id?c}">
                         <img src="${item.coverImageUri!''}" title="${item.title!''} ${item.subTitle!''}"/>

@@ -63,6 +63,19 @@ function timer${item_index}()
                 ${item.flashSaleStopTime?string("HH")}, 
                 ${item.flashSaleStopTime?string("mm")}, 
                 ${item.flashSaleStopTime?string("ss")})) - (new Date());//计算剩余的毫秒数
+    var allts = (new Date(${item.flashSaleStopTime?string("yyyy")}, 
+                parseInt(${item.flashSaleStopTime?string("MM")}, 10)-1, 
+                ${item.flashSaleStopTime?string("dd")}, 
+                ${item.flashSaleStopTime?string("HH")}, 
+                ${item.flashSaleStopTime?string("mm")}, 
+                ${item.flashSaleStopTime?string("ss")}))
+               - (new Date(${item.flashSaleStartTime?string("yyyy")}, 
+                parseInt(${item.flashSaleStartTime?string("MM")}, 10)-1, 
+                ${item.flashSaleStartTime?string("dd")}, 
+                ${item.flashSaleStartTime?string("HH")}, 
+                ${item.flashSaleStartTime?string("mm")}, 
+                ${item.flashSaleStartTime?string("ss")}));//总共的毫秒数
+    
     if (0 == ts)
     {
         window.location.reload();
@@ -82,6 +95,24 @@ function timer${item_index}()
                                 + hh + "</span>：<span>"
                                 + mm + "</span>：<span>"
                                 + ss + "</span>");
+                                
+    var price = ${item.flashSalePrice?string("0.00")} * ts / allts;
+    if(price < 1){
+        price = 1;
+    }
+    //var s_x = Math.round(price).toString();
+    var s_x = price.toFixed(2).toString();
+    
+    var pos_decimal = s_x.indexOf('.');
+    if (pos_decimal < 0) {
+        pos_decimal = s_x.length;
+        s_x += '.';
+    }
+    while (s_x.length <= pos_decimal + 2) {
+        s_x += '0';
+    }
+    
+    $("#flashPrice${item_index}").html("￥" + s_x);
                     
 </#if>
 }
@@ -90,7 +121,7 @@ function timer${item_index}()
                 <b><img src="${item.flashSaleImage!''}" /></b>
                 <p class="p1">${item.title!''}</p>
                 <p class="p2">参与抢拍：<span class="red">${item.totalclicks!'0'}</span>人</p>
-                <p class="red p3">￥<#if item.flashSalePrice??>${item.flashSalePrice?string("0.00")}<#else>0.00</#if><span class="unl-lt c9">￥<#if item.salePrice??>${item.salePrice?string("0.00")}<#else>0.00</#if></span></p>
+                <p class="red p3"><span id="flashPrice${item_index}"><#if item.flashSalePrice??>${item.flashSalePrice?string("0.00")}<#else>0.00</#if></span><span class="unl-lt c9">￥<#if item.salePrice??>${item.salePrice?string("0.00")}<#else>0.00</#if></span></p>
                 <p class="p4"  id="timeLeft${item_index}"></p>
                 <div class="clear"></div>
             </a>

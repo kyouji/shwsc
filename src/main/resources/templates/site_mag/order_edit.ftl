@@ -703,7 +703,7 @@
                                 <span id="spanRealAmountValue">
                                     <#if order.totalGoodsPrice??>${order.totalGoodsPrice?string("0.00")}</#if>
                                 </span> 元
-                                <#if order.statusId==1 || order.statusId==2 && order.isOnlinePay>
+                                <#if order.statusId==1 || order.statusId==2 && order.isOnlinePay?? && order.isOnlinePay >
                                 <input name="btnEditRealAmount" type="button" id="btnEditRealAmount" class="ibtn" value="调价">
                                 </#if>
                             </div>
@@ -731,7 +731,7 @@
                         <td>
                             <div class="position">
                                 <span id="spanPaymentFeeValue"><#if order.payTypeFee??>${order.payTypeFee?string("0.00")}</#if></span> 元
-                                <#if order.statusId==1 || order.statusId==2 && order.isOnlinePay>
+                                <#if order.statusId==1 || order.statusId==2 && order.isOnlinePay?? && order.isOnlinePay>
                                 <input type="button" id="btnEditPaymentFee" class="ibtn" value="调价">
                                 </#if>
                             </div>

@@ -1658,7 +1658,29 @@ public class TdTouchOrderController extends AbstractPaytypeController {
             if (PAYMENT_ALI.equals(payCode)) {
                 payForm = payChannelAlipay.getPayFormData(req);
                 map.addAttribute("charset", AlipayConfig.CHARSET);
-            } else if (CEBPayConfig.INTER_B2C_BANK_CONFIG.keySet().contains(
+            } else if (PAYMENT_WX.equals(payCode)) {
+                map.addAttribute("order_number", order.getOrderNumber());
+                map.addAttribute("total_price", order.getTotalLeftPrice());
+
+                String sa = "appid=" + Configure.getAppid() + "&mch_id="
+                        + Configure.getMchid() + "&nonce_str="
+                        + RandomStringGenerator.getRandomStringByLength(32)
+                        + "&product_id=" + order.getId() + "&time_stamp="
+                        + System.currentTimeMillis() / 1000;
+
+                String sign = MD5.MD5Encode(
+                        sa + "&key=192006250b4c09247ec02edce69f6acy")
+                        .toUpperCase();
+
+                System.out.print("Sharon: weixin://wxpay/bizpayurl?" + sa
+                        + "&sign=" + sign + "\n");
+
+                req.getSession().setAttribute("WXPAYURLSESSEION",
+                        "weixin://wxpay/bizpayurl?" + sa + "&sign=" + sign);
+                // "weixin://wxpay/bizpayurl?appid=wx2421b1c4370ec43b&mch_id=10000100&nonce_str=f6808210402125e30663234f94c87a8c&product_id=1&time_stamp=1415949957&sign=512F68131DD251DA4A45DA79CC7EFE9D");
+                return "/touch/order_pay_wx";
+            } 
+            else if (CEBPayConfig.INTER_B2C_BANK_CONFIG.keySet().contains(
                     payCode)) {
                 req.setAttribute("payMethod", payCode);
                 payForm = payChannelCEB.getPayFormData(req);

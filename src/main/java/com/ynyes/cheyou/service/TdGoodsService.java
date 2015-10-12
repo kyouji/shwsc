@@ -864,6 +864,22 @@ public class TdGoodsService {
                         catStr, pageRequest);
     }
 
+    public Page<TdGoods> findByCategoryIdAndIsRecommendTypeTrueAndIsOnSaleTrueOrderBySortIdAsc(
+            Long catId, int page, int size) {
+        if (null == catId) {
+            return null;
+        }
+
+        PageRequest pageRequest = new PageRequest(page, size, new Sort(
+                Direction.ASC, "sortId"));
+
+        String catStr = "[" + catId + "]";
+
+        return repository
+                .findByCategoryIdTreeContainingAndIsRecommendTypeTrueAndIsOnSaleTrue(
+                        catStr, pageRequest);
+    }
+    
     public Page<TdGoods> findByIsRecommendTypeTrueAndIsOnSaleTrueOrderByIdDesc(
             int page, int size) {
         PageRequest pageRequest = new PageRequest(page, size, new Sort(

@@ -193,7 +193,7 @@ function verifyMobile(){
                       <select id="prov" class="prov" style="width: 100px;"></select>
                       <select id="city" class="city" style="width: 100px;"></select>
                       <select id="dist" class="dist" style="width: 150px;"></select>
-                      <select id="diys" class="diys"  name="shopId" onchange="showaddress()" datatype="n" nullmsg="请选择同盟店" errormsg="请选择同盟店"></select>
+                      <select id="diys" class="diys"  style="width: 150px;"  name="shopId" onchange="showaddress()" datatype="n" nullmsg="请选择同盟店" errormsg="请选择同盟店"></select>
                       <p id="shopaddress"></p>
                       </div>
                   </dd>
