@@ -336,6 +336,7 @@ public class TdManagerCouponController {
                           Long isUsed,
                           Long typeId,
                           String exportUrl,
+                          String exportAllUrl,
                           HttpServletResponse resp,
                           HttpServletRequest req){
         
@@ -368,6 +369,11 @@ public class TdManagerCouponController {
             {
             	exportUrl = SiteMagConstant.backupPath;
                 tdManagerLogService.addLog("export", "导出优惠券领取记录", req);
+            }
+            else if (__EVENTTARGET.equalsIgnoreCase("exportAll"))
+            {
+            	exportAllUrl = SiteMagConstant.backupPath;
+                tdManagerLogService.addLog("exportAll", "导出全部优惠券领取记录", req);
             }
             else if (__EVENTTARGET.equalsIgnoreCase("changeDiysite")) {
 		   
@@ -444,6 +450,12 @@ public class TdManagerCouponController {
           cell.setCellValue("是否核销");  
           cell.setCellStyle(style);
           
+        if (null != exportAllUrl) {//导出全部
+			List<TdCoupon> tdCouponslist = tdCouponService.findByIsDistributtedTrueOrderByIdDesc();
+			if (ImportAllData(tdCouponslist, row, cell, sheet)) {
+				download(wb, username, resp);
+			}
+		}
         
         Page<TdCoupon> couponPage = null;
         
@@ -771,9 +783,68 @@ public class TdManagerCouponController {
 					row.createCell((short) 8).setCellValue("未核销");
 				}
             	
+			}           
+         
+        } 
+    	return true;
+    }
+    
+    /**
+	 * @author lc
+	 * @注释：将list中的数据存入excel表格中
+	 */
+    @SuppressWarnings("deprecation")
+	public boolean ImportAllData(List<TdCoupon> tdCouponPage, HSSFRow row, HSSFCell cell, HSSFSheet sheet){
+    	
+    	for (int i = 0; i < tdCouponPage.size(); i++)  
+        {  
+    	 				
+            row = sheet.createRow((int) i + 1);  
+            TdCoupon tdCoupon = tdCouponPage.get(i);  
+            
+            // 第四步，创建单元格，并设置值  
+            if (null != tdCoupon.getTypeTitle()) {
+            	row.createCell((short) 0).setCellValue(tdCoupon.getTypeTitle());
+			}           
+            
+            if (null != tdCoupon.getDiySiteTitle()) {
+            	row.createCell((short) 1).setCellValue(tdCoupon.getDiySiteTitle());
 			}
             
+            if (null != tdCoupon.getUsername()) {
+            	row.createCell((short) 2).setCellValue(tdCoupon.getUsername());
+			}
             
+            if (null != tdCoupon.getMobile()) {
+            	row.createCell((short) 3).setCellValue(tdCoupon.getMobile());
+			}
+            
+            if (null != tdCoupon.getCarCode()) {
+            	row.createCell((short) 4).setCellValue(tdCoupon.getCarCode());
+			}
+            
+            if (null != tdCoupon.getGetTime()) {
+            	cell = row.createCell((short) 5);
+            	cell.setCellValue(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(tdCoupon.getGetTime()));
+			}
+            
+            if (null != tdCoupon.getExpireTime()) {
+            	cell = row.createCell((short) 6);
+            	cell.setCellValue(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(tdCoupon.getExpireTime()));
+			}
+            
+            if (null != tdCoupon.getConsumerPassword()) {
+            	row.createCell((short) 7).setCellValue(tdCoupon.getConsumerPassword());
+			}
+            
+            if (null != tdCoupon.getIsUsed()) {
+            	if (tdCoupon.getIsUsed()) {
+            		row.createCell((short) 8).setCellValue("已核销");
+				}else{
+					row.createCell((short) 8).setCellValue("未核销");
+				}
+            	
+			}           
          
         } 
     	return true;
