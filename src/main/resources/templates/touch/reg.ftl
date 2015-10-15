@@ -101,7 +101,7 @@ function tip()
     <form id="form1" method="post" action="/touch/reg">
         <p style="color: #F00">${error!''}</p>
         <div class="logintext">
-            <input class="logintext01" name="username" type="text" datatype="s6-20" placeholder="/用户名/手机号/邮箱"/>
+            <input class="logintext01" name="username" type="text" datatype="s6-20" ajaxurl="/reg/check/mobile" placeholder="手机号"/>
         </div>
         <div class="logintext">
             <input class="logintext02" name="password" type="password" placeholder="请输入密码" datatype="s6-20"/>
