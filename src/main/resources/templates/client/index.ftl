@@ -1819,7 +1819,7 @@ function priceSearch2${item_index}(priceid,boxid,x,y){
                         <span class="c9">低于市场价${((item.salePrice - item.groupSaleHundredPrice)/item.salePrice*100)?string("0")}%</span>
                         <span class="sp1">${item.totalclicks!'0'}人关注</span>
                     </p>
-                    <b><i style="line-height:0px;font-size:0px;display:block;width:<#if item.totalclicks?? && item.totalclicks/4 < 100>${item.totalclicks/4!'0'}<#else>100</#if>%;height:7px;border-radius:4px;background:#019ad3;"></i></b>
+                    <b><i style="line-height:0px;font-size:0px;display:block;width:<#if item.totalclicks?? && item.totalclicks/10 < 100>${item.totalclicks/10!'0'}<#else>100</#if>%;height:7px;border-radius:4px;background:#019ad3;"></i></b>
                 </#list>
             </#if>
     </section>
