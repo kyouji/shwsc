@@ -38,13 +38,13 @@
                     </#if>
                     </span>
                 </td>
-                <td class="red">￥${cg.price?string("0.00")}</td>
+                <td class="red">￥<#if cg.price??>${cg.price?string("0.00")}</#if></td>
                 <td width="150" class="num">
                     <a href="javascript:minusNum(${cg.id?c});"> - </a>
                     <input class="text" type="text" value="${cg.quantity!''}" />
                     <a href="javascript:addNum(${cg.id?c});"> + </a>
                 </td>
-                <td class="red">￥${(cg.price*cg.quantity)?string("0.00")}</td>
+                <td class="red">￥<#if cg.price??>${(cg.price*cg.quantity)?string("0.00")}</#if></td>
                 <td><a class="del" href="javascript:delCartItem(${cg.id?c});">删除</a></td>
                 <#if cg.giftList??><#list cg.giftList as gif><td >${gif.name!''}</td></#list></#if>
                 <#if cg.isSelected>
