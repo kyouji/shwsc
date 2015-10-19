@@ -12,6 +12,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -1915,6 +1917,15 @@ public class TdTouchOrderController extends AbstractPaytypeController {
             tdUser = tdUserService.save(tdUser);
         }
         
+        if (tdOrder.getStatusId().equals(2L))
+        {
+            tdOrder.setPayTime(new Date()); // 设置付款时间
+        }
+        else
+        {
+            tdOrder.setPayLeftTime(new Date()); // 设置付尾款时间
+        }
+        
         if (tdOrder.getStatusId().equals(2L)
                 && !tdOrder.getTotalLeftPrice().equals(0)
                 && tdOrder.getTypeId().equals(4) 
@@ -1996,29 +2007,64 @@ public class TdTouchOrderController extends AbstractPaytypeController {
                 }
             }
             if (tdOrder.getTypeId().equals(1L)) {
-                shopOrderincome = totalSaleprice - totalCostprice - totalPoints
-                        - platformService - trainService - totalCash;
+            	shopOrderincome = totalSaleprice - totalCostprice
+                        - platformService - totalCash;
             }
 
             // 用户返利
+//            if (null != tdUser) {
+//                TdUserPoint userPoint = new TdUserPoint();
+//
+//                userPoint.setDetail("购买商品赠送粮草");
+//                userPoint.setOrderNumber(tdOrder.getOrderNumber());
+//                userPoint.setPoint(totalPoints);
+//                userPoint.setPointTime(new Date());
+//                userPoint.setTotalPoint(tdUser.getTotalPoints() + totalPoints);
+//                userPoint.setUsername(tdUser.getUsername());
+//
+//                userPoint = tdUserPointService.save(userPoint);
+//
+//                tdUser.setTotalPoints(userPoint.getTotalPoint());
+//
+//                tdUserService.save(tdUser);
+//            }
+//        }
+            final Long totalPointsDely = totalPoints;
+            final TdUser tdUserDely = tdUser;
+            final TdOrder tdOrderDely = tdOrder;
+            // 用户返利
             if (null != tdUser) {
-                TdUserPoint userPoint = new TdUserPoint();
+                Timer timer = new Timer();
+                timer.schedule(new TimerTask() {
+                    public void run() {
+                        // System.out.println("-------设定要指定任务--------");
+                        TdUserPoint userPoint = new TdUserPoint();
+                        TdOrder tdOrder1 = tdOrderService
+                                .findByOrderNumber(tdOrderDely.getOrderNumber());
 
-                userPoint.setDetail("购买商品赠送粮草");
-                userPoint.setOrderNumber(tdOrder.getOrderNumber());
-                userPoint.setPoint(totalPoints);
-                userPoint.setPointTime(new Date());
-                userPoint.setTotalPoint(tdUser.getTotalPoints() + totalPoints);
-                userPoint.setUsername(tdUser.getUsername());
+                        userPoint.setDetail("购买商品赠送粮草");
+                        userPoint.setOrderNumber(tdOrderDely.getOrderNumber());
+                        userPoint.setPoint(totalPointsDely);
+                        userPoint.setPointTime(new Date());
+                        userPoint.setTotalPoint(tdUserDely.getTotalPoints()
+                                + totalPointsDely);
+                        userPoint.setUsername(tdUserDely.getUsername());
 
-                userPoint = tdUserPointService.save(userPoint);
+                        userPoint = tdUserPointService.save(userPoint);
 
-                tdUser.setTotalPoints(userPoint.getTotalPoint());
+                        tdUserDely.setTotalPoints(userPoint.getTotalPoint());
 
-                tdUserService.save(tdUser);
+                        tdOrder1.setIsReturnPoints(true);
+                        tdOrderService.save(tdOrder1);
+                        tdUserService.save(tdUserDely);
+                    }
+                }, 1000 * 3600 * 24 * 7);// 设定指定的时间time,
+
             }
         }
 
+            
+            
         // 同盟店返利
         if (null != tdShop) {
             if (null == tdShop.getTotalCash()) {

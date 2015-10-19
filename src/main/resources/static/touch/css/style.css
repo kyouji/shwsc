@@ -259,3 +259,11 @@ input.orange_btn { color: #fff; font-size: 0.8em; background: #f4b93a; width: 10
 .touch_info h2{margin:5% 0 5% 0;text-align:center;}
 .touch_info p{font-size:0.7em;}
 .touch_info strong{margin:5% 0 5% 0;font-size:1.3em;}
+
+.address_tab td a {
+  display: block;
+  float: left;
+  padding: 10px;
+  border: 1px solid #eee;
+  margin: 5px 1%;
+}                           

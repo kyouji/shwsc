@@ -50,7 +50,7 @@ function __doPostBack(eventTarget, eventArgument) {
                 <#elseif 3==statusId>
                     <span>待发货订单</span>
                 <#elseif 4==statusId>
-                    <span>待收货订单</span>
+                    <span>待服务订单</span>
                 <#elseif 5==statusId>
                     <span>待评价订单</span>
                 <#elseif 6==statusId>
@@ -144,7 +144,7 @@ function __doPostBack(eventTarget, eventArgument) {
             支付方式
         </th>
         <th align="left" width="10%">
-            配送方式
+            预约门店
         </th>
         <th width="8%">
             订单状态
@@ -173,7 +173,7 @@ function __doPostBack(eventTarget, eventArgument) {
                     <a href="/Verwalter/order/edit?id=${order.id?c}&statusId=${statusId!'0'}">${order.orderNumber!""}</a></td>
                 <td>${order.username!""}</td>
                 <td>${order.payTypeTitle!""}</td>
-                <td>${order.deliverTypeTitle!""}</td>
+                <td>${order.shopTitle!""}</td>
                 <td align="center">
                     <#if order.statusId??>
                         <#if 1==order.statusId>
@@ -181,9 +181,9 @@ function __doPostBack(eventTarget, eventArgument) {
                         <#elseif 2==order.statusId>
                             <span>待付款订单</span>
                         <#elseif 3==order.statusId>
-                            <span>待发货订单</span>
+                            <span>待付尾款订单</span>
                         <#elseif 4==order.statusId>
-                            <span>待收货订单</span>
+                            <span>待服务订单</span>
                         <#elseif 5==order.statusId>
                             <span>待评价订单</span>
                         <#elseif 6==order.statusId>

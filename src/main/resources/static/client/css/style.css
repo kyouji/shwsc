@@ -430,7 +430,7 @@ menu.leftpart a { display:inline-block; white-space:nowrap; font-size:12px; marg
 .address_tab { width:100%; border-collapse:collapse;}
 .address_tab th { text-align:center; font-weight:400px; background:#eee; font-weight:400;}
 .address_tab td { border:1px solid #eee; padding:15px;}
-.address_tab td a { display:block; float:left; padding:10px; border:1px solid #eee; width:470px; margin:5px 1%;}
+.address_tab td a { display:block; float:left; padding:10px; border:1px solid #eee; width:200px; margin:5px 1%;}
 .address_tab td a:hover,.address_tab td a.sel { border:1px solid #fc3f3b; background:url(../images/content/address.png) no-repeat right bottom;}
 .address_tab td p.p1 { height:40px;}
 .order_check { width:55%;}

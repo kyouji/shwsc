@@ -27,11 +27,6 @@ import com.ynyes.cheyou.service.TdUserRecentVisitService;
 @Controller
 @RequestMapping("/touch/shop")
 public class TdTouchShopController {
-	@Autowired 
-	private TdArticleService tdArticleService;
-	
-	@Autowired 
-    private TdArticleCategoryService tdArticleCategoryService;
 	
 	@Autowired 
     private TdDiySiteService tdDiySiteService;
@@ -42,8 +37,6 @@ public class TdTouchShopController {
 	@Autowired
     private TdCommonService tdCommonService;
 	
-	@Autowired
-    private TdUserRecentVisitService tdUserRecentVisitService;
     
 	@RequestMapping("/list")
     public String infoList(Integer page, 

@@ -10,10 +10,12 @@
 <style type="text/css">  
 body, html,#myMap {width: 100%;height: 100%;margin:0;}  
 </style> 
-<script src="/touch/js/jquery-1.9.1.min.js"></script>
+<script src="/touch/js/jquery-1.9.0.min.js"></script>
 <script src="/touch/js/ljs-v1.01.js"></script>
 <script src="/touch/js/common.js"></script>
+<script src="/touch/js/jquery.swipebox.min.js"></script>
 
+<link rel="stylesheet" href="/touch/css/swipebox.css">
 <link href="/touch/css/common.css" rel="stylesheet" type="text/css" />
 <link href="/touch/css/style.css" rel="stylesheet" type="text/css" />
 
@@ -170,8 +172,13 @@ function hideSerivceStars()
 <ul class="main shoplist">
     <#if shop_list??>
         <#list shop_list as item>
+        <script type="text/javascript">
+            jQuery(function($) {
+                $(".swipebox${item_index}").swipebox();
+            });
+        </script>
         <li>
-            <div id="onebox${item_index}" style="float:left;">
+           <#-- <div id="onebox${item_index}" style="float:left;">
                 <div id="onesum${item_index}" style="float:left;">
                     <#if item.showPictures??>
                         <#list item.showPictures?split(",") as uri>
@@ -181,10 +188,25 @@ function hideSerivceStars()
                         </#list>
                     </#if>
                 </div>
-            </div>
+            </div> -->
+            <#if item.showPictures??>
+                  <#list item.showPictures?split(",") as uri>
+                         <#if ""!=uri>
+                         <#if uri_index < 1>
+                               <a href="${uri}" class="swipebox${item_index}" title="My Caption">
+                                    <img src="${uri}" width="60px;" height="60px;" alt="image">
+                               </a>
+                         <#else>
+                               <a href="${uri}" class="swipebox${item_index}" title="My Caption">
+                                    <img src="${uri}" width="60px;" height="60px;" style="display:none" alt="image">
+                               </a>
+                         </#if>
+                         </#if>
+                  </#list>
+            </#if>
             <p class="p1">${item.title}
               <span id="serviceStars">
-                <#if ("shop_serviceStars"++item.id)?eval?? && ("shop_serviceStars"++item.id)?eval lte 0 >
+                <#if !("shop_serviceStars"++item.id)?eval?? && ("shop_serviceStars"++item.id)?eval lte 0 >
                 <#else>
                 <img src="/touch/images/<#if ("shop_serviceStars"++item.id)?eval?? && ("shop_serviceStars"++item.id)?eval lt 1.0>star02.png<#else>star01.png</#if>" height="15" />
                 <img src="/touch/images/<#if ("shop_serviceStars"++item.id)?eval?? && ("shop_serviceStars"++item.id)?eval lt 1.5>star03.png<#elseif ("shop_serviceStars"++item.id)?eval gte 1.5 && ("shop_serviceStars"++item.id)?eval lt 2.0>star02.png<#else>star01.png</#if>" height="15" />
