@@ -49,7 +49,9 @@
                 <#if cg.giftList??><#list cg.giftList as gif><td >${gif.name!''}</td></#list></#if>
                 <#if cg.isSelected>
                     <#assign totalGoods=totalGoods+cg.quantity>
-                    <#assign totalPrice=totalPrice+cg.price*cg.quantity>
+                    <#if cg.price??>
+                        <#assign totalPrice=totalPrice+cg.price*cg.quantity>
+                    </#if>
                 </#if>
             </tr>
         </#list>
