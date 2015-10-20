@@ -1805,13 +1805,24 @@ public class TdOrderController extends AbstractPaytypeController {
 
         String noncestr = RandomStringGenerator.getRandomStringByLength(32);
         
+        long priceToPay = 0L;
+        
+        if (order.getStatusId().equals(2L) && null == order.getTotalPrice())
+        {
+            priceToPay = Math.round(order.getTotalPrice() * 100);
+        }
+        else if (order.getStatusId().equals(3L) && null != order.getTotalLeftPrice())
+        {
+            priceToPay = Math.round(order.getTotalLeftPrice() * 100);
+        }
+
         String sa = "appid=" + Configure.getAppid() + "&attach=订单支付"
                 + "&body=支付订单" + order.getOrderNumber() + "&mch_id="
                 + Configure.getMchid() + "&nonce_str=" + noncestr
                 + "&notify_url=http://www.cytm99.com/order/wx_notify"
                 + "&openid=" + openid + "&out_trade_no="
                 + order.getOrderNumber() + order.getStatusId() + "&spbill_create_ip=116.55.230.237"
-                + "&total_fee=" + Math.round(order.getTotalPrice() * 100)
+                + "&total_fee=" + priceToPay
                 + "&trade_type=NATIVE";
 
         String sign = MD5.MD5Encode(
@@ -1836,7 +1847,7 @@ public class TdOrderController extends AbstractPaytypeController {
                 + order.getOrderNumber() + order.getStatusId() 
                 + "</out_trade_no>\n"
                 + "<spbill_create_ip>116.55.230.237</spbill_create_ip>\n"
-                + "<total_fee>" + Math.round(order.getTotalPrice() * 100)
+                + "<total_fee>" + priceToPay
                 + "</total_fee>\n" + "<trade_type>NATIVE</trade_type>\n"
                 + "<sign>" + sign + "</sign>\n" + "</xml>\n";
 
