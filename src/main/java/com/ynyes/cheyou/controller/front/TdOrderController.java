@@ -1804,38 +1804,42 @@ public class TdOrderController extends AbstractPaytypeController {
         }
 
         String noncestr = RandomStringGenerator.getRandomStringByLength(32);
-        String sa = "appid=" + Configure.getAppid() + "&attach=订单支付"
-                + "&body=支付订单" + order.getOrderNumber() + "&mch_id="
-                + Configure.getMchid() + "&nonce_str=" + noncestr
-                + "&notify_url=http://www.cytm99.com/order/wx_notify"
-                + "&openid=" + openid + "&out_trade_no="
-                + order.getOrderNumber() + "&spbill_create_ip=116.55.230.237"
-                + "&total_fee=" + Math.round(order.getTotalPrice() * 100)
-                + "&trade_type=NATIVE";
+        
+        String sa  = "appid=" + Configure.getAppid() + "&attach=订单支付"
+                    + "&body=支付订单" + order.getOrderNumber() + "&mch_id="
+                    + Configure.getMchid() + "&nonce_str=" + noncestr
+                    + "&notify_url=http://www.cytm99.com/order/wx_notify"
+                    + "&openid=" + openid + "&out_trade_no="
+                    + order.getOrderNumber() + "&spbill_create_ip=116.55.230.237"
+                    + "&total_fee=" + Math.round(order.getTotalPrice() * 100)
+                    + "&trade_type=NATIVE";
+		       
 
         String sign = MD5.MD5Encode(
                 sa + "&key=192006250b4c09247ec02edce69f6acy").toUpperCase();
-
-        String content = "<xml>\n" + "<appid>"
-                + Configure.getAppid()
-                + "</appid>\n"
-                + "<attach>订单支付</attach>\n"
-                + "<body>支付订单"
-                + order.getOrderNumber()
-                + "</body>\n"
-                + "<mch_id>"
-                + Configure.getMchid()
-                + "</mch_id>\n"
-                + "<nonce_str>"
-                + noncestr
-                + "</nonce_str>\n"
-                + "<notify_url>http://www.cytm99.com/order/wx_notify</notify_url>\n"
-                + "<openid>" + openid + "</openid>\n" + "<out_trade_no>"
-                + order.getOrderNumber() + "</out_trade_no>\n"
-                + "<spbill_create_ip>116.55.230.237</spbill_create_ip>\n"
-                + "<total_fee>" + Math.round(order.getTotalPrice() * 100)
-                + "</total_fee>\n" + "<trade_type>NATIVE</trade_type>\n"
-                + "<sign>" + sign + "</sign>\n" + "</xml>\n";
+        
+        String content  = "<xml>\n" + "<appid>"
+	                + Configure.getAppid()
+	                + "</appid>\n"
+	                + "<attach>订单支付</attach>\n"
+	                + "<body>支付订单"
+	                + order.getOrderNumber()
+	                + "</body>\n"
+	                + "<mch_id>"
+	                + Configure.getMchid()
+	                + "</mch_id>\n"
+	                + "<nonce_str>"
+	                + noncestr
+	                + "</nonce_str>\n"
+	                + "<notify_url>http://www.cytm99.com/order/wx_notify</notify_url>\n"
+	                + "<openid>" + openid + "</openid>\n" + "<out_trade_no>"
+	                + order.getOrderNumber() + "</out_trade_no>\n"
+	                + "<spbill_create_ip>116.55.230.237</spbill_create_ip>\n"
+	                + "<total_fee>" + Math.round(order.getTotalPrice() * 100)
+	                + "</total_fee>\n" + "<trade_type>NATIVE</trade_type>\n"
+	                + "<sign>" + sign + "</sign>\n" + "</xml>\n";
+		
+        
 
         System.out.print("Sharon: xml=" + content);
 
