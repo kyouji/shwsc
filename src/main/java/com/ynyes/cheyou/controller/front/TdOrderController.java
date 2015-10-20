@@ -1809,7 +1809,7 @@ public class TdOrderController extends AbstractPaytypeController {
                 + Configure.getMchid() + "&nonce_str=" + noncestr
                 + "&notify_url=http://www.cytm99.com/order/wx_notify"
                 + "&openid=" + openid + "&out_trade_no="
-                + order.getOrderNumber() + "&spbill_create_ip=116.55.230.237"
+                + order.getOrderNumber() + order.getStatusId() + "&spbill_create_ip=116.55.230.237"
                 + "&total_fee=" + Math.round(order.getTotalPrice() * 100)
                 + "&trade_type=NATIVE";
 
@@ -1830,8 +1830,10 @@ public class TdOrderController extends AbstractPaytypeController {
                 + noncestr
                 + "</nonce_str>\n"
                 + "<notify_url>http://www.cytm99.com/order/wx_notify</notify_url>\n"
-                + "<openid>" + openid + "</openid>\n" + "<out_trade_no>"
-                + order.getOrderNumber() + "</out_trade_no>\n"
+                + "<openid>" + openid + "</openid>\n" 
+                + "<out_trade_no>"
+                + order.getOrderNumber() + order.getStatusId() 
+                + "</out_trade_no>\n"
                 + "<spbill_create_ip>116.55.230.237</spbill_create_ip>\n"
                 + "<total_fee>" + Math.round(order.getTotalPrice() * 100)
                 + "</total_fee>\n" + "<trade_type>NATIVE</trade_type>\n"
@@ -1963,7 +1965,7 @@ public class TdOrderController extends AbstractPaytypeController {
                     result_code.contains("SUCCESS") && 
                     null != out_trade_no)
             {
-                TdOrder order = tdOrderService.findByOrderNumber(out_trade_no);
+                TdOrder order = tdOrderService.findByOrderNumber(out_trade_no.substring(0, out_trade_no.length() - 1));
                 
                 if (null != order)
                 {
