@@ -28,6 +28,7 @@ import javax.servlet.http.HttpServletResponse;
 import net.sf.json.JSONObject;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mobile.device.Device;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -2204,7 +2205,7 @@ public class TdOrderController extends AbstractPaytypeController {
      * 
      */
     @RequestMapping(value = "/pay/result_alipay")
-    public String payResultAlipay(ModelMap map, HttpServletRequest req,
+    public String payResultAlipay(Device device, ModelMap map, HttpServletRequest req,
             HttpServletResponse resp) {
         Map<String, String> params = new HashMap<String, String>();
         Map<String, String[]> requestParams = req.getParameterMap();
@@ -2250,6 +2251,10 @@ public class TdOrderController extends AbstractPaytypeController {
         TdOrder order = tdOrderService.findByOrderNumber(orderNo);
         if (order == null) {
             // 订单不存在
+        	// 触屏
+            if (device.isMobile() || device.isTablet()) {
+                return "/touch/order_pay_failed";
+            }
             return "/client/order_pay_failed";
         }
         map.put("order", order);
@@ -2258,17 +2263,24 @@ public class TdOrderController extends AbstractPaytypeController {
 
                 // 订单支付成功
                 afterPaySuccess(order);
-
+                // 触屏
+                if (device.isMobile() || device.isTablet()) {
+                    return "/touch/order_pay_success";
+                }
                 return "/client/order_pay_success";
             }
         }
 
         // 验证失败或者支付失败
+        // 触屏
+        if (device.isMobile() || device.isTablet()) {
+            return "/touch/order_pay_failed";
+        }
         return "/client/order_pay_failed";
     }
 
     @RequestMapping(value = "/pay/result_wxpay")
-    public String payResultWxpay(String productid, String openid, ModelMap map,
+    public String payResultWxpay(Device device, String productid, String openid, ModelMap map,
             HttpServletRequest req, HttpServletResponse resp) {
 
         Map<String, String> params = new HashMap<String, String>();
@@ -2316,7 +2328,12 @@ public class TdOrderController extends AbstractPaytypeController {
         TdOrder order = tdOrderService.findByOrderNumber(orderNo);
         if (order == null) {
             // 订单不存在
+        	 // 触屏
+            if (device.isMobile() || device.isTablet()) {
+                return "/touch/order_pay_failed";
+            }
             return "/client/order_pay_failed";
+            
         }
 
         map.put("order", order);
@@ -2326,12 +2343,19 @@ public class TdOrderController extends AbstractPaytypeController {
 
                 // 订单支付成功
                 afterPaySuccess(order);
-
+                // 触屏
+                if (device.isMobile() || device.isTablet()) {
+                    return "/touch/order_pay_success";
+                }
                 return "/client/order_pay_success";
             }
         }
 
         // 验证失败或者支付失败
+        // 触屏
+        if (device.isMobile() || device.isTablet()) {
+            return "/touch/order_pay_failed";
+        }
         return "/client/order_pay_failed";
     }
 
@@ -2339,7 +2363,7 @@ public class TdOrderController extends AbstractPaytypeController {
      * 
      */
     @RequestMapping(value = "/pay/result_cebpay")
-    public String payResultCEBPay(ModelMap map, HttpServletRequest req,
+    public String payResultCEBPay(Device device, ModelMap map, HttpServletRequest req,
             HttpServletResponse resp) {
         tdCommonService.setHeader(map, req);
 
@@ -2367,6 +2391,10 @@ public class TdOrderController extends AbstractPaytypeController {
         TdOrder order = tdOrderService.findByOrderNumber(orderNo);
         if (order == null) {
             // 订单不存在
+        	 // 触屏
+            if (device.isMobile() || device.isTablet()) {
+                return "/touch/order_pay_failed";
+            }
             return "/client/order_pay_failed";
         }
 
@@ -2378,12 +2406,19 @@ public class TdOrderController extends AbstractPaytypeController {
                 // 订单支付成功
 
                 afterPaySuccess(order);
-
+                // 触屏
+                if (device.isMobile() || device.isTablet()) {
+                    return "/touch/order_pay_success";
+                }
                 return "/client/order_pay_success";
             }
 
         }
         // 验证失败或者支付失败
+        // 触屏
+        if (device.isMobile() || device.isTablet()) {
+            return "/touch/order_pay_failed";
+        }
         return "/client/order_pay_failed";
     }
 

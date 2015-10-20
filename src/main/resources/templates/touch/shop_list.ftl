@@ -206,6 +206,12 @@ function hideSerivceStars()
             </#if>
             <p class="p1">${item.title}
               <span id="serviceStars">
+                 <img src="/touch/images/star01.png" height="15"/>
+                 <img src="/touch/images/star01.png" height="15"/>
+                 <img src="/touch/images/star01.png" height="15"/>
+                 <img src="/touch/images/star01.png" height="15"/>
+                 <img src="/touch/images/star02.png" height="15"/>
+                 <#-->
                 <#if !("shop_serviceStars"++item.id)?eval?? && ("shop_serviceStars"++item.id)?eval lte 0 >
                 <#else>
                 <img src="/touch/images/<#if ("shop_serviceStars"++item.id)?eval?? && ("shop_serviceStars"++item.id)?eval lt 1.0>star02.png<#else>star01.png</#if>" height="15" />
@@ -213,9 +219,10 @@ function hideSerivceStars()
                 <img src="/touch/images/<#if ("shop_serviceStars"++item.id)?eval?? && ("shop_serviceStars"++item.id)?eval lt 2.5>star03.png<#elseif ("shop_serviceStars"++item.id)?eval gte 2.5 && ("shop_serviceStars"++item.id)?eval lt 3.0>star02.png<#else>star01.png</#if>" height="15" />
                 <img src="/touch/images/<#if ("shop_serviceStars"++item.id)?eval?? && ("shop_serviceStars"++item.id)?eval lt 3.5>star03.png<#elseif ("shop_serviceStars"++item.id)?eval gte 3.5 && ("shop_serviceStars"++item.id)?eval lt 4.0>star02.png<#else>star01.png</#if>" height="15" />
                 <img src="/touch/images/<#if ("shop_serviceStars"++item.id)?eval?? && ("shop_serviceStars"++item.id)?eval lt 4.5>star03.png<#elseif ("shop_serviceStars"++item.id)?eval gte 4.5 && ("shop_serviceStars"++item.id)?eval lt 5.0>star02.png<#else>star01.png</#if>" height="15" />
-                </#if>
+                </#if> -->
               </span>
             </p>
+            <p style="padding-top: -10px;">本店共完成<span><a href="#"><#if ("shop_orderFinish_"+item.id?c)?eval??>${("shop_orderFinish_"+item.id?c)?eval}<#else>0</#if></a></span>个安装单，有<span><a href="#"><#if ("shop_orderComment_"+item.id?c)?eval?? && ("shop_orderComment_"+item.id?c)?eval!=0>${("shop_orderComment_"+item.id?c)?eval}<#else>0</#if></a></span>条评论</p>
             <p class="p2">详细地址：${item.address}</p>
             <p class="p2">
               <a href="javascript:loadMap(<#if item.longitude??>${item.longitude?string("0.000000")}<#else>110</#if>, <#if item.latitude??>${item.latitude?string("0.000000")}<#else>39</#if>,'${item.title!''}','${item.address!''}');">查看地图</a>
