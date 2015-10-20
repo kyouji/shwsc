@@ -1804,6 +1804,7 @@ public class TdOrderController extends AbstractPaytypeController {
         }
 
         String noncestr = RandomStringGenerator.getRandomStringByLength(32);
+        
         String sa = "appid=" + Configure.getAppid() + "&attach=订单支付"
                 + "&body=支付订单" + order.getOrderNumber() + "&mch_id="
                 + Configure.getMchid() + "&nonce_str=" + noncestr
