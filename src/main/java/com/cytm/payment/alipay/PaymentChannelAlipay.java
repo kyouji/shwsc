@@ -24,10 +24,10 @@ import com.cytm.payment.alipay.core.AlipayConfirmGoods;
 import com.cytm.payment.alipay.core.AlipayConfirmGoodsHandler;
 import com.cytm.payment.alipay.core.AlipayNotify;
 import com.cytm.payment.alipay.core.AlipaySubmit;
-import com.ynyes.cheyou.entity.TdOrder;
-import com.ynyes.cheyou.entity.TdPayRecord;
-import com.ynyes.cheyou.service.TdOrderService;
-import com.ynyes.cheyou.service.TdPayRecordService;
+import com.ynyes.jpdg.entity.TdOrder;
+import com.ynyes.jpdg.entity.TdPayRecord;
+import com.ynyes.jpdg.service.TdOrderService;
+import com.ynyes.jpdg.service.TdPayRecordService;
 
 @org.springframework.stereotype.Service
 public class PaymentChannelAlipay implements PaymentChannel {

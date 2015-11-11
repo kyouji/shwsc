@@ -2,172 +2,100 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title><#if site??>${site.seoTitle!''}-</#if>${site.company!''}</title>
-<meta name="keywords" content="${site.seoKeywords!''}">
-<meta name="description" content="${site.seoDescription!''}">
-<meta name="copyright" content="${site.copyright!''}" />
-<!--[if IE]>
-   <script src="/client/js/html5.js"></script>
-<![endif]-->
-<script src="/client/js/jquery-1.9.1.min.js"></script>
-<script src="/client/js/Validform_v5.3.2_min.js"></script>
-<script src="/client/js/common.js"></script>
-<script src="/client/js/ljs-v1.01.js"></script>
-
-<link rel="shortcut icon" href="/client/images/cheyou.ico" />
-<link href="/client/style/common.css" rel="stylesheet" type="text/css" />
-<link href="/client/style/cartoon.css" rel="stylesheet" type="text/css" />
-<link href="/client/style/style.css" rel="stylesheet" type="text/css" />
-
-<script type="text/javascript">
-var seed=60;    //60秒  
-var t1=null; 
-
-$(document).ready(function(){
-    //初始化表单验证
-    $("#form1").Validform({
-        tiptype: 3
-    });
-     
-    $("#smsCodeBtn").bind("click", function() {  
-        
-        var mob = $('#mobileNumber').val();
-        
-        var re = /^1\d{10}$/;
-        
-        if (!re.test(mob)) {
-            alert("请输入正确的手机号");
-            return;
-        }
-        
-        $("#smsCodeBtn").attr("disabled","disabled"); 
-        
-        $.ajax({  
-            url : "/reg/smscode",  
-            async : true,  
-            type : 'GET',  
-            data : {"mobile": mob},  
-            success : function(data) {  
-                
-                if(data.statusCode == '000000')
-                {  
-                    t1 = setInterval(tip, 1000);  
-                }
-                else
-                {
-                    $("#smsCodeBtn").removeAttr("disabled");
-                }
-            },  
-            error : function(XMLHttpRequest, textStatus,  
-                    errorThrown) {  
-                alert("error");
-            }  
-  
-        });
-        
-    }); 
-
-});
-
-function enableBtn()
-{  
-    $("#smsCodeBtn").removeAttr("disabled");   
-} 
-
-function tip() 
-{  
-    seed--;  
-    if (seed < 1) 
-    {  
-        enableBtn();  
-        seed = 60;  
-        $("#smsCodeBtn").val('点击获取短信验证码');  
-        var t2 = clearInterval(t1);  
-    } else {  
-        $("#smsCodeBtn").val(seed + "秒后重新获取");  
-    }  
-} 
-</script>
+<title>无标题文档</title>
+<script type="text/javascript" src="JS/jquery1.42.min.js"></script>
+<script type="text/javascript" src="JS/jquery.SuperSlide.2.1.1.js"></script>
+<script type="text/javascript" src="JS/index.js"></script>
+<link rel="stylesheet" type="text/css" href="CSS/base.css"/>
+<link rel="stylesheet" type="text/css" href="CSS/register.css"/>
 </head>
 
 <body>
-<header class="logintop">
-  <div class="main pt20">
-    <a class="fl" href="/"><img src="/client/images/liebiao_03.png" /></a>
-    <p class="p3">售后保障</p>
-    <p class="p2">100%品牌制造商</p>
-    <p class="p1">100%正品保障</p>
-    <div class="clear"></div>
+<!-- -----------------------导航---------------------------- -->
+<div class="ban_back">
+  <div class="nav">
+    <ul  id="myul1">
+      <li><a href="#" class="myli">首页</a></li>
+      <li><a href="#">海淘专区</a></li>
+      <li><a href="#">国内优惠</a></li>
+      <li><a href="#">热品推荐</a></li>
+      <li><a href="#">原创</a></li>
+      <li><a href="#">百科</a></li>
+      <li><a href="#">资讯</a></li>
+      <li><a href="#">爆料</a></li>
+      <li><a href="#">众测</a></li>
+    </ul>
+    <div class="join" onmouseover="join()" onmouseout="join_out()"><a href="#" ><span>爆料编辑</span><img src="images/xiala.png" /></a>
+      <div class="join_raw" id="join_raw"><a href="#" >优惠爆料</a><a href="#" >分享商品</a><a href="#" >原创投稿</a></div>
+    </div>
   </div>
-</header>
-<div class="logingbg">
-    <section class="loginbox">
-        <span style="color: #F00"><#if errCode??>
-            <#if errCode==1>
-                验证码错误
-            <#elseif errCode==4>
-                短信验证码错误
-            </#if>
-        </#if></span>
-        <form id="form1" method="post" action="/reg">
-            <div>
-                <p><b style="color: #FF0000;">*</b> 请输入用户名 </p>
-                <input class="text" name="username" type="text" datatype="s6-20" ajaxurl="/reg/check/username" value = "${username!''}"/>
-            </div>
-            <div>
-                <p>请输入车牌号码</p>
-                <input class="text" name="carCode" type="text" datatype="*" value ="${carCode!''}"/>
-            </div>
-            <div>
-                <p><b style="color: #FF0000;">*</b> 请输入密码</p>
-                <input class="text" name="password" type="password" datatype="s6-20"/>
-            </div>
-            <div>
-                <p><b style="color: #FF0000;">*</b> 请确认密码</p>
-                <input class="text" type="password" datatype="*" recheck="password"/>
-            </div>
-            <div>
-                <p><b style="color: #FF0000;">*</b> 手机验证 </p>
-                <input id="mobileNumber" class="text" name="mobile" type="text" datatype="m"  ajaxurl="/reg/check/mobile"/>
-            </div>
-            <div>
-                <p><b style="color: #FF0000;">*</b> 短信验证码</p>
-                <input class="text fl" type="text" name="smsCode" style="width:35%;" />
-                <input id="smsCodeBtn" onclick="javascript:;" readOnly="true" class="sub" style="text-align:center;width: 50%; border-radius: 3px; margin-left:55px; background: #1c2b38; color: #fff; line-height: 35px; height: 35px;" value="点击获取短信验证码" />
-                <div class="clear h15"></div>
-            </div>
-            <div>
-                <p><b style="color: #FF0000;">*</b> 验证码</p>
-                <div class="clear"></div>
-                <input class="text fl" name="code" type="text" style="width:35%;" datatype="s4-4" errormsg="请填写4位字符"/>
-                <img src="/code" onclick="this.src = '/code?date='+Math.random();" id="yzm" height="37" style="padding-left: 55px;"/>
-            </div>
-            <div class="clear h15"></div>
-            
-            <input type="submit" class="sub" value="注册" />
-        </form>
-        <div class="clear h15"></div>
-    </section>
-</div><!--logingbg END-->
+</div>
+<!-- -----------------------导航结束---------------------------- --> 
+<!-- -----------------------头部---------------------------- -->
+<div  class="head_back">
+  <div class="head">
+    <div class="head_left"><a href="#"><img src="images/logo.png" /></a></div>
+    <div class="head_center">
+      <form>
+        <input type="text" class="search" id="search" value="这里输入您想要的" onfocus="myfocus()" onblur="myblur()"/>
+        <input type="button" class="ok">
+      </form>
+    </div>
+    <div class="head_right">
+      <div class="right1">
+        <label class="head_label1">App下载</label>
+        <label class="head_label2">手机返利价更优</label>
+      </div>
+      <img src="images/1.png"/></div>
+  </div>
+</div>
+<!-- -----------------------头部结束---------------------------- --> 
 
-<footer class="loginfoot">
-    <nav>
-        <#if help_level0_cat_list??>
-            <#list help_level0_cat_list as item>
-                <a href="/info/list/${item.id?c!''}">${item.title!''}</a>
-            </#list>
-        </#if>
-    </nav>
-    <p>友情链接：
-        <#if site_link_list??>
-            <#list site_link_list as item>
-                <a href="${item.linkUri!''}">${item.title!''}</a> |
-            </#list>
-        </#if>
-    </p>
-    <p>${site.copyright!''}</p>
-    <p>${site.address!''} 电话：${site.telephone!''} </p>
-    <p><a title="云南网站建设" href="http://www.ynyes.com" target="_blank">网站建设</a>技术支持：<a title="云南网站建设" href="http://www.ynyes.com" target="_blank">昆明天度网络公司</a></p>
-</footer>
+<!-- -----------------------中间  之左边---------------------------- -->
+<div class="content">
+  <div class="register_title">
+    <label>注册<span>收藏您喜欢的商品和店铺；积累积分兑换商家优惠券；爆料并获取金币奖励，兑换礼品</span></label>
+    <a href="#">登录</a></div>
+  <form>
+    <input type="text" placeholder="邮箱"/>
+    <input type="password" placeholder="密码"/>
+    <input type="password" placeholder="确认密码"/>
+    <input type="password" placeholder="用户昵称"/>
+    <div class="sure_word">
+      <input type="text"  placeholder="验证码"/>
+      <img src="imgages/.png" /><a href="#">看不清？换一张</a></div>
+    <div class="agree">
+      <input type="radio" class="dan"/>
+      <label>同意</label>
+      <a href="#">《精品导购协议》</a></div>
+    <input type="submit" value="注           册" class="register"/>
+  </form>
+</div>
+<!-- -----------------------底部---------------------------- -->
+<div class="foot_back">
+  <div class="foot">
+    <div class="foot1">
+      <ul>
+        <li><a href="#">关于我们</a></li>
+        <li><a href="#">联系我们</a></li>
+        <li><a href="#">海淘攻略</a></li>
+        <li><a href="#">海淘资讯</a></li>
+      </ul>
+    </div>
+    <div class="foot2">友情链接</div>
+    <div class="foot3">
+      <ul>
+        <li><a href="#">国美在线</a></li>
+        <li><a href="#">盛世收藏网</a></li>
+        <li><a href="#">Hi-pda论坛</a></li>
+        <li><a href="#">杂志铺</a></li>
+        <li><a href="#">hao123</a></li>
+        <li><a href="#">信天谨游</a></li>
+      </ul>
+    </div>
+    <div class="foot4">Copyright © 2015   渝ICP备10011451</div>
+  </div>
+</div>
+<!-- -----------------------底部结束---------------------------- -->
 </body>
 </html>

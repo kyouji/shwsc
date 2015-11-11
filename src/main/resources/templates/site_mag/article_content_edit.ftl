@@ -140,22 +140,28 @@
                 </div>
             </dd>
         </dl>
-        <#--
         <dl>
             <dt>推荐类型</dt>
             <dd>
                 <div class="rule-multi-checkbox multi-checkbox">
-                    <span id="cblItem" style="display: none;">
-                        <input id="cblItem_0" type="checkbox" name="recommendId"><label for="cblItem_0">允许评论</label>
-                        <input id="cblItem_1" type="checkbox" name="recommendId"><label for="cblItem_1">置顶</label>
-                        <input id="cblItem_2" type="checkbox" name="recommendId"><label for="cblItem_2">推荐</label>
-                        <input id="cblItem_3" type="checkbox" name="recommendId"><label for="cblItem_3">热门</label>
-                        <input id="cblItem_4" type="checkbox" name="recommendId"><label for="cblItem_4">幻灯片</label>
+                    <span style="display: none;">
+                        <input type="checkbox" name="isRecommendIndex" <#if article?? && article.isRecommendIndex?? && article.isRecommendIndex>checked="checked"</#if>>
+                        <label>首页推荐</label>
+                        <#--
+                        <input id="cblItem_1" type="checkbox" name="isRecommendType">
+                        <label for="cblItem_1">分类推荐</label>
+                        <input id="cblItem_2" type="checkbox" name="isHot">
+                        <label for="cblItem_2">热销</label>
+                        <input id="cblItem_3" type="checkbox" name="isNew">
+                        <label for="cblItem_3">新品</label>
+                        <input id="cblItem_4" type="checkbox" name="isSpecialPrice">
+                        <label for="cblItem_4">特价</label>
+                        -->
                     </span>
                 </div>
             </dd>
         </dl>
-        -->
+        
         <dl>
             <dt>内容标题</dt>
             <dd>
@@ -186,9 +192,30 @@
             </dd>
         </dl>
         <dl>
+            <dt>点赞数</dt>
+            <dd>
+                <input name="goodNumber" type="text" value="<#if article??>${article.goodNumber!""}<#else>0</#if>" id="txtSortId" class="input txt100" datatype="n" sucmsg=" ">
+                <span class="Validform_checktip">*点赞数目，可修改</span>
+            </dd>
+        </dl>
+        <dl>
+            <dt>收藏数</dt>
+            <dd>
+                <input name="commentNumber" type="text" value="<#if article??>${article.commentNumber!""}<#else>0</#if>" id="txtSortId" class="input txt100" datatype="n" sucmsg=" ">
+                <span class="Validform_checktip">*收藏数目，可修改</span>
+            </dd>
+        </dl>
+        <dl>
+            <dt>评论数</dt>
+            <dd>
+                <input name="collectNumber" type="text" value="<#if article??>${article.collectNumber!""}<#else>0</#if>" id="txtSortId" class="input txt100" datatype="n" sucmsg=" ">
+                <span class="Validform_checktip">*评论数目，可修改</span>
+            </dd>
+        </dl>
+        <dl>
             <dt>浏览次数</dt>
             <dd>
-                <input name="viewCount" type="text"  value="<#if article??>${article.viewCount!"0"}</#if>" id="txtClick" class="input txt100" datatype="n" sucmsg=" ">
+                <input name="viewCount" type="text"  value="<#if article??>${article.viewCount!"0"}<#else>0</#if>" id="txtClick" class="input txt100" datatype="n" sucmsg=" ">
                 <span class="Validform_checktip">点击浏览该信息自动+1</span>
             </dd>
         </dl>
@@ -213,21 +240,26 @@
             </dd>
         </dl>
         <dl>
-            <dt>URL链接</dt>
+            <dt>直达链接</dt>
             <dd>
                 <input name="linkUrl" type="text" value="<#if article??>${article.linkUrl!""}</#if>" maxlength="255" id="txtLinkUrl" class="input normal">
                 <span class="Validform_checktip">填写后直接跳转到该网址</span>
             </dd>
         </dl>
-        <dl id="div_source">
-            <dt>
-                <span id="div_source_title">信息来源</span></dt>
+        <dl>
+            <dt>作者</dt>
             <dd>
                 <input name="source" type="text" value="<#if article??>${article.source!""}<#else>本站</#if>" id="field_control_source" class="input normal">
                 <span id="div_source_tip" class="Validform_checktip">非必填，最多50个字符</span>
             </dd>
         </dl>
-        
+        <dl>
+            <dt>标签</dt>
+            <dd>
+                <textarea name="tagList" rows="2" cols="20" class="input" datatype="*0-255" sucmsg=" "><#if article??>${article.tagList!""}</#if></textarea>
+                <span class="Validform_checktip">多个标签以英文逗号“,”区分开</span>
+            </dd>
+        </dl>
         <dl>
             <dt>内容摘要</dt>
             <dd>

@@ -185,7 +185,7 @@ $(function () {
             </dd>
         </dl>
         <dl>
-            <dt>微博二维码</dt>
+            <dt>App二维码</dt>
             <dd>
                 <input id="iOsImgUrl" name="weiboQrCode" type="text" datatype="*0-255" value="<#if setting??>${setting.weiboQrCode!""}</#if>" class="input normal upload-path">
                 <div class="upload-box upload-img"></div>
