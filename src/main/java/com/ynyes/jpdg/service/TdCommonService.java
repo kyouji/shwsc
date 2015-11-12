@@ -77,4 +77,27 @@ public class TdCommonService {
         map.addAttribute("navi_bar_item_list", tdNaviBarItemService.findByIsEnableTrueOrderBySortIdAsc());
     }
 
+    public void setArticleType(ModelMap map, HttpServletRequest req){
+    	
+    	 TdAdType adType = tdAdTypeService.findByTitle("海淘专区中间小广告");
+	        
+	        if(null != adType){
+	        	 map.addAttribute("among_ad", tdAdService
+		                    .findByTypeIdAndIsValidTrueOrderBySortIdAsc(adType.getId()));
+	        }
+    	 // 海淘专区分类
+        TdArticleCategory articleCategory = tdArticleCategoryService.findByTitle("海淘专区");
+        if(null != articleCategory){
+        	//海淘专区一级分类
+        	List<TdArticleCategory> articleCategoryLevel1List =tdArticleCategoryService.findByParentId(articleCategory.getId());
+        	
+        	map.addAttribute("articleCategory_Leve1_nav", articleCategoryLevel1List);
+        	map.addAttribute("articleCategory_Leve1_nav_index", 0);
+			map.addAttribute("articleCategoryLevel1nva", 
+					tdArticleCategoryService.findByParentId(articleCategoryLevel1List.get(0).getId()));
+        	
+        }
+        
+    	
+    }
 }

@@ -8,6 +8,23 @@
 <script type="text/javascript" src="/client/js/index.js"></script>
 <link rel="stylesheet" type="text/css" href="/client/css/base.css"/>
 <link rel="stylesheet" type="text/css" href="/client/css/haitao.css"/>
+<script type="text/javascript">
+
+	function update_atricle(id){
+	alert(this);
+		$.ajax({
+			type:"post",
+			url:"/atricle/list",
+			data:{"id":id},
+			dataType:"html",
+			success:function(data){
+				
+				$("#atricle_list").html(data);
+			},
+		});
+	}
+
+</script>
 </head>
 
 <body>
@@ -64,12 +81,11 @@
         </div>
         <div class="bd">
           <ul>
-            <#if big_scroll_ad_list??>
+            <#if big_scroll_ads_list??>
+            	<#list big_scroll_ads_list as item>
+            		<li><a href="${item.linkUrl!''}?id=${item.id?c}"><img src="${item.title!''}" /></a></li>
+            	</#list>
             </#if>
-            <li><a href="#"><img src="images/banner.png" /></a></li>
-            <li><a href="#"><img src="images/banner.png" /></a></li>
-            <li><a href="#"><img src="images/banner.png" /></a></li>
-            <li><a href="#"><img src="images/banner.png" /></a></li>
           </ul>
         </div>
       </div>
@@ -78,99 +94,23 @@
     <!-- banner结束 -->
     <div class="goods">
       <ul class="ul1">
-        <li><a href="#" class="ul1_a">热门分选</a></li>
-        <li><a href="#">分类筛选分类筛选</a></li>
-        <li><a href="#">分类筛选</a></li>
-        <li><a href="#">分类筛选</a></li>
-        <li><a href="#">分类筛选</a></li>
-        <li><a href="#">分类筛选</a></li>
-        <li><a href="#">分类筛选</a></li>
-        <li><a href="#">分类筛选</a></li>
-        <li><a href="#">分类筛选</a></li>
-        <li><a href="#">分类筛选</a></li>
-        <li><a href="#">分类筛选</a></li>
-        <li><a href="#">分类筛选</a></li>
+        <#if articleCategory_Leve1_nav??>
+        	<#list articleCategory_Leve1_nav as item>
+        		<li><a href="javascript:update_atricle(${item.id?c});" <#if item_index == articleCategory_Leve1_nav_index >class="ul1_a"</#if>>${item.title!''}</a></li>
+        	</#list>
+        </#if>
       </ul>
-      <ul class="ul2">
-        <li><a href="#">神价格</a></li>
-        <li><a href="#" class="ul2_a">手慢无</a></li>
-        <li><a href="#">神价格</a></li>
-        <li><a href="#" class="ul2_a">手慢无</a></li>
-        <li><a href="#">神价格</a></li>
-        <li><a href="#" class="ul2_a">手慢无</a></li>
-        <li><a href="#">神价格</a></li>
-        <li><a href="#" class="ul2_a">手慢无</a></li>
-        <li><a href="#">神价格</a></li>
-        <li><a href="#" class="ul2_a">手慢无</a></li>
-        <li><a href="#">神价格</a></li>
-        <li><a href="#" class="ul2_a">手慢无</a></li>
-        <li><a href="#">神价格</a></li>
-        <li><a href="#" class="ul2_a">手慢无</a></li>
-        <li><a href="#">神价格</a></li>
-        <li><a href="#" class="ul2_a">手慢无</a></li>
-        <li><a href="#">神价格</a></li>
-        <li><a href="#" class="ul2_a">手慢无</a></li>
-        <li><a href="#">神价格</a></li>
-        <li><a href="#" class="ul2_a">手慢无</a></li>
-        <li><a href="#">神价格</a></li>
-        <li><a href="#" class="ul2_a">手慢无</a></li>
-        <li><a href="#">神价格</a></li>
-        <li><a href="#" class="ul2_a">手慢无</a></li>
-      </ul>
-      <div class="advertisement"><img src="images/ad.png" alt="" /></div>
-      <ul class="ul3">
-        <li>
-          <div class="li_left"><a href="#"><img src="images/goods1.png" /></a></div>
-          <div class="li_right">
-            <h1><a href="#">白菜特价包邮 羽绒服干洗剂 彩色量勺 酸奶瓶 订书机等20151019</a></h1>
-            <div class="writer">
-              <label class="label1">作者：<span>华谊兄弟研究院</span> </label>
-              <label class="label2">标签：<span> 日用百货 白菜党</span></label>
-              <label class="label3">2015-12-12</label>
-            </div>
-            <div class="words">
-              <p><a href="#">Hi~大家好，忙碌的周一再次来袭，大家都有挺住吧。今天的白菜有比较应季的羽绒服干洗剂，许多城市轻羽绒已经上场了，手中备一瓶还是安心些。还有把手机套袋子放水里的密封棒又来了，每次见到都忍不住再看几遍详情里的与金鱼共浴图，好评。另外挂钩套装2件有锤锤赠送，虽然糙了Hi~大家好，忙碌的周一再次来袭，大家都有挺住吧。今天的白菜有比较应季的羽绒服干洗剂，许多城市轻羽绒已经上场了，手中备一瓶还是安心些。还有把手机套袋子放水里的密封棒又来了，每次见到都忍不住再看几遍详情里的与金鱼共浴图，好评。另外挂钩套装2件有锤锤赠送，虽然糙了</a></p>
-            </div>
-            <div class="read_all"><a href="#">阅读全文&nbsp;></a></div>
-            <div class="comment">
-              <div class="com1"><a href="#"><img src="images/comment1.png" /><span>1</span></a></div>
-              <div class="com2"><a href="#"><img src="images/comment3.png" /><span>2</span></a></div>
-              <div class="com3"><a href="#"><img src="images/comment2.png" /><span>34</span></a></div>
-              <div  class="com4"><a href="#"><img src="images/comment4.png" /><span>优惠卷领取</span></a></div>
-              <div class="com5"><a href="#">直达链接</a></div>
-            </div>
-          </div>
-        </li>
-        <li>
-          <div class="li_left"><a href="#"><img src="images/goods1.png" /></a></div>
-          <div class="li_right">
-            <h1><a href="#">白菜特价包邮 羽绒服干洗剂 彩色量勺 酸奶瓶 订书机等20151019</a></h1>
-            <div class="writer">
-              <label class="label1">作者：<span>华谊兄弟研究院</span> </label>
-              <label class="label2">标签：<span> 日用百货 白菜党</span></label>
-              <label class="label3">2015-12-12</label>
-            </div>
-            <div class="words">
-              <p><a href="#">Hi~大家好，忙碌的周一再次来袭，大家都有挺住吧。今天的白菜有比较应季的羽绒服干洗剂，许多城市轻羽绒已经上场了，手中备一瓶还是安心些。还有把手机套袋子放水里的密封棒又来了，每次见到都忍不住再看几遍详情里的与金鱼共浴图，好评。另外挂钩套装2件有锤锤赠送，虽然糙了Hi~大家好，忙碌的周一再次来袭，大家都有挺住吧。今天的白菜有比较应季的羽绒服干洗剂，许多城市轻羽绒已经上场了，手中备一瓶还是安心些。还有把手机套袋子放水里的密封棒又来了，每次见到都忍不住再看几遍详情里的与金鱼共浴图，好评。另外挂钩套装2件有锤锤赠送，虽然糙了</a></p>
-            </div>
-            <div class="read_all"><a href="#">阅读全文&nbsp;></a></div>
-            <div class="comment">
-              <div class="com1"><a href="#"><img src="images/comment1.png" /><span>1</span></a></div>
-              <div class="com2"><a href="#"><img src="images/comment3.png" /><span>2</span></a></div>
-              <div class="com3"><a href="#"><img src="images/comment2.png" /><span>34</span></a></div>
-              <div  class="com4"><a href="#"><img src="images/comment4.png" /><span>优惠卷领取</span></a></div>
-              <div class="com5"><a href="#">直达链接</a></div>
-            </div>
-          </div>
-        </li>
-      </ul>
-    </div>
-    <div class="page"> <a href="#" class="last"></a> <a href="#" class="one">1</a> <a href="#">2</a> <a href="#">3</a> <a href="#">4</a> <a href="#" class="dian">...</a> <a href="#">10</a> <a href="#" class="next"></a></div>
+      
+      <div id="atricle_list">
+      	<#include "/client/article_update.ftl">
+      </div>
+     </div>
+      
     
     <!-- -----------------------中间  之左边结束---------------------------- --> 
     
     <!-- -----------------------中间  之右边---------------------------- --> 
-  </div>
+    </div>
   <div class="c_right">
     <div class="hot_right" >
       <div class="hot_top">热品推荐</div>

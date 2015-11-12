@@ -14,7 +14,7 @@
 <body>
 <#include "/client/common_header.ftl" />
 
-<#include "/client/common_nav.ftl" />
+<#--include "/client/common_nav.ftl" /-->
 
 <!-- -----------------------中间  之左边---------------------------- -->
 <div class="content">

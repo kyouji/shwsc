@@ -60,6 +60,13 @@ public class TypeController {
 		            map.addAttribute("big_scroll_ad_list", tdAdService
 		                    .findByTypeIdAndIsValidTrueOrderBySortIdAsc(adType.getId()));
 		        }
+		        
+		       
+		        tdCommonService.setArticleType(map, req);
+		        
+		       
+		        
+		        
 		    }
 		    else if (typeName.equalsIgnoreCase("guonei"))
 		    {
@@ -88,6 +95,19 @@ public class TypeController {
          
 		
 		return "/client/type";
+	}
+	
+	@RequestMapping("/atricle/list")
+	public String updateAtricle(Long id, HttpServletRequest req,ModelMap map){
+		tdCommonService.setArticleType(map, req);
+		
+		List<TdArticleCategory>  articleCategoryLevel2List = 
+				tdArticleCategoryService.findByParentId(id);
+		map.addAttribute("articleCategoryLevel1nva", articleCategoryLevel2List);
+		
+		map.addAttribute("id",id);
+		
+		return "/client/article_update";
 	}
 	
 }
