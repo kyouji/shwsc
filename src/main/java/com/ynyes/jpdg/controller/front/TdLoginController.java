@@ -1,6 +1,5 @@
 package com.ynyes.jpdg.controller.front;
 
-import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.Date;
 import java.util.HashMap;
@@ -10,6 +9,7 @@ import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,12 +22,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.alipay.config.AlipayConfig;
 import com.alipay.util.AlipayNotify;
 import com.alipay.util.AlipaySubmit;
-import com.qq.connect.QQConnectException;
-import com.qq.connect.api.OpenID;
-import com.qq.connect.api.qzone.UserInfo;
-import com.qq.connect.javabeans.AccessToken;
-import com.qq.connect.javabeans.qzone.UserInfoBean;
-import com.qq.connect.oauth.Oauth;
 import com.ynyes.jpdg.entity.TdUser;
 import com.ynyes.jpdg.service.TdCommonService;
 import com.ynyes.jpdg.service.TdUserService;
@@ -45,38 +39,73 @@ public class TdLoginController {
 
 	@Autowired
 	private TdCommonService tdCommonService;
-
-	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public String login(HttpServletRequest req, ModelMap map) {
-		String username = (String) req.getSession().getAttribute("username");
-
-		String referer = req.getHeader("referer");
-
-		// 基本信息
-		tdCommonService.setCommon(map, req);
-
-		if (null == username) {
-			return "/client/login";
-		}
-
-		if (null == referer) {
-			referer = "/";
-		}
-		/**
-		 * @author lc 
-		 * @注释：同盟店登录
-		 */
-		String diysiteUsername = (String) req.getSession().getAttribute("diysiteUsername");
+	
+	@RequestMapping("/login/validat")
+	@ResponseBody
+	public Map<String,Object> loginValidate(String email,String password,HttpSession session){
+		Map<String,Object> map = new HashMap<String,Object>();
 		
-		TdUser tdUser = tdUserService.findByUsername(diysiteUsername);
-		if(null != tdUser){
-			if (null != tdUser.getRoleId() && tdUser.getRoleId().equals(2L)) {
-				return "redirect:/user/diysite/order/list/0";
-			}
+		if(null == email || null == password){
+			map.put("status", 1);
+			map.put("msg", "用户名或密码为空");
+			return map;
 		}
 		
-		return "redirect:" + referer;
+		String getEmail = (String)session.getAttribute("email");
+		System.out.println(getEmail);
+		if(null != getEmail){
+			map.put("status", 1);
+			map.put("msg", "已经登陆");
+			return map;
+		}
+		
+		TdUser user = tdUserService.findByEmail(email);
+		if(null == user){
+			map.put("status", 1);
+			map.put("msg", "用户不存在");
+			return map;
+		}
+		if(!user.getPassword().equals(password)){
+			map.put("status", 1);
+			map.put("msg", "用户或密码不正确");
+			return map;
+		}
+		map.put("status", 0);
+		session.setAttribute("email", user.getEmail());
+		return map;
 	}
+
+//	@RequestMapping(value = "/login", method = RequestMethod.GET)
+//	public String login(HttpServletRequest req, ModelMap map) {
+//		String username = (String) req.getSession().getAttribute("username");
+//
+//		String referer = req.getHeader("referer");
+//
+//		// 基本信息
+//		tdCommonService.setCommon(map, req);
+//
+//		if (null == username) {
+//			return "/client/login";
+//		}
+//
+//		if (null == referer) {
+//			referer = "/";
+//		}
+//		/**
+//		 * @author lc 
+//		 * @注释：同盟店登录
+//		 */
+//		String diysiteUsername = (String) req.getSession().getAttribute("diysiteUsername");
+//		
+//		TdUser tdUser = tdUserService.findByUsername(diysiteUsername);
+//		if(null != tdUser){
+//			if (null != tdUser.getRoleId() && tdUser.getRoleId().equals(2L)) {
+//				return "redirect:/user/diysite/order/list/0";
+//			}
+//		}
+//		
+//		return "redirect:" + referer;
+//	}
 
 	/**
 	 * 
@@ -93,125 +122,128 @@ public class TdLoginController {
 	 * @exception <BR>
 	 * @since 1.0.0
 	 */
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	@ResponseBody
-	public Map<String, Object> login(String username, String password, String alipayuser_id,String type, String code,
-			Boolean isSave, HttpServletRequest request) {
-		Map<String, Object> res = new HashMap<String, Object>();
-
-		res.put("code", 1);
-
-		if (username.isEmpty() || password.isEmpty()) {
-			res.put("msg", "用户名及密码不能为空");
-		}
-		/**
-		 * 按账号查找登录验证 密码验证 修改最后登录时间
-		 * 
-		 * @author libiao
-		 */
-		TdUser user = tdUserService.findByUsernameAndIsEnabled(username);
-
-		if (null != user) {
-			if (!user.getPassword().equals(password)) {
-				res.put("msg", "密码错误");
-				return res;
-			}
-			user.setLastLoginTime(new Date());
-			user.setLastLoginIp(CommonService.getIp(request));
+//	@RequestMapping(value = "/login", method = RequestMethod.POST)
+//	@ResponseBody
+//	public Map<String, Object> login(String email, String password, String alipayuser_id,String type, String code,
+//			Boolean isSave, HttpServletRequest request) {
+//		Map<String, Object> res = new HashMap<String, Object>();
+//
+//		res.put("code", 1);
+//
+//		if (email.isEmpty() || password.isEmpty()) {
+//			res.put("msg", "用户名及密码不能为空");
+//		}
+//		/**
+//		 * 按账号查找登录验证 密码验证 修改最后登录时间
+//		 * 
+//		 * @author libiao
+//		 */
+//		TdUser user = tdUserService.findByEmail(email);
+//
+//		if (null != user) {
+//			if (!user.getPassword().equals(password)) {
+//				res.put("msg", "密码错误");
+//				return res;
+//			}
+//			user.setLastLoginTime(new Date());
+//			user.setLastLoginIp(CommonService.getIp(request));
+//		}
+//		return res;
 			/**
 			 * @author libiao
 			 * 判断是首页直接登录还是绑定第三方账号
 			 */
-			if(null !=type){
-				/**
-				 * @author libiao
-				 * 判断绑定类型为绑定QQ
-				 */
-				if("qq".equals(type)){
-					user.setQqUserId(alipayuser_id);
-				}
-				/**
-				 * @author lc
-				 * @注释：添加支付宝第三方登陆用户名
-				 */
-				if("zfb".equals(type)){
-					user.setAlipayUserId(alipayuser_id);
-				}
-			}
-			user = tdUserService.save(user);
-			
+//			if(null !=type){
+//				/**
+//				 * @author libiao
+//				 * 判断绑定类型为绑定QQ
+//				 */
+//				if("qq".equals(type)){
+//					user.setQqUserId(alipayuser_id);
+//				}
+//				/**
+//				 * @author lc
+//				 * @注释：添加支付宝第三方登陆用户名
+//				 */
+//				if("zfb".equals(type)){
+//					user.setAlipayUserId(alipayuser_id);
+//				}
+//			}
+//			user = tdUserService.save(user);
+//			
+//
+//			res.put("code", 0);
 
-			res.put("code", 0);
-
-			/**
-			 * @author lichong
-			 * @注释：判断用户类型
-			 */
-			if(null != user.getRoleId() && user.getRoleId().equals(2L)){
-				res.put("role", 2);
-				request.getSession().setAttribute("diysiteUsername", user.getUsername());
-				return res;
-			}
-			request.getSession().setAttribute("username", user.getUsername());
-			request.getSession().setAttribute("usermobile", user.getMobile());
-			return res;
-		}
+//			/**
+//			 * @author lichong
+//			 * @注释：判断用户类型
+//			 */
+//			if(null != user.getRoleId() && user.getRoleId().equals(2L)){
+//				res.put("role", 2);
+//				request.getSession().setAttribute("diysiteUsername", user.getUsername());
+//				return res;
+//			}
+//			request.getSession().setAttribute("username", user.getUsername());
+//			request.getSession().setAttribute("usermobile", user.getMobile());
+//			return res;
+//		}
 		/**
 		 * 如果账号验证未通过，再进行手机登录验证 密码验证 修改最后登录时间
 		 * 
 		 * @author libiao
 		 */
-		user = tdUserService.findByMobileAndIsEnabled(username);
-		if (null != user) {
-			if (!user.getPassword().equals(password)) {
-				res.put("msg", "密码错误");
-				return res;
-			}
-			user.setLastLoginTime(new Date());
-			user.setLastLoginIp(CommonService.getIp(request));
+//		user = tdUserService.findByMobileAndIsEnabled(email);
+//		if (null != user) {
+//			if (!user.getPassword().equals(password)) {
+//				res.put("msg", "密码错误");
+//				return res;
+//			}
+//		}
+//			user.setLastLoginTime(new Date());
+//			user.setLastLoginIp(CommonService.getIp(request));
 			/**
 			 * @author libiao
 			 * 判断是首页直接登录还是绑定第三方账号
 			 */
-			if(null !=type){
-				/**
-				 * @author libiao
-				 * 判断绑定类型为绑定QQ
-				 */
-				if("qq".equals(type)){
-					user.setQqUserId(alipayuser_id);
-				}
-				/**
-				 * @author lc
-				 * @注释：添加支付宝第三方登陆用户名
-				 */
-				if("zfb".equals(type)){
-					user.setAlipayUserId(alipayuser_id);
-				}
-			}
-			user = tdUserService.save(user);
-			
-
-			res.put("code", 0);
-
-			/**
-			 * @author lichong
-			 * @注释：判断用户类型
-			 */
-			if (user.getRoleId() == 2L) {
-				res.put("role", 2);
-				request.getSession().setAttribute("diysiteUsername", user.getUsername());
-				return res;
-			}
-			request.getSession().setAttribute("username", user.getUsername());
-			request.getSession().setAttribute("usermobile", user.getMobile());
-			return res;
-		} else { // 账号-手机都未通过验证，则用户不存在
-			res.put("msg", "不存在该用户");
-			return res;
-		}
+//			if(null !=type){
+//				/**
+//				 * @author libiao
+//				 * 判断绑定类型为绑定QQ
+//				 */
+//				if("qq".equals(type)){
+//					user.setQqUserId(alipayuser_id);
+//				}
+//				/**
+//				 * @author lc
+//				 * @注释：添加支付宝第三方登陆用户名
+//				 */
+//				if("zfb".equals(type)){
+//					user.setAlipayUserId(alipayuser_id);
+//				}
+//			}
+//			user = tdUserService.save(user);
+//			
+//
+//			res.put("code", 0);
+//
+//			/**
+//			 * @author lichong
+//			 * @注释：判断用户类型
+//			 */
+//			if (user.getRoleId() == 2L) {
+//				res.put("role", 2);
+//				request.getSession().setAttribute("diysiteUsername", user.getUsername());
+//				return res;
+//			}
+//			request.getSession().setAttribute("username", user.getUsername());
+//			request.getSession().setAttribute("usermobile", user.getMobile());
+//			return res;
+//		} else { // 账号-手机都未通过验证，则用户不存在
+//			res.put("msg", "不存在该用户");
+//			return res;
+//		}
 		
-	}
+//	}
 
 	/**
 	 * @author lc
@@ -507,15 +539,15 @@ public class TdLoginController {
 	 * @throws IOException
 	 * @author libiao
 	 */
-	@RequestMapping(value = "/qq/login", method = RequestMethod.GET)
-	public void infoQQLogin(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		response.setContentType("text/html;charset=utf-8");
-		try {
-			response.sendRedirect(new Oauth().getAuthorizeURL(request));
-		} catch (QQConnectException e) {
-			e.printStackTrace();
-		}
-	}
+//	@RequestMapping(value = "/qq/login", method = RequestMethod.GET)
+//	public void infoQQLogin(HttpServletRequest request, HttpServletResponse response) throws IOException {
+//		response.setContentType("text/html;charset=utf-8");
+//		try {
+//			response.sendRedirect(new Oauth().getAuthorizeURL(request));
+//		} catch (QQConnectException e) {
+//			e.printStackTrace();
+//		}
+//	}
 
 	/**
 	 * QQ登录返回结果处理
@@ -526,65 +558,65 @@ public class TdLoginController {
 	 * @param map
 	 * @return
 	 */
-	@RequestMapping(value = "/login/qq_login_return", method = RequestMethod.GET)
-	public String qqLoginReturn(String code, String state, HttpServletRequest request, ModelMap map) {
+//	@RequestMapping(value = "/login/qq_login_return", method = RequestMethod.GET)
+//	public String qqLoginReturn(String code, String state, HttpServletRequest request, ModelMap map) {
+//
+//		tdCommonService.setCommon(map, request);
+//		try {
+//			System.err.println("code-------"+code);
+//			System.err.println("state-------"+state);
+//			AccessToken accessTokenObj = (new Oauth()).getAccessTokenByRequest(request);
+//			System.err.println("accessTokenObj--------"+accessTokenObj);
+//			String accessToken = null, openID = null;
+//			long tokenExpireIn = 0L;
 
-		tdCommonService.setCommon(map, request);
-		try {
-			System.err.println("code-------"+code);
-			System.err.println("state-------"+state);
-			AccessToken accessTokenObj = (new Oauth()).getAccessTokenByRequest(request);
-			System.err.println("accessTokenObj--------"+accessTokenObj);
-			String accessToken = null, openID = null;
-			long tokenExpireIn = 0L;
-
-			if (accessTokenObj.getAccessToken().equals("")) {
-				// 我们的网站被CSRF攻击了或者用户取消了授权
-				// 做一些数据统计工作
-				System.err.print("没有获取到响应参数");
-			} else {
-				accessToken = accessTokenObj.getAccessToken();
-				System.err.println("accessToken-------"+accessToken);
-				
-				tokenExpireIn = accessTokenObj.getExpireIn();
-
-				request.getSession().setAttribute("demo_access_token", accessToken);
-				request.getSession().setAttribute("demo_token_expirein", String.valueOf(tokenExpireIn));
-
-				// 利用获取到的accessToken 去获取当前用的openid -------- start
-				OpenID openIDObj = new OpenID(accessToken);
-				openID = openIDObj.getUserOpenID();
-				System.err.println("openID-----------"+openID);
-
-				//利用获取到的accessToken,openid 去获取用户在Qzone的昵称
-				UserInfo qzoneUserInfo = new UserInfo(accessToken, openID);
-                UserInfoBean userInfoBean = qzoneUserInfo.getUserInfo();
-                if (userInfoBean.getRet() == 0) {
-                   map.put("nickName",userInfoBean.getNickname());
-                }
-				
-				//根据openID查找用户
-				map.put("alipay_user_id", openID);
-				map.put("qq", "qq");
-				TdUser user = tdUserService.findByQqUserId(openID);
-				if(null == user){
-					//用户不存在，跳转绑定页面
-					return "/client/accredit_login";
-				}else{
-					//用户存在，修改最后登录时间，跳转首页
-					user.setLastLoginTime(new Date());
-					user.setLastLoginIp(CommonService.getIp(request));
-					tdUserService.save(user);
-					request.getSession().setAttribute("username", user.getUsername());
-					request.getSession().setAttribute("usermobile", user.getMobile());
-					return "redirect:/";
-				}
-			}
-		} catch (QQConnectException e) {
-			
-		}
-		return "/client/error_404";
-	}
+//			if (accessTokenObj.getAccessToken().equals("")) {
+//				// 我们的网站被CSRF攻击了或者用户取消了授权
+//				// 做一些数据统计工作
+//				System.err.print("没有获取到响应参数");
+//			} else {
+//				accessToken = accessTokenObj.getAccessToken();
+//				System.err.println("accessToken-------"+accessToken);
+//				
+//				tokenExpireIn = accessTokenObj.getExpireIn();
+//
+//				request.getSession().setAttribute("demo_access_token", accessToken);
+//				request.getSession().setAttribute("demo_token_expirein", String.valueOf(tokenExpireIn));
+//
+//				// 利用获取到的accessToken 去获取当前用的openid -------- start
+//				OpenID openIDObj = new OpenID(accessToken);
+//				openID = openIDObj.getUserOpenID();
+//				System.err.println("openID-----------"+openID);
+//
+//				//利用获取到的accessToken,openid 去获取用户在Qzone的昵称
+//				UserInfo qzoneUserInfo = new UserInfo(accessToken, openID);
+//                UserInfoBean userInfoBean = qzoneUserInfo.getUserInfo();
+//                if (userInfoBean.getRet() == 0) {
+//                   map.put("nickName",userInfoBean.getNickname());
+//                }
+//				
+//				//根据openID查找用户
+//				map.put("alipay_user_id", openID);
+//				map.put("qq", "qq");
+//				TdUser user = tdUserService.findByQqUserId(openID);
+//				if(null == user){
+//					//用户不存在，跳转绑定页面
+//					return "/client/accredit_login";
+//				}else{
+//					//用户存在，修改最后登录时间，跳转首页
+//					user.setLastLoginTime(new Date());
+//					user.setLastLoginIp(CommonService.getIp(request));
+//					tdUserService.save(user);
+//					request.getSession().setAttribute("username", user.getUsername());
+//					request.getSession().setAttribute("usermobile", user.getMobile());
+//					return "redirect:/";
+//				}
+//			}
+//		} catch (QQConnectException e) {
+//			
+//		}
+//		return "/client/error_404";
+//	}
 
 	@RequestMapping("/logout")
 	public String logOut(HttpServletRequest request) {

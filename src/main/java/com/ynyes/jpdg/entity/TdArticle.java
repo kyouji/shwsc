@@ -110,6 +110,18 @@ public class TdArticle {
     @Column
     private Long paramInputType;
     
+    //热品推荐
+    @Column
+    private Boolean isHot;
+    
+    //新品推荐
+    @Column
+    private Boolean isNew;
+    
+    //特价
+    @Column
+    private Boolean isSpecialPrice;
+    
     // 参数是否多选
     @Column
     private Boolean paramIsMultiple;

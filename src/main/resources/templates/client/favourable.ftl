@@ -3,50 +3,18 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>无标题文档</title>
-<script type="text/javascript" src="JS/jquery1.42.min.js"></script>
-<script type="text/javascript" src="JS/jquery.SuperSlide.2.1.1.js"></script>
-<script type="text/javascript" src="JS/index.js"></script>
-<link rel="stylesheet" type="text/css" href="CSS/base.css"/>
-<link rel="stylesheet" type="text/css" href="CSS/haitao.css"/>
+<script type="text/javascript" src="/client/js/jquery1.42.min.js"></script>
+<script type="text/javascript" src="/client/js/jquery.SuperSlide.2.1.1.js"></script>
+<script type="text/javascript" src="/client/js/index.js"></script>
+<link rel="stylesheet" type="text/css" href="/client/css/base.css"/>
+<link rel="stylesheet" type="text/css" href="/client/css/index.css"/>
+<script type="text/javascript" src="/client/js/Validform_v5.3.2_min.js"></script>
 </head>
 
 <body>
-<!-- -----------------------头部---------------------------- -->
-<div class="head">
-  <div class="head_left"><a href="#"><img src="images/logo.png" /></a></div>
-  <div class="head_center">
-    <form>
-      <input type="text" class="search" id="search" value="这里输入您想要的" onfocus="myfocus()" onblur="myblur()"/>
-      <input type="button" class="ok">
-    </form>
-  </div>
-  <div class="head_right">
-    <div class="right1">
-      <label class="head_label1">App下载</label>
-      <label class="head_label2">手机返利价更优</label>
-    </div>
-    <img src="images/1.png"/></div>
-</div>
-<!-- -----------------------头部结束---------------------------- --> 
+<#include "/client/common_header.ftl" />
 
-<!-- -----------------------导航---------------------------- -->
-<div class="ban_back">
-  <div class="nav">
-    <ul  id="myul1">
-      <li><a href="#" class="myli">首页</a></li>
-      <li><a href="#">海淘专区</a></li>
-      <li><a href="#">国内优惠</a></li>
-      <li><a href="#">热品推荐</a></li>
-      <li><a href="#">原创</a></li>
-      <li><a href="#">百科</a></li>
-      <li><a href="#">资讯</a></li>
-      <li><a href="#">爆料</a></li>
-      <li><a href="#">众测</a></li>
-    </ul>
-    <div class="join"><a href="#" >登录</a><a href="#" class="sign_up">注册</a></div>
-  </div>
-</div>
-<!-- -----------------------导航结束---------------------------- --> 
+<#include "/client/common_nav.ftl"/>
 
 <!-- -----------------------中间  之左边---------------------------- -->
 <div class="content">
@@ -228,30 +196,7 @@
 
 <!-- -----------------------中间  之右边结束---------------------------- --> 
 <!-- -----------------------底部---------------------------- -->
-<div class="foot_back">
-  <div class="foot">
-    <div class="foot1">
-      <ul>
-        <li><a href="#">关于我们</a></li>
-        <li><a href="#">联系我们</a></li>
-        <li><a href="#">海淘攻略</a></li>
-        <li><a href="#">海淘资讯</a></li>
-      </ul>
-    </div>
-    <div class="foot2">友情链接</div>
-    <div class="foot3">
-      <ul>
-        <li><a href="#">国美在线</a></li>
-        <li><a href="#">盛世收藏网</a></li>
-        <li><a href="#">Hi-pda论坛</a></li>
-        <li><a href="#">杂志铺</a></li>
-        <li><a href="#">hao123</a></li>
-        <li><a href="#">信天谨游</a></li>
-      </ul>
-    </div>
-    <div class="foot4">Copyright © 2015   渝ICP备10011451</div>
-  </div>
-</div>
+<#include "/client/common_footer.ftl" />
 <!-- -----------------------底部结束---------------------------- -->
 </body>
 </html>

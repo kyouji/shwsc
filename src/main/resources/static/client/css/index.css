@@ -52,7 +52,6 @@
 height:20px;margin-top:6px;}
 .sign_in form {
 	width: 480px;
-	text-align: center;
 }
 .sign_in form input {
 	width: 240px;
@@ -60,11 +59,12 @@ height:20px;margin-top:6px;}
 	height: 30px;
 	line-height: 24px;
 	font-size: 16px;
+	margin-left:100px;
 	margin-top: 30px;
 	padding-left: 10px;
 }
 .sign_in form .forget {
-	width: 252px;
+	width: 480px;
 	margin-top: 20px;
 	height: 26px;
 	line-height: 26px;
@@ -81,10 +81,13 @@ height:20px;margin-top:6px;}
 }
 .sign_in form .forget a {
 	color: #3a81d1;
-	float: right;
+	float: left;
+	margin-left:90px;
 }
 .sign_in form .in_bottom {
 	margin-top: 20px;
+	width:250px;
+	height:32px;
 	background: #f04848;
 	color: #ffffff;
 	border: 1px solid #f04848;
@@ -198,7 +201,6 @@ white-space:nowrap;}
 .ban_back .nav {
 	width: 1080px;
 	height: 42px;
-	overflow: hidden;
 }/*
 .ban_back:after {
 	display: block;
@@ -248,9 +250,10 @@ white-space:nowrap;}
 }
 .ban_back .nav .join {
 	width: 120px;
-	height: 40px;
+	height: 42px;
 	float: left;
 	text-align: right;
+	position:relative;
 }
 .ban_back .nav .join a {
 	padding: 0px 12px;
@@ -263,6 +266,22 @@ white-space:nowrap;}
 	border-left: 1px solid #ffffff;
 	padding-right: 0px;
 }
+.ban_back .nav .join .join_raw{
+	overflow:hidden;
+	position:absolute;
+	left:0px;
+	top:42px;
+	z-index:20;
+}
+.ban_back .nav .join .join_raw a{
+	color:red;
+	width:120px;
+	height:42px;
+	padding: 0px;
+	margin:0px;
+	line-height:42px;
+	text-align:center;
+display:block;}
 /* 导航结束 */
 
 /* 中间  之左边 */

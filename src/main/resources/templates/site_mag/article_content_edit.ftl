@@ -147,6 +147,12 @@
                     <span style="display: none;">
                         <input type="checkbox" name="isRecommendIndex" <#if article?? && article.isRecommendIndex?? && article.isRecommendIndex>checked="checked"</#if>>
                         <label>首页推荐</label>
+                        <input id="cblItem_2" type="checkbox" name="isHot" <#if goods?? && goods.isHot?? && goods.isHot==true>checked="checked"</#if>>
+                        <label for="cblItem_2">热销</label>
+                        <input id="cblItem_3" type="checkbox" name="isNew" <#if goods?? && goods.isNew?? && goods.isNew==true>checked="checked"</#if>>
+                        <label for="cblItem_3">新品</label>
+                        <input id="cblItem_4" type="checkbox" name="isSpecialPrice" <#if goods?? && goods.isSpecialPrice?? && goods.isSpecialPrice==true>checked="checked"</#if>>
+                        <label for="cblItem_4">特价</label>
                         <#--
                         <input id="cblItem_1" type="checkbox" name="isRecommendType">
                         <label for="cblItem_1">分类推荐</label>

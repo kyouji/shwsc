@@ -65,4 +65,6 @@ public interface TdUserRepo extends PagingAndSortingRepository<TdUser, Long>, Jp
 
 	Page<TdUser> findByUsernameContainingOrMobileContainingOrEmailContainingOrderByLastLoginTimeAsc(String str1,
 			String str2, String str3, Pageable page);
+	
+	TdUser findByEmail(String email);
 }

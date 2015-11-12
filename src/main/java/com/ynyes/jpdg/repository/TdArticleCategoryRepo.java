@@ -32,4 +32,7 @@ public interface TdArticleCategoryRepo extends
     
     // 通过频道ID和父ID查找
     List<TdArticleCategory> findByChannelIdAndParentIdOrderBySortIdAsc(Long cid, Long parentId);
+    
+    //通过title查找
+    TdArticleCategory findByTitle(String title);
 }

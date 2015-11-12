@@ -1,113 +1,6 @@
 /* CSS Document */
 
 /* 登陆表格 */
-.in_back {
-	width: 100%;
-	height: 100%;
-	background: #333333;
-	opacity: .7;
-	filter: alpha(opacity=70);
-	position: fixed;
-	left: 0px;
-	top: 0px;
-	z-index: 998;
-}
-.sign_in {
-	position: fixed;
-	left: 50%;
-	top: 24%;
-	margin-left: -240px;
-	_margin-left: 34%;
-	z-index: 999;
-	background: #ffffff;
-	opacity: 1;
-	filter: alpha(opacity=100);
-	width: 480px;
-}
-.sign_in .in_title {
-	border-bottom: 1px solid #cccccc;
-	padding: 0 20px;
-	width: 440px;
-	height: 60px;
-	line-height: 60px;
-}
-.sign_in .in_title label {
-	font-size: 24px;
-	width: 60px;
-	float: left;
-}
-.sign_in .in_title a {
-	color: #3a81d1;
-	float: right;
-}
-.sign_in form {
-	width: 480px;
-	text-align: center;
-}
-.sign_in form input {
-	width: 240px;
-	border: 1px solid #999999;
-	height: 30px;
-	line-height: 24px;
-	font-size: 16px;
-	margin-top: 30px;
-	padding-left: 10px;
-}
-.sign_in form .forget {
-	width: 252px;
-	margin-top: 20px;
-	height: 26px;
-	line-height: 26px;
-}
-.sign_in form .forget .dan {
-	width: 14px;
-	height: 14px;
-	float: left;
-	margin-top: 7px;
-}
-.sign_in form .forget label {
-	float: left;
-	margin-left: 6px;
-}
-.sign_in form .forget a {
-	color: #3a81d1;
-	float: right;
-}
-.sign_in form .in_bottom {
-	margin-top: 20px;
-	background: #f04848;
-	color: #ffffff;
-	border: 1px solid #f04848;
-}
-.sign_in form .in_bottom:hover {
-	cursor: pointer;
-}
-.sign_in .other_in {
-	width: 252px;
-	padding: 30px 0px 60px;
-	overflow: hidden;
-}
-.sign_in .other_in .label_contact {
-	height: inherit;
-	width: 60px;
-	display: block;
-	color: #999999;
-	float: left;
-}
-.sign_in .other_in .QQ {
-	display: block;
-	width: 192px;
-	float: left;
-	overflow: hidden;
-}
-.sign_in .other_in .QQ a {
-	margin-left: 10px;
-	float: left;
-	color: #3a81d1;
-	word-wrap: break-word;
-	white-space: nowrap;
-}
-/* 登陆表格结束 */
 
 
 /* 头部 */
@@ -324,14 +217,16 @@
 	float: right;
 }
 .content form {
-	width: 500px;
+	width: 800px;
 	margin: 0px auto;
-	text-align: center;
 	padding-bottom:60px;
 	padding-top:20px;
 }
+.content form div {overflow:hidden;}
 .content form input {
+	float:left;
 	width: 290px;
+	margin-left:100px;
 	outline:none;
 	border: 1px solid #cccccc;
 	border-radius: 6px;
@@ -355,7 +250,8 @@ height:62px;}
 	margin-top: 20px;
 }
 .content form .sure_word a {
-	float: right;
+	float: left;
+	margin-left:20px;
 	margin-top: 30px;
 	color: #3a81d1;
 }
@@ -373,6 +269,7 @@ margin-left:8px;}
 
 .content form .agree{width:inherit;height:62px;line-height:62px;
 overflow:hidden;}
+.content form .agree span{height:62px;line-height:62px;display:inline-block;}
 .content form .register{background-color:#7bc7ac;color:#ffffff;
 font-size:18px;
 text-align:center;
@@ -433,3 +330,8 @@ border-color:#7bc7ac;}
 	color: #8d8d8d;
 }
 /* 底部结束 */
+
+/*错误提示*/
+.newerror{display:inline-block;line-height:14px;margin-top:33px;}
+.newerror2{display:inline-block;line-height:14px;margin-top:53px;}
+

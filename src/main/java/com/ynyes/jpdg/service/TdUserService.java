@@ -469,4 +469,8 @@ public class TdUserService {
     	PageRequest pageRequest = new PageRequest(page, size);
     	return repository.findByUsernameContainingOrMobileContainingOrEmailContainingOrderByLastLoginTimeAsc(keywords, keywords, keywords, pageRequest);
     }
+    
+    public TdUser findByEmail(String email){
+    	return repository.findByEmail(email);
+    }
 }

@@ -44,6 +44,21 @@ public class TdRegController {
     @Autowired
     private TdCommonService tdCommonService;
     
+    @RequestMapping(value = "/reg/email/{email}", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, String> validateEmail(HttpServletRequest req,@PathVariable String email,String param){
+		Map<String, String> res = new HashMap<String, String>();
+		res.put("status", "n");
+		TdUser user = tdUserService.findByEmail(param);
+		if(null != user){
+			res.put("info", "账号己存在,请重新输入!");
+			return res;
+		}
+		
+		res.put("status", "y");
+		return res;
+	}
+    
     @RequestMapping(value = "/reg/check/{type}", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, String> validateForm(@PathVariable String type, String param) {
@@ -103,38 +118,33 @@ public class TdRegController {
     }
     
     @RequestMapping("/reg")
-    public String reg(Integer errCode, Integer shareId,String name,String carCode, HttpServletRequest request, ModelMap map) {
-        String username = (String) request.getSession().getAttribute("username");
-        
-        if (null != shareId)
-        {
-            map.addAttribute("share_id", shareId);
-        }
-        // 基本信息
-        tdCommonService.setCommon(map, request);
-        
-        
-        if (null == username) {
-            if (null != errCode)
-            {
-                if (errCode.equals(1))
-                {
-                    map.addAttribute("error", "验证码错误");
-                }
-                
-                map.addAttribute("errCode", errCode);
-            }
-            map.addAttribute("username",name);
-            map.addAttribute("carCode",carCode);
-            return "/client/reg";
-            
-        }
-        return "redirect:/";
-    }
+	public String regUser(HttpServletRequest req,ModelMap map){
+    	tdCommonService.setCommon(map, req);
+		return "/client/reg";
+	}
     
-    @RequestMapping(value="/logutil")
-    public String LogUtils(){
-        return "/logutil";
+    @RequestMapping("/save")
+    public String reg(TdUser user, String code,HttpServletRequest req, HttpSession session, ModelMap map) {
+    	
+    	tdCommonService.setCommon(map, req);
+        
+    	String codeBack = (String) session.getAttribute("RANDOMVALIDATECODEKEY");
+		
+        if(!codeBack.equals(code)){
+        	map.addAttribute("errCode", "验证码错误");
+        	return "/client/reg";
+        }
+        user.setUsername(user.getEmail());
+        
+        tdUserService.save(user);
+        
+        session.setAttribute("email", user.getEmail());
+        return "/client/person_core";
+	    }
+	    
+	    @RequestMapping(value="/logutil")
+	    public String LogUtils(){
+	        return "/logutil";
     }
     /**
      * 

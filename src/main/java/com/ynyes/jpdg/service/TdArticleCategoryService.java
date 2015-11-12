@@ -197,4 +197,13 @@ public class TdArticleCategoryService {
         return repository.save(e);
     }
     
+    /**
+     * 文章类型标题查找
+     * @param title
+     * @return
+     */
+    public TdArticleCategory findByTitle(String title){
+    	return repository.findByTitle(title);
+    }
+    
 }

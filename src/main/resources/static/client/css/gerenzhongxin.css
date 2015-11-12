@@ -1,6 +1,6 @@
 /* CSS Document */
 
-/* 登陆表格 */
+/* 鐧婚檰琛ㄦ牸 */
 .in_back {
 	width: 100%;
 	height: 100%;
@@ -104,10 +104,10 @@
 	word-wrap: break-word;
 	white-space: nowrap;
 }
-/* 登陆表格结束 */
+/* 鐧婚檰琛ㄦ牸缁撴潫 */
 
 
-/* 头部 */
+/* 澶撮儴 */
 .head {
 	width: 1080px;
 	height: 100px;
@@ -183,11 +183,11 @@
 	_margin-left: 0px;
 	display: inline-block;
 }
-/* 头部结束 */
+/* 澶撮儴缁撴潫 */
 
 
 
-/* 导航 */
+/* 瀵艰埅 */
 .ban_back {
 	width: 100%;
 	background-color: #2d2d2d;
@@ -252,9 +252,6 @@
 	z-index: 99;
 }
 .ban_back .nav .join a {
-	width: 120px;
-	height: 42px;
-	line-height: 42px;
 	text-align: center;
 	display: block;
 	font-size: 16px;
@@ -275,10 +272,9 @@
 	position: absolute;
 	z-index: 100;
 	float: left;
-	width: inherit;
 	left: 0px;
 	top: 42px;
-	visibility: hidden;
+	display: none;
 	text-align: center;
 	overflow: hidden;
 	border: 1px solid #cccccc;
@@ -287,13 +283,17 @@
 }
 .ban_back .nav .join .join_raw a {
 	color: #323232;
+	width:120px;
+	height:42px;
+	line-height:42px;
+	padding:0px;
 	display: block;
 	margin: 0px;
 	font-size: 12px;
 }
-/* 导航结束 */
+/* 瀵艰埅缁撴潫 */
 
-/* 中间  之左边 */
+/* 涓棿  涔嬪乏杈� */
 .content {
 	width: 1080px;
 	overflow: hidden;
@@ -381,7 +381,7 @@
 	font-size: 16px;
 	color: #666666;
 }
-/*  个人中心4  */
+/*  涓汉涓績4  */
 .content .c_left .cleft_comment {
 	margin-too: 20px;
 }
@@ -486,7 +486,7 @@ overflow;
 	display: block;
 	margin-left: 10px;
 }
-/* 个人中心5 */
+/* 涓汉涓績5 */
 .content .c_left .cleft_comment .ul5 {
 	width: 760px;
 	overflow: hidden;
@@ -504,7 +504,7 @@ overflow;
 .content .c_left .cleft_comment .ul5 li span {
 	float: right;
 }
-/* 头像设置 */
+/* 澶村儚璁剧疆 */
 .content .c_left .cleft_comment .com_titletou {
 	border-bottom: 1px solid #cccccc;
 	height: 51px;
@@ -568,7 +568,7 @@ overflow;
 	height: 100px;
 	border-radius: 50%;
 }
-/* 账户设置 */
+/* 璐︽埛璁剧疆 */
 	
 .content .c_left .cleft_comment .shezhi {
 	margin-top: 30px;
@@ -632,7 +632,7 @@ overflow;
 	color: #ffffff;
 	margin-left: 120px;
 }
-/*个人中心首页*/	
+/*涓汉涓績棣栭〉*/	
 .content .c_left .cleft_comment .myself_index1 .myindex1_title, 
 .content .c_left .cleft_comment .myself_index2 .myindex1_title, 
 .content .c_left .cleft_comment .myself_index3 .myindex1_title, 
@@ -722,7 +722,7 @@ overflow;
 	text-align:center;
 }
 .content .c_left .cleft_comment .myself_index4{padding-bottom:140px;}
-/*我的收藏*/
+/*鎴戠殑鏀惰棌*/
 
 .content .c_left .cleft_comment .myself_index1 ul li .create_time a{
 	padding:6px 16px;
@@ -748,7 +748,7 @@ overflow;
 	font-size: 14px;
 }
 
-/*我的原创*/
+/*鎴戠殑鍘熷垱*/
 .content .c_left .cleft_comment .myhold{
 	height:40px;
 	line-height:40px;
@@ -759,7 +759,7 @@ overflow;
 .content .c_left .cleft_comment .myhold a{
 	color:#5b88a6;
 }
-/*原创文章投稿*/
+/*鍘熷垱鏂囩珷鎶曠*/
 .content .c_left .load_headpic{
 	width:720px;
 	height:60px;
@@ -828,7 +828,7 @@ overflow;
 
 
 
-/* 中间  之右边 */
+/* 涓棿  涔嬪彸杈� */
 .content .c_right {
 	width: 300px;
 	height: 100%;
@@ -926,7 +926,7 @@ overflow;
 	color: #323232;
 	float: right;
 }
-/* 商品轮播 */
+/* 鍟嗗搧杞挱 */
 
 .content .c_right .hot_cheap .picScroll {
 	width: 300px;
@@ -985,7 +985,7 @@ overflow;
 	width: 300px;
 	height: 146px;
 }
-/*商品轮播结束*/
+/*鍟嗗搧杞挱缁撴潫*/
 .content .c_right .hot_cheap .cheap_news {
 	width: 300px;
 }
@@ -1039,10 +1039,10 @@ overflow;
 	color: #cccccc;
 	margin: 0px 2px;
 }
-/* 中间  之右边结束 */
+/* 涓棿  涔嬪彸杈圭粨鏉� */
 
 
-/* 底部 */
+/* 搴曢儴 */
 .foot_back {
 	background-color: #2d2d2d;
 	width: 100%;
@@ -1096,4 +1096,4 @@ overflow;
 	height: 40px;
 	color: #8d8d8d;
 }
-/* 底部结束 */
+/* 搴曢儴缁撴潫 */

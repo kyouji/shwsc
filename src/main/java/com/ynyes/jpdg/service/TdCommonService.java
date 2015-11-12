@@ -73,6 +73,8 @@ public class TdCommonService {
         // 登录信息
         String username = (String) req.getSession().getAttribute("username");
         map.addAttribute("username", username);
+        
+        map.addAttribute("navi_bar_item_list", tdNaviBarItemService.findByIsEnableTrueOrderBySortIdAsc());
     }
 
 }
