@@ -52,7 +52,7 @@ public class TdIndexController {
         
         
         // 首页大图轮播广告
-        TdAdType adType = tdAdTypeService.findByTitle("首页大图轮播");
+        TdAdType adType = tdAdTypeService.findByTitle("首页大图轮播广告");
 
         if (null != adType) {
             map.addAttribute("big_scroll_ad_list", tdAdService

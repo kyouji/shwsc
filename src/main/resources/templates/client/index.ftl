@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>无标题文档</title>
+<title>精品导购-${setting.seoTitle!''}</title>
 <script type="text/javascript" src="/client/js/jquery1.42.min.js"></script>
 <script type="text/javascript" src="/client/js/jquery.SuperSlide.2.1.1.js"></script>
 <script type="text/javascript" src="/client/js/index.js"></script>
@@ -24,9 +24,40 @@
 </head>
 
 <body>
+<#include "/client/common_login.ftl"/>
 <#include "/client/common_header.ftl" />
 
-<#include "/client/common_nav.ftl"/>
+<!-- -----------------------导航---------------------------- -->
+<div class="ban_back">
+  <div class="nav">
+    <ul  id="myul1">
+        <#if navi_bar_item_list??>
+            <#list navi_bar_item_list as item>
+                <li><a href="${item.linkUri!''}" <#if item_index==0>class="myli"</#if>>${item.title!''}</a></li>
+            </#list>
+        </#if>
+    </ul>
+    <div class="join">
+        <#if email??>
+            <div class="join" onmouseover="join()" onmouseout="join_out()">
+                <a href="#" ><span id="final_name">${email!''}</span><img src="/client/images/xiala.png" /></a>
+                <div class="join_raw" id="join_raw" style="display: none;">
+                    <a href="/person_core" >个人中心</a>
+                    <a href="#" >我的评论</a>
+                    <a href="#" >我的消息</a>
+                    <a href="#" >我的收藏</a>
+                    <a href="#">账户设置</a>
+                    <a href="/logout" >退出登录</a>
+                </div>
+            </div>
+        <#else>
+            <a href="javascript:login_div_in();" >登录</a>
+            <a href="/reg" class="sign_up">注册</a>
+        </#if>
+    </div>
+  </div>
+</div>
+<!-- -----------------------导航结束---------------------------- --> 
 
 <!-- -----------------------中间  之左边---------------------------- -->
 <div class="content">

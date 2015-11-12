@@ -7,6 +7,7 @@ window.onload=function(){
    
 	   var ssname = sname.substr(0, 6); // 获取子字符串。
 	   pname.innerHTML=ssname;               // 返回 "Spain"。
+	   
 	   var myul=document.getElementById("myul1");
 	   var lis=myul.getElementsByTagName("li");
 	   for(i=0;i<lis.length;i++){

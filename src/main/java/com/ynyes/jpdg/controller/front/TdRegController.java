@@ -2,7 +2,6 @@ package com.ynyes.jpdg.controller.front;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,7 +22,6 @@ import com.ynyes.jpdg.service.TdCommonService;
 import com.ynyes.jpdg.service.TdSettingService;
 import com.ynyes.jpdg.service.TdUserPointService;
 import com.ynyes.jpdg.service.TdUserService;
-import com.ynyes.jpdg.util.SMSUtil;
 import com.ynyes.jpdg.util.VerifServlet;
 
 /**
@@ -123,14 +121,14 @@ public class TdRegController {
 		return "/client/reg";
 	}
     
-    @RequestMapping("/save")
+    @RequestMapping(value="/reg",method=RequestMethod.POST)
     public String reg(TdUser user, String code,HttpServletRequest req, HttpSession session, ModelMap map) {
     	
     	tdCommonService.setCommon(map, req);
         
     	String codeBack = (String) session.getAttribute("RANDOMVALIDATECODEKEY");
 		
-        if(!codeBack.equals(code)){
+        if(!codeBack.equalsIgnoreCase(code)){
         	map.addAttribute("errCode", "验证码错误");
         	return "/client/reg";
         }
@@ -162,125 +160,125 @@ public class TdRegController {
      * @exception <BR>
      * @since  1.0.0
      */
-    @RequestMapping(value="/reg",method=RequestMethod.POST)
-    public String reg(String username,
-                String mobile,
-                String password,
-                String email,
-                String smsCode,
-                String code,
-                String carCode,
-                Long shareId,
-                HttpServletRequest request){
-        String codeBack = (String) request.getSession().getAttribute("RANDOMVALIDATECODEKEY");
-        String smsCodeSave = (String) request.getSession().getAttribute("SMSCODE");
-        if (null == codeBack || null == smsCodeSave)
-        {
-            if (null == shareId)
-            {
-                return "redirect:/reg?name= "+username+"&carCode="+carCode;
-            }
-            else
-            {
-                return "redirect:/reg?shareId=" + shareId + "&name= "+username+"&carCode="+carCode;
-            }
-        }
-        
-        if (!codeBack.equalsIgnoreCase(code))
-        {
-            if (null == shareId)
-            {
-                return "redirect:/reg?errCode=1&name= "+username+"&carCode="+carCode;
-            }
-            else
-            {
-                return "redirect:/reg?errCode=1&shareId=" + shareId + "&name= "+username+"&carCode="+carCode;
-            }
-        }
-        
-        if (!smsCodeSave.equalsIgnoreCase(smsCode))
-        {
-            if (null == shareId)
-            {
-                return "redirect:/reg?errCode=4&name= "+username+"&mobile="+mobile;
-            }
-            else
-            {
-                return "redirect:/reg?errCode=4&shareId=" + shareId + "&name= "+username+"&carCode="+carCode;
-            }
-        }
-        
-        
-       TdUser user = tdUserService.addNewUser(username, password, mobile, email, carCode);
-        
-        if (null == user)
-        {
-            if (null == shareId)
-            {
-                return "redirect:/reg?errCode=3";
-            }
-            else
-            {
-                return "redirect:/reg?errCode=3&shareId=" + shareId;
-            }
-        }
-        
-        user = tdUserService.save(user);
-        
-        // 奖励分享用户
-        if (null != shareId)
-        {
-            TdUser sharedUser = tdUserService.findOne(shareId);
-            
-            if (null != sharedUser && sharedUser.getRoleId().equals(0L))
-            {
-                TdSetting setting = tdSettingService.findTopBy();
-                TdUserPoint userPoint = new TdUserPoint();
-                
-                if (null != setting)
-                {
-                    userPoint.setPoint(setting.getRegisterSharePoints());
-                }
-                else
-                {
-                    userPoint.setPoint(0L);
-                }
-                
-                if (null != sharedUser.getTotalPoints())
-                {
-                    userPoint.setTotalPoint(sharedUser.getTotalPoints() + userPoint.getPoint());
-                }
-                else
-                {
-                    userPoint.setTotalPoint(userPoint.getPoint());
-                }
-                
-                userPoint.setUsername(sharedUser.getUsername());
-                userPoint.setDetail("用户分享网站成功奖励");
-                
-                userPoint = tdUserPointService.save(userPoint);
-                
-                sharedUser.setTotalPoints(userPoint.getTotalPoint()); // 积分
-                tdUserService.save(sharedUser);
-            }
-        }
-        
-        request.getSession().setAttribute("username", username);
-        
-        String referer = (String) request.getAttribute("referer");
-        
-        if (null != request.getAttribute("referer"))
-        {
-            return "redirect:" + referer;
-        }
-        
-        if (null == shareId)
-        {
-            return "redirect:/user";
-        }
-        
-        return "redirect:/user?shareId=" + shareId;
-    }
+//    @RequestMapping(value="/reg",method=RequestMethod.POST)
+//    public String reg(String username,
+//                String mobile,
+//                String password,
+//                String email,
+//                String smsCode,
+//                String code,
+//                String carCode,
+//                Long shareId,
+//                HttpServletRequest request){
+//        String codeBack = (String) request.getSession().getAttribute("RANDOMVALIDATECODEKEY");
+//        String smsCodeSave = (String) request.getSession().getAttribute("SMSCODE");
+//        if (null == codeBack || null == smsCodeSave)
+//        {
+//            if (null == shareId)
+//            {
+//                return "redirect:/reg?name= "+username+"&carCode="+carCode;
+//            }
+//            else
+//            {
+//                return "redirect:/reg?shareId=" + shareId + "&name= "+username+"&carCode="+carCode;
+//            }
+//        }
+//        
+//        if (!codeBack.equalsIgnoreCase(code))
+//        {
+//            if (null == shareId)
+//            {
+//                return "redirect:/reg?errCode=1&name= "+username+"&carCode="+carCode;
+//            }
+//            else
+//            {
+//                return "redirect:/reg?errCode=1&shareId=" + shareId + "&name= "+username+"&carCode="+carCode;
+//            }
+//        }
+//        
+//        if (!smsCodeSave.equalsIgnoreCase(smsCode))
+//        {
+//            if (null == shareId)
+//            {
+//                return "redirect:/reg?errCode=4&name= "+username+"&mobile="+mobile;
+//            }
+//            else
+//            {
+//                return "redirect:/reg?errCode=4&shareId=" + shareId + "&name= "+username+"&carCode="+carCode;
+//            }
+//        }
+//        
+//        
+//       TdUser user = tdUserService.addNewUser(username, password, mobile, email, carCode);
+//        
+//        if (null == user)
+//        {
+//            if (null == shareId)
+//            {
+//                return "redirect:/reg?errCode=3";
+//            }
+//            else
+//            {
+//                return "redirect:/reg?errCode=3&shareId=" + shareId;
+//            }
+//        }
+//        
+//        user = tdUserService.save(user);
+//        
+//        // 奖励分享用户
+//        if (null != shareId)
+//        {
+//            TdUser sharedUser = tdUserService.findOne(shareId);
+//            
+//            if (null != sharedUser && sharedUser.getRoleId().equals(0L))
+//            {
+//                TdSetting setting = tdSettingService.findTopBy();
+//                TdUserPoint userPoint = new TdUserPoint();
+//                
+//                if (null != setting)
+//                {
+//                    userPoint.setPoint(setting.getRegisterSharePoints());
+//                }
+//                else
+//                {
+//                    userPoint.setPoint(0L);
+//                }
+//                
+//                if (null != sharedUser.getTotalPoints())
+//                {
+//                    userPoint.setTotalPoint(sharedUser.getTotalPoints() + userPoint.getPoint());
+//                }
+//                else
+//                {
+//                    userPoint.setTotalPoint(userPoint.getPoint());
+//                }
+//                
+//                userPoint.setUsername(sharedUser.getUsername());
+//                userPoint.setDetail("用户分享网站成功奖励");
+//                
+//                userPoint = tdUserPointService.save(userPoint);
+//                
+//                sharedUser.setTotalPoints(userPoint.getTotalPoint()); // 积分
+//                tdUserService.save(sharedUser);
+//            }
+//        }
+//        
+//        request.getSession().setAttribute("username", username);
+//        
+//        String referer = (String) request.getAttribute("referer");
+//        
+//        if (null != request.getAttribute("referer"))
+//        {
+//            return "redirect:" + referer;
+//        }
+//        
+//        if (null == shareId)
+//        {
+//            return "redirect:/user";
+//        }
+//        
+//        return "redirect:/user?shareId=" + shareId;
+//    }
     
     @RequestMapping(value = "/code",method = RequestMethod.GET)
     public void verify(HttpServletResponse response, HttpServletRequest request) {
@@ -294,18 +292,5 @@ public class TdRegController {
 //        qr.getQRCode("weixin://wxpay/bizpayurl?appid=wx2421b1c4370ec43b&mch_id=10000100&nonce_str=f6808210402125e30663234f94c87a8c&product_id=1&time_stamp=1415949957&sign=512F68131DD251DA4A45DA79CC7EFE9D", 125, response);
     }
     
-    @RequestMapping(value = "/reg/smscode",method = RequestMethod.GET)
-    @ResponseBody
-    public Map<String, Object> smsCode(String mobile, HttpServletResponse response, HttpServletRequest request) {
-        Random random = new Random();
-        
-        String smscode = String.format("%04d", random.nextInt(9999));
-        
-        HttpSession session = request.getSession();
-        
-        session.setAttribute("SMSCODE", smscode);
-       
-        return SMSUtil.send(mobile, "15612" ,new String[]{smscode});
-    }
     
 }

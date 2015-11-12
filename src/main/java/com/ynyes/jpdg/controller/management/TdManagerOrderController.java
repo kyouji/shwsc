@@ -57,7 +57,6 @@ import com.ynyes.jpdg.service.TdPayTypeService;
 import com.ynyes.jpdg.service.TdProductCategoryService;
 import com.ynyes.jpdg.service.TdUserPointService;
 import com.ynyes.jpdg.service.TdUserService;
-import com.ynyes.jpdg.util.SMSUtil;
 import com.ynyes.jpdg.util.SiteMagConstant;
 /**
  * 后台首页控制器
@@ -1897,22 +1896,6 @@ public class TdManagerOrderController {
                         
                         Random random = new Random();
                         String smscode = String.format("%04d", random.nextInt(9999));
-                        //手机短信发送
-                        SMSUtil.send(
-                        		order.getShippingPhone(),
-                                "29040",
-                                new String[] {
-                                        tdUser.getUsername(),
-                                        order.getOrderGoodsList().get(0).getGoodsTitle(),
-                                        smscode});
-                        order.setSmscode(smscode);
-                        order = tdOrderService.save(order);
-                        SMSUtil.send(tdShop.getMobile(), 
-                                "29039",
-                                new String[] { tdShop.getTitle(), tdUser.getUsername(),
-                                		order.getOrderGoodsList().get(0).getGoodsTitle(),
-                                		order.getAppointmentTime().toString() });
-                        System.out.println("---Sharon---: 向同盟店"+tdShop.getMobile()+"发送短信");
                         
                         Long totalPoints = 0L;
                         Double totalCash = 0.0;
@@ -2089,21 +2072,7 @@ public class TdManagerOrderController {
                             
                         }
                     }
-                    //手机短信发送
-                    SMSUtil.send(
-                    		order.getShippingPhone(),
-                            "29040",
-                            new String[] {
-                                    tdUser.getUsername(),
-                                    order.getOrderGoodsList().get(0).getGoodsTitle(),
-                                    order.getOrderNumber().substring(order.getOrderNumber().length() - 4)});
                     
-                    SMSUtil.send(tdShop.getMobile(), 
-                            "29039",
-                            new String[] { tdShop.getTitle(), tdUser.getUsername(),
-                            		order.getOrderGoodsList().get(0).getGoodsTitle(),
-                            		order.getAppointmentTime().toString() });
-                    System.out.println("---Sharon---: 向同盟店"+tdShop.getMobile()+"发送短信");
                     // 同盟店返利
                     if (null != tdShop) {
                         if (null == tdShop.getTotalCash()) {
@@ -2153,9 +2122,7 @@ public class TdManagerOrderController {
                     
                     if (null != tdUser)
                     {
-                        SMSUtil.send(tdUser.getMobile(), "28744",
-                                new String[] { order.getUsername(),
-                                        order.getOrderNumber()});
+                        
                     }
                 }
             }

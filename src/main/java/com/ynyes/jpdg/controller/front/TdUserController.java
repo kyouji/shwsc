@@ -62,7 +62,7 @@ import com.ynyes.jpdg.util.ClientConstant;
  *
  */
 @Controller
-public class TdUserController extends AbstractPaytypeController {
+public class TdUserController {
 
     @Autowired
     private TdUserService tdUserService;
@@ -447,9 +447,6 @@ public class TdUserController extends AbstractPaytypeController {
             map.addAttribute("goods_list", tdGoodslist);
 		}
        
-        
-        // 支付方式列表
-        setPayTypes(map, false, true, req);
 
         return "/client/user_order_detail";
     }
@@ -734,9 +731,6 @@ public class TdUserController extends AbstractPaytypeController {
             map.addAttribute("goods_list", tdGoodslist);
 		}
         
-        // 支付方式列表
-        setPayTypes(map, false, true, req);
-
         return "/client/diysite_order_detail";
     }
     /**
