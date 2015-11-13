@@ -2,31 +2,31 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>海淘专区-${setting.seoTitle!''}</title>
-<script type="text/javascript" src="/client/JS/jquery1.42.min.js"></script>
-<script type="text/javascript" src="/client/JS/jquery.SuperSlide.2.1.1.js"></script>
-<script type="text/javascript" src="/client/JS/index.js"></script>
-<link rel="stylesheet" type="text/css" href="/client/CSS/base.css"/>
-<link rel="stylesheet" type="text/css" href="/client/CSS/haitao.css"/>
-<link rel="stylesheet" type="text/css" href="/client/CSS/login.css"/>
-<script type="text/javascript"> 
-        
-$(function(){           
-    $('.goods ul').eq(1).show();
-    $('.goods ul').eq(2).hide();
-    $('.goods ul').eq(3).hide();
+<title>无标题文档</title>
+<script type="text/javascript" src="/client/js/jquery1.42.min.js"></script>
+<script type="text/javascript" src="/client/js/jquery.SuperSlide.2.1.1.js"></script>
+<script type="text/javascript" src="/client/js/index.js"></script>
+<link rel="stylesheet" type="text/css" href="/client/css/base.css"/>
+<link rel="stylesheet" type="text/css" href="/client/css/haitao.css"/>
+<script type="text/javascript">
 
-    $('.ul1 li').each(function(i){          
-        $(this).mouseover(function(){
-            $('.goods ul').eq(1).hide();
-            $('.goods ul').eq(2).hide();
-            $('.goods ul').eq(3).hide();
-            $('.goods ul').eq(i+1).show();          
-        });             
-    }); 
-}); 
+	function update_atricle(id){
+	alert(this);
+		$.ajax({
+			type:"post",
+			url:"/atricle/list",
+			data:{"id":id},
+			dataType:"html",
+			success:function(data){
+				
+				$("#atricle_list").html(data);
+			},
+		});
+	}
+
 </script>
 </head>
+
 <body>
 <#include "/client/common_login.ftl"/>
 <!-- -----------------------头部---------------------------- -->
@@ -39,7 +39,7 @@ $(function(){
     <ul  id="myul1">
         <#if navi_bar_item_list??>
             <#list navi_bar_item_list as item>
-                <li><a href="${item.linkUri!''}" <#if item_index==type_index>class="myli"</#if>>${item.title!''}</a></li>
+                <li><a href="${item.linkUri!''}" <#if item_index==haitao_index>class="myli"</#if>>${item.title!''}</a></li>
             </#list>
         </#if>
     </ul>
@@ -81,9 +81,11 @@ $(function(){
         </div>
         <div class="bd">
           <ul>
-            <#list ht_scroll_ad_list as ad>
-                <li><a href="${ad.linkUri!''}" target="_blank"><img src="${ad.fileUri!''}"/></a></li>
-            </#list>
+            <#if big_scroll_ads_list??>
+            	<#list big_scroll_ads_list as item>
+            		<li><a href="${item.linkUrl!''}?id=${item.id?c}"><img src="${item.title!''}" /></a></li>
+            	</#list>
+            </#if>
           </ul>
         </div>
       </div>
@@ -92,101 +94,23 @@ $(function(){
     <!-- banner结束 -->
     <div class="goods">
       <ul class="ul1">
-        <#if level0_category_list??>
-            <#list level0_category_list as cat>
-                <li><a href="javascript:;" <#if cat_index==0>class="ul1_a"</#if>>${cat.title!''}</a></li>
-            </#list>
+        <#if articleCategory_Leve1_nav??>
+        	<#list articleCategory_Leve1_nav as item>
+        		<li><a href="javascript:update_atricle(${item.id?c});" <#if item_index == articleCategory_Leve1_nav_index >class="ul1_a"</#if>>${item.title!''}</a></li>
+        	</#list>
         </#if>
       </ul>
-      <#if level0_category_list??>
-        <#list level0_category_list as item>
-            <ul class="ul2" <#if item_index!=0>style="display: none;"</#if>>
-                <#if ("level1_"+item_index+"_category_list")?eval??>
-                    <#list ("level1_"+item_index+"_category_list")?eval as cat>
-                        <li><a href="#" <#if cat_index%2==1>class="ul2_a"</#if>>${cat.title!''}</a></li>
-                    </#list>
-                </#if>
-            </ul>
-        </#list>
-      </#if>
-      <div class="advertisement">
-        <#if ht_flat_ad_list??>
-            <#list ht_flat_ad_list as ad>
-                <a href="${ad.linkUri!''}" target="_blank"><img src="${ad.fileUri!''}" alt="${ad.title!''}" /></a>
-                <#break>
-            </#list>
-        </#if>
+      
+      <div id="atricle_list">
+      	<#include "/client/article_update.ftl">
       </div>
-      <ul class="ul3">
-        <#if type_article_page??>
-            <#list type_article_page.content as item>
-                <li>
-                  <div class="li_left"><a href="#"><img src="${item.imgUrl!''}" /></a></div>
-                  <div class="li_right">
-                    <h1><a href="#">${item.title!''}</a></h1>
-                    <div class="writer">
-                      <label class="label1">作者：<span>${item.source!''}</span> </label>
-                      <label class="label2">标签：<span>${item.tagList!''}</span></label>
-                      <label class="label3"><#if item.createTime??>${item.createTime?string("yyyy-MM-dd")}</#if></label>
-                    </div>
-                    <div class="words">
-                      <p><a href="#">${item.brief!''}</a></p>
-                    </div>
-                    <div class="read_all"><a href="#">阅读全文&nbsp;></a></div>
-                    <div class="comment">
-                      <div class="com1"><a href="#"><img src="/client/images/comment1.png" /><span>${item.goodNumber!'0'}</span></a></div>
-                      <div class="com2"><a href="#"><img src="/client/images/comment3.png" /><span>${item.collectNumber!'0'}</span></a></div>
-                      <div class="com3"><a href="#"><img src="/client/images/comment2.png" /><span>${item.commentNumber!'0'}</span></a></div>
-                      <#--
-                      <div  class="com4"><a href="#"><img src="/client/images/comment4.png" /><span>优惠卷领取</span></a></div>
-                      -->
-                      <div class="com5"><a href="${item.linkUrl!''}">直达链接</a></div>
-                    </div>
-                  </div>
-                </li>
-            </#list>
-        </#if>
-      </ul>
-    </div>
-    <div class="page"> 
-    <#if type_article_page??>
-        <#assign continueEnter=false>
-        <#if type_article_page.number+1 == 1>
-            <a href="javascript:;" class="last"></a> 
-        <#else>
-            <a href="${type_article_page.number-1}" class="last"></a>
-        </#if>
-        
-        <#if type_article_page.totalPages gt 0>
-            <#list 1..type_article_page.totalPages as page>
-                <#if page <= 3 || (type_article_page.totalPages-page) < 3 || (type_article_page.number+1-page)?abs<3 >
-                    <#if page == type_article_page.number+1>
-                        <a class="one" href="javascript:;">${page}</a>
-                    <#else>
-                        <a href="/promotion/tuan?page=${page-1}<#if type??>&type=${type}</#if>">${page}</a>
-                    </#if>
-                    <#assign continueEnter=false>
-                <#else>
-                    <#if !continueEnter>
-                        <a href="javascript:;" class="dian">...</a> 
-                        <#assign continueEnter=true>
-                    </#if>
-                </#if>
-            </#list>
-        </#if>
-        
-        <#if type_article_page.number+1 == type_article_page.totalPages || type_article_page.totalPages==0>
-            <a href="javascript:;" class="next"></a>
-        <#else>
-            <a href="/${type_article_page.number+1}" class="next"></a>
-        </#if>
-    </#if>
-    </div>
+     </div>
+      
     
     <!-- -----------------------中间  之左边结束---------------------------- --> 
     
     <!-- -----------------------中间  之右边---------------------------- --> 
-  </div>
+    </div>
   <div class="c_right">
     <div class="hot_right" >
       <div class="hot_top">热品推荐</div>
@@ -246,7 +170,7 @@ $(function(){
 
 <!-- -----------------------中间  之右边结束---------------------------- --> 
 <!-- -----------------------底部---------------------------- -->
-<#include "/client/common_footer.ftl" />
+<#include "/client/common_footer.ftl"/>
 <!-- -----------------------底部结束---------------------------- -->
 </body>
 </html>

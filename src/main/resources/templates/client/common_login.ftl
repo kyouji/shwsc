@@ -3,7 +3,7 @@
 <div class="sign_in">
   <div class="in_title">
     <label>登录</label>
-    <a href="/reg">注册</a><i><a href="javascript:login_div_out();"><img src="client/images/iconfont-cha.png" /></a></i></div>
+    <a href="/reg">注册</a><i><a href="javascript:login_div_out();"><img src="/client/images/iconfont-cha.png" /></a></i></div>
   	<span style="color:red" id="msg"></span>
   <form id="login_form">
   	<div>

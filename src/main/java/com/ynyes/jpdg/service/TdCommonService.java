@@ -93,8 +93,11 @@ public class TdCommonService {
         	
         	map.addAttribute("articleCategory_Leve1_nav", articleCategoryLevel1List);
         	map.addAttribute("articleCategory_Leve1_nav_index", 0);
-			map.addAttribute("articleCategoryLevel1nva", 
+        	if (null != articleCategoryLevel1List && articleCategoryLevel1List.size() > 0)
+        	{
+        	    map.addAttribute("articleCategoryLevel1nva", 
 					tdArticleCategoryService.findByParentId(articleCategoryLevel1List.get(0).getId()));
+        	}
         	
         }
         

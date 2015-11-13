@@ -12,12 +12,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.ynyes.jpdg.entity.TdAdType;
 import com.ynyes.jpdg.entity.TdArticleCategory;
+import com.ynyes.jpdg.entity.TdNavigationMenu;
 import com.ynyes.jpdg.service.TdAdService;
 import com.ynyes.jpdg.service.TdAdTypeService;
 import com.ynyes.jpdg.service.TdArticleCategoryService;
 import com.ynyes.jpdg.service.TdArticleService;
 import com.ynyes.jpdg.service.TdCommonService;
 import com.ynyes.jpdg.service.TdNaviBarItemService;
+import com.ynyes.jpdg.util.ClientConstant;
 
 @Controller
 @RequestMapping("/")
@@ -51,26 +53,51 @@ public class TypeController {
 		{
 		    if (typeName.equalsIgnoreCase("haitao")) // 海淘
 		    {
-		        map.addAttribute("haitao_index", 1);
+		        map.addAttribute("type_index", 1);
 		        
 		        // 大图轮播广告
-		        TdAdType adType = tdAdTypeService.findByTitle("海淘专区大图轮播");
+		        TdAdType adType = tdAdTypeService.findByTitle("海淘专区大图轮播广告");
 		        
 		        if (null != adType) {
-		            map.addAttribute("big_scroll_ad_list", tdAdService
+		            map.addAttribute("ht_scroll_ad_list", tdAdService
 		                    .findByTypeIdAndIsValidTrueOrderBySortIdAsc(adType.getId()));
 		        }
 		        
-		       
-		        tdCommonService.setArticleType(map, req);
+		        // 读取海淘专区所有一级、二级分类
+		        TdArticleCategory haitaoCat = tdArticleCategoryService.findByTitle("海淘专区");
 		        
-		       
+		        if (null != haitaoCat)
+		        {
+		            // 查找一级分类
+		            List<TdArticleCategory> level0CatList = tdArticleCategoryService.findByParentId(haitaoCat.getId());
+	                
+		            if (null != level0CatList)
+		            {
+		                map.addAttribute("level0_category_list", level0CatList);
+		                
+		                // 查找二级分类
+		                for (int i = 0; i < level0CatList.size(); i++)
+		                {
+		                    TdArticleCategory cat = level0CatList.get(i);
+		                    
+		                    map.addAttribute("level1_" + i + "_category_list", tdArticleCategoryService.findByParentId(cat.getId()));
+		                }
+		            }
+		        }
 		        
+		        adType = tdAdTypeService.findByTitle("海淘专区页面中部横幅广告");
+                
+                if (null != adType) {
+                    map.addAttribute("ht_flat_ad_list", tdAdService
+                            .findByTypeIdAndIsValidTrueOrderBySortIdAsc(adType.getId()));
+                }
+                
+		        map.addAttribute("type_article_page", tdArticleService.findByCategoryId(haitaoCat.getId(), 0, ClientConstant.pageSize));
 		        
 		    }
-		    else if (typeName.equalsIgnoreCase("guonei"))
+		    else if (typeName.equalsIgnoreCase("guonei")) // 国内
 		    {
-		        
+		        map.addAttribute("type_index", 2);
 		    }
 		}
 		
