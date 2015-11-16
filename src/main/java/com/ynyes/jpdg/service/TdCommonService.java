@@ -71,8 +71,8 @@ public class TdCommonService {
         map.addAttribute("article_category_list", tdArticleCategoryService.findByMenuId(8L));
         
         // 登录信息
-        String username = (String) req.getSession().getAttribute("username");
-        map.addAttribute("username", username);
+        String username = (String) req.getSession().getAttribute("email");
+        map.addAttribute("email", username);
         
         map.addAttribute("navi_bar_item_list", tdNaviBarItemService.findByIsEnableTrueOrderBySortIdAsc());
     }

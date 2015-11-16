@@ -4,18 +4,18 @@
         <#list index_recommend_article_page.content as item>
             <li>
               <div class="li_left">
-                <a href="#"><img src="${item.imgUrl!''}" /></a></div>
+                <a href="/item/${item.id?c}"><img src="${item.imgUrl!''}" /></a></div>
               <div class="li_right">
-                <h1><a href="#">${item.title!''}</a></h1>
+                <h1><a href="/item/${item.id?c}">${item.title!''}</a></h1>
                 <div class="writer">
                   <label class="label1">作者：<span>${item.source!''}</span> </label>
                   <label class="label2">标签：<span>${item.tagList!''}</span></label>
                   <label class="label3"><#if item.createTime??>${item.createTime?string("yyyy-MM-dd")}</#if></label>
                 </div>
                 <div class="words">
-                  <p><a href="#">${item.brief!''}</a></p>
+                  <p><a href="/item/${item.id?c}">${item.brief!''}</a></p>
                 </div>
-                <div class="read_all"><a href="#">阅读全文&nbsp;></a></div>
+                <div class="read_all"><a href="/item/${item.id?c}">阅读全文&nbsp;></a></div>
                 <div class="comment">
                   <div class="com1"><a href="#"><img src="/client/images/comment1.png" /><span>${item.goodNumber!'0'}</span></a></div>
                   <div class="com2"><a href="#"><img src="/client/images/comment3.png" /><span>${item.collectNumber!'0'}</span></a></div>

@@ -29,7 +29,7 @@
 <#include "/client/common_header.ftl" />
 
 <!-- -----------------------导航---------------------------- -->
-<div class="ban_back">
+<div class="ban_back" style="min-width:1200px;">
   <div class="nav">
     <ul  id="myul1">
         <#if navi_bar_item_list??>
@@ -43,7 +43,7 @@
             <div class="join" onmouseover="join()" onmouseout="join_out()">
                 <a href="#" ><span id="final_name">${email!''}</span><img src="/client/images/xiala.png" /></a>
                 <div class="join_raw" id="join_raw" style="display: none;">
-                    <a href="/person_core" >个人中心</a>
+                    <a href="/user" >个人中心</a>
                     <a href="#" >我的评论</a>
                     <a href="#" >我的消息</a>
                     <a href="#" >我的收藏</a>

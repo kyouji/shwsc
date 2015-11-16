@@ -2,99 +2,75 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>无标题文档</title>
-<script type="text/javascript" src="JS/jquery1.42.min.js"></script>
-<script type="text/javascript" src="JS/jquery.SuperSlide.2.1.1.js"></script>
-<script type="text/javascript" src="JS/index.js"></script>
-<link rel="stylesheet" type="text/css" href="CSS/base.css"/>
-<link rel="stylesheet" type="text/css" href="CSS/shangpinxiangqing.css"/>
+<title>精品导购<#if item??>-${item.seoTitle!''}</#if></title>
+<script type="text/javascript" src="/client/js/jquery1.42.min.js"></script>
+<script type="text/javascript" src="/client/js/jquery.SuperSlide.2.1.1.js"></script>
+<script type="text/javascript" src="/client/js/index.js"></script>
+<link rel="stylesheet" type="text/css" href="/client/css/base.css"/>
+<link rel="stylesheet" type="text/css" href="/client/css/shangpinxiangqing.css"/>
+<link rel="stylesheet" type="text/css" href="/client/css/login.css"/>
 </head>
 
 <body>
+<#include "/client/common_login.ftl"/>
 <!-- -----------------------头部---------------------------- -->
-<div class="head">
-  <div class="head_left"><a href="#"><img src="images/logo.png" /></a></div>
-  <div class="head_center">
-    <form>
-      <input type="text" class="search" id="search" value="这里输入您想要的" onfocus="myfocus()" onblur="myblur()"/>
-      <input type="button" class="ok">
-    </form>
-  </div>
-  <div class="head_right">
-    <div class="right1">
-      <label class="head_label1">App下载</label>
-      <label class="head_label2">手机返利价更优</label>
-    </div>
-    <img src="images/1.png"/></div>
-</div>
+<#include "/client/common_header.ftl" />
 <!-- -----------------------头部结束---------------------------- --> 
 
 <!-- -----------------------导航---------------------------- -->
 <div class="ban_back">
   <div class="nav">
     <ul  id="myul1">
-      <li><a href="#" class="myli">首页</a></li>
-      <li><a href="#">海淘专区</a></li>
-      <li><a href="#">国内优惠</a></li>
-      <li><a href="#">热品推荐</a></li>
-      <li><a href="#">原创</a></li>
-      <li><a href="#">百科</a></li>
-      <li><a href="#">资讯</a></li>
-      <li><a href="#">爆料</a></li>
-      <li><a href="#">众测</a></li>
-      <!--
-      <li><a href="#" class="myli">首页</a></li>
-      <li><a href="#">海淘专区</a></li>
-      <li><a href="#">国内优惠</a></li>
-      <li><a href="#">热品推荐</a></li>
-      <li><a href="#" class="myli">首页</a></li>
-      <li><a href="#">海淘专区</a></li>
-      <li><a href="#">国内优惠</a></li>
-      <li><a href="#">热品推荐</a></li>
-      <li><a href="#" class="myli">首页</a></li>
-      <li><a href="#">海淘专区</a></li>
-      <li><a href="#">国内优惠</a></li>
-      <li><a href="#">热品推荐</a></li>
-      <li><a href="#" class="myli">首页</a></li>
-      <li><a href="#">海淘专区</a></li>
-      <li><a href="#">国内优惠</a></li>
-      <li><a href="#">热品推荐</a></li>-->
+        <#if navi_bar_item_list??>
+            <#list navi_bar_item_list as item>
+                <li><a href="${item.linkUri!''}">${item.title!''}</a></li>
+            </#list>
+        </#if>
     </ul>
-    <div class="join"><a href="#" >登录</a><a href="#" class="sign_up">注册</a></div>
+    <div class="join">
+        <#if email??>
+            <div class="join" onmouseover="join()" onmouseout="join_out()">
+                <a href="#" ><span id="final_name">${email!''}</span><img src="/client/images/xiala.png" /></a>
+                <div class="join_raw" id="join_raw" style="display: none;">
+                    <a href="/user" >个人中心</a>
+                    <a href="#" >我的评论</a>
+                    <a href="#" >我的消息</a>
+                    <a href="#" >我的收藏</a>
+                    <a href="#">账户设置</a>
+                    <a href="/logout" >退出登录</a>
+                </div>
+            </div>
+        <#else>
+            <a href="javascript:login_div_in();" >登录</a>
+            <a href="/reg" class="sign_up">注册</a>
+        </#if>
+    </div>
   </div>
 </div>
 <!-- -----------------------导航结束---------------------------- --> 
-
 <!-- -----------------------中间  之左边---------------------------- -->
 <div class="content">
   <div class="c_left">
-    <div class="location">当前位置：<a href="#"><span>首页</span></a>><a href="#"><span>优惠精选</span></a>></div>
-    <div class="how_goods"><img src="images/biao.png" />
+    <div class="location">当前位置：<a href="/"><span>首页</span></a>><#if category??><a href="#"><span>${category.title!''}</span></a></#if><#if article??>>${article.title!''}</#if></div>
+    <div class="how_goods"><img src="${article.imgUrl!''}" />
       <div class="how_words">
         <div class="word1">
-          <p>MAURICE LACROIX 艾美手表 Les Classiques 典雅系列 
-            LC6016-YS101-130 女款机械腕表
-            <label>$<span>599.99</span>（约￥<span>3900</span>）</label>
-          </p>
+          <p>${article.title!''}</p>
         </div>
-        <div class="word2">时间：<span>13:550</span></div>
-        <div class="word3"> 商城：<span>TheWatchery</span> </div>
-        <div class="word4"> 分类：<span> 海淘单品 礼品钟表</span></div>
-        <div class="word5"> 标签：<span> Les Classiques LC6016-YS101-13</span></div>
-        <a href="#" class="zhi">直达链接 ></a> </div>
+        <div class="word2">时间：<span><#if article.createTime??>${article.createTime?string("HH:mm:ss")}</#if></span></div>
+        <div class="word3"> 作者：<span> ${article.source!''}</span> </div>
+        <div class="word4"> 分类：<span> ${category.title!''}</span></div>
+        <div class="word5"> 标签：<span> ${article.tagList!''}</span></div>
+        <a href="${article.linkUrl!''}" class="zhi">直达链接 ></a> </div>
     </div>
     <div class="goods_detail">
-      <div class="detail_title">优惠力度</div>
-      <p>TheWatchery目前报价为599.99美元，转运到手约3900元（未含关税），历史新低价。国内同款代购价约4400-10370元，
-        差价大需仔细甄别，海淘价格优势明显且保真。喜欢的同学可以一并考虑入手。</p>
-      <p>Maurice Lacroix艾美 Les Classiques典雅系列 18K金自动机械腕表 LC6016-YS101-130，采用ML115机芯，蓝宝石，精致淑雅。
-        采用18K金表圈，六点钟方向显示日期。棕色真皮表带，艾美的精致打磨，简约典雅的设计，整地大气典雅。属于相当儒雅时尚的
-        正装表。表径为33毫米，蓝宝石水晶玻璃表镜材质，防刮耐磨。 </p>
-      <div class="detail_pic"> <img src="images/biao.png" /> <img src="images/biao.png" /> <img src="images/biao.png" /></div>
+      <div class="detail_title">详细信息</div>
+      ${article.content!''}
     </div>
+    
     <div class="collect">
-      <div class="co1">收藏：<a href="#"><span>91</span></a></div>
-      <div class="co2">评论：<a href="#" ><span>70</span></a></div>
+      <div class="co1">收藏：<a href="#"><span>${article.collectNumber!'0'}</span></a></div>
+      <div class="co2">评论：<a href="#" ><span>${article.commentNumber!'0'}</span></a></div>
       <div class="co3">
         <label>分享到：</label>
         <a href="#" class="co3_a1"></a><a href="#" class="co3_a2"></a><a href="#" class="co3_a3"></a><a href="#" class="co3_a4"></a><a href="#" class="co3_a5"></a><a href="#" class="co3_a6"></a><a href="#" class="co3_a7"></a><a href="#" class="co3_a8"></a><a href="#" class="co3_a9"></a></div>
@@ -112,25 +88,25 @@
         <div class="bd"> <a href="javascript:void(0)" class="prev"></a> <a href="javascript:void(0)" class="next"></a>
           <div class="scrollWrap">
             <ul class="picList">
-              <li> <a href="#" ><img src="images/bo.png"></a> <p>TAG Heuer 豪雅 F1系列 
+              <li> <a href="#" ><img src="/client/images/bo.png"></a> <p>TAG Heuer 豪雅 F1系列 
    CAU111E.FT6024  </p></li>
-              <li> <a href="#" ><img src="images/bo.png"></a> <p>TAG Heuer 豪雅 F1系列 
+              <li> <a href="#" ><img src="/client/images/bo.png"></a> <p>TAG Heuer 豪雅 F1系列 
    CAU111E.FT6024  </p></li>
-              <li> <a href="#" ><img src="images/bo.png"></a> <p>TAG Heuer 豪雅 F1系列 
+              <li> <a href="#" ><img src="/client/images/bo.png"></a> <p>TAG Heuer 豪雅 F1系列 
    CAU111E.FT6024  </p></li>
-              <li> <a href="#" ><img src="images/bo.png"></a> <p>TAG Heuer 豪雅 F1系列 
+              <li> <a href="#" ><img src="/client/images/bo.png"></a> <p>TAG Heuer 豪雅 F1系列 
    CAU111E.FT6024  </p></li>
-              <li> <a href="#" ><img src="images/bo.png"></a> <p>TAG Heuer 豪雅 F1系列 
+              <li> <a href="#" ><img src="/client/images/bo.png"></a> <p>TAG Heuer 豪雅 F1系列 
    CAU111E.FT6024  </p></li>
-              <li> <a href="#" ><img src="images/bo.png"></a> <p>TAG Heuer 豪雅 F1系列 
+              <li> <a href="#" ><img src="/client/images/bo.png"></a> <p>TAG Heuer 豪雅 F1系列 
    CAU111E.FT6024  </p></li>
-              <li> <a href="#" ><img src="images/bo.png"></a> <p>TAG Heuer 豪雅 F1系列 
+              <li> <a href="#" ><img src="/client/images/bo.png"></a> <p>TAG Heuer 豪雅 F1系列 
    CAU111E.FT6024  </p></li>
-              <li> <a href="#" ><img src="images/bo.png"></a> <p>TAG Heuer 豪雅 F1系列 
+              <li> <a href="#" ><img src="/client/images/bo.png"></a> <p>TAG Heuer 豪雅 F1系列 
    CAU111E.FT6024  </p></li>
-              <li> <a href="#" ><img src="images/bo.png"></a> <p>TAG Heuer 豪雅 F1系列 
+              <li> <a href="#" ><img src="/client/images/bo.png"></a> <p>TAG Heuer 豪雅 F1系列 
    CAU111E.FT6024  </p></li>
-              <li> <a href="#" ><img src="images/bo.png"></a> <p>TAG Heuer 豪雅 F1系列 
+              <li> <a href="#" ><img src="/client/images/bo.png"></a> <p>TAG Heuer 豪雅 F1系列 
    CAU111E.FT6024  </p></li>
             </ul>
           </div>
@@ -201,11 +177,11 @@
   <div class="c_right">
     <div class="hot_right" >
       <div class="hot_top">热品推荐</div>
-      <div class="hot_center"><a href="#"><img src="images/hot1.png" /></a>
+      <div class="hot_center"><a href="#"><img src="/client/images/hot1.png" /></a>
         <div class="pic_word">肯尼亚总统穿过潘基文与习近平握手一幕</div>
       </div>
       <div class="hot_foot">
-        <div class="spot"><img src="images/spot.png" /></div>
+        <div class="spot"><img src="/client/images/spot.png" /></div>
         <div class="news">
           <ul>
             <li><a href="#">为XcodeGhost“解毒”的安全团队们为XcodeGhost“解毒”的安全团队们们为XcodeGhost“解毒”的安全团队们</a></li>
@@ -221,25 +197,24 @@
     <div class="hot_classify" >
       <div class="classify1"><a href="#" class="a1">热门分类</a><a href="#" class="a2">热门发现</a><a href="#" class="a3">更多</a></div>
       <ul>
-        <li><a href="#"><img src="images/hot2.png" /></a></li>
-        <li><a href="#"><img src="images/hot2.png" /></a></li>
-        <li><a href="#"><img src="images/hot2.png" /></a></li>
-        <li><a href="#"><img src="images/hot2.png" /></a></li>
-        <li><a href="#"><img src="images/hot2.png" /></a></li>
-        <li><a href="#"><img src="images/hot2.png" /></a></li>
-        <li><a href="#"><img src="images/hot2.png" /></a></li>
-        <li><a href="#"><img src="images/hot2.png" /></a></li>
-        <li><a href="#"><img src="images/hot2.png" /></a></li>
-        <li><a href="#"><img src="images/hot2.png" /></a></li>
-        <li><a href="#"><img src="images/hot2.png" /></a></li>
-        <li><a href="#"><img src="images/hot2.png" /></a></li>
-        <li><a href="#"><img src="images/hot2.png" /></a></li>
+        <li><a href="#"><img src="/client/images/hot2.png" /></a></li>
+        <li><a href="#"><img src="/client/images/hot2.png" /></a></li>
+        <li><a href="#"><img src="/client/images/hot2.png" /></a></li>
+        <li><a href="#"><img src="/client/images/hot2.png" /></a></li>
+        <li><a href="#"><img src="/client/images/hot2.png" /></a></li>
+        <li><a href="#"><img src="/client/images/hot2.png" /></a></li>
+        <li><a href="#"><img src="/client/images/hot2.png" /></a></li>
+        <li><a href="#"><img src="/client/images/hot2.png" /></a></li>
+        <li><a href="#"><img src="/client/images/hot2.png" /></a></li>
+        <li><a href="#"><img src="/client/images/hot2.png" /></a></li>
+        <li><a href="#"><img src="/client/images/hot2.png" /></a></li>
+        <li><a href="#"><img src="/client/images/hot2.png" /></a></li>
       </ul>
     </div>
-    <div class="pic1" ><img src="images/pic4.png" /></div>
+    <div class="pic1" ><img src="/client/images/pic4.png" /></div>
     <div class="hot_cheap" >
       <div class="cheap_title"><a href="#" class="t_a1">热门优惠卷</a><a href="#" class="t_a2">更多</a></div>
-      <div class="cheap_goods"><a href="#" class="ling">领取</a><a href="#" class="a_img"><img src="images/cheap_goods.png" /></a><span><a href="#">优惠时尚商城60元优惠卷已经能优惠时尚商城60元优惠卷已经能优惠时尚商城60元优惠卷已经能</a></span></div>
+      <div class="cheap_goods"><a href="#" class="ling">领取</a><a href="#" class="a_img"><img src="/client/images/cheap_goods.png" /></a><span><a href="#">优惠时尚商城60元优惠卷已经能优惠时尚商城60元优惠卷已经能优惠时尚商城60元优惠卷已经能</a></span></div>
       <div class="cheap_news">
         <ul>
           <li><a href="#">优惠时尚商城60元优惠</a></li>
@@ -251,36 +226,13 @@
         </ul>
       </div>
     </div>
-    <div class="pic2" ><img src="images/pic5.png" /></div>
+    <div class="pic2" ><img src="/client/images/pic5.png" /></div>
   </div>
 </div>
 
 <!-- -----------------------中间  之右边结束---------------------------- --> 
 <!-- -----------------------底部---------------------------- -->
-<div class="foot_back">
-  <div class="foot">
-    <div class="foot1">
-      <ul>
-        <li><a href="#">关于我们</a></li>
-        <li><a href="#">联系我们</a></li>
-        <li><a href="#">海淘攻略</a></li>
-        <li><a href="#">海淘资讯</a></li>
-      </ul>
-    </div>
-    <div class="foot2">友情链接</div>
-    <div class="foot3">
-      <ul>
-        <li><a href="#">国美在线</a></li>
-        <li><a href="#">盛世收藏网</a></li>
-        <li><a href="#">Hi-pda论坛</a></li>
-        <li><a href="#">杂志铺</a></li>
-        <li><a href="#">hao123</a></li>
-        <li><a href="#">信天谨游</a></li>
-      </ul>
-    </div>
-    <div class="foot4">Copyright © 2015   渝ICP备10011451</div>
-  </div>
-</div>
+<#include "/client/common_footer.ftl" />
 <!-- -----------------------底部结束---------------------------- -->
 </body>
 </html>

@@ -1,4 +1,4 @@
-<div class="head">
+<div class="head" style="min-width:1200px;">
   <div class="head_left">
     <a href="/"><img src="<#if setting??>${setting.logoUri!''}</#if>" /></a>
   </div>

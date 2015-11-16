@@ -1,4 +1,4 @@
-<div class="foot_back">
+<div class="foot_back" style="min-width:1200px;">
   <div class="foot">
     <div class="foot1">
       <ul>

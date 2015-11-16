@@ -98,7 +98,310 @@ public class TypeController {
 		    else if (typeName.equalsIgnoreCase("guonei")) // 国内
 		    {
 		        map.addAttribute("type_index", 2);
+                
+                // 大图轮播广告
+                TdAdType adType = tdAdTypeService.findByTitle("国内优惠大图轮播广告");
+                
+                if (null != adType) {
+                    map.addAttribute("ht_scroll_ad_list", tdAdService
+                            .findByTypeIdAndIsValidTrueOrderBySortIdAsc(adType.getId()));
+                }
+                
+                // 读取海淘专区所有一级、二级分类
+                TdArticleCategory haitaoCat = tdArticleCategoryService.findByTitle("国内优惠");
+                
+                if (null != haitaoCat)
+                {
+                    // 查找一级分类
+                    List<TdArticleCategory> level0CatList = tdArticleCategoryService.findByParentId(haitaoCat.getId());
+                    
+                    if (null != level0CatList)
+                    {
+                        map.addAttribute("level0_category_list", level0CatList);
+                        
+                        // 查找二级分类
+                        for (int i = 0; i < level0CatList.size(); i++)
+                        {
+                            TdArticleCategory cat = level0CatList.get(i);
+                            
+                            map.addAttribute("level1_" + i + "_category_list", tdArticleCategoryService.findByParentId(cat.getId()));
+                        }
+                    }
+                }
+                
+                adType = tdAdTypeService.findByTitle("国内优惠页面中部横幅广告");
+                
+                if (null != adType) {
+                    map.addAttribute("ht_flat_ad_list", tdAdService
+                            .findByTypeIdAndIsValidTrueOrderBySortIdAsc(adType.getId()));
+                }
+                
+                map.addAttribute("type_article_page", tdArticleService.findByCategoryId(haitaoCat.getId(), 0, ClientConstant.pageSize));
+                
 		    }
+		    else if (typeName.equalsIgnoreCase("repin")) // 热品推荐
+            {
+                map.addAttribute("type_index", 3);
+                
+                // 大图轮播广告
+                TdAdType adType = tdAdTypeService.findByTitle("热品推荐大图轮播广告");
+                
+                if (null != adType) {
+                    map.addAttribute("ht_scroll_ad_list", tdAdService
+                            .findByTypeIdAndIsValidTrueOrderBySortIdAsc(adType.getId()));
+                }
+                
+                // 读取海淘专区所有一级、二级分类
+                TdArticleCategory haitaoCat = tdArticleCategoryService.findByTitle("热品推荐");
+                
+                if (null != haitaoCat)
+                {
+                    // 查找一级分类
+                    List<TdArticleCategory> level0CatList = tdArticleCategoryService.findByParentId(haitaoCat.getId());
+                    
+                    if (null != level0CatList)
+                    {
+                        map.addAttribute("level0_category_list", level0CatList);
+                        
+                        // 查找二级分类
+                        for (int i = 0; i < level0CatList.size(); i++)
+                        {
+                            TdArticleCategory cat = level0CatList.get(i);
+                            
+                            map.addAttribute("level1_" + i + "_category_list", tdArticleCategoryService.findByParentId(cat.getId()));
+                        }
+                    }
+                }
+                
+                adType = tdAdTypeService.findByTitle("热品推荐页面中部横幅广告");
+                
+                if (null != adType) {
+                    map.addAttribute("ht_flat_ad_list", tdAdService
+                            .findByTypeIdAndIsValidTrueOrderBySortIdAsc(adType.getId()));
+                }
+                
+                map.addAttribute("type_article_page", tdArticleService.findByCategoryId(haitaoCat.getId(), 0, ClientConstant.pageSize));
+                
+            }
+		    else if (typeName.equalsIgnoreCase("yc")) // 原创
+            {
+                map.addAttribute("type_index", 4);
+                
+                // 大图轮播广告
+                TdAdType adType = tdAdTypeService.findByTitle("原创大图轮播广告");
+                
+                if (null != adType) {
+                    map.addAttribute("ht_scroll_ad_list", tdAdService
+                            .findByTypeIdAndIsValidTrueOrderBySortIdAsc(adType.getId()));
+                }
+                
+                // 读取海淘专区所有一级、二级分类
+                TdArticleCategory haitaoCat = tdArticleCategoryService.findByTitle("原创");
+                
+                if (null != haitaoCat)
+                {
+                    // 查找一级分类
+                    List<TdArticleCategory> level0CatList = tdArticleCategoryService.findByParentId(haitaoCat.getId());
+                    
+                    if (null != level0CatList)
+                    {
+                        map.addAttribute("level0_category_list", level0CatList);
+                        
+                        // 查找二级分类
+                        for (int i = 0; i < level0CatList.size(); i++)
+                        {
+                            TdArticleCategory cat = level0CatList.get(i);
+                            
+                            map.addAttribute("level1_" + i + "_category_list", tdArticleCategoryService.findByParentId(cat.getId()));
+                        }
+                    }
+                }
+                
+                adType = tdAdTypeService.findByTitle("原创页面中部横幅广告");
+                
+                if (null != adType) {
+                    map.addAttribute("ht_flat_ad_list", tdAdService
+                            .findByTypeIdAndIsValidTrueOrderBySortIdAsc(adType.getId()));
+                }
+                
+                map.addAttribute("type_article_page", tdArticleService.findByCategoryId(haitaoCat.getId(), 0, ClientConstant.pageSize));
+                
+            }
+		    else if (typeName.equalsIgnoreCase("bk")) // 百科
+            {
+                map.addAttribute("type_index", 5);
+                
+                // 大图轮播广告
+                TdAdType adType = tdAdTypeService.findByTitle("百科大图轮播广告");
+                
+                if (null != adType) {
+                    map.addAttribute("ht_scroll_ad_list", tdAdService
+                            .findByTypeIdAndIsValidTrueOrderBySortIdAsc(adType.getId()));
+                }
+                
+                // 读取海淘专区所有一级、二级分类
+                TdArticleCategory haitaoCat = tdArticleCategoryService.findByTitle("百科");
+                
+                if (null != haitaoCat)
+                {
+                    // 查找一级分类
+                    List<TdArticleCategory> level0CatList = tdArticleCategoryService.findByParentId(haitaoCat.getId());
+                    
+                    if (null != level0CatList)
+                    {
+                        map.addAttribute("level0_category_list", level0CatList);
+                        
+                        // 查找二级分类
+                        for (int i = 0; i < level0CatList.size(); i++)
+                        {
+                            TdArticleCategory cat = level0CatList.get(i);
+                            
+                            map.addAttribute("level1_" + i + "_category_list", tdArticleCategoryService.findByParentId(cat.getId()));
+                        }
+                    }
+                }
+                
+                adType = tdAdTypeService.findByTitle("百科页面中部横幅广告");
+                
+                if (null != adType) {
+                    map.addAttribute("ht_flat_ad_list", tdAdService
+                            .findByTypeIdAndIsValidTrueOrderBySortIdAsc(adType.getId()));
+                }
+                
+                map.addAttribute("type_article_page", tdArticleService.findByCategoryId(haitaoCat.getId(), 0, ClientConstant.pageSize));
+                
+            }else if (typeName.equalsIgnoreCase("zx")) // 资讯
+            {
+                map.addAttribute("type_index", 6);
+                
+                // 大图轮播广告
+                TdAdType adType = tdAdTypeService.findByTitle("资讯大图轮播广告");
+                
+                if (null != adType) {
+                    map.addAttribute("ht_scroll_ad_list", tdAdService
+                            .findByTypeIdAndIsValidTrueOrderBySortIdAsc(adType.getId()));
+                }
+                
+                // 读取海淘专区所有一级、二级分类
+                TdArticleCategory haitaoCat = tdArticleCategoryService.findByTitle("资讯");
+                
+                if (null != haitaoCat)
+                {
+                    // 查找一级分类
+                    List<TdArticleCategory> level0CatList = tdArticleCategoryService.findByParentId(haitaoCat.getId());
+                    
+                    if (null != level0CatList)
+                    {
+                        map.addAttribute("level0_category_list", level0CatList);
+                        
+                        // 查找二级分类
+                        for (int i = 0; i < level0CatList.size(); i++)
+                        {
+                            TdArticleCategory cat = level0CatList.get(i);
+                            
+                            map.addAttribute("level1_" + i + "_category_list", tdArticleCategoryService.findByParentId(cat.getId()));
+                        }
+                    }
+                }
+                
+                adType = tdAdTypeService.findByTitle("资讯页面中部横幅广告");
+                
+                if (null != adType) {
+                    map.addAttribute("ht_flat_ad_list", tdAdService
+                            .findByTypeIdAndIsValidTrueOrderBySortIdAsc(adType.getId()));
+                }
+                
+                map.addAttribute("type_article_page", tdArticleService.findByCategoryId(haitaoCat.getId(), 0, ClientConstant.pageSize));
+                
+            }
+            else if (typeName.equalsIgnoreCase("bl")) // 爆料
+            {
+                map.addAttribute("type_index", 7);
+                
+                // 大图轮播广告
+                TdAdType adType = tdAdTypeService.findByTitle("爆料大图轮播广告");
+                
+                if (null != adType) {
+                    map.addAttribute("ht_scroll_ad_list", tdAdService
+                            .findByTypeIdAndIsValidTrueOrderBySortIdAsc(adType.getId()));
+                }
+                
+                // 读取海淘专区所有一级、二级分类
+                TdArticleCategory haitaoCat = tdArticleCategoryService.findByTitle("爆料");
+                
+                if (null != haitaoCat)
+                {
+                    // 查找一级分类
+                    List<TdArticleCategory> level0CatList = tdArticleCategoryService.findByParentId(haitaoCat.getId());
+                    
+                    if (null != level0CatList)
+                    {
+                        map.addAttribute("level0_category_list", level0CatList);
+                        
+                        // 查找二级分类
+                        for (int i = 0; i < level0CatList.size(); i++)
+                        {
+                            TdArticleCategory cat = level0CatList.get(i);
+                            
+                            map.addAttribute("level1_" + i + "_category_list", tdArticleCategoryService.findByParentId(cat.getId()));
+                        }
+                    }
+                }
+                
+                adType = tdAdTypeService.findByTitle("爆料页面中部横幅广告");
+                
+                if (null != adType) {
+                    map.addAttribute("ht_flat_ad_list", tdAdService
+                            .findByTypeIdAndIsValidTrueOrderBySortIdAsc(adType.getId()));
+                }
+                
+                map.addAttribute("type_article_page", tdArticleService.findByCategoryId(haitaoCat.getId(), 0, ClientConstant.pageSize));
+                
+            }
+            else if (typeName.equalsIgnoreCase("zc")) // 众测
+            {
+                map.addAttribute("type_index", 8);
+                
+                // 大图轮播广告
+                TdAdType adType = tdAdTypeService.findByTitle("众测大图轮播广告");
+                
+                if (null != adType) {
+                    map.addAttribute("ht_scroll_ad_list", tdAdService
+                            .findByTypeIdAndIsValidTrueOrderBySortIdAsc(adType.getId()));
+                }
+                
+                // 读取海淘专区所有一级、二级分类
+                TdArticleCategory haitaoCat = tdArticleCategoryService.findByTitle("众测");
+                
+                if (null != haitaoCat)
+                {
+                    // 查找一级分类
+                    List<TdArticleCategory> level0CatList = tdArticleCategoryService.findByParentId(haitaoCat.getId());
+                    
+                    if (null != level0CatList)
+                    {
+                        map.addAttribute("level0_category_list", level0CatList);
+                        
+                        // 查找二级分类
+                        for (int i = 0; i < level0CatList.size(); i++)
+                        {
+                            TdArticleCategory cat = level0CatList.get(i);
+                            
+                            map.addAttribute("level1_" + i + "_category_list", tdArticleCategoryService.findByParentId(cat.getId()));
+                        }
+                    }
+                }
+                
+                adType = tdAdTypeService.findByTitle("众测页面中部横幅广告");
+                
+                if (null != adType) {
+                    map.addAttribute("ht_flat_ad_list", tdAdService
+                            .findByTypeIdAndIsValidTrueOrderBySortIdAsc(adType.getId()));
+                }
+                
+                map.addAttribute("type_article_page", tdArticleService.findByCategoryId(haitaoCat.getId(), 0, ClientConstant.pageSize));
+                
+            }
 		}
 		
 //        
@@ -124,17 +427,17 @@ public class TypeController {
 		return "/client/type";
 	}
 	
-	@RequestMapping("/atricle/list")
-	public String updateAtricle(Long id, HttpServletRequest req,ModelMap map){
-		tdCommonService.setArticleType(map, req);
-		
-		List<TdArticleCategory>  articleCategoryLevel2List = 
-				tdArticleCategoryService.findByParentId(id);
-		map.addAttribute("articleCategoryLevel1nva", articleCategoryLevel2List);
-		
-		map.addAttribute("id",id);
-		
-		return "/client/article_update";
-	}
+//	@RequestMapping("/atricle/list")
+//	public String updateAtricle(Long id, HttpServletRequest req,ModelMap map){
+//		tdCommonService.setArticleType(map, req);
+//		
+//		List<TdArticleCategory>  articleCategoryLevel2List = 
+//				tdArticleCategoryService.findByParentId(id);
+//		map.addAttribute("articleCategoryLevel1nva", articleCategoryLevel2List);
+//		
+//		map.addAttribute("id",id);
+//		
+//		return "/client/article_update";
+//	}
 	
 }

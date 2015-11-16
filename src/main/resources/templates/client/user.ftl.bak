@@ -85,11 +85,11 @@
      <div class="c_right">
     <div class="hot">
       <div class="hot_top">热品推荐</div>
-      <div class="hot_center"><a href="#"><img src="images/hot1.png" /></a>
+      <div class="hot_center"><a href="#"><img src="/client/images/hot1.png" /></a>
         <div class="pic_word">肯尼亚总统穿过潘基文与习近平握手一幕</div>
       </div>
       <div class="hot_foot">
-        <div class="spot"><img src="images/spot.png" /></div>
+        <div class="spot"><img src="/client/images/spot.png" /></div>
         <div class="news">
           <ul>
             <li><a href="#">为XcodeGhost“解毒”的安全团队们为XcodeGhost“解毒”的安全团队们们为XcodeGhost“解毒”的安全团队们</a></li>
@@ -110,11 +110,11 @@
         <div class="bd"> <a href="javascript:void(0)" class="prev"></a> <a href="javascript:void(0)" class="next"></a>
           <div class="scrollWrap">
             <ul class="picList">
-              <li> <a href="#" ><img src="images/cheap.png"></a> </li>
-              <li> <a href="#" ><img src="images/cheap.png"></a> </li>
-              <li> <a href="#" ><img src="images/cheap.png"></a> </li>
-              <li> <a href="#" ><img src="images/cheap.png"></a> </li>
-              <li> <a href="#" ><img src="images/bo.png"></a></li>
+              <li> <a href="#" ><img src="/client/images/cheap.png"></a> </li>
+              <li> <a href="#" ><img src="/client/images/cheap.png"></a> </li>
+              <li> <a href="#" ><img src="/client/images/cheap.png"></a> </li>
+              <li> <a href="#" ><img src="/client/images/cheap.png"></a> </li>
+              <li> <a href="#" ><img src="/client/images/bo.png"></a></li>
             </ul>
           </div>
         </div>
@@ -127,7 +127,7 @@
       <div class="cheap_news">
         <ul>
           <li class="li_first">
-            <div class="yeleft"><img src="images/cheap2.png" /></div>
+            <div class="yeleft"><img src="/client/images/cheap2.png" /></div>
             <div class="yeright">
               <h1>漂亮的不像手环<br />
                 ------月霜手环评测</h1>
@@ -135,7 +135,7 @@
             </div>
           </li>
           <li>
-            <div class="yeleft"><img src="images/cheap2.png" /></div>
+            <div class="yeleft"><img src="/client/images/cheap2.png" /></div>
             <div class="yeright">
               <h1>漂亮的不像手环<br />
                 ------月霜手环评测</h1>
@@ -143,7 +143,7 @@
             </div>
           </li>
           <li>
-            <div class="yeleft"><img src="images/cheap2.png" /></div>
+            <div class="yeleft"><img src="/client/images/cheap2.png" /></div>
             <div class="yeright">
               <h1>漂亮的不像手环<br />
                 ------月霜手环评测</h1>

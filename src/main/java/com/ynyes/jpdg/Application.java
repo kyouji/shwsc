@@ -26,7 +26,7 @@ import com.ynyes.jpdg.service.TdUserService;
 @Configuration
 @ComponentScan
 @EnableAutoConfiguration
-public class JpdgApplication extends SpringBootServletInitializer implements CommandLineRunner {
+public class Application extends SpringBootServletInitializer implements CommandLineRunner {
     @Autowired
     private TdUserService tdUserService;
     
@@ -50,7 +50,7 @@ public class JpdgApplication extends SpringBootServletInitializer implements Com
     }
 
     public static void main(String[] args) {
-        SpringApplication.run(JpdgApplication.class, args);
+        SpringApplication.run(Application.class, args);
     }
     
     @Override

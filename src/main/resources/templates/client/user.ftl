@@ -2,49 +2,46 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>无标题文档</title>
-<script type="text/javascript" src="JS/jquery1.42.min.js"></script>
-<script type="text/javascript" src="JS/jquery.SuperSlide.2.1.1.js"></script>
-<script type="text/javascript" src="JS/index.js"></script>
-<link rel="stylesheet" type="text/css" href="CSS/base.css"/>
-<link rel="stylesheet" type="text/css" href="CSS/gerenzhongxin.css"/>
+<title>精品导购-个人中心</title>
+<script type="text/javascript" src="/client/js/jquery1.42.min.js"></script>
+<script type="text/javascript" src="/client/js/jquery.SuperSlide.2.1.1.js"></script>
+<script type="text/javascript" src="/client/js/index.js"></script>
+<link rel="stylesheet" type="text/css" href="/client/css/base.css"/>
+<link rel="stylesheet" type="text/css" href="/client/css/gerenzhongxin.css"/>
 </head>
 
 <body>
 <!-- -----------------------头部---------------------------- -->
-<div class="head">
-  <div class="head_left"><a href="#"><img src="images/logo.png" /></a></div>
-  <div class="head_center">
-    <form>
-      <input type="text" class="search" id="search" value="这里输入您想要的" onfocus="myfocus()" onblur="myblur()"/>
-      <input type="button" class="ok">
-    </form>
-  </div>
-  <div class="head_right">
-    <div class="right1">
-      <label class="head_label1">App下载</label>
-      <label class="head_label2">手机返利价更优</label>
-    </div>
-    <img src="images/1.png"/></div>
-</div>
+<#include "/client/common_header.ftl" />
 <!-- -----------------------头部结束---------------------------- --> 
 
 <!-- -----------------------导航---------------------------- -->
 <div class="ban_back">
   <div class="nav">
     <ul  id="myul1">
-      <li><a href="#" class="myli">首页</a></li>
-      <li><a href="#">海淘专区</a></li>
-      <li><a href="#">国内优惠</a></li>
-      <li><a href="#">热品推荐</a></li>
-      <li><a href="#">原创</a></li>
-      <li><a href="#">百科</a></li>
-      <li><a href="#">资讯</a></li>
-      <li><a href="#">爆料</a></li>
-      <li><a href="#">众测</a></li>
+        <#if navi_bar_item_list??>
+            <#list navi_bar_item_list as item>
+                <li><a href="${item.linkUri!''}">${item.title!''}</a></li>
+            </#list>
+        </#if>
     </ul>
-    <div class="join" onmouseover="join()" onmouseout="join_out()"><a href="#" ><span>christiansen</span><img src="images/xiala.png" /></a>
-      <div class="join_raw" id="join_raw"><a href="#" >个人中心</a><a href="#" >我的评论</a><a href="#" >我的消息</a><a href="#" >我的收藏</a><a href="#" >账户设置</a><a href="#" >推出登录</a></div>
+    <div class="join">
+        <#if email??>
+            <div class="join" onmouseover="join()" onmouseout="join_out()">
+                <a href="/user" ><span id="final_name">${email!''}</span><img src="/client/images/xiala.png" /></a>
+                <div class="join_raw" id="join_raw" style="display: none;">
+                    <a href="/user" >个人中心</a>
+                    <a href="#" >我的评论</a>
+                    <a href="#" >我的消息</a>
+                    <a href="#" >我的收藏</a>
+                    <a href="#">账户设置</a>
+                    <a href="/logout" >退出登录</a>
+                </div>
+            </div>
+        <#else>
+            <a href="javascript:login_div_in();" >登录</a>
+            <a href="/reg" class="sign_up">注册</a>
+        </#if>
     </div>
   </div>
 </div>
@@ -55,11 +52,11 @@
   <div class="c_left">
     <div class="cleft_title"> 个人中心</div>
     <div class="cleft_me">
-      <div class="me_pic"><img src="images/me.png" /></div>
+      <div class="me_pic"><img src="/client/images/me.png" /></div>
       <div class="me_detail">
         <div class="me_name">
           <label>christiansen </label>
-          <a href="#"> <img src="images/kuang.png" />我的消息</a><a href="#"><img src="images/chilun.png" /> 账户设置</a></div>
+          <a href="#"> <img src="/client/images/kuang.png" />我的消息</a><a href="#"><img src="/client/images/chilun.png" /> 账户设置</a></div>
         <div class="me_money">
           <label><a href="#">20</a><span>优惠券</span></label>
           <label><a href="#">20</a><span>经验</span></label>
@@ -68,7 +65,12 @@
       </div>
     </div>
     <div class="cleft_comment">
-      <div class="com_title"><a href="#"  class="this_a">首页</a><a href="#">评论</a><a href="#">消息</a><a href="#">收藏</a><a href="#">设置</a><a href="#">原创</a><a href="#">百科</a><a href="#">资讯</a><a href="#">爆料</a></div>
+      <div class="com_title">
+        <a href="#"  class="this_a">首页</a>
+        <a href="#">评论</a>
+        <a href="#">消息</a>
+        <a href="#">收藏</a>
+        <a href="#">设置</a><a href="#">原创</a><a href="#">百科</a><a href="#">资讯</a><a href="#">爆料</a></div>
       <div class="myself_index1">
         <div class="myindex1_title">
           <label>原创</label>
@@ -76,7 +78,7 @@
         <ul>
           <li>
             <div class="create">
-              <div class="create_pic"><img src="images/gou.png" /></div>
+              <div class="create_pic"><img src="/client/images/gou.png" /></div>
               <div class="create_word">
                 <label class="create_label1">我的文章标题</label>
                 <label class="create_label2">操作： <a href="#">编辑</a><a href="#">预览</a><a href="#">删除</a></label>
@@ -111,11 +113,11 @@
   <div class="c_right">
     <div class="hot">
       <div class="hot_top">热品推荐</div>
-      <div class="hot_center"><a href="#"><img src="images/hot1.png" /></a>
+      <div class="hot_center"><a href="#"><img src="/client/images/hot1.png" /></a>
         <div class="pic_word">肯尼亚总统穿过潘基文与习近平握手一幕</div>
       </div>
       <div class="hot_foot">
-        <div class="spot"><img src="images/spot.png" /></div>
+        <div class="spot"><img src="/client/images/spot.png" /></div>
         <div class="news">
           <ul>
             <li><a href="#">为XcodeGhost“解毒”的安全团队们为XcodeGhost“解毒”的安全团队们们为XcodeGhost“解毒”的安全团队们</a></li>
@@ -136,11 +138,11 @@
         <div class="bd"> <a href="javascript:void(0)" class="prev"></a> <a href="javascript:void(0)" class="next"></a>
           <div class="scrollWrap">
             <ul class="picList">
-              <li> <a href="#" ><img src="images/cheap.png"></a> </li>
-              <li> <a href="#" ><img src="images/cheap.png"></a> </li>
-              <li> <a href="#" ><img src="images/cheap.png"></a> </li>
-              <li> <a href="#" ><img src="images/cheap.png"></a> </li>
-              <li> <a href="#" ><img src="images/bo.png"></a></li>
+              <li> <a href="#" ><img src="/client/images/cheap.png"></a> </li>
+              <li> <a href="#" ><img src="/client/images/cheap.png"></a> </li>
+              <li> <a href="#" ><img src="/client/images/cheap.png"></a> </li>
+              <li> <a href="#" ><img src="/client/images/cheap.png"></a> </li>
+              <li> <a href="#" ><img src="/client/images/bo.png"></a></li>
             </ul>
           </div>
         </div>
@@ -153,7 +155,7 @@
       <div class="cheap_news">
         <ul>
           <li class="li_first">
-            <div class="yeleft"><img src="images/cheap2.png" /></div>
+            <div class="yeleft"><img src="/client/images/cheap2.png" /></div>
             <div class="yeright">
               <h1>漂亮的不像手环<br />
                 ------月霜手环评测</h1>
@@ -161,7 +163,7 @@
             </div>
           </li>
           <li>
-            <div class="yeleft"><img src="images/cheap2.png" /></div>
+            <div class="yeleft"><img src="/client/images/cheap2.png" /></div>
             <div class="yeright">
               <h1>漂亮的不像手环<br />
                 ------月霜手环评测</h1>
@@ -169,7 +171,7 @@
             </div>
           </li>
           <li>
-            <div class="yeleft"><img src="images/cheap2.png" /></div>
+            <div class="yeleft"><img src="/client/images/cheap2.png" /></div>
             <div class="yeright">
               <h1>漂亮的不像手环<br />
                 ------月霜手环评测</h1>
@@ -184,30 +186,7 @@
 <!-- -----------------------中间  之右边结束---------------------------- --> 
 
 <!-- -----------------------底部---------------------------- -->
-<div class="foot_back">
-  <div class="foot">
-    <div class="foot1">
-      <ul>
-        <li><a href="#">关于我们</a></li>
-        <li><a href="#">联系我们</a></li>
-        <li><a href="#">海淘攻略</a></li>
-        <li><a href="#">海淘资讯</a></li>
-      </ul>
-    </div>
-    <div class="foot2">友情链接</div>
-    <div class="foot3">
-      <ul>
-        <li><a href="#">国美在线</a></li>
-        <li><a href="#">盛世收藏网</a></li>
-        <li><a href="#">Hi-pda论坛</a></li>
-        <li><a href="#">杂志铺</a></li>
-        <li><a href="#">hao123</a></li>
-        <li><a href="#">信天谨游</a></li>
-      </ul>
-    </div>
-    <div class="foot4">Copyright © 2015   渝ICP备10011451</div>
-  </div>
-</div>
+<#include "/client/common_footer.ftl" />
 <!-- -----------------------底部结束---------------------------- -->
 </body>
 </html>
