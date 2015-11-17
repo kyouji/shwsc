@@ -6,6 +6,7 @@
 <script type="text/javascript" src="/client/js/jquery1.42.min.js"></script>
 <script type="text/javascript" src="/client/js/jquery.SuperSlide.2.1.1.js"></script>
 <script type="text/javascript" src="/client/js/index.js"></script>
+<script type="text/javascript" src="/client/js/coupon.js"></script>
 <link rel="stylesheet" type="text/css" href="/client/css/base.css"/>
 <link rel="stylesheet" type="text/css" href="/client/css/style.css"/>
 <link rel="stylesheet" type="text/css" href="/client/css/index.css"/>

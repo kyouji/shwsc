@@ -31,10 +31,9 @@
                 <a href="/user" ><span id="final_name">${email!''}</span><img src="/client/images/xiala.png" /></a>
                 <div class="join_raw" id="join_raw" style="display: none;">
                     <a href="/user" >个人中心</a>
-                    <a href="#" >我的评论</a>
-                    <a href="#" >我的消息</a>
-                    <a href="#" >我的收藏</a>
-                    <a href="#">账户设置</a>
+                    <a href="/user" >我的评论</a>
+                    <a href="/user" >我的收藏</a>
+                    <a href="/user">账户设置</a>
                     <a href="/logout" >退出登录</a>
                 </div>
             </div>
@@ -56,38 +55,52 @@
       <div class="me_detail">
         <div class="me_name">
           <label>christiansen </label>
-          <a href="#"> <img src="/client/images/kuang.png" />我的消息</a><a href="#"><img src="/client/images/chilun.png" /> 账户设置</a></div>
+          <a href="#comment"> <img src="/client/images/kuang.png" />我的评论</a><a href="javascript:;"><img src="/client/images/chilun.png" /> 账户设置</a></div>
         <div class="me_money">
-          <label><a href="#">20</a><span>优惠券</span></label>
-          <label><a href="#">20</a><span>经验</span></label>
-          <label><a href="#">20</a><span>金币</span></label>
+          <label><a href="#comment">${comment_page.totalElements!'0'}</a><span>评论</span></label>
+          <#--
+          <label><a href="javascript:;">0</a><span>经验</span></label>
+          <label><a href="#">0</a><span>金币</span></label>
+          -->
         </div>
       </div>
     </div>
     <div class="cleft_comment">
       <div class="com_title">
-        <a href="#"  class="this_a">首页</a>
+        <a href="/user"  class="this_a">首页</a>
+        <#--
         <a href="#">评论</a>
         <a href="#">消息</a>
         <a href="#">收藏</a>
-        <a href="#">设置</a><a href="#">原创</a><a href="#">百科</a><a href="#">资讯</a><a href="#">爆料</a></div>
-      <div class="myself_index1">
-        <div class="myindex1_title">
-          <label>原创</label>
-          <a href="#">更多</a></div>
-        <ul>
-          <li>
-            <div class="create">
-              <div class="create_pic"><img src="/client/images/gou.png" /></div>
-              <div class="create_word">
-                <label class="create_label1">我的文章标题</label>
-                <label class="create_label2">操作： <a href="#">编辑</a><a href="#">预览</a><a href="#">删除</a></label>
-              </div>
-            </div>
-            <div class="create_time">1小时前</div>
-          </li>
-        </ul>
+        <a href="#">设置</a>
+        -->
       </div>
+      <div id="comment" class="myself_index1">
+        <div class="myindex1_title">
+          <label>评论</label>
+          <a href="javascript:;">更多</a></div>
+        
+        <#if comment_page??>
+            <ul>
+                <#list comment_page.content as item>
+                <li>
+                    <div class="create">
+                      <div class="create_pic"><img src="/client/images/gou.png" /></div>
+                      <div class="create_word">
+                        <label class="create_label1">${item.content!''}</label>
+                        <label class="create_label2">${item.reply!''}</label>
+                      </div>
+                    </div>
+                    <div class="create_time"><#if item.commentTime??>${item.commentTime?string("yyyy-MM-dd")}</#if></div>
+                  </li>
+                  </#list>
+            </ul>
+        <#else>
+            <div class="none">还没有任何爆料</div>
+        </#if>
+          
+      </div>
+      <#--
       <div class="myself_index2">
         <div class="myindex1_title">
           <label>咨询</label>
@@ -106,6 +119,7 @@
           <a href="#">更多</a></div>
         <div class="none">还没有任何爆料</div>
       </div>
+      -->
     </div>
   </div>
   <!-- -----------------------中间  之右边---------------------------- -->

@@ -55,13 +55,12 @@
     <div class="nlist-jszc">
       <h3><i></i>技术支持</h3>
       <ul>
-        <li>系统开发公司：昆明天度网络信息技术有限公司</li>    
-        <li>公司联系地址：云南省.昆明市环城南路668号（海埂路口）云纺国际商厦A座18层</li>
-        <li>免费800服务热线：800-889-7711</li>
-        <li>公司联系电话：0871-63157517、63157171、63157172、63139406、63168206、63167196</li>
-        <li>在线咨询方式：QQ：563957</li>
-        <li>电子邮件：info@ynyes.com</li>
-        <li>公司网站：<a href="http://www.ynyes.com/" target="_blank">http://www.ynyes.com</a></li>    
+        <li>系统开发公司：重庆侯维网络科技有限公司</li>    
+        <li>公司联系地址：重庆市江北区大石坝街道东原D7区</li>
+        <li>免费400服务热线：400-028-8841</li>
+        <li>在线咨询方式：QQ：651295</li>
+        <li>电子邮件：651295@qq.com  </li>
+        <li>公司网站：<a href="http://www.102ka.com/" target="_blank">http://www.102ka.com</a></li>    
       </ul>
     </div>
     

@@ -74,42 +74,19 @@ function __doPostBack(eventTarget, eventArgument) {
   <tbody>
   <tr class="odd_bg">
     <th width="8%">选择</th>
-    <th align="left"><div class="rule-single-select">
-                        <select name="typeId" onchange="javascript:setTimeout(__doPostBack('changeType',''), 0)">
-                            <option value="0" <#if !typeId?? || typeId==0>selected="selected"</#if>>所有类型</option>
-                            <#if couponType_list??>
-                                <#list couponType_list as cou>
-                                    <option value="${cou.id?c}" <#if typeId?? && typeId==cou.id>selected="selected"</#if>>${cou.title!''}</option>
-                                </#list>
-                            </#if>                             
-                        </select>
-                    </div>
-                    </th>
-    <th align="left" width="10%"><div class="rule-single-select">
-                        <select name="diysiteId" onchange="javascript:setTimeout(__doPostBack('changeDiysite',''), 0)">
-                            <option value="0" <#if !diysiteId?? || diysiteId==0>selected="selected"</#if>>所有同盟店</option>
-                            <#if tdDiySite_list??>
-                                <#list tdDiySite_list as diysite>
-                                    <option value="${diysite.id?c}" <#if diysiteId?? && diysiteId==diysite.id>selected="selected"</#if>>${diysite.title!''}</option>
-                                </#list>
-                            </#if>                             
-                        </select>
-                    </div>
-                    </th>
-    <th align="left" width="11%">姓名</th>
-    <th align="left" width="11%">电话</th>
-    <th align="left" width="11%">车牌</th>
+    <th align="left" width="11%">名称</th>
+    <th align="left" width="11%">领用用户</th>
+    <th align="left" width="11%">消费码</th>
     <th align="left" width="11%">领用时间</th>
-    <th align="left" width="17%">有效截止时间</th>
-    <th align="left" width="8%">消费密码</th>
-    <th align="left" width="8%"><div class="rule-single-select">
-                        <select name="isUsed" onchange="javascript:setTimeout(__doPostBack('',''), 0)">
-                            <option value="0" <#if !isUsed?? || isUsed==0>selected="selected"</#if>>是否核销</option>                           
-                            <option value="1" >已核销</option>
-                            <option value="2" >未核销</option>                             
-                        </select>
-                    </div>
-                    </th>
+    <th align="left" width="8%">
+        <div class="rule-single-select">
+            <select name="isUsed" onchange="javascript:setTimeout(__doPostBack('',''), 0)">
+                <option value="0" <#if !isUsed?? || isUsed==0>selected="selected"</#if>>是否使用</option>                           
+                <option value="1" >已使用</option>
+                <option value="2" >未使用</option>                             
+            </select>
+        </div>
+    </th>
     <#--
     <th align="left" width="12%">排序</th>
     <th width="10%">操作</th>
@@ -126,13 +103,9 @@ function __doPostBack(eventTarget, eventArgument) {
                     <input type="hidden" name="listId" id="listId" value="${item.id?c}">
                 </td>
                 <td>${item.typeTitle!""}</td>
-                <td>${item.diySiteTitle!""}</td>
                 <td>${item.username!""}</td>
-                <td>${item.mobile!""}</td>
-                <td>${item.carCode!""}</td>
+                <td>${item.consumerPassword!""}</td>
                 <td><#if item.getTime??>${item.getTime?string("yyyy-MM-dd HH:mm:ss")}</#if></td>
-                <td><#if item.expireTime??>${item.expireTime?string("yyyy-MM-dd HH:mm:ss")}</#if></td>
-                <td><#if item.consumerPassword??>${item.consumerPassword!''}</#if></td>
                 <td>
                     <#if item.isUsed??>
                         <#if item.isUsed>

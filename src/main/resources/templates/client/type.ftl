@@ -6,6 +6,7 @@
 <script type="text/javascript" src="/client/js/jquery1.42.min.js"></script>
 <script type="text/javascript" src="/client/js/jquery.SuperSlide.2.1.1.js"></script>
 <script type="text/javascript" src="/client/js/index.js"></script>
+<script type="text/javascript" src="/client/js/coupon.js"></script>
 <link rel="stylesheet" type="text/css" href="/client/css/base.css"/>
 <link rel="stylesheet" type="text/css" href="/client/css/haitao.css"/>
 <link rel="stylesheet" type="text/css" href="/client/css/login.css"/>
@@ -45,7 +46,7 @@ $(function(){
     <div class="join">
         <#if email??>
             <div class="join" onmouseover="join()" onmouseout="join_out()">
-                <a href="#" ><span id="final_name">${email!''}</span><img src="/client/images/xiala.png" /></a>
+                <a href="/user" ><span id="final_name">${email!''}</span><img src="/client/images/xiala.png" /></a>
                 <div class="join_raw" id="join_raw" style="display: none;">
                     <a href="/user" >个人中心</a>
                     <a href="#" >我的评论</a>
@@ -138,10 +139,8 @@ $(function(){
                       <div class="com1"><a href="#"><img src="/client/images/comment1.png" /><span>${item.goodNumber!'0'}</span></a></div>
                       <div class="com2"><a href="#"><img src="/client/images/comment3.png" /><span>${item.collectNumber!'0'}</span></a></div>
                       <div class="com3"><a href="#"><img src="/client/images/comment2.png" /><span>${item.commentNumber!'0'}</span></a></div>
-                      <#--
-                      <div  class="com4"><a href="#"><img src="/client/images/comment4.png" /><span>优惠卷领取</span></a></div>
-                      -->
-                      <div class="com5"><a href="${item.linkUrl!''}">直达链接</a></div>
+                      <div class="com4"><a href="javascript:<#if email??>getCoupon(${item.id?c})<#else>login_div_in()</#if>;"><img src="/client/images/comment4.png" /><span>优惠卷领取</span></a></div>
+                      <div class="com5"><a href="${item.linkUrl!''}?t=${item.tag!''}&tag=${item.tag!''}">直达链接</a></div>
                     </div>
                   </div>
                 </li>

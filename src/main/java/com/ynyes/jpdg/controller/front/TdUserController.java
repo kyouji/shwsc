@@ -1,46 +1,25 @@
 package com.ynyes.jpdg.controller.front;
 
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.ynyes.jpdg.entity.TdCoupon;
-import com.ynyes.jpdg.entity.TdDemand;
-import com.ynyes.jpdg.entity.TdDiySite;
-import com.ynyes.jpdg.entity.TdGoods;
-import com.ynyes.jpdg.entity.TdOrder;
-import com.ynyes.jpdg.entity.TdOrderGoods;
-import com.ynyes.jpdg.entity.TdShippingAddress;
-import com.ynyes.jpdg.entity.TdUser;
-import com.ynyes.jpdg.entity.TdUserCollect;
+import com.ynyes.jpdg.entity.TdArticle;
 import com.ynyes.jpdg.entity.TdUserComment;
-import com.ynyes.jpdg.entity.TdUserConsult;
-import com.ynyes.jpdg.entity.TdUserPoint;
-import com.ynyes.jpdg.entity.TdUserRecentVisit;
-import com.ynyes.jpdg.entity.TdUserReturn;
-import com.ynyes.jpdg.entity.TdUserSuggestion;
+import com.ynyes.jpdg.service.TdArticleService;
 import com.ynyes.jpdg.service.TdCommonService;
 import com.ynyes.jpdg.service.TdCouponService;
 import com.ynyes.jpdg.service.TdDemandService;
 import com.ynyes.jpdg.service.TdDiySiteService;
-import com.ynyes.jpdg.service.TdGoodsService;
 import com.ynyes.jpdg.service.TdOrderGoodsService;
 import com.ynyes.jpdg.service.TdOrderService;
 import com.ynyes.jpdg.service.TdShippingAddressService;
@@ -68,7 +47,7 @@ public class TdUserController {
     private TdUserService tdUserService;
 
     @Autowired
-    private TdGoodsService tdGoodsService;
+    private TdArticleService tdArticleService;
 
     @Autowired
     private TdUserReturnService tdUserReturnService;
@@ -132,6 +111,8 @@ public class TdUserController {
         if (null == email){
             return "redirect:/";
         }
+        
+        map.addAttribute("comment_page", tdUserCommentService.findByUsername(email, 0, ClientConstant.pageSize));
         
         return "/client/user";
     }
@@ -1190,114 +1171,53 @@ public class TdUserController {
 //    
 //    
 //    
-//    @RequestMapping(value = "/user/comment/add", method=RequestMethod.POST)
-//    @ResponseBody
-//    public Map<String, Object> commentAdd(HttpServletRequest req,
-//            TdUserComment tdComment,String[] hid_photo_name_show360, Long orderId, Long ogId, String code,
-//            ModelMap map) {
-//        Map<String, Object> res = new HashMap<String, Object>();
-//        res.put("code", 1);
-//
-//        String username = (String) req.getSession().getAttribute("username");
-//
-//        if (null == username) {
-//            res.put("message", "请先登录！");
-//            return res;
-//        }
-//        
-//
-//        if (null == tdComment.getGoodsId()) {
-//            res.put("message", "商品ID不能为空！");
-//            return res;
-//        }
-//
-//        TdGoods goods = tdGoodsService.findOne(tdComment.getGoodsId());
-//
-//        if (null == goods) {
-//            res.put("message", "评论的商品不存在！");
-//            return res;
-//        }
-//        
-//        if (null == tdComment.getStars()) {
-//        	res.put("message", "请评价！");
-//        	tdUserCommentService.delete(tdComment);
-//        	return res;
-//		}
-//        //zhangji 图片uri
-//        String uris = parsePicUris(hid_photo_name_show360);
-//
-//        tdComment.setShowPictures(uris);
-//        
-//        tdComment.setCommentTime(new Date());
-//        tdComment.setGoodsCoverImageUri(goods.getCoverImageUri());
-//        tdComment.setGoodsTitle(goods.getTitle());
-//        tdComment.setIsReplied(false);
-//        tdComment.setNegativeNumber(0L);
-//        tdComment.setPositiveNumber(0L);
-//        tdComment.setUsername(username);
-//        
-//        tdComment = tdUserCommentService.save(tdComment);
-//
-//        // 设置订单信息
-//        if (null != orderId) {
-//            TdOrder tdOrder = tdOrderService.findOne(orderId);
-//
-//            if (null != tdOrder) {
-//                tdComment.setOrderNumber(tdOrder.getOrderNumber());
-//                /**
-//				 * @author lc
-//				 * @注释：添加同盟店评价
-//				 */
-//                tdComment.setDiysiteId(tdOrder.getShopId());
-//                
-//                List<TdOrderGoods> ogList = tdOrder.getOrderGoodsList();
-//
-//                for (TdOrderGoods og : ogList) {
-//                    if (og.getId().equals(ogId)) {
-//                        og.setIsCommented(true);
-//                        og.setCommentId(tdComment.getId());
-//                        tdOrder = tdOrderService.save(tdOrder);
-//                        break;
-//                    }
-//                }
-//
-//                // 判断订单是否完成
-//                boolean allIsCommented = true;
-//                for (TdOrderGoods og : tdOrder.getOrderGoodsList()) {
-//                    if (null == og.getIsCommented() || !og.getIsCommented()) {
-//                        allIsCommented = false;
-//                        break;
-//                    }
-//                }
-//
-//                if (allIsCommented) {
-//                    tdOrder.setStatusId(6L);
-//                    tdOrder = tdOrderService.save(tdOrder);
-//                }
-//            }
-//        }
-//
-//        TdUser user = tdUserService.findByUsernameAndIsEnabled(username);
-//
-//        if (null != user) {
-//            tdComment.setUserHeadUri(user.getHeadImageUri());
-//        }
-//
-//        tdComment.setStatusId(0L);
-//
-//        tdComment = tdUserCommentService.save(tdComment);
-//
-//        if (null == goods.getTotalComments()) {
-//            goods.setTotalComments(1L);
-//        } else {
-//            goods.setTotalComments(goods.getTotalComments() + 1L);
-//        }
-//
-//        res.put("code", 0);
-//
-//        return res;
-//    }
-//
+    @RequestMapping(value = "/user/comment/add", method=RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> commentAdd(HttpServletRequest req,
+            TdUserComment tdComment, Long gid, ModelMap map) {
+        Map<String, Object> res = new HashMap<String, Object>();
+        res.put("code", 1);
+        res.put("message", "参数有误！");
+
+        String username = (String) req.getSession().getAttribute("email");
+
+        if (null == tdComment.getContent())
+        {
+            res.put("message", "请输入评论内容！");
+            return res;
+        }
+        
+        if (null == username) {
+            res.put("message", "请先登录！");
+            return res;
+        }
+        
+        if (null != gid)
+        {
+            TdArticle article = tdArticleService.findOne(gid);
+            
+            if (null == article.getCommentNumber())
+            {
+                article.setCommentNumber(0);
+            }
+            else
+            {
+                article.setCommentNumber(article.getCommentNumber() + 1);
+            }
+            
+            tdArticleService.save(article);
+            
+            tdComment.setCommentTime(new Date());
+            tdComment.setUsername(username);
+            tdComment.setGoodsId(gid);
+            tdComment = tdUserCommentService.save(tdComment);
+            
+            res.put("code", 0);
+        }
+
+        return res;
+    }
+
 //    @RequestMapping(value = "/user/comment/sec")
 //    public String commentSec(HttpServletRequest req, Long commentId,
 //            ModelMap map) {

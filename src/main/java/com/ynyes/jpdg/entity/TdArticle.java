@@ -149,6 +149,10 @@ public class TdArticle {
     // 标签列表
     @Column
     private String tagList;
+    
+    // 联盟代码
+    @Column
+    private String tag;
 
     public Long getId() {
         return id;
@@ -373,5 +377,36 @@ public class TdArticle {
     public void setTagList(String tagList) {
         this.tagList = tagList;
     }
-    
+
+    public Boolean getIsHot() {
+        return isHot;
+    }
+
+    public void setIsHot(Boolean isHot) {
+        this.isHot = isHot;
+    }
+
+    public Boolean getIsNew() {
+        return isNew;
+    }
+
+    public void setIsNew(Boolean isNew) {
+        this.isNew = isNew;
+    }
+
+    public Boolean getIsSpecialPrice() {
+        return isSpecialPrice;
+    }
+
+    public void setIsSpecialPrice(Boolean isSpecialPrice) {
+        this.isSpecialPrice = isSpecialPrice;
+    }
+
+    public String getTag() {
+        return tag;
+    }
+
+    public void setTag(String tag) {
+        this.tag = tag;
+    }
 }

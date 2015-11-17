@@ -48,5 +48,12 @@ public interface TdArticleRepo extends
     
     Page<TdArticle> findByIsRecommendIndexTrueOrderBySortIdAsc(Pageable page);
     
+    Page<TdArticle> findByTitleContainingIgnoreCaseOrSourceContainingIgnoreCaseOrContentContainingIgnoreCase(String keywords1, String keywords2, String keyword3, Pageable page);
+    
+    Page<TdArticle> findByCategoryId(Long catId, Pageable page);
+    
+    Page<TdArticle> findByCategoryIdAndTitleContainingIgnoreCaseOrCategoryIdAndContentContainingIgnoreCaseOrCategoryIdAndSourceContainingIgnoreCase(
+            Long catId1, String keyword1, Long catId2, String keyword2, Long catId3, String keyword3, Pageable page);
+    
     int countByCategoryId(Long catId);
 }

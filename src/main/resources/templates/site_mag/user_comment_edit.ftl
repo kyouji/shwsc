@@ -49,65 +49,12 @@
 
 <div class="tab-content">
   <dl>
-    <dt>商品名称</dt>
-    <dd><#if user_comment??>${user_comment.goodsTitle!""}</#if></dd>
+    <dt>商品ID</dt>
+    <dd><#if user_comment??>${user_comment.goodsId!""}</#if></dd>
   </dl>
   <dl>
     <dt>评论用户</dt>
     <dd><#if user_comment??>${user_comment.username!""}</#if></dd>
-  </dl>
-  <dl>
-    <dt>相关订单</dt>
-    <dd><#if user_comment??>${user_comment.orderNumber!""}</#if></dd>
-  </dl>
-  <dl>
-    <dt>评论得分</dt>
-    <dd><#if user_comment??>
-    		<#if user_comment.stars = 1>差评
-    		<#elseif user_comment.stars = 2 >中评
-    		<#elseif user_comment.stars = 3 >好评</#if>
-    	</#if>
-    </dd>
-  </dl>
-  <dl>
-  	<dt>同盟商品满意度</dt>
-  	<dd>
-  		<img src="/mag/style/<#if user_comment.goodsStar?? && user_comment.goodsStar gt 0>start01.png<#else>start03.png</#if>">
-  		<img src="/mag/style/<#if user_comment.goodsStar?? && user_comment.goodsStar gt 1>start01.png<#else>start03.png</#if>">
-  		<img src="/mag/style/<#if user_comment.goodsStar?? && user_comment.goodsStar gt 2>start01.png<#else>start03.png</#if>">
-  		<img src="/mag/style/<#if user_comment.goodsStar?? && user_comment.goodsStar gt 3>start01.png<#else>start03.png</#if>">
-  		<img src="/mag/style/<#if user_comment.goodsStar?? && user_comment.goodsStar gt 4>start01.png<#else>start03.png</#if>">
-  	</dd>
-  </dl>
-  <dl>
-  	<dt>同盟店专业技能</dt>
-  	<dd>
-  		<img src="/mag/style/<#if user_comment.skillStar?? && user_comment.skillStar gt 0>start01.png<#else>start03.png</#if>">
-  		<img src="/mag/style/<#if user_comment.skillStar?? && user_comment.skillStar gt 1>start01.png<#else>start03.png</#if>">
-  		<img src="/mag/style/<#if user_comment.skillStar?? && user_comment.skillStar gt 2>start01.png<#else>start03.png</#if>">
-  		<img src="/mag/style/<#if user_comment.skillStar?? && user_comment.skillStar gt 3>start01.png<#else>start03.png</#if>">
-  		<img src="/mag/style/<#if user_comment.skillStar?? && user_comment.skillStar gt 4>start01.png<#else>start03.png</#if>">
-  	</dd>
-  </dl>
-    <dl>
-  <dt>同盟店服务态度</dt>
-  	<dd>
-  		<img src="/mag/style/<#if user_comment.serviceStar?? && user_comment.serviceStar gt 0>start01.png<#else>start03.png</#if>">
-  		<img src="/mag/style/<#if user_comment.serviceStar?? && user_comment.serviceStar gt 1>start01.png<#else>start03.png</#if>">
-  		<img src="/mag/style/<#if user_comment.serviceStar?? && user_comment.serviceStar gt 2>start01.png<#else>start03.png</#if>">
-  		<img src="/mag/style/<#if user_comment.serviceStar?? && user_comment.serviceStar gt 3>start01.png<#else>start03.png</#if>">
-  		<img src="/mag/style/<#if user_comment.serviceStar?? && user_comment.serviceStar gt 4>start01.png<#else>start03.png</#if>">
-  	</dd>
-  </dl>
-    <dl>
-  	<dt>同盟店综合印象</dt>
-  	<dd>
-  		<img src="/mag/style/<#if user_comment.compositeStar?? && user_comment.compositeStar gt 0>start01.png<#else>start03.png</#if>">
-  		<img src="/mag/style/<#if user_comment.compositeStar?? && user_comment.compositeStar gt 1>start01.png<#else>start03.png</#if>">
-  		<img src="/mag/style/<#if user_comment.compositeStar?? && user_comment.compositeStar gt 2>start01.png<#else>start03.png</#if>">
-  		<img src="/mag/style/<#if user_comment.compositeStar?? && user_comment.compositeStar gt 3>start01.png<#else>start03.png</#if>">
-  		<img src="/mag/style/<#if user_comment.compositeStar?? && user_comment.compositeStar gt 4>start01.png<#else>start03.png</#if>">
-  	</dd>
   </dl>
   <dl>
     <dt>评论内容</dt>
@@ -116,21 +63,6 @@
   <dl>
     <dt>评论时间</dt>
     <dd><#if user_comment??>${user_comment.commentTime!""}</#if></dd>
-  </dl>
-  <dl>
-  	<dt>图片</dt>
-  	<dd><#if user_comment?? && user_comment.showPictures??>
-        	<#list user_comment.showPictures?split(",") as uri>
-            	<#if uri != "">
-		            <li>
-		                <div class="img-box">
-		                    <img style="margin-top:10px;max-height:300px;max-width:300px;" src="${uri!""}" bigsrc="${uri!""}">
-		                </div>
-		            </li>
-		        </#if>
-		    </#list>
-		</#if>
-  	</dd>
   </dl>
   <dl>
     <dt>审核状态</dt>

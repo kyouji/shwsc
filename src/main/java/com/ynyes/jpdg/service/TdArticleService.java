@@ -6,10 +6,13 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ynyes.jpdg.entity.TdArticle;
+import com.ynyes.jpdg.entity.TdGoods;
 import com.ynyes.jpdg.repository.TdArticleRepo;
 
 /**
@@ -362,6 +365,42 @@ public class TdArticleService {
     public List<TdArticle> findAll(Iterable<Long> ids)
     {
         return (List<TdArticle>) repository.findAll(ids);
+    }
+    
+    public Page<TdArticle> findAllOrderBySortIdAsc(int page, int size) {
+        PageRequest pageRequest = new PageRequest(page, size, new Sort(
+                Direction.ASC, "sortId").and(new Sort(Direction.DESC, "id")));
+
+        return repository.findAll(pageRequest);
+    }
+    
+    public Page<TdArticle> searchAndOrderBySortIdAsc(String keywords, int page,
+            int size) {
+        PageRequest pageRequest = new PageRequest(page, size, new Sort(
+                Direction.ASC, "sortId").and(new Sort(Direction.DESC, "id")));
+
+        return repository
+                .findByTitleContainingIgnoreCaseOrSourceContainingIgnoreCaseOrContentContainingIgnoreCase(
+                        keywords, keywords, keywords, pageRequest);
+    }
+    
+    public Page<TdArticle> findByCategoryIdOrderBySortIdAsc(
+            Long catId, int page, int size) {
+        PageRequest pageRequest = new PageRequest(page, size, new Sort(
+                Direction.ASC, "sortId").and(new Sort(Direction.DESC, "id")));
+
+        return repository.findByCategoryId(catId, pageRequest);
+    }
+    
+    public Page<TdArticle> searchAndFindByCategoryIdOrderBySortIdAsc(
+            String keywords, Long categoryId, int page, int size) {
+        PageRequest pageRequest = new PageRequest(page, size, new Sort(
+                Direction.ASC, "sortId").and(new Sort(Direction.DESC, "id")));
+
+        return repository
+                .findByCategoryIdAndTitleContainingIgnoreCaseOrCategoryIdAndContentContainingIgnoreCaseOrCategoryIdAndSourceContainingIgnoreCase(
+                        categoryId, keywords, categoryId, keywords, categoryId,
+                        keywords, pageRequest);
     }
     
     /**

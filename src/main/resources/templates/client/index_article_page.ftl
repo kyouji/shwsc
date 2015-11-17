@@ -20,10 +20,8 @@
                   <div class="com1"><a href="#"><img src="/client/images/comment1.png" /><span>${item.goodNumber!'0'}</span></a></div>
                   <div class="com2"><a href="#"><img src="/client/images/comment3.png" /><span>${item.collectNumber!'0'}</span></a></div>
                   <div class="com3"><a href="#"><img src="/client/images/comment2.png" /><span>${item.commentNumber!'0'}</span></a></div>
-                  <#--
-                  <div class="com4"><a href="#"><img src="/client/images/comment4.png" /><span>优惠卷领取</span></a></div>
-                  -->
-                  <div class="com5"><a href="${item.linkUrl!''}">直达链接</a></div>
+                  <div class="com4"><a href="javascript:<#if email??>getCoupon(${item.id?c})<#else>login_div_in()</#if>;"><img src="/client/images/comment4.png" /><span>优惠卷领取</span></a></div>
+                  <div class="com5"><a href="${item.linkUrl!''}?t=${item.tag!''}&tag=${item.tag!''}">直达链接</a></div>
                 </div>
               </div>
             </li>

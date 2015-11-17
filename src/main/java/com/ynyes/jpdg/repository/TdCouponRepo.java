@@ -24,6 +24,8 @@ public interface TdCouponRepo extends
 	TdCoupon findByDiySiteIdAndTypeTitleAndIsDistributtedFalse(Long diySiteId,String typeTitle);  //zhangji
     List<TdCoupon> findByUsernameAndExpireTimeAfterAndIsDistributtedTrueAndIsUsedFalse(String username, Date current);
     
+    List<TdCoupon> findByUsernameAndArticleIdAndIsUsedFalse(String username, Long articleId);
+    
     List<TdCoupon> findByMobileAndExpireTimeAfterAndIsDistributtedTrueAndIsUsedFalse(String mobile, Date current);
     
     List<TdCoupon> findByUsernameAndIsDistributtedTrue(String username);
@@ -63,6 +65,8 @@ public interface TdCouponRepo extends
     List<TdCoupon> findTypeIdDistinctByIsDistributtedFalse();
     
     List<TdCoupon> findByDiySiteIdAndIsUsedTrue(Long diysiteId);
+    
+    List<TdCoupon> findByArticleIdAndIsDistributtedFalse(Long articleId);
     
     Page<TdCoupon> findByDiySiteIdAndIsUsedTrue(Long diysiteId, Pageable page);
     

@@ -23,6 +23,7 @@ import com.ynyes.jpdg.service.TdUserConsultService;
 import com.ynyes.jpdg.service.TdUserPointService;
 import com.ynyes.jpdg.service.TdUserRecentVisitService;
 import com.ynyes.jpdg.service.TdUserService;
+import com.ynyes.jpdg.util.ClientConstant;
 
 /**
  * 商品详情页
@@ -88,7 +89,18 @@ public class TdItemController {
             {
                 map.addAttribute("article", article);
                 map.addAttribute("category", tdArticleCategoryService.findOne(article.getCategoryId()));
+            
+                map.addAttribute("prev_article", 
+                        tdArticleService.findPrevOne(article.getId(), article.getCategoryId(), 10L));
+                map.addAttribute("next_article", 
+                        tdArticleService.findNextOne(article.getId(), article.getCategoryId(), 10L));
             }
+            
+            map.addAttribute("article_love_page", 
+                    tdArticleService.findByCategoryId(article.getCategoryId(), 0, ClientConstant.pageSize));
+        
+            // 评论
+            map.addAttribute("comment_page", tdUserCommentService.findByGoodsIdAndIsShowable(article.getId(), 0, ClientConstant.pageSize));
         }
 
         return "/client/item";

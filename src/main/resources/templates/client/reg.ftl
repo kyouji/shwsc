@@ -3,13 +3,13 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>无标题文档</title>
-<script type="text/javascript" src="/client/JS/jquery1.42.min.js"></script>
-<script type="text/javascript" src="/client/JS/jquery.SuperSlide.2.1.1.js"></script>
-<script type="text/javascript" src="/client/JS/index.js"></script>
+<script type="text/javascript" src="/client/js/jquery1.42.min.js"></script>
+<script type="text/javascript" src="/client/js/jquery.SuperSlide.2.1.1.js"></script>
+<script type="text/javascript" src="/client/js/index.js"></script>
 <script type="text/javascript" src="/client/js/Validform_v5.3.2_min.js"></script>
-<link rel="stylesheet" type="text/css" href="/client/CSS/base.css"/>
-<link rel="stylesheet" type="text/css" href="/client/CSS/register.css"/>
-<link rel="stylesheet" type="text/css" href="/client/CSS/index.css"/>
+<link rel="stylesheet" type="text/css" href="/client/css/base.css"/>
+<link rel="stylesheet" type="text/css" href="/client/css/register.css"/>
+<link rel="stylesheet" type="text/css" href="/client/css/index.css"/>
 <script type="text/javascript">
     $(document).ready(function(){
         //初始化表单验证

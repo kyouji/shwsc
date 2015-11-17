@@ -5,6 +5,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,12 +33,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.ynyes.jpdg.entity.TdCoupon;
 import com.ynyes.jpdg.entity.TdCouponType;
 import com.ynyes.jpdg.entity.TdDiySite;
-import com.ynyes.jpdg.entity.TdGoods;
 import com.ynyes.jpdg.entity.TdManager;
 import com.ynyes.jpdg.entity.TdManagerRole;
-import com.ynyes.jpdg.entity.TdOrder;
-import com.ynyes.jpdg.entity.TdOrderGoods;
-import com.ynyes.jpdg.entity.TdUser;
 import com.ynyes.jpdg.service.TdCouponService;
 import com.ynyes.jpdg.service.TdCouponTypeService;
 import com.ynyes.jpdg.service.TdDiySiteService;
@@ -315,7 +312,7 @@ public class TdManagerCouponController {
         if (null != id)
         {
             map.addAttribute("coupon", tdCouponService.findOne(id));
-            return "/site_mag/coupon_edit_hasId";
+            return "/site_mag/coupon_edit";
         }
         return "/site_mag/coupon_edit";
     }
@@ -911,65 +908,11 @@ public class TdManagerCouponController {
         {
             tdManagerLogService.addLog("add", "用户添加优惠券", req);
             
-            List<TdDiySite> tdDiySiteList = tdDiySiteService.findByIsEnableTrue();
+            tdCoupon.setIsUsed(false);
+            tdCoupon.setGetTime(new Date());
+            tdCoupon.setIsDistributted(false);
             
-            if (null != tdDiySiteList && tdDiySiteList.size() > 0
-                    && null != leftNumbers && leftNumbers.length > 0
-                    && null != typeId)
-            {
-            	/**
-				 * @author lc
-				 * @注释：如果不是免费洗车券和免费打蜡券就不存在同盟店
-				 */
-            	TdCouponType tdCouponType = tdCouponTypeService.findOne(typeId);
-            	
-            	if (tdCouponType.getTitle().equals("免费打蜡券") || tdCouponType.getTitle().equals("免费洗车券")) {
-            		 for (int i=0; i<tdDiySiteList.size(); i++)
-                     {
-                         TdDiySite tds = tdDiySiteList.get(i);
-                         
-                         if (null != tds && leftNumbers.length > i)
-                         {
-                             TdCoupon coupon = tdCouponService.findTopByTypeIdAndDiySiteIdAndIsDistributtedFalse(typeId, tds.getId());
-                             
-                             if (null == coupon)
-                             {
-                                 coupon = new TdCoupon();
-                                 coupon.setDiySiteId(tds.getId());
-                                 coupon.setLeftNumber(leftNumbers[i]);
-                                 coupon.setTypeId(typeId);
-                                 coupon.setSortId(99L);
-                                 coupon.setPrice(tdCouponType.getPrice());
-                             }
-                             else
-                             {
-                                 coupon.setLeftNumber(coupon.getLeftNumber() + leftNumbers[i]);
-                             }
-                             
-                             tdCouponService.save(coupon);
-                         }
-                     }
-				}else{
-					TdCoupon coupon = tdCouponService.findTopByTypeIdAndIsDistributtedFalse(typeId);
-                    
-                    if (null == coupon)
-                    {
-                        coupon = new TdCoupon();                        
-                        coupon.setLeftNumber(leftNumbers[tdDiySiteList.size()]);
-                        coupon.setTypeId(typeId);
-                        coupon.setSortId(99L);
-                        coupon.setPrice(tdCouponType.getPrice());
-                    }
-                    else
-                    {
-                        coupon.setLeftNumber(coupon.getLeftNumber() + leftNumbers[0]);
-                    }
-                    
-                    tdCouponService.save(coupon);
-				}
-               
-            }
-            
+            tdCouponService.save(tdCoupon);
         }
         else
         {

@@ -10,8 +10,6 @@ import org.springframework.ui.ModelMap;
 
 import com.ynyes.jpdg.entity.TdAdType;
 import com.ynyes.jpdg.entity.TdArticleCategory;
-import com.ynyes.jpdg.entity.TdDemand;
-import com.ynyes.jpdg.entity.TdProductCategory;
 import com.ynyes.jpdg.entity.TdSetting;
 import com.ynyes.jpdg.entity.TdSiteLink;
 

@@ -3,13 +3,16 @@ package com.ynyes.jpdg.controller.management;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.ynyes.jpdg.entity.TdArticle;
 import com.ynyes.jpdg.entity.TdArticleCategory;
+import com.ynyes.jpdg.entity.TdGoods;
 import com.ynyes.jpdg.service.TdArticleCategoryService;
 import com.ynyes.jpdg.service.TdArticleService;
 import com.ynyes.jpdg.service.TdBrandService;
@@ -20,6 +23,7 @@ import com.ynyes.jpdg.service.TdParameterService;
 import com.ynyes.jpdg.service.TdProductCategoryService;
 import com.ynyes.jpdg.service.TdProductService;
 import com.ynyes.jpdg.service.TdWarehouseService;
+import com.ynyes.jpdg.util.SiteMagConstant;
 
 /**
  * 后台首页控制器
@@ -264,6 +268,76 @@ public class TdManagerEditController {
                 + "&__EVENTTARGET=" + __EVENTTARGET
                 + "&__EVENTARGUMENT=" + __EVENTARGUMENT
                 + "&__VIEWSTATE=" + __VIEWSTATE;
+    }
+    
+    @RequestMapping(value = "/article/dialog/list")
+    public String goodsListDialog(String keywords,
+            Long categoryId, Integer page, Integer size, Integer total,
+            String __EVENTTARGET, String __EVENTARGUMENT, String __VIEWSTATE,
+            ModelMap map, HttpServletRequest req) {
+        String username = (String) req.getSession().getAttribute("manager");
+        if (null == username) {
+            return "redirect:/Verwalter/login";
+        }
+        if (null != __EVENTTARGET) {
+            if (__EVENTTARGET.equalsIgnoreCase("btnPage")) {
+                if (null != __EVENTARGUMENT) {
+                    page = Integer.parseInt(__EVENTARGUMENT);
+                }
+            } else if (__EVENTTARGET.equalsIgnoreCase("btnSearch")) {
+
+            } else if (__EVENTTARGET.equalsIgnoreCase("categoryId")) {
+
+            }
+        }
+
+        if (null == page || page < 0) {
+            page = 0;
+        }
+
+        if (null == size || size <= 0) {
+            size = SiteMagConstant.pageSize;
+            ;
+        }
+
+        if (null != keywords) {
+            keywords = keywords.trim();
+        }
+
+        Page<TdArticle> articlePage = null;
+
+        if (null == categoryId) {
+            if (null == keywords || "".equalsIgnoreCase(keywords)) {
+                articlePage = tdArticleService.findAllOrderBySortIdAsc(page, size);
+            } else {
+                articlePage = tdArticleService.searchAndOrderBySortIdAsc(keywords,
+                        page, size);
+            }
+        } else {
+            if (null == keywords || "".equalsIgnoreCase(keywords)) {
+                articlePage = tdArticleService
+                        .findByCategoryIdOrderBySortIdAsc(categoryId, page, size);
+            } else {
+                articlePage = tdArticleService
+                        .searchAndFindByCategoryIdOrderBySortIdAsc(keywords,
+                                categoryId, page, size);
+            }
+        }
+
+        map.addAttribute("article_page", articlePage);
+
+        // 参数注回
+        map.addAttribute("category_list", tdProductCategoryService.findAll());
+        map.addAttribute("page", page);
+        map.addAttribute("size", size);
+        map.addAttribute("total", total);
+        map.addAttribute("keywords", keywords);
+        map.addAttribute("categoryId", categoryId);
+        map.addAttribute("__EVENTTARGET", __EVENTTARGET);
+        map.addAttribute("__EVENTARGUMENT", __EVENTARGUMENT);
+        map.addAttribute("__VIEWSTATE", __VIEWSTATE);
+
+        return "/site_mag/dialog_article_list";
     }
     
 }

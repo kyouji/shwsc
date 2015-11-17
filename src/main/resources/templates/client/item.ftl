@@ -9,8 +9,40 @@
 <link rel="stylesheet" type="text/css" href="/client/css/base.css"/>
 <link rel="stylesheet" type="text/css" href="/client/css/shangpinxiangqing.css"/>
 <link rel="stylesheet" type="text/css" href="/client/css/login.css"/>
-</head>
+<script>
+$(document).ready(function() {
+    
+    $('#commentForm').submit(function(event) {
+        
+        // get the form data
+        // there are many ways to get this data using jQuery (you can use the class or id also)
+        var formData = {
+            'content'   : $('input[name=comment]').val(),
+            'gid'       : ${article.id?c}
+        };
 
+        // process the form
+        $.ajax({
+            type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
+            url         : '/user/comment/add', // the url where we want to POST
+            data        : formData, // our data object
+            dataType    : 'json', // what type of data do we expect back from the server
+            encode          : true,
+            success     : function(data){
+                if (data.code != 0)
+                {
+                    alert(data.message);
+                }
+                else
+                {
+                    alert("提交评论成功");
+                }
+            }
+        });
+    });
+});
+</script>
+</head>
 <body>
 <#include "/client/common_login.ftl"/>
 <!-- -----------------------头部---------------------------- -->
@@ -30,7 +62,7 @@
     <div class="join">
         <#if email??>
             <div class="join" onmouseover="join()" onmouseout="join_out()">
-                <a href="#" ><span id="final_name">${email!''}</span><img src="/client/images/xiala.png" /></a>
+                <a href="/user" ><span id="final_name">${email!''}</span><img src="/client/images/xiala.png" /></a>
                 <div class="join_raw" id="join_raw" style="display: none;">
                     <a href="/user" >个人中心</a>
                     <a href="#" >我的评论</a>
@@ -61,7 +93,7 @@
         <div class="word3"> 作者：<span> ${article.source!''}</span> </div>
         <div class="word4"> 分类：<span> ${category.title!''}</span></div>
         <div class="word5"> 标签：<span> ${article.tagList!''}</span></div>
-        <a href="${article.linkUrl!''}" class="zhi">直达链接 ></a> </div>
+        <a href="${article.linkUrl!''}?t=${article.tag!''}&tag=${article.tag!''}" class="zhi">直达链接 ></a> </div>
     </div>
     <div class="goods_detail">
       <div class="detail_title">详细信息</div>
@@ -70,104 +102,75 @@
     
     <div class="collect">
       <div class="co1">收藏：<a href="#"><span>${article.collectNumber!'0'}</span></a></div>
-      <div class="co2">评论：<a href="#" ><span>${article.commentNumber!'0'}</span></a></div>
+      <div class="co2">评论：<a href="#div-comment" ><span>${article.commentNumber!'0'}</span></a></div>
       <div class="co3">
         <label>分享到：</label>
         <a href="#" class="co3_a1"></a><a href="#" class="co3_a2"></a><a href="#" class="co3_a3"></a><a href="#" class="co3_a4"></a><a href="#" class="co3_a5"></a><a href="#" class="co3_a6"></a><a href="#" class="co3_a7"></a><a href="#" class="co3_a8"></a><a href="#" class="co3_a9"></a></div>
     </div>
-    <div class="last_article"><a href="#" class="last_a">上一篇<br />
-      <span>AHAVA 美国官网 亲友特卖会 护肤全场</span> </a><a href="#" class="next_a"> 下一篇<br />
-      <span> diapers 母婴网站 大牌童装</span></a></div>
+    <div class="last_article">
+        <a href="<#if prev_article??>/item/${prev_article.id?c}<#else>javascript:;</#if>" class="last_a">上一篇<br />
+            <span><#if prev_article??>${prev_article.title!''}</#if></span> 
+        </a>
+        <a href="<#if next_article??>/item/${next_article.id?c}<#else>javascript:;</#if>" class="next_a"> 下一篇<br />
+            <span><#if next_article??>${next_article.title!''}</#if></span>
+        </a>
+    </div>
     <div class="other_like">
       <label>您可能还喜欢</label>
       
       
       
       <!-- 商品轮播 -->
+      <#if article_love_page??>
       <div class="picScroll">
         <div class="bd"> <a href="javascript:void(0)" class="prev"></a> <a href="javascript:void(0)" class="next"></a>
           <div class="scrollWrap">
             <ul class="picList">
-              <li> <a href="#" ><img src="/client/images/bo.png"></a> <p>TAG Heuer 豪雅 F1系列 
-   CAU111E.FT6024  </p></li>
-              <li> <a href="#" ><img src="/client/images/bo.png"></a> <p>TAG Heuer 豪雅 F1系列 
-   CAU111E.FT6024  </p></li>
-              <li> <a href="#" ><img src="/client/images/bo.png"></a> <p>TAG Heuer 豪雅 F1系列 
-   CAU111E.FT6024  </p></li>
-              <li> <a href="#" ><img src="/client/images/bo.png"></a> <p>TAG Heuer 豪雅 F1系列 
-   CAU111E.FT6024  </p></li>
-              <li> <a href="#" ><img src="/client/images/bo.png"></a> <p>TAG Heuer 豪雅 F1系列 
-   CAU111E.FT6024  </p></li>
-              <li> <a href="#" ><img src="/client/images/bo.png"></a> <p>TAG Heuer 豪雅 F1系列 
-   CAU111E.FT6024  </p></li>
-              <li> <a href="#" ><img src="/client/images/bo.png"></a> <p>TAG Heuer 豪雅 F1系列 
-   CAU111E.FT6024  </p></li>
-              <li> <a href="#" ><img src="/client/images/bo.png"></a> <p>TAG Heuer 豪雅 F1系列 
-   CAU111E.FT6024  </p></li>
-              <li> <a href="#" ><img src="/client/images/bo.png"></a> <p>TAG Heuer 豪雅 F1系列 
-   CAU111E.FT6024  </p></li>
-              <li> <a href="#" ><img src="/client/images/bo.png"></a> <p>TAG Heuer 豪雅 F1系列 
-   CAU111E.FT6024  </p></li>
+                <#if article_love_page??>
+                    <#list article_love_page.content as item>
+                        <li> <a href="/item/${item.id?c}" ><img src="${item.imgUrl!''}"></a> <p>${item.title!''}</p></li>
+                    </#list>
+                </#if>
             </ul>
           </div>
         </div>
       </div>
-      <script type="text/javascript">
-	jQuery(".picScroll").slide({ mainCell:".picList", effect:"left",vis:4, pnLoop:false, scroll:4, autoPage:true});
-	</script> 
+    <script type="text/javascript">
+        jQuery(".picScroll").slide({ mainCell:".picList", effect:"left",vis:4, pnLoop:false, scroll:4, autoPage:true});
+    </script> 
+    </#if>
       
       <!-- 商品轮播结束 --> 
       
       
       
     </div>
-    <div class="commont">
-      <div class="com_title">评论<span>（33条）</span></div>
+    <div class="commont" id="div-comment">
+      <div class="com_title">评论<span>（<#if comment_page??>${comment_page.totalElements!'0'}</#if> 条）</span></div>
       <div class="com_write"> <a href="#" class="me"></a>
-        <form>
-          <input type="text" class="txt"/>
+        <form id="commentForm">
+          <input type="text" class="txt" name="comment"/>
           <input type="submit"  value="提交" class="mit"/>
         </form>
       </div>
       <div class="com_history">
-        <div class="his_title"><a href="#" class="his_a">最新</a><a href="#">最热</a></div>
+        <div class="his_title"><a href="javascript:;" class="his_a">最新</a><#--<a href="#">最热</a>--></div>
         <ul>
-          <li>
-            <div class="his_li1t"><a href="#" class="tou"></a><a href="#">bavan</a>
-              <label><span>2</span>分钟前</label>
-            </div>
-            <div class="his_li2">
-              <label><span>10</span>楼</label>
-              <span>倒数第三张好像有亮点，是我撸多了眼花么 [皱眉]</span></div>
-            <div class="his_li3"><a href="#">回复</a><a href="#">踩（<span>0</span>）</a><a href="#">顶（<span>0</span>）</a></div>
-          </li>
-          <li>
-            <div class="his_li1t"><a href="#" class="tou"></a><a href="#">bavan</a>
-              <label><span>2</span>分钟前</label>
-            </div>
-            <div class="his_li2">
-              <label><span>10</span>楼</label>
-              <span>倒数第三张好像有亮点，是我撸多了眼花么 [皱眉]</span></div>
-            <div class="his_li3"><a href="#">回复</a><a href="#">踩（<span>0</span>）</a><a href="#">顶（<span>0</span>）</a></div>
-          </li>
-          <li>
-            <div class="his_li1t"><a href="#" class="tou"></a><a href="#">bavan</a>
-              <label><span>2</span>分钟前</label>
-            </div>
-            <div class="his_li2">
-              <label><span>10</span>楼</label>
-              <span>倒数第三张好像有亮点，是我撸多了眼花么 [皱眉]</span></div>
-            <div class="his_li3"><a href="#">回复</a><a href="#">踩（<span>0</span>）</a><a href="#">顶（<span>0</span>）</a></div>
-          </li>
-          <li>
-            <div class="his_li1t"><a href="#" class="tou"></a><a href="#">bavan</a>
-              <label><span>2</span>分钟前</label>
-            </div>
-            <div class="his_li2">
-              <label><span>10</span>楼</label>
-              <span>倒数第三张好像有亮点，是我撸多了眼花么 [皱眉]</span></div>
-            <div class="his_li3"><a href="#">回复</a><a href="#">踩（<span>0</span>）</a><a href="#">顶（<span>0</span>）</a></div>
-          </li>
+            <#if comment_page??>
+                <#list comment_page.content as comment>
+                  <li>
+                    <div class="his_li1t"><a href="javascript:;" class="tou"></a><a href="javascript:;">${comment.username!''}</a>
+                      <label><span><#if comment.commentTime??>${comment.commentTime?string("yyyy-MM-dd HH:mm:ss")}</#if></span></label>
+                    </div>
+                    <div class="his_li2">
+                      <label><span>${comment_index+1}</span>楼</label>
+                      <span>${comment.content!''}</span></div>
+                    <#--
+                    <div class="his_li3"><a href="#">回复</a><a href="#">踩（<span>0</span>）</a><a href="#">顶（<span>0</span>）</a></div>
+                    -->
+                  </li>
+                </#list>
+            </#if>
         </ul>
       </div>
     </div>

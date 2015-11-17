@@ -25,6 +25,10 @@ public class TdCoupon {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     
+    // 优惠券绑定的文章ID
+    @Column
+    private Long articleId;
+    
 	// 优惠券分类ID
 	@Column
 	private Long typeId;
@@ -111,6 +115,10 @@ public class TdCoupon {
     // 排序号
     @Column
     private Long sortId;
+    
+    // 联盟代码
+    @Column
+    private String tag;
 
     public Long getId() {
         return id;
@@ -118,6 +126,14 @@ public class TdCoupon {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getArticleId() {
+        return articleId;
+    }
+
+    public void setArticleId(Long articleId) {
+        this.articleId = articleId;
     }
 
     public Long getTypeId() {
@@ -286,5 +302,13 @@ public class TdCoupon {
 
     public void setTypeCategoryId(Long typeCategoryId) {
         this.typeCategoryId = typeCategoryId;
+    }
+
+    public String getTag() {
+        return tag;
+    }
+
+    public void setTag(String tag) {
+        this.tag = tag;
     }
 }

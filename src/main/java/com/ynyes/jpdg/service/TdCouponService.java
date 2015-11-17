@@ -16,8 +16,6 @@ import com.ynyes.jpdg.entity.TdCouponType;
 import com.ynyes.jpdg.entity.TdDiySite;
 import com.ynyes.jpdg.repository.TdCouponRepo;
 
-import scala.xml.dtd.PublicID;
-
 /**
  * TdCoupon 服务类
  * 
@@ -114,6 +112,16 @@ public class TdCouponService {
             return null;
         }
         return repository.findByUsernameAndExpireTimeAfterAndIsDistributtedTrueAndIsUsedFalse(username, new Date());
+    }
+    
+    public List<TdCoupon> findByUsernameAndIsUseable(String username, Long articleId)
+    {
+        if (null == username || null == articleId)
+        {
+            return null;
+        }
+        
+        return repository.findByUsernameAndArticleIdAndIsUsedFalse(username, articleId);
     }
     
     public List<TdCoupon> findByMobileAndIsUseable(String mobile){
@@ -318,6 +326,13 @@ public class TdCouponService {
 			return null;
 		}
     	return repository.findByDiySiteIdAndIsUsedTrue(diySiteId);
+    }
+    
+    public List<TdCoupon> findByArticleIdAndIsDistributtedFalse(Long articleId){
+        if (null == articleId) {
+            return null;
+        }
+        return repository.findByArticleIdAndIsDistributtedFalse(articleId);
     }
     
     /**

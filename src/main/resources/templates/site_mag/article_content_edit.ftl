@@ -177,6 +177,14 @@
         </dl>
         
         <dl>
+            <dt>联盟代码</dt>
+            <dd>
+                <input name="tag" type="text" value="<#if article??>${article.tag!""}</#if>" id="txtTitle" class="input normal" datatype="*2-100" sucmsg=" ">
+                <span class="Validform_checktip">*</span>
+            </dd>
+        </dl>
+        
+        <dl>
             <dt>封面图片</dt>
             <dd>
                 <input name="imgUrl" type="text" id="txtImgUrl" value="<#if article??>${article.imgUrl!""}</#if>" class="input normal upload-path">
