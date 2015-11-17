@@ -4,11 +4,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.ynyes</groupId>
-	<artifactId>jpdg</artifactId>
+	<artifactId>shwsc</artifactId>
 	<version>1.0</version>
 
-	<name>jpdg</name>
-	<description>jpdg project for ynyes</description>
+	<name>shwsc</name>
+	<description>shwsc project for ynyes</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -195,7 +195,7 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<start-class>com.ynyes.jpdg.Application</start-class>
+		<start-class>com.ynyes.shwsc.Application</start-class>
 		<java.version>1.7</java.version>
 	</properties>
 

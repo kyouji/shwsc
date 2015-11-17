@@ -1,168 +1,155 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html lang="zh-CN">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>精品导购-${setting.seoTitle!''}</title>
-<script type="text/javascript" src="/client/js/jquery1.42.min.js"></script>
-<script type="text/javascript" src="/client/js/jquery.SuperSlide.2.1.1.js"></script>
-<script type="text/javascript" src="/client/js/index.js"></script>
-<script type="text/javascript" src="/client/js/coupon.js"></script>
-<link rel="stylesheet" type="text/css" href="/client/css/base.css"/>
-<link rel="stylesheet" type="text/css" href="/client/css/style.css"/>
-<link rel="stylesheet" type="text/css" href="/client/css/index.css"/>
-<link rel="stylesheet" type="text/css" href="/client/css/login.css"/>
-<script type="text/javascript" src="/client/js/Validform_v5.3.2_min.js"></script>
-<script type="text/javascript">
-	$(document).ready(function(){
-		//初始化表单验证
-	    $("#login_form").Validform({
-	    	tiptype: 3
-	    });
-	});
-	
-	
-</script>
-
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="copyright" content="" />
+<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<!--css-->
+<link rel="stylesheet" type="text/css" href="/client/css/common.css"/>
+<link rel="stylesheet" type="text/css" href="/client/css/main.css"/>
+<title>叫个厨子-${setting.seoTitle!''}</title>
 </head>
-
 <body>
-<#include "/client/common_login.ftl"/>
-<#include "/client/common_header.ftl" />
-
-<!-- -----------------------导航---------------------------- -->
-<div class="ban_back" style="min-width:1200px;">
-  <div class="nav">
-    <ul  id="myul1">
-        <#if navi_bar_item_list??>
-            <#list navi_bar_item_list as item>
-                <li><a href="${item.linkUri!''}" <#if item_index==0>class="myli"</#if>>${item.title!''}</a></li>
-            </#list>
-        </#if>
-    </ul>
-    <div class="join">
-        <#if email??>
-            <div class="join" onmouseover="join()" onmouseout="join_out()">
-                <a href="#" ><span id="final_name">${email!''}</span><img src="/client/images/xiala.png" /></a>
-                <div class="join_raw" id="join_raw" style="display: none;">
-                    <a href="/user" >个人中心</a>
-                    <a href="#" >我的评论</a>
-                    <a href="#" >我的消息</a>
-                    <a href="#" >我的收藏</a>
-                    <a href="#">账户设置</a>
-                    <a href="/logout" >退出登录</a>
-                </div>
-            </div>
-        <#else>
-            <a href="javascript:login_div_in();" >登录</a>
-            <a href="/reg" class="sign_up">注册</a>
-        </#if>
-    </div>
+  <!--弹窗-->
+  <div id="bg"></div>
+  <div id="popbox">
+    <p class="c666 dial-phone">拨打客服电话</p>
+    <p>023-63632723</p>
+    <div class="button-group">
+      <a class="default" href="#" onclick="pupclose()">取消</a>
+      <a href="#" onclick="pupclose()">呼叫</a>
+    </div>     
   </div>
-</div>
-<!-- -----------------------导航结束---------------------------- --> 
+  <script type="text/javascript">
+      function pupopen(){
+          document.getElementById("bg").style.display="block";
+          document.getElementById("popbox").style.display="block" ;
+      }
+      function pupclose(){
+          document.getElementById("bg").style.display="none";
+          document.getElementById("popbox").style.display="none" ;
+      }
+  </script>
+  <!--弹窗 END-->
+    <!-- 头部 -->
+    <header>
+      <!-- 地区选择 -->
+      <a class="btn-select city" id="btn_select" href="选择城区.html">
+      <span class="cur-select">上海市</span>
+      </a>
+      <!-- 模拟select下拉框js -->
+      <script>
+        var $$ = function (id) {
+          return document.getElementById(id);
+        }
+        window.onload = function () {
+          var btnSelect = $$("btn_select");
+          var curSelect = btnSelect.getElementsByTagName("span")[0];
+          var oSelect = btnSelect.getElementsByTagName("select")[0];
+          var aOption = btnSelect.getElementsByTagName("option");
+          oSelect.onchange = function () {
+            var text=oSelect.options[oSelect.selectedIndex].text;
+            curSelect.innerHTML = text;
+          }
+        } 
+      </script>
+      <!-- 搜索框 -->
+      <div class="search">
+          <a href="搜索页.html"><i></i></a>
+          <input type="text" placeholder="搜索菜品">
+      </div>
+      <!-- 电话 -->
+      <a class="phone" href="#" onclick="pupopen()"></a>
+    </header>
+    <!-- 头部 END -->
 
-<!-- -----------------------中间  之左边---------------------------- -->
-<div class="content">
-  <div class="c_left">
-  <!-- banner -->
-  <div class="banner">
-      <div class="TB-focus" style="margin:0 auto">
-        <div class="hd">
-          <ul>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-          </ul>
-        </div>
-        <div class="bd">
-          <ul>
-            <#if big_scroll_ad_list??>
-                <#list big_scroll_ad_list as item>
-                    <#if item_index < 4>
-                    <li><a href="${item.linkUri!''}" target="_blank"><img src="${item.fileUri!''}" /></a></li>
-                    </#if>
-                </#list>
+    <!-- banner -->
+    <div class="addWrap">
+      <div class="swipe" id="mySwipe">
+        <div class="swipe-wrap">
+          <div> 
+          <#if big_scroll_ad_list??>
+            <#list big_scroll_ad_list as ad>
+                <li><a href="${ad.linkUri!''}" target="_blank"><img src="${ad.fileUri!''}"/></a></li>
+            </#list>
+            </#if></div>
+            
+          <div>
+          <#if big_scroll_ad_list2??>
+            <#list big_scroll_ad_list2 as ad>
+                <li><a href="${ad.linkUri!''}" target="_blank"><img src="${ad.fileUri!''}"/></a></li>
+            </#list>
+            </#if></div>
+          <div>
+          <#if big_scroll_ad_list3??>
+            <#list big_scroll_ad_list3 as ad>
+                <li><a href="${ad.linkUri!''}" target="_blank"><img src="${ad.fileUri!''}"/></a></li>
+            </#list>
             </#if>
-          </ul>
+            </div>
         </div>
       </div>
-	<script type="text/javascript">jQuery(".TB-focus").slide({ mainCell:".bd ul",effect:"fold",autoPlay:true,delayTime:200 });</script>
-      <!-- banner结束 -->
-      <div class="banner_right">
-        <#if index_small_ad_list??>
-            <#list index_small_ad_list as item>
-                <#if item_index < 3>
-                    <a href="${item.linkUri!''}"><img src="${item.fileUri!''}" /></a>
-                </#if>
-            </#list>
-        </#if>
-      </div>
-      </div>
-    
-    <div id="article-div">
-        <#include "/client/index_article_page.ftl" />
-    </div>
-  </div>
-  <!-- -----------------------中间  之左边结束---------------------------- --> 
-  <!-- -----------------------中间  之右边---------------------------- -->
-  
-  <div class="c_right">
-    <div class="hot">
-      <div class="hot_top">热品推荐</div>
-      <#if index_hot_article_list??>
-      	<#list index_hot_article_list as item>
-      		<#if item_index == 0>
-		      	<div class="hot_center"><a href="${item.linkUrl!''}"><img src="${item.imgUrl!''}" /></a>
-		        	<div class="pic_word">${item.title!''}</div>
-		    	</div>
-	    	</#if>
-	    </#list>
-	  </#if>
-    	<div class="hot_foot">
-	        <div class="spot"><img src="/client/images/spot.png" /></div>
-	        <div class="news">
-	          <ul>
-	         	<#if index_hot_article_list??>
-			      	<#list index_hot_article_list as item>
-			      		<#if item_index != 0>
-	            	<li><a href="#">${item.title!''}</a></li>
-		            	</#if>
-			        </#list>
-			      </#if>
-	          </ul>
-	        </div>
-    	</div>
-    </div>
-    <div class="pic">
-      <#if index_reght_ad_list??>
-        <#list index_reght_ad_list as item>
-      	  <a href="${item.linkUri!''}"><img src="${item.fileUri!''}" /></a>
-        </#list>
-      </#if>
-    </div>
-    <div class="favourable">
-      <div class="f_title">国内优惠</div>
-      <ul>
-      	<#if index_pre_article_list??>
-      	  <#list index_pre_article_list as item>
-      	  	<#if item_index==0>
-		        <li>
-		          <div class="zuo"><a href="${item.linkUrl!''}"><img src="${item.fileUri!''}" /></a></div>
-		          <div class="you">
-		            <h1><a href="${item.linkUrl!''}">${item.title!''}</a></h1>
-		            <h2>${item.brief!''}</h2>
-		          </div>
-		        </li>
-	        </#if>
-          </#list>
-        </#if>
+      <ul id="position">
+        <li class="cur"></li>
+        <li class=""></li>
+        <li class=""></li>
       </ul>
     </div>
-  </div>
-</div>
-<!-- -----------------------中间  之右边结束---------------------------- --> 
+    <script src="/client/js/swipe.js"></script> 
+    <script type="text/javascript">
+      var bullets = document.getElementById('position').getElementsByTagName('li');
+      var banner = Swipe(document.getElementById('mySwipe'), {
+        auto: 2000,
+        continuous: true,
+        disableScroll:false,
+        callback: function(pos) {
+            var i = bullets.length;
+            while (i--) {
+              bullets[i].className = ' ';
+            }
+            bullets[pos].className = 'cur';
+        }
+      });
+    </script>
+    <!-- bannner END -->
 
-<#include "/client/common_footer.ftl" />
+    <article class="index-art">
+      <section class="sct-1">
+        <!-- 图片尺寸 600*315 -->
+         <#if big_center_ad_list??>
+            <#list big_center_ad_list as ad>
+                <a href="${ad.linkUri!''}" target="_blank"><img src="${ad.fileUri!'' }"/></a>
+            </#list>
+            </#if>
+        <!-- 图片尺寸 166*166 -->
+        <img class="tips-photo" src="/client/images/index_photo_1.png" alt="">
+        <p>唯有美食与爱不可辜负</p>
+      </section>
+      <section class="sct-2">
+        <!-- 图片尺寸 600*315 -->
+           <#if big_down_ad_list??>
+            <#list big_down_ad_list as ad>
+                <a href="${ad.linkUri!''}" target="_blank"><img  src="${ad.fileUri!'' }"/></a>
+            </#list>
+            </#if>
+        <!-- 图片尺寸 166*166 -->
+        <img class="tips-photo" src="/client/images/index_photo_1.png" alt="">
+        <p>每日十款&nbsp;&nbsp;限时限量</p>
+      </section>
+      
+    </article>
+
+    <div class="clear h50"></div>
+
+    <!-- 底部 -->
+    <footer>
+      <a href="#" class="a1 current-1">首页</a>
+      <a href="#" class="a2">美食</a>
+      <a href="#" class="a3">我</a>
+    </footer>
+    <!-- 底部 END -->
+
 </body>
 </html>
