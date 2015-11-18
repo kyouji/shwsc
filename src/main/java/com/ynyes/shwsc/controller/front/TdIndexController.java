@@ -51,45 +51,18 @@ public class TdIndexController {
         
         
         // 首页大图轮播广告
-        TdAdType adType = tdAdTypeService.findByTitle("首页大图");
-
-        if (null != adType) {
-            map.addAttribute("big_scroll_ad_list", tdAdService
-                    .findByTypeIdAndIsValidTrueOrderBySortIdAsc(adType.getId()));
-        }
-     // 首页大图轮播广告
-         adType = tdAdTypeService.findByTitle("首页大图2");
-
-        if (null != adType) {
-            map.addAttribute("big_scroll_ad_list2", tdAdService
-                    .findByTypeIdAndIsValidTrueOrderBySortIdAsc(adType.getId()));
-        }
-        
-        // 首页大图轮播广告
-        adType = tdAdTypeService.findByTitle("首页大图3");
-
-       if (null != adType) {
-           map.addAttribute("big_scroll_ad_list3", tdAdService
-                   .findByTypeIdAndIsValidTrueOrderBySortIdAsc(adType.getId()));
-       }
+        TdAdType adType = tdAdTypeService.findByTitle("首页顶部轮播");
+        if (adType != null)
+        {
+			map.addAttribute("top_ad_list", tdAdService.findByTypeIdAndIsValidTrueOrderBySortIdAsc(adType.getId()));
+		}
         
         // 首页中图
-         adType = tdAdTypeService.findByTitle("首页中图");
+         adType = tdAdTypeService.findByTitle("首页展示");
 
         if (null != adType) {
-            map.addAttribute("big_center_ad_list", tdAdService
-                    .findByTypeIdAndIsValidTrueOrderBySortIdAsc(adType.getId()));
+            map.addAttribute("content_list", tdAdService.findByTypeIdAndIsValidTrueOrderBySortIdAsc(adType.getId()));
         }
-        
-       
-
-        // 首页下图
-        adType = tdAdTypeService.findByTitle("首页下图");
-        if (null != adType) {
-            map.addAttribute("big_down_ad_list", tdAdService
-                    .findByTypeIdAndIsValidTrueOrderBySortIdAsc(adType.getId()));
-        }
-        
         
         return "/client/index";
     }

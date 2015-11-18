@@ -69,26 +69,14 @@
     <div class="addWrap">
       <div class="swipe" id="mySwipe">
         <div class="swipe-wrap">
-          <div> 
-          <#if big_scroll_ad_list??>
-            <#list big_scroll_ad_list as ad>
-                <li><a href="${ad.linkUri!''}" target="_blank"><img src="${ad.fileUri!''}"/></a></li>
-            </#list>
-            </#if></div>
-            
+           
+          <#if top_ad_list??>
+          <#list top_ad_list as item>
           <div>
-          <#if big_scroll_ad_list2??>
-            <#list big_scroll_ad_list2 as ad>
-                <li><a href="${ad.linkUri!''}" target="_blank"><img src="${ad.fileUri!''}"/></a></li>
-            </#list>
-            </#if></div>
-          <div>
-          <#if big_scroll_ad_list3??>
-            <#list big_scroll_ad_list3 as ad>
-                <li><a href="${ad.linkUri!''}" target="_blank"><img src="${ad.fileUri!''}"/></a></li>
-            </#list>
-            </#if>
-            </div>
+            <li><a href="${item.linkUri!''}" target="_blank"><img src="${item.fileUri!''}"/></a></li>
+          </div>
+          </#list>
+          </#if>
         </div>
       </div>
       <ul id="position">
@@ -116,28 +104,17 @@
     <!-- bannner END -->
 
     <article class="index-art">
-      <section class="sct-1">
-        <!-- 图片尺寸 600*315 -->
-         <#if big_center_ad_list??>
-            <#list big_center_ad_list as ad>
-                <a href="${ad.linkUri!''}" target="_blank"><img src="${ad.fileUri!'' }"/></a>
-            </#list>
-            </#if>
-        <!-- 图片尺寸 166*166 -->
-        <img class="tips-photo" src="/client/images/index_photo_1.png" alt="">
-        <p>唯有美食与爱不可辜负</p>
-      </section>
-      <section class="sct-2">
-        <!-- 图片尺寸 600*315 -->
-           <#if big_down_ad_list??>
-            <#list big_down_ad_list as ad>
-                <a href="${ad.linkUri!''}" target="_blank"><img  src="${ad.fileUri!'' }"/></a>
-            </#list>
-            </#if>
-        <!-- 图片尺寸 166*166 -->
-        <img class="tips-photo" src="/client/images/index_photo_1.png" alt="">
-        <p>每日十款&nbsp;&nbsp;限时限量</p>
-      </section>
+    <#if content_list??>
+    <#list content_list as item>
+    <section class="sct-${item_index + 1}">
+    <!-- 图片尺寸 600*315 -->
+    <a href="${item.linkUri!''}" target="_blank"><img src="${item.fileUri!''}"/></a>
+    <!-- 图片尺寸 166*166 -->
+    <img class="tips-photo" src="/client/images/index_photo_1.png" alt="">
+    <p>唯有美食与爱不可辜负</p>
+    </section>
+    </#list>
+    </#if>
       
     </article>
 
