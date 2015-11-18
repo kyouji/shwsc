@@ -45,8 +45,7 @@ public class TdIndexController {
     private TdArticleCategoryService tdArticleCategoryService;
     
     @RequestMapping
-    public String index(
-            HttpServletRequest req, Device device, ModelMap map) {
+    public String index(HttpServletRequest req, Device device, ModelMap map) {
        
         tdCommonService.setCommon(map, req);
         
@@ -90,45 +89,20 @@ public class TdIndexController {
             map.addAttribute("big_down_ad_list", tdAdService
                     .findByTypeIdAndIsValidTrueOrderBySortIdAsc(adType.getId()));
         }
-        /*
-        //主页右侧大图广告
-        adType = tdAdTypeService.findByTitle("主页右侧大图广告");
         
-        if(null != adType){
-        	map.addAttribute("index_reght_ad_list", tdAdService.findByTypeIdAndIsValidTrueOrderBySortIdAsc(adType.getId()));
-        }
-        
-        // 首页推荐文章
-        map.addAttribute("index_recommend_article_page", tdArticleService.findByIsRecommendIndexTrue(0, ClientConstant.pageSize));
-        
-        //热品推荐文章
-        TdArticleCategory tdArticlecategory = tdArticleCategoryService.findByTitle("热品推荐");
-        if(null != tdArticlecategory){
-        	map.addAttribute("index_hot_article_list", tdArticleService.findByCategoryId(tdArticlecategory.getId()));
-        }
-        
-        //国内优惠
-        tdArticlecategory = tdArticleCategoryService.findByTitle("国内优惠");
-        if(null != tdArticlecategory){
-        	map.addAttribute("index_pre_article_list", tdArticleService.findByCategoryId(tdArticlecategory.getId()));
-        }
-        
-        */
         
         return "/client/index";
     }
-    
-    @RequestMapping(value="/article")
-    public String articlePage(ModelMap map, Integer page)
+    /**
+     * 城市选择
+     * @author mdj
+     * @param req
+     * @param map
+     * @return
+     */
+    @RequestMapping("/citys")
+    public String chooseCity(HttpServletRequest req,ModelMap map)
     {
-        if (null == page || page < 0)
-        {
-            page = 0;
-        }
-     
-        // 首页推荐文章
-        map.addAttribute("index_recommend_article_page", tdArticleService.findByIsRecommendIndexTrue(page, ClientConstant.pageSize));
-        
-        return "/client/index_article_page";
+    	return "client/cities";
     }
 }
