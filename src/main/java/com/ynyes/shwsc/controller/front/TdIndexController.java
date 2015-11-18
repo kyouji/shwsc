@@ -9,14 +9,12 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.ynyes.shwsc.entity.TdAdType;
-import com.ynyes.shwsc.entity.TdArticleCategory;
 import com.ynyes.shwsc.service.TdAdService;
 import com.ynyes.shwsc.service.TdAdTypeService;
 import com.ynyes.shwsc.service.TdArticleCategoryService;
 import com.ynyes.shwsc.service.TdArticleService;
 import com.ynyes.shwsc.service.TdCommonService;
 import com.ynyes.shwsc.service.TdNaviBarItemService;
-import com.ynyes.shwsc.util.ClientConstant;
 
 /**
  * 前端首页控制
@@ -44,6 +42,7 @@ public class TdIndexController {
     @Autowired
     private TdArticleCategoryService tdArticleCategoryService;
     
+    
     @RequestMapping
     public String index(HttpServletRequest req, Device device, ModelMap map) {
        
@@ -66,6 +65,7 @@ public class TdIndexController {
         
         return "/client/index";
     }
+    
     /**
      * 城市选择
      * @author mdj
@@ -77,5 +77,18 @@ public class TdIndexController {
     public String chooseCity(HttpServletRequest req,ModelMap map)
     {
     	return "client/cities";
+    }
+    
+    /**
+     * 搜索
+     * @param req 
+     * @param map
+     * @return
+     */
+    @RequestMapping("/search")
+    public String search(String keyword, HttpServletRequest req,ModelMap map)
+    {
+    	
+    	return "client/search";
     }
 }

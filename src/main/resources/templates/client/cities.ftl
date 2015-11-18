@@ -34,7 +34,7 @@
 
     <!-- 头部 -->
     <header>
-      <a class="back" href="index.html"></a>
+      <a class="back" href="/"></a>
       <p>选择城区</p>
     </header>
     <!-- 头部 END -->

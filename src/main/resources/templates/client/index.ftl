@@ -16,10 +16,10 @@
   <div id="bg"></div>
   <div id="popbox">
     <p class="c666 dial-phone">拨打客服电话</p>
-    <p>023-63632723</p>
+    <p>${setting.telephone!'023-63632723'}</p>
     <div class="button-group">
       <a class="default" href="#" onclick="pupclose()">取消</a>
-      <a href="#" onclick="pupclose()">呼叫</a>
+      <a href="tel://${setting.telephone!'023-63632723'}" onclick="pupclose()">呼叫</a>
     </div>     
   </div>
   <script type="text/javascript">
@@ -36,7 +36,7 @@
     <!-- 头部 -->
     <header>
       <!-- 地区选择 -->
-      <a class="btn-select city" id="btn_select" href="选择城区.html">
+      <a class="btn-select city" id="btn_select" href="/citys">
       <span class="cur-select">上海市</span>
       </a>
       <!-- 模拟select下拉框js -->
@@ -73,7 +73,7 @@
           <#if top_ad_list??>
           <#list top_ad_list as item>
           <div>
-            <li><a href="${item.linkUri!''}" target="_blank"><img src="${item.fileUri!''}"/></a></li>
+            <li><a href="${item.linkUri!''}" <#if item.typeIsNewWindow?string("true","flase") == "true">target="_blank"</#if>><img src="${item.fileUri!''}"/></a></li>
           </div>
           </#list>
           </#if>
@@ -108,10 +108,11 @@
     <#list content_list as item>
     <section class="sct-${item_index + 1}">
     <!-- 图片尺寸 600*315 -->
-    <a href="${item.linkUri!''}" target="_blank"><img src="${item.fileUri!''}"/></a>
+    <a style="display:block;" href="${item.linkUri!''}"  <#if item.typeIsNewWindow?string("true","flase") == "true">target="_blank"</#if>><img src="${item.fileUri!''}"/>
     <!-- 图片尺寸 166*166 -->
     <img class="tips-photo" src="/client/images/index_photo_1.png" alt="">
-    <p>唯有美食与爱不可辜负</p>
+    <p>${item.title}</p>
+    </a>
     </section>
     </#list>
     </#if>
@@ -123,8 +124,8 @@
     <!-- 底部 -->
     <footer>
       <a href="#" class="a1 current-1">首页</a>
-      <a href="#" class="a2">美食</a>
-      <a href="#" class="a3">我</a>
+      <a href="/tcxq" class="a2">美食</a>
+      <a href="/wrbh" class="a3">我</a>
     </footer>
     <!-- 底部 END -->
 
