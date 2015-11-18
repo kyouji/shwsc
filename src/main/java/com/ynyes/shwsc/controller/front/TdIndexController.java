@@ -88,7 +88,6 @@ public class TdIndexController {
     @RequestMapping("/search")
     public String search(String keyword, HttpServletRequest req,ModelMap map)
     {
-    	
     	return "client/search";
     }
 }

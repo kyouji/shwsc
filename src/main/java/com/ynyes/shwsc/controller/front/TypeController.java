@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mobile.device.Device;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -43,8 +44,44 @@ public class TypeController {
 	@Autowired
 	private TdArticleService tdArticleService;
 	
+	//套餐详情
+	   @RequestMapping("/tcxq")
+	    public String tcxq(HttpServletRequest req, Device device, ModelMap map) {
+	       
+	        tdCommonService.setCommon(map, req);
+	        
+	        
+	        // 首页顶部轮播
+	        TdAdType adType = tdAdTypeService.findByTitle("首页顶部轮播");
+	        if (adType != null)
+	        {
+				map.addAttribute("ht_scroll_ad_list", tdAdService.findByTypeIdAndIsValidTrueOrderBySortIdAsc(adType.getId()));
+			}
+	        
+	      
+	        
+	        return "/client/tcxq";
+	    }
 	
-	@RequestMapping("/type/{typeName}")
+
+	   //无肉不欢
+	   @RequestMapping("/wrbh")
+	    public String wrbh(HttpServletRequest req, Device device, ModelMap map) {
+	       
+	        tdCommonService.setCommon(map, req);
+	        map.addAttribute("wrbh_recommend_article_page", tdArticleService.findByIsRecommendIndexTrue(0, ClientConstant.pageSize));
+	        
+	      
+	        
+	        return "/client/wrbh";
+	    }
+
+}
+		
+	
+
+	
+	/*@RequestMapping("/type/{typeName}")
 	public String toOverseasMarket(@PathVariable String typeName, HttpServletRequest req,ModelMap map){
 		
 		tdCommonService.setCommon(map, req);
@@ -430,7 +467,7 @@ public class TypeController {
         
          
 		
-		return "/client/type";
+		return "/client/tcxq";
 	}
 	
 //	@RequestMapping("/atricle/list")
@@ -446,4 +483,5 @@ public class TypeController {
 //		return "/client/article_update";
 //	}
 	
-}
+}*/
+
