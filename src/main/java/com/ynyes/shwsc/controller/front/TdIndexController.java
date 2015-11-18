@@ -66,6 +66,8 @@ public class TdIndexController {
         
         return "/client/index";
     }
+    
+   
     /**
      * 城市选择
      * @author mdj
@@ -78,4 +80,6 @@ public class TdIndexController {
     {
     	return "client/cities";
     }
+    //套餐详情
+   
 }

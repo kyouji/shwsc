@@ -23,9 +23,13 @@
     <div class="addWrap">
       <div class="swipe" id="mySwipe">
         <div class="swipe-wrap">
-          <div><a href="#"><img class="img-responsive" src="/client/images/1.jpg"/></a></div>
-          <div><a href="#"><img class="img-responsive" src="/client/images/2.jpg"/></a></div>
-          <div><a href="#"><img class="img-responsive" src="/client/images/3.jpg"/></a></div>
+          <#if ht_scroll_ad_list??>
+          <#list ht_scroll_ad_list as item>
+          <div>
+            <li><a href="${item.linkUri!''}" target="_blank"><img src="${item.fileUri!''}"/></a></li>
+          </div>
+          </#list>
+          </#if>
         </div>
       </div>
       <ul id="position">
@@ -34,7 +38,7 @@
         <li class=""></li>
       </ul>
     </div>
-    <script src="js/swipe.js"></script> 
+    <script src="/client/js/swipe.js"></script> 
     <script type="text/javascript">
       var bullets = document.getElementById('position').getElementsByTagName('li');
       var banner = Swipe(document.getElementById('mySwipe'), {

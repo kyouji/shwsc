@@ -123,8 +123,8 @@
     <!-- 底部 -->
     <footer>
       <a href="#" class="a1 current-1">首页</a>
-      <a href="#" class="a2">美食</a>
-      <a href="#" class="a3">我</a>
+      <a href="/tcxq" class="a2">美食</a>
+      <a href="/wrbh" class="a3">我</a>
     </footer>
     <!-- 底部 END -->
 
