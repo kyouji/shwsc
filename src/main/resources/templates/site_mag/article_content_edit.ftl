@@ -134,13 +134,13 @@
                 <div class="rule-multi-radio multi-radio">
                     <span id="rblStatus" style="display: none;">
                         <input type="radio" name="statusId" value="0" <#if !article?? || article?? && article.statusId?? && article.statusId==0>checked="checked"</#if> ><label>正常</label>
-                        <input type="radio" name="statusId" value="1" <#if article?? && article.statusId?? && article.statusId==1>checked="checked"</#if>><label>待审核</label>
+                        <!--<input type="radio" name="statusId" value="1" <#if article?? && article.statusId?? && article.statusId==1>checked="checked"</#if>><label>待审核</label>-->
                         <input type="radio" name="statusId" value="2" <#if article?? && article.statusId?? && article.statusId==2>checked="checked"</#if>><label>不显示</label>
                     </span>
                 </div>
             </dd>
         </dl>
-        <dl>
+       <!-- <dl>
             <dt>推荐类型</dt>
             <dd>
                 <div class="rule-multi-checkbox multi-checkbox">
@@ -162,11 +162,11 @@
                         <label for="cblItem_3">新品</label>
                         <input id="cblItem_4" type="checkbox" name="isSpecialPrice">
                         <label for="cblItem_4">特价</label>
-                        -->
+
                     </span>
                 </div>
             </dd>
-        </dl>
+        </dl>-->
         
         <dl>
             <dt>内容标题</dt>

@@ -15,7 +15,7 @@
     <!-- 头部 -->
     <header>
       <a class="back" href="#"></a>
-      <a id="title" class="title" href="#">无肉不欢<i>&nbsp;&nbsp;&nbsp;&nbsp;</i></a>
+      <a id="title" class="title" href="#"><#if type??>${type.title!'无类别'}</#if><i>&nbsp;&nbsp;&nbsp;&nbsp;</i></a>
     </header>
     <div id="menu-nav-top" class="menu-nav-top">
       <ul id="menu-nav">
@@ -55,50 +55,31 @@
       <section>
         <div class="filter-group">
           <a class="current" href="#">全部</a>
-          <a href="#">2~4人</a>
-          <a href="#">4~8人</a>
-          <a href="#">8~12人</a>
+          
+          <#if people_number??>
+          <#list people_number as item>
+          <a href="/food/number/${item_index}/<#if type??>${type.id!'0'}</#if>">${item}人</a>
+          </#list>
+          </#if>
         </div>
       </section>
+      <#if goods_page??>
+      <#list goods_page as item>
       <section class="package">
-        <!-- 图片尺寸 864*414 -->
-		<a href="#"><img src="images/package_details_photo_1.jpg" alt="江湖逍遥宴"></a>
+        <a href="#"><img src="${item.coverImageUri!''}" alt="江湖逍遥宴"></a>
         <div class="introduction">
-          <p class="title"><a href="#">江湖逍遥宴<span>（适合2-4人）</span></a></p>
-          <p class="itdt">江湖逍遥宴，滋味刚好。老少皆宜，营养丰富。</p>
-          <p class="follow">150</p>
+            <#assign Strlenght = item.paramValueCollect?length>
+          <p class="title"><a href="#">${item.title!''}<span>（${item.paramValueCollect[0..Strlenght-2]}人）</span></a></p>
+          <p class="itdt">${item.subTitle!''}</p>
+          <p class="follow">${item.totalclicks!'0'}</p>
         </div>
         <div class="price">
           <p class="p1"><span>9.8</span>分</p>
-          <p class="p2">￥<span>298.00</span></p>
+          <p class="p2">￥<span><#if item.salePrice??>${item.salePrice?string("0.00")}<#else>0</#if></span></p>
         </div>
       </section>
-      <section class="package">
-        <!-- 图片尺寸 864*414 -->
-        <a href="#"><img src="/client/images/package_details_photo_1.jpg" alt="江湖逍遥宴"></a>
-        <div class="introduction">
-          <p class="title"><a href="#">江湖逍遥宴<span>（适合4-8人）</span></a></p>
-          <p class="itdt">江湖逍遥宴，滋味刚好。老少皆宜，营养丰富。</p>
-          <p class="follow">150</p>
-        </div>
-        <div class="price">
-          <p class="p1"><span>9.8</span>分</p>
-          <p class="p2">￥<span>298.00</span></p>
-        </div>
-      </section>
-      <section class="package">
-        <!-- 图片尺寸 864*414 -->
-        <a href="#"><img src="/client/images/package_details_photo_1.jpg" alt="江湖逍遥宴"></a>
-        <div class="introduction">
-          <p class="title"><a href="#">江湖逍遥宴<span>（适合8-12人）</span></a></p>
-          <p class="itdt">江湖逍遥宴，滋味刚好。老少皆宜，营养丰富。</p>
-          <p class="follow">150</p>
-        </div>
-        <div class="price">
-          <p class="p1"><span>9.8</span>分</p>
-          <p class="p2">￥<span>298.00</span></p>
-        </div>
-      </section>
+      </#list>
+      </#if>
     </article>
     <!-- 套餐主题 END -->
 
@@ -106,9 +87,9 @@
 
     <!-- 底部 -->
     <footer>
-      <a href="index.html" class="a1 current-1">首页</a>
-      <a href="美食.html" class="a2">美食</a>
-      <a href="个人中心" class="a3">我</a>
+      <a href="/" class="a1 ">首页</a>
+      <a href="/food" class="a2 current-1">美食</a>
+      <a href="/center" class="a3">我</a>
     </footer>
     <!-- 底部 END -->
 

@@ -1089,6 +1089,18 @@ public class TdGoodsService {
     }
 
     /**
+     * 通过参数查找
+     * @param paramValue
+     * @param page
+     * @param size
+     * @return
+     */
+    public List<TdGoods> findByParamValueCollectContainingAndIsOnSaleTrueOrderByIdDesc(String paramValue)
+    {
+		return repository.findByParamValueCollectContainingAndIsOnSaleTrueOrderByIdDesc(paramValue);
+	}
+    
+    /**
      * 搜索商品
      * 
      * @param keywords
@@ -1154,7 +1166,7 @@ public class TdGoodsService {
                 .findByCategoryIdTreeContainingAndParamValueCollectLikeIgnoreCaseAndIsOnSaleTrue(
                         "[" + catId + "]", paramStr, pageRequest);
     }
-
+    
     public Page<TdGoods> findByCategoryIdAndBrandIdAndParamsLikeAndIsOnSaleTrue(
             long catId, long brandId,
             List<String> paramValueList, Pageable pageRequest) {

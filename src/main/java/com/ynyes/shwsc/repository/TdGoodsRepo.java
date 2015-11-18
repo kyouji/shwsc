@@ -10,6 +10,8 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 
 import com.ynyes.shwsc.entity.TdGoods;
 
+import scala.annotation.meta.param;
+
 /**
  * TdGoods 实体数据库操作接口
  * 
@@ -22,6 +24,8 @@ public interface TdGoodsRepo extends
 		JpaSpecificationExecutor<TdGoods> 
 {
 	TdGoods findById(Long Id);
+	
+	List<TdGoods> findByParamValueCollectContainingAndIsOnSaleTrueOrderByIdDesc(String parpam);
 	
     Page<TdGoods> findByCategoryIdTreeContainingAndIsOnSaleTrue(String categoryId, Pageable page);
     

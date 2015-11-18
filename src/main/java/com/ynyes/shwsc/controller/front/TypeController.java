@@ -45,23 +45,23 @@ public class TypeController {
 	private TdArticleService tdArticleService;
 	
 	//套餐详情
-	   @RequestMapping("/tcxq")
-	    public String tcxq(HttpServletRequest req, Device device, ModelMap map) {
-	       
-	        tdCommonService.setCommon(map, req);
-	        
-	        
-	        // 首页顶部轮播
-	        TdAdType adType = tdAdTypeService.findByTitle("首页顶部轮播");
-	        if (adType != null)
-	        {
-				map.addAttribute("ht_scroll_ad_list", tdAdService.findByTypeIdAndIsValidTrueOrderBySortIdAsc(adType.getId()));
-			}
-	        
-	      
-	        
-	        return "/client/tcxq";
-	    }
+	@RequestMapping("/tcxq")
+	public String tcxq(HttpServletRequest req, Device device, ModelMap map) {
+
+		tdCommonService.setCommon(map, req);
+
+
+		// 首页顶部轮播
+		TdAdType adType = tdAdTypeService.findByTitle("首页顶部轮播");
+		if (adType != null)
+		{
+			map.addAttribute("ht_scroll_ad_list", tdAdService.findByTypeIdAndIsValidTrueOrderBySortIdAsc(adType.getId()));
+		}
+
+
+
+		return "/client/tcxq";
+	}
 	
 
 	   //无肉不欢

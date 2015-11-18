@@ -74,8 +74,8 @@
     <div class="content-tab-ul-wrap">
       <ul>
         <li><a href="javascript:;" onclick="tabs(this);" class="selected">基本信息</a></li>
-        <li><a href="javascript:;" onclick="tabs(this);">SEO选项</a></li>
-        <li><a href="javascript:;" onclick="tabs(this);">扩展选项</a></li>
+        <!--<li><a href="javascript:;" onclick="tabs(this);">SEO选项</a></li>
+        <li><a href="javascript:;" onclick="tabs(this);">扩展选项</a></li>-->
       </ul>
     </div>
   </div>
@@ -111,13 +111,20 @@
         <span class="Validform_checktip">*类别中文名称，100字符内</span>
     </dd>
   </dl>
-  <dl>
+  <!--<dl>
     <dt>调用别名</dt>
     <dd>
       <input name="callIndex" type="text" id="txtCallIndex" value="<#if cat??>${cat.callIndex!""}</#if>" class="input normal" datatype="/^\s*$|^[a-zA-Z0-9\-\_]{2,50}$/" errormsg="请填写正确的别名" sucmsg=" ">
       <span class="Validform_checktip">类别的调用别名，只允许字母、数字、下划线</span>
     </dd>
-  </dl>
+    </dl>-->
+        <dl>
+        <dt>显示图片</dt>
+        <dd>
+          <input name="imgUrl" type="text" value="<#if cat??>${cat.imgUrl!""}</#if>" id="txtImgUrl" class="input normal upload-path">
+          <div class="upload-box upload-img"></div>
+        </dd>
+    </dl>
   <dl>
     <dt>关联参数</dt>
     <dd>
@@ -165,13 +172,6 @@
     <dd>
       <input name="linkUrl" type="text" maxlength="255" id="txtLinkUrl" value="<#if cat??>${cat.linkUrl!""}</#if>" class="input normal">
       <span class="Validform_checktip">填写后直接跳转到该网址</span>
-    </dd>
-  </dl>
-  <dl>
-    <dt>显示图片</dt>
-    <dd>
-      <input name="imgUrl" type="text" value="<#if cat??>${cat.imgUrl!""}</#if>" id="txtImgUrl" class="input normal upload-path">
-      <div class="upload-box upload-img"></div>
     </dd>
   </dl>
   <dl>

@@ -306,13 +306,13 @@ function del_goods_comb(obj) {
             <div class="content-tab-ul-wrap" >
                 <ul>
                     <li><a href="javascript:;" onclick="tabs(this);" class="selected">基本信息</a></li>
-                    <li><a href="javascript:;" onclick="tabs(this);" class="">扩展选项</a></li>
+                   <!-- <li><a href="javascript:;" onclick="tabs(this);" class="">扩展选项</a></li>
                     <li><a href="javascript:;" onclick="tabs(this);" class="">详细描述</a></li>
                     <li><a href="javascript:;" onclick="tabs(this);" class="">价格与库存</a></li>
                     <li><a href="javascript:;" onclick="tabs(this);" class="">促销</a></li>
                     <li><a href="javascript:;" onclick="tabs(this);" class="">赠品</a></li>
                     <li><a href="javascript:;" onclick="tabs(this);" class="">组合商品</a></li>
-                    <li><a href="javascript:;" onclick="tabs(this);" class="">SEO选项</a></li>
+                    <li><a href="javascript:;" onclick="tabs(this);" class="">SEO选项</a></li>-->
                 </ul>
             </div>
         </div>
@@ -348,8 +348,8 @@ function del_goods_comb(obj) {
                 </div>
             </dd>
         </dl>
-        <#if site_list??>
-        <dl>
+       <!--<#if site_list??>
+       <dl>
             <dt>所属站点</dt>
             <dd>
                 <div class="rule-single-select">
@@ -362,8 +362,8 @@ function del_goods_comb(obj) {
                 </div>
             </dd>
         </dl>
-        </#if>
-        <dl>
+        </#if>-->
+        <!--<dl>
             <dt>推荐类型</dt>
             <dd>
                 <div class="rule-multi-checkbox multi-checkbox">
@@ -381,16 +381,22 @@ function del_goods_comb(obj) {
                     </span>
                 </div>
             </dd>
-        </dl>
-        
+        </dl>-->
         <dl>
-            <dt>排序数字</dt>
+            <dt>商品标题</dt>
             <dd>
-                <input name="sortId" type="text" value="<#if goods??>${goods.sortId!""}<#else>99</#if>" id="txtSortId" class="input txt100" datatype="n" sucmsg=" ">
-                <span class="Validform_checktip">*数字，越小越向前</span>
+                <input name="title" type="text" value="<#if goods??>${goods.title!""}</#if>" class="input normal" datatype="*2-100" sucmsg=" ">
+                <span class="Validform_checktip">*标题最多100个字符</span>
             </dd>
         </dl>
-        
+        <dl>
+            <dt>商品副标题</dt>
+            <dd>
+                <input name="subTitle" type="text" value="<#if goods??>${goods.subTitle!""}</#if>" class="input normal" datatype="*1-255" sucmsg=" ">
+                <span class="Validform_checktip">*标题最多255个字符</span>
+            </dd>
+        </dl>
+        <dl>
         <dl>
             <dt>封面图片</dt>
             <dd>
@@ -400,7 +406,37 @@ function del_goods_comb(obj) {
                 </div>
             </dd>
         </dl>
-        
+        <dl>
+            <dt>上架时间</dt>
+            <dd>
+                <div class="input-date">
+                    <input name="onSaleTime" type="text" value="<#if goods??>${goods.onSaleTime!""}</#if>" class="input date" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',lang:'zh-cn'})" datatype="/^\s*$|^\d{4}\-\d{1,2}\-\d{1,2}\s{1}(\d{1,2}:){2}\d{1,2}$/" errormsg="请选择正确的日期" sucmsg=" ">
+                    <i>日期</i>
+                </div>
+                <span class="Validform_checktip">不选择默认为当前时间</span>
+            </dd>
+        </dl>
+        <dl>
+            <dt>销售价</dt>
+            <dd>
+                <input id="idComputeSalePrice" name="salePrice" type="text" value="<#if goods?? && goods.salePrice??>${goods.salePrice?string("0.00")}<#else>0</#if>" class="input normal" sucmsg="" datatype="/^(([1-9]{1}\d*)|([0]{1}))(\.(\d){1,2})?$/">
+                <span class="Validform_checktip">*销售价</span>
+            </dd>
+        </dl>
+        <dl>
+            <dt>浏览数</dt>
+            <dd>
+                <input id="totalclicks" name="totalclicks" type="text" value="<#if goods?? && goods.totalclicks??>${goods.totalclicks}<#else>0</#if>" class="input normal" sucmsg="" datatype="n">
+                <span class="Validform_checktip">*浏览次数</span>
+            </dd>
+        </dl>
+        <dl>
+            <dt>排序数字</dt>
+            <dd>
+                <input name="sortId" type="text" value="<#if goods??>${goods.sortId!""}<#else>99</#if>" id="txtSortId" class="input txt100" datatype="n" sucmsg=" ">
+                <span class="Validform_checktip">*数字，越小越向前</span>
+            </dd>
+        </dl>
         <div id="id-param-sec">
             <#if goods??>
                 <#include "/site_mag/goods_category_param_list.ftl" />
@@ -417,21 +453,7 @@ function del_goods_comb(obj) {
             </dd>
         </dl>
         -->
-        <dl>
-            <dt>商品标题</dt>
-            <dd>
-                <input name="title" type="text" value="<#if goods??>${goods.title!""}</#if>" class="input normal" datatype="*2-100" sucmsg=" ">
-                <span class="Validform_checktip">*标题最多100个字符</span>
-            </dd>
-        </dl>
-        <dl>
-            <dt>商品副标题</dt>
-            <dd>
-                <input name="subTitle" type="text" value="<#if goods??>${goods.subTitle!""}</#if>" class="input normal" datatype="*1-255" sucmsg=" ">
-                <span class="Validform_checktip">*标题最多255个字符</span>
-            </dd>
-        </dl>
-        <dl>
+        
             <dt>商品编码</dt>
             <dd>
                 <input name="code" type="text" value="<#if goods??>${goods.code!""}</#if>" class="input normal" datatype="*0-255" sucmsg=" ">
@@ -461,16 +483,7 @@ function del_goods_comb(obj) {
             </dd>
         </dl>
         -->
-        <dl>
-            <dt>上架时间</dt>
-            <dd>
-                <div class="input-date">
-                    <input name="onSaleTime" type="text" value="<#if goods??>${goods.onSaleTime!""}</#if>" class="input date" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',lang:'zh-cn'})" datatype="/^\s*$|^\d{4}\-\d{1,2}\-\d{1,2}\s{1}(\d{1,2}:){2}\d{1,2}$/" errormsg="请选择正确的日期" sucmsg=" ">
-                    <i>日期</i>
-                </div>
-                <span class="Validform_checktip">不选择默认为当前时间</span>
-            </dd>
-        </dl>
+        
     </div>
     
     <div class="tab-content" style="display: none;">
@@ -557,13 +570,7 @@ function del_goods_comb(obj) {
                 <span class="Validform_checktip">*商品供货价即批发价</span>
             </dd>
         </dl>
-        <dl>
-            <dt>销售价</dt>
-            <dd>
-                <input id="idComputeSalePrice" name="salePrice" type="text" value="<#if goods?? && goods.salePrice??>${goods.salePrice?string("0.00")}<#else>0</#if>" class="input normal" sucmsg="" datatype="/^(([1-9]{1}\d*)|([0]{1}))(\.(\d){1,2})?$/">
-                <span class="Validform_checktip">*销售价</span>
-            </dd>
-        </dl>
+        
         <dl>
             <dt>赠送粮草</dt>
             <dd>

@@ -122,11 +122,7 @@
     <div class="clear h50"></div>
 
     <!-- 底部 -->
-    <footer>
-      <a href="#" class="a1 current-1">首页</a>
-      <a href="/tcxq" class="a2">美食</a>
-      <a href="/wrbh" class="a3">我</a>
-    </footer>
+<#include "/client/comm_footer.ftl" />
     <!-- 底部 END -->
 
 </body>
