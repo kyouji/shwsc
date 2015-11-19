@@ -1100,6 +1100,11 @@ public class TdGoodsService {
 		return repository.findByParamValueCollectContainingAndIsOnSaleTrueOrderByIdDesc(paramValue);
 	}
     
+    public List<TdGoods> findByCategoryIdAndParamValueCollectContainingAndIsOnSaleTrueOrderByIdDesc(Long  categoryId, String paramValueCollect )
+    {
+		return repository.findByCategoryIdAndParamValueCollectContainingAndIsOnSaleTrueOrderByIdDesc(categoryId, paramValueCollect);
+	}
+    
     /**
      * 搜索商品
      * 

@@ -14,8 +14,8 @@
 <body class="bgc-f2">
     <!-- 头部 -->
     <header>
-      <a class="back" href="#"></a>
-      <p>新品美食</p>
+      <a class="back" href="javascript:history.back(-1);"></a>
+      <p><#if good??>${good.categoryTitle}</#if></p>
     </header>
     <!-- 头部 END -->
 
@@ -61,12 +61,13 @@
       <section class="package-description">
         <div class="div1">
           <div class="left">
-            <p class="p1">江湖逍遥宴</p>
+            <p class="p1">${good.title!''}</p>
             <p class="p2"></p>
           </div>
           <div class="right">
             <p class="p1">￥<span>198.00</span></p>
-            <p class="p2">适合2-4人</p>
+             <#assign Strlenght = good.paramValueCollect?length>
+            <p class="p2">适合${good.paramValueCollect[0..Strlenght-2]}人</p>
           </div>
         </div>
         <div class="div2">
@@ -76,8 +77,8 @@
         <div class="div3">
           <p class="p1">定前须知</p>
           <ul>
-            <li class="li1">精选食材</li>
-            <li class="li2">厨师上门服务</li>
+            <li class="li1 ">精选食材</li>
+            <li class="li2 c-ccc">厨师上门服务</li>
             <li class="li3 c-ccc">餐具上门回收</li>
           </ul>
         </div>
@@ -85,57 +86,66 @@
 
       <!-- 菜品介绍 -->
       <section class="food-presentation">
-        <ul>
-          <li class="li1 current">菜品介绍</li>
-          <li class="li2 c-ccc">商家介绍</li>
-        </ul>
-        <dl>
-          <dt>
-            <div class="img-group">
-              <!-- 图片原始尺寸 600*315 -->
-              <img class="mn-cr" src="/client/images/index_photo_1.jpg" alt="主菜">
-              <!-- 图片原始尺寸 95*56 -->
-              <img width="60" height="35" class="main-course" src="/client/images/icon_main_course.png" alt="">
-            </div>
-            <div class="dishes">
-              <p class="p1">油焖大虾</p>
-              <p class="p2">#主菜/老少皆宜</p>
-              <p class="p3"><i></i><span>32</span></p>
-            </div>
-            <p class="explanation">依旧是虾控最爱的一道快手菜，这次用的虾个头比较大，满满的都是肉,好星湖哈哈。用自己种的香菜做点缀成就感好大</p>
-          </dt>
-          <dd>
+            <ul>
+              <li class="li1 current">菜品介绍</li>
+              <li class="li2 c-ccc">商家介绍</li>
+            </ul>
+            <dl>
+            <#if good??>
+            <#list good.giftList as item>
+            <dt>
+                <div class="img-group">
+                    <!-- 图片原始尺寸 600*315 -->
+                    <img class="mn-cr" src="${item.goodsPrice}" alt="主菜">
+                    <!-- 图片原始尺寸 95*56 -->
+                    <img width="60" height="35" class="main-course" src="/client/images/icon_main_course.png" alt="">
+                </div>
+                <div class="dishes">
+                    <p class="p1">${item.goodsId}</p>
+                    <p class="p2">${item.goodsTitle}</p>
+                    <p class="p3"><i></i><span>32</span></p>
+                </div>
+                <p class="explanation">依旧是虾控最爱的一道快手菜，这次用的虾个头比较大，满满的都是肉,好星湖哈哈。用自己种的香菜做点缀成就感好大</p>
+            </dt>  
+            <#break>
+            </#list>
+            </#if>
+        <#assign totalGift = good.giftList?size>
+        <#list good.giftList as item>
+        <#if item_index gte 1 && item_index lte (totalGift - 3)>
+        <dd>
             <!-- 图片原始尺寸 600*315 -->
-            <img src="/client/images/index_photo_1.jpg" alt="主菜">
+            <img src="${item.goodsPrice}" alt="主菜">
             <div>
-              <p class="p1">油焖大虾</p>
-              <p class="p2">#配菜/老少皆宜</p>
+              <p class="p1">${item.goodsId}</p>
+              <p class="p2">${item.goodsTitle}</p>
             </div>
-          </dd>
-          <dd>
-            <!-- 图片原始尺寸 600*315 -->
-            <img src="/client/images/index_photo_1.jpg" alt="主菜">
-            <div>
-              <p class="p1">油焖大虾</p>
-              <p class="p2">#配菜/老少皆宜</p>
-            </div>
-          </dd>
-          <div class="food-more">
+        </dd>
+        </#if>
+        </#list>
+        <div class="food-more">
+            <#list good.giftList as item>
+            <#if item_index == (totalGift - 2)>
             <div class="div1">
-              <img src="/client/images/food_more_1.jpg" alt="">
-              <div>
-                <p class="p1">油焖大虾</p>
-                <p class="p2">#配菜/老少皆宜</p>
-              </div>
+                <!-- 图片原始尺寸 600*315 -->
+                <img src="${item.goodsPrice}" alt="主菜">
+                <div>
+                  <p class="p1">${item.goodsId}</p>
+                  <p class="p2">${item.goodsTitle}</p>
+                </div>
             </div>
+            <#elseif item_index == (totalGift - 1)>
             <div class="div2">
-              <img src="/client/images/food_more_2.jpg" alt="">
-              <div>
-                <p class="p1">油焖大虾</p>
-                <p class="p2">#配菜/老少皆宜</p>
-              </div>
+                <!-- 图片原始尺寸 600*315 -->
+                <img src="${item.goodsPrice}" alt="主菜">
+                <div>
+                  <p class="p1">${item.goodsId}</p>
+                  <p class="p2">${item.goodsTitle}</p>
+                </div>
             </div>
-          </div>
+            </#if>
+            </#list>
+        </div>
         </dl>
       </section>
       <!-- 套餐清单 -->
@@ -143,23 +153,23 @@
         <div class="div1">
           <div class="fz1-4 c000">
             <p class="p1">菜品</p>
-            <p class="p2 c-ccc"><span>8</span>份</p>
+            <p class="p2 c-ccc"><span>${good.leftNumber!'0'}</span>份</p>
           </div>
           <div class="fz1-2">
             <p class="p1 fs-il">主菜</p>
-            <p class="p2">油焖大虾</p>
+            <p class="p2">${good.detail!''}</p>
           </div>
           <div class="fz1-2">
             <p class="p1 fs-il">配菜</p>
-            <p class="p2">蒜泥白肉、清心鱼、白芍时蔬、闷烧鸡、凉瓜拌桃仁、狮子头、唐生嫩瓜尖</p>
+            <p class="p2">${good.afterMarketService!''}</p>
           </div>
         </div>
         <div class="div2">
           <div class="fz1-4 c000">
             <p class="p1">赠品</p>
-            <p class="p2 c-ccc"><span>2</span>份<br></p>
+            <p class="p2 c-ccc"><span>2${good.soldNumber!'0'}</span>份<br></p>
           </div>
-          <div class="acd fz1-2 c999">水果拼盘(上位)、例汤(上位)</div>
+          <div class="acd fz1-2 c999">${good.flashSaleImage!''}</div>
         </div>
       </section>
       <!-- 评论 -->

@@ -5,6 +5,10 @@
 <script type="text/javascript" src="/mag/js/layout.js"></script>
 <script type="text/javascript" src="/mag/js/jquery.lazyload.min.js"></script>
 <script type="text/javascript" src="/mag/js/lhgdialog.js?skin=idialog"></script>
+<script type="text/javascript" src="/mag/js/WdatePicker.js"></script>
+<script type="text/javascript" src="/mag/js/swfupload.js"></script>
+<script type="text/javascript" src="/mag/js/swfupload.queue.js"></script>
+<script type="text/javascript" src="/mag/js/swfupload.handlers.js"></script>
 <link href="/mag/style/style.css" rel="stylesheet" type="text/css">
 <link href="/mag/style/pagination.css" rel="stylesheet" type="text/css">
 
@@ -22,8 +26,28 @@
         name: '取消'
     });
 
+
     //页面加载完成执行
     $(function () {
+        //初始化上传控件
+        $(".upload-img").each(function () {
+            $(this).InitSWFUpload({ 
+                sendurl: "/Verwalter/upload", 
+                flashurl: "/mag/js/swfupload.swf"
+            });
+        });
+        
+        //（缩略图）
+        var txtPic = $("#txtItemZengPin_Price").val();
+        if (txtPic == "" || txtPic == null) {
+            $("#thumb_ImgUrl_show1").hide();
+        }
+        else {
+            $("#thumb_ImgUrl_show1").html("<ul><li><div class='img-box1'><img src='" + txtPic + "' bigsrc='" + txtPic + "' /></div></li></ul>");
+            $("#thumb_ImgUrl_show1").show();
+        }
+    
+    
         if ($(api.data).length > 0) {
             var parentObj = $(api.data).parent().parent(); //取得节点父对象            
             //开始赋值
@@ -119,28 +143,37 @@
 <div class="div-content">
     <input type="hidden" id="txtItemZengPin_CoverImageUri" class="input normal">
     <dl>
-      <dt>商品ID</dt>
+      <dt>菜品名称</dt>
       <dd>
         <input type="text" id="txtItemZengPin_Id" class="input normal">
         <span class="Validform_checktip">*</span>
       </dd>
     </dl> 
     <dl>
-      <dt>商品标题</dt>
+      <dt>菜品描述</dt>
       <dd>
         <input type="text" id="txtItemZengPin_Title" class="input normal">
         <span class="Validform_checktip">*</span>
       </dd>
     </dl>
-    <dl>
+   <!-- <dl>
       <dt>商品价格</dt>
       <dd>
         <input type="text" id="txtItemZengPin_Price" class="input normal"> 元
         <span class="Validform_checktip">*</span>
       </dd>
+    </dl>-->
+    <dl>
+        <dt>显示图片</dt>
+        <dd>
+            <input id="txtItemZengPin_Price" type="text" value="<#if goods??>${goods.coverImageUri!""}</#if>" class="input normal upload-path">
+            <div class="upload-box upload-img"></div>
+            <div id="thumb_ImgUrl_show1" class="photo-list thumb_ImgUrl_show">
+            </div>
+        </dd>
     </dl>
 </div>
-
+<#--
 <form name="form1" method="post" action="" id="form1">
 <div>
 <input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value="${__EVENTTARGET!""}">
@@ -148,7 +181,6 @@
 <input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="${__VIEWSTATE!""}">
 <input type="hidden" name="total" value="${total!"0"}">
 </div>
-
 <script type="text/javascript">
 var theForm = document.forms['form1'];
 if (!theForm) {
@@ -161,8 +193,8 @@ function __doPostBack(eventTarget, eventArgument) {
         theForm.submit();
     }
 }
-</script>
-<!--工具栏-->
+</script>-->
+<!--工具栏--><#--
 <div class="toolbar-wrap">
   <div id="floatHead" class="toolbar" style="position: static; top: 312px;">
     <div class="l-list">
@@ -185,11 +217,11 @@ function __doPostBack(eventTarget, eventArgument) {
       <a id="lbtnSearch" class="btn-search" href="javascript:__doPostBack('btnSearch','')">查询</a>      
     </div>
   </div>
-</div>
+</div>-->
 <!--/工具栏-->
 
 <!--文字列表-->
-
+<#--
 <table width="100%" border="0" cellspacing="0" cellpadding="0" class="ltable">
     <tbody>
         <tr class="odd_bg">
@@ -211,15 +243,15 @@ function __doPostBack(eventTarget, eventArgument) {
             </#list>
         </#if>
 </tbody>
-</table>
+</table>-->
 
 <!--/文字列表-->
 
-<!--内容底部-->
+<!--内容底部--><#--
 <#assign PAGE_DATA=goods_page />
-<#include "/site_mag/list_footer.ftl" />
-<!--/内容底部-->
-</form>
+<#include "/site_mag/list_footer.ftl" />-->
+<!--/内容底部--><#--
+</form>-->
 
 </body>
 </html>

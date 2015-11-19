@@ -14,7 +14,7 @@
 <body class="bgc-f2">
     <!-- 头部 -->
     <header>
-      <a class="back" href="#"></a>
+      <a class="back" href="/food"></a>
       <a id="title" class="title" href="#"><#if type??>${type.title!'无类别'}</#if><i>&nbsp;&nbsp;&nbsp;&nbsp;</i></a>
     </header>
     <div id="menu-nav-top" class="menu-nav-top">
@@ -54,19 +54,19 @@
     <article class="theme-packages">
       <section>
         <div class="filter-group">
-          <a class="current" href="#">全部</a>
+          <a <#if choosed_number??><#if choosed_number == -1>class="current"</#if><#else>class="current"</#if> href="/food/number/-1/<#if type??>${type.id!'0'}</#if>">全部</a>
           
           <#if people_number??>
           <#list people_number as item>
-          <a href="/food/number/${item_index}/<#if type??>${type.id!'0'}</#if>">${item}人</a>
+          <a href="/food/number/${item_index}/<#if type??>${type.id!'0'}</#if>" <#if choosed_number??&& choosed_number == (item_index + 1)> class="current"</#if>>${item}人</a>
           </#list>
           </#if>
         </div>
       </section>
       <#if goods_page??>
       <#list goods_page as item>
-      <section class="package">
-        <a href="#"><img src="${item.coverImageUri!''}" alt="江湖逍遥宴"></a>
+      <section class="package"><a style="display:block;" href="/food/showdishes?goodId=${item.id}">
+        <img src="${item.coverImageUri!''}" alt="江湖逍遥宴"></a>
         <div class="introduction">
             <#assign Strlenght = item.paramValueCollect?length>
           <p class="title"><a href="#">${item.title!''}<span>（${item.paramValueCollect[0..Strlenght-2]}人）</span></a></p>
@@ -77,6 +77,7 @@
           <p class="p1"><span>9.8</span>分</p>
           <p class="p2">￥<span><#if item.salePrice??>${item.salePrice?string("0.00")}<#else>0</#if></span></p>
         </div>
+      
       </section>
       </#list>
       </#if>

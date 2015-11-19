@@ -27,6 +27,7 @@ input[type="text"],input[type="password"],input[type="submit"],input[type="reset
 .fz1-3 {font-size: 1.3em;}
 .fz1-4 {font-size: 1.4em;}
 .fz1-5 {font-size: 1.5em;}
+.fz3 {font-size: 3em;}
 
 /*font-style*/
 .fs-il {font-style: italic;}
@@ -37,6 +38,7 @@ input[type="text"],input[type="password"],input[type="submit"],input[type="reset
 
 /*color*/
 .c000 {color: #000;}
+.c333 {color: #333;}
 .c666 {color: #666;}
 .c999 {color: #999;}
 .c-ccc {color: #ccc;}
@@ -47,12 +49,15 @@ input[type="text"],input[type="password"],input[type="submit"],input[type="reset
 
 
 /*叫个厨子*/
+.cf93 {color: #ff9933;}
+.c-d50202 {color: #d50202;}
 .complete{color:#06b032;}
 .incomplete{color:#df0304;}
 .hide{visibility:hidden;}
 .body-1 {background: url(../images/bgphoto_body_1.jpg) no-repeat;-webkit-background-size: cover;background-attachment: fixed;
 background-size: cover;background-attachment: fixed;}
 .bgc-f2 {background-color: #f2f2f2;}
+.bgc-ccc {background-color: #ccc;}
 .gradual{background-image:-webkit-linear-gradient(to bottom, #fcfcfc, #f1f1f1);
   background-image:linear-gradient(to bottom,#fcfcfc,#f1f1f1);}
 
@@ -425,6 +430,54 @@ footer .add-address {
 	background: #ff9333;
 	border-radius: 25px;
 }
+
+/*尾部-购物车*/
+footer .select-all,
+footer .total,
+footer .clearing {
+	float: left;
+	line-height: 50px;
+}
+
+footer .select-all {
+	margin-left: 2%;
+	margin-right: 5px;
+}
+footer .total {margin-left: 12%;}
+footer .total-1 {
+	float: left;
+	margin-left: 2%;
+	line-height: 50px;
+}
+footer .clearing {
+	position: absolute;
+	top: 10px;
+	right: 2%;
+	z-index: 3;
+	display: block;
+	padding-top: 0;
+	width: 80px;
+	height: 30px;
+	color: #fff;
+	line-height: 30px;
+	background: #ff9933;
+	border-radius: 30px;
+}
+
+/*尾部-订单详情*/
+footer .determine {
+	display: block;
+	padding-top: 0;
+	margin-left: 25%;
+	margin-top: 10px;
+	width: 50%;
+	height: 30px;
+	color: #fff;
+	line-height: 30px;
+	background: #ff9933;
+	border-radius: 30px;
+}
+
 
 /*尾部导航 END*/
 

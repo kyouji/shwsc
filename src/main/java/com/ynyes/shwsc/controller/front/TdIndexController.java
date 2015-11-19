@@ -42,8 +42,13 @@ public class TdIndexController {
     @Autowired
     private TdArticleCategoryService tdArticleCategoryService;
     
+    @RequestMapping("/launch")
+    public String Launch()
+    {
+    	return "/client/Launch";
+    }
     
-    @RequestMapping
+    @RequestMapping()
     public String index(HttpServletRequest req, Device device, ModelMap map) {
        
         tdCommonService.setCommon(map, req);

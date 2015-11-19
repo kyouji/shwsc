@@ -67,8 +67,6 @@ public class TdFoodController
 		String parameterValue = parameter.getValueList();
 		String[] strings =  parameterValue.split(",");
 		map.addAttribute("people_number",strings);
-		
-		
 		Page<TdGoods> goods_page = tdGoodsService.findByCategoryIdAndIsOnSaleTrue(id, 0, 10000);
 		map.addAttribute("type",tdProductCategoryService.findOne(id));
 		map.addAttribute("goods_page", goods_page.getContent());
@@ -87,15 +85,32 @@ public class TdFoodController
 		String[] strings =  parameterValue.split(",");
 		
 		map.addAttribute("people_number",strings);
-		
+		if (count == -1)
+		{
+			Page<TdGoods> goods_page = tdGoodsService.findByCategoryIdAndIsOnSaleTrue(typeId, 0, 10000);
+			map.addAttribute("choosed_number", -1);
+			map.addAttribute("type",tdProductCategoryService.findOne(typeId));
+			map.addAttribute("goods_page", goods_page.getContent());
+			return "/client/food_detail";
+		}
 		String number = strings[count];
-		
+		map.addAttribute("choosed_number", count + 1);
 		map.addAttribute("type",tdProductCategoryService.findOne(typeId));
 		
-		map.addAttribute("goods_page",tdGoodsService.findByParamValueCollectContainingAndIsOnSaleTrueOrderByIdDesc(number));
+		map.addAttribute("goods_page",tdGoodsService.findByCategoryIdAndParamValueCollectContainingAndIsOnSaleTrueOrderByIdDesc(typeId,number));
 		
 		
 		return "/client/food_detail";
+	}
+	/**
+	 * 套餐详情
+	 * @return
+	 */
+	@RequestMapping("/showdishes")
+	public String dishesDetail(ModelMap map,Long goodId)
+	{
+		map.addAttribute("good", tdGoodsService.findOne(goodId));
+		return "/client/dishes_detail";
 	}
 	
 }

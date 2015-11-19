@@ -9,7 +9,7 @@
 <!--css-->
 <link rel="stylesheet" type="text/css" href="/client/css/common.css"/>
 <link rel="stylesheet" type="text/css" href="/client/css/main.css"/>
-<title>叫个厨子-}</title>
+<title>叫个厨子-美食</title>
 </head>
 <body class="body-1">
     <!-- 美食 -->

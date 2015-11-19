@@ -22,16 +22,6 @@
 $(function () {
     //初始化表单验证
     $("#form1").initValidform();
-
-    //初始化编辑器
-    var editor = KindEditor.create('.editor', {
-        width: '98%',
-        height: '350px',
-        resizeType: 1,
-        uploadJson: '/Verwalter/editor/upload?action=EditorFile',
-        fileManagerJson: '/Verwalter/editor/upload?action=EditorFile',
-        allowFileManager: true
-    });
     
     //初始化上传控件
     $(".upload-img").each(function () {
@@ -306,12 +296,12 @@ function del_goods_comb(obj) {
             <div class="content-tab-ul-wrap" >
                 <ul>
                     <li><a href="javascript:;" onclick="tabs(this);" class="selected">基本信息</a></li>
-                   <!-- <li><a href="javascript:;" onclick="tabs(this);" class="">扩展选项</a></li>
-                    <li><a href="javascript:;" onclick="tabs(this);" class="">详细描述</a></li>
+                    <!--<li><a href="javascript:;" onclick="tabs(this);" class="">扩展选项</a></li>
                     <li><a href="javascript:;" onclick="tabs(this);" class="">价格与库存</a></li>
-                    <li><a href="javascript:;" onclick="tabs(this);" class="">促销</a></li>
-                    <li><a href="javascript:;" onclick="tabs(this);" class="">赠品</a></li>
-                    <li><a href="javascript:;" onclick="tabs(this);" class="">组合商品</a></li>
+                    <li><a href="javascript:;" onclick="tabs(this);" class="">促销</a></li>-->
+                    <li><a href="javascript:;" onclick="tabs(this);" class="">菜单</a></li>
+                    <li><a href="javascript:;" onclick="tabs(this);" class="">详细描述</a></li>
+                    <!--<li><a href="javascript:;" onclick="tabs(this);" class="">组合商品</a></li>
                     <li><a href="javascript:;" onclick="tabs(this);" class="">SEO选项</a></li>-->
                 </ul>
             </div>
@@ -444,6 +434,65 @@ function del_goods_comb(obj) {
         </div>
     </div>
     <div class="tab-content" style="display: none;">
+    <dl>
+            <dt>菜单列表</dt>
+            <dd>
+                <a id="addGift" class="icon-btn add"><i></i><span>添加菜品</span></a>
+                <span class="Validform_checktip"></span>
+            </dd>
+        </dl>
+        <dl>
+            <dt></dt>
+            <dd>
+                <table border="0" cellspacing="0" cellpadding="0" class="border-table" width="98%">
+                    <thead>
+                        <tr>
+                            <th width="6%">
+                                排序
+                            </th>
+                            <th width="10%">
+                                菜品名称
+                            </th>
+                            <th width="38%">
+                                菜品描述
+                            </th>
+                            <th width="10%">
+                                显示
+                            </th>
+                            <th width="6%">
+                                操作
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody id="var_box_gift">
+                        <input type="hidden" id="totalGift" name="totalGift" value="<#if goods??>${goods.totalGift!'0'}</#if>" />
+                        <#if goods?? && goods.giftList??>
+                            <#list goods.giftList as gift>
+                                <tr class="td_c">
+                                    <td>
+                                        <input name="giftList[${gift_index}].id?c" type="hidden" value="${gift.id?c}">
+                                        <input name="giftList[${gift_index}].coverImageUri" type="hidden" value="${gift.coverImageUri!''}">
+                                        <input type="text" name="giftList[${gift_index}].sortId" class="td-input" value="${gift.sortId!''}" style="width:90%;">
+                                    </td>
+                                    <td><input type="text" id="id" name="giftList[${gift_index}].goodsId" class="td-input" value="${gift.goodsId!''}" style="width:90%;"></td>
+                                    <td>
+                                        <input type="text" id="title" name="giftList[${gift_index}].goodsTitle" class="td-input" value="${gift.goodsTitle!''}" style="width:90%;">
+                                    </td>
+                                    <td>
+                                        <input type="text" id="price" name="giftList[${gift_index}].goodsPrice" class="td-input" value="${gift.goodsPrice!''}" style="width:90%;">
+                                    </td>
+                                    <td>
+                                        <i class="icon"></i>
+                                        <a title="编辑" class="img-btn edit operator" onclick="show_goods_gift_dialog(this);">编辑</a>
+                                        <a title="删除" class="img-btn del operator" onclick="del_goods_gift(this);">删除</a>
+                                    </td>
+                                </tr>
+                            </#list>
+                        </#if>
+                    </tbody>
+                </table>
+            </dd>
+        </dl>
         <#--
         <dl>
             <dt>商品名称</dt>
@@ -452,14 +501,14 @@ function del_goods_comb(obj) {
                 <span class="Validform_checktip">*标题最多100个字符</span>
             </dd>
         </dl>
-        -->
+        
         
             <dt>商品编码</dt>
             <dd>
                 <input name="code" type="text" value="<#if goods??>${goods.code!""}</#if>" class="input normal" datatype="*0-255" sucmsg=" ">
                 <span class="Validform_checktip">*编码最多255个字符</span>
             </dd>
-        </dl>
+        </dl>-->
         <#--
         <dl>
             <dt>服务</dt>
@@ -487,7 +536,7 @@ function del_goods_comb(obj) {
     </div>
     
     <div class="tab-content" style="display: none;">
-        <dl id="div_show360_container">
+        <#--<dl id="div_show360_container">
             <dt>展示图片</dt>
             <dd>
                 <div class="upload-box upload-show360"></div>
@@ -509,17 +558,37 @@ function del_goods_comb(obj) {
                     </ul>
                 </div>
             </dd>
+        </dl>-->
+        <dl>
+            <dt>菜品数量</dt>
+            <dd>
+                <input name="leftNumber" type="text" value="<#if goods?? && goods.leftNumber??>${goods.leftNumber?c!"0"}<#else>99</#if>" class="input normal" datatype="n" sucmsg=" ">
+                <span class="Validform_checktip">菜品的总数量</span>
+            </dd>
         </dl>
         <dl>
-            <dt>详细描述</dt>
+            <dt>主菜名称</dt>
             <dd>
                 <textarea name="detail" class="editor"><#if goods??>${goods.detail!""}</#if></textarea>
             </dd>
         </dl>
         <dl>
-            <dt>售后服务</dt>
+            <dt>配菜</dt>
             <dd>
                 <textarea name="afterMarketService" class="editor"><#if goods??>${goods.afterMarketService!""}</#if></textarea>
+            </dd>
+        </dl>
+        <dl>
+            <dt>赠品数量</dt>
+            <dd>
+                <input name="soldNumber" type="text" value="<#if goods?? && goods.soldNumber??>${goods.soldNumber?c!"0"}<#else>0</#if>" class="input normal" datatype="n" sucmsg=" ">
+                <span class="Validform_checktip">赠品数量</span>
+            </dd>
+        </dl>
+        <dl>
+            <dt>赠品菜名</dt>
+            <dd>
+                <input name="flashSaleImage" type="text" value="<#if goods??>${goods.flashSaleImage!""}</#if>" class="input">
             </dd>
         </dl>
     </div>
@@ -652,20 +721,6 @@ function del_goods_comb(obj) {
         </dl>
         </#if>
         <dl>
-            <dt>库存余量</dt>
-            <dd>
-                <input name="leftNumber" type="text" value="<#if goods?? && goods.leftNumber??>${goods.leftNumber?c!"99"}<#else>99</#if>" class="input normal" datatype="n" sucmsg=" ">
-                <span class="Validform_checktip">库存为0时显示为缺货</span>
-            </dd>
-        </dl>
-        <dl>
-            <dt>销量</dt>
-            <dd>
-                <input name="soldNumber" type="text" value="<#if goods?? && goods.soldNumber??>${goods.soldNumber?c!"0"}<#else>0</#if>" class="input normal" datatype="n" sucmsg=" ">
-                <span class="Validform_checktip">商品已销售数量</span>
-            </dd>
-        </dl>
-        <dl>
             <dt>同盟店利润</dt>
             <dd>
                 <input  readonly="true" id="shopReturnProfit" name="shopReturnProfit" type="text" value="<#if goods?? && goods.shopReturnProfit??>${goods.shopReturnProfit?string("0.00")}<#else>0</#if>" class="input normal" >
@@ -695,7 +750,7 @@ function del_goods_comb(obj) {
         </dl>
     </div>
     
-    <div class="tab-content" style="display: none;">
+  <#--  <div class="tab-content" style="display: none;">
         <dl>
             <dt>支持一元抢拍</dt>
             <dd>
@@ -914,9 +969,9 @@ function del_goods_comb(obj) {
                 <span class="Validform_checktip">百人团已售商品数量</span>
             </dd>
         </dl>
-    </div>
+    </div>-->
     
-    <div class="tab-content" style="display: none;">
+    <#--<div class="tab-content" style="display: none;">
         <dl>
             <dt>赠品</dt>
             <dd>
@@ -976,9 +1031,9 @@ function del_goods_comb(obj) {
                 </table>
             </dd>
         </dl>
-    </div>
+    </div>-->
     
-    <div class="tab-content" style="display: none;">
+   <#-- <div class="tab-content" style="display: none;">
         <dl>
             <dt>商品组合</dt>
             <dd>
@@ -1044,9 +1099,9 @@ function del_goods_comb(obj) {
                 </table>
             </dd>
         </dl>
-    </div>
+    </div>-->
     
-    <div class="tab-content" style="display: none;">
+    <#--<div class="tab-content" style="display: none;">
         <dl>
             <dt>SEO标题</dt>
             <dd>
@@ -1068,7 +1123,7 @@ function del_goods_comb(obj) {
                 <span class="Validform_checktip">255个字符以内</span>
             </dd>
         </dl>
-    </div>
+    </div>-->
     
     
     

@@ -21,17 +21,17 @@ public class TdGoodsGift {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     
-    // 赠品ID
+    // 菜品名称
 	@Column
-	private Long goodsId;
+	private String goodsId;
 	
-	// 赠品名称
+	// 菜品描述
 	@Column
 	private String goodsTitle;
 	
 	// 赠品价格
-	@Column(scale=2)
-	private Double goodsPrice;
+	@Column
+	private String goodsPrice;
 	
 	// 赠品缩略图
 	@Column
@@ -49,15 +49,15 @@ public class TdGoodsGift {
         this.id = id;
     }
 
-    public Long getGoodsId() {
-        return goodsId;
-    }
+    public String getGoodsId() {
+		return goodsId;
+	}
 
-    public void setGoodsId(Long goodsId) {
-        this.goodsId = goodsId;
-    }
+	public void setGoodsId(String goodsId) {
+		this.goodsId = goodsId;
+	}
 
-    public String getGoodsTitle() {
+	public String getGoodsTitle() {
         return goodsTitle;
     }
 
@@ -65,15 +65,16 @@ public class TdGoodsGift {
         this.goodsTitle = goodsTitle;
     }
 
-    public Double getGoodsPrice() {
-        return goodsPrice;
-    }
 
-    public void setGoodsPrice(Double goodsPrice) {
-        this.goodsPrice = goodsPrice;
-    }
+    public String getGoodsPrice() {
+		return goodsPrice;
+	}
 
-    public String getCoverImageUri() {
+	public void setGoodsPrice(String goodsPrice) {
+		this.goodsPrice = goodsPrice;
+	}
+
+	public String getCoverImageUri() {
         return coverImageUri;
     }
 

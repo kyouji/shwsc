@@ -27,6 +27,8 @@ public interface TdGoodsRepo extends
 	
 	List<TdGoods> findByParamValueCollectContainingAndIsOnSaleTrueOrderByIdDesc(String parpam);
 	
+	List<TdGoods> findByCategoryIdAndParamValueCollectContainingAndIsOnSaleTrueOrderByIdDesc(Long categoryId, String paramValueCollect);
+	
     Page<TdGoods> findByCategoryIdTreeContainingAndIsOnSaleTrue(String categoryId, Pageable page);
     
     Page<TdGoods> findByCategoryIdTreeContainingAndIsRecommendTypeTrueAndIsOnSaleTrueOrderByIdDesc(String categoryId, Pageable page);

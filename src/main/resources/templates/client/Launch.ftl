@@ -9,6 +9,18 @@
 <!--css-->
 <link rel="stylesheet" type="text/css" href="/client/css/common.css"/>
 <link rel="stylesheet" type="text/css" href="/client/css/main.css"/>
+<script type="text/javascript" src="/mag/js/jquery-1.10.2.min.js"></script>
+<script type="text/javascript">
+$(function () {
+    setTimeout("goNext();",1500); 
+});
+
+function goNext()
+{
+    window.location.href="/";
+}
+</script>
+
 <title>叫个厨子</title>
 </head>
 <body class="guide-page">
