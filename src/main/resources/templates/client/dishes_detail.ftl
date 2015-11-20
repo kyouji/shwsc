@@ -216,7 +216,7 @@
     <!-- 底部 -->
     <footer class="bdt-n">
       <div class="shopp-car">(<span>3</span>)</div>
-      <a class="button-buy" href="#">立即购买</a>
+      <a class="button-buy" href="/food/buy?id=${good.id!''}">立即购买</a>
     </footer>
     <!-- 底部 END -->
 

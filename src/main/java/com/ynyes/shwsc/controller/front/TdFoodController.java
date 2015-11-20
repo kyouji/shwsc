@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.poi.hssf.model.Model;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -13,6 +14,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.google.zxing.qrcode.decoder.Mode;
 import com.ynyes.shwsc.entity.TdAdType;
 import com.ynyes.shwsc.entity.TdGoods;
 import com.ynyes.shwsc.entity.TdParameter;
@@ -112,5 +114,50 @@ public class TdFoodController
 		map.addAttribute("good", tdGoodsService.findOne(goodId));
 		return "/client/dishes_detail";
 	}
+
+	/**
+	 * 进入购买
+	 * @param map
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping("/buy")
+	public String buy(ModelMap map,Long id)
+	{
+		map.addAttribute("good", tdGoodsService.findOne(id));
+		return "/client/submit_order";
+	}
+	
+	/**
+	 * 购买详细页
+	 * @param map
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping("/buydetail")
+	public String buyDetail(ModelMap map,Long id)
+	{
+		map.addAttribute("good", tdGoodsService.findOne(id));
+		return "/client/submit_detail";
+	}
+	
+	/**
+	 * 地址等信息
+	 * @param map
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping("/user/information")
+	public String userinformation(ModelMap map,Long id)
+	{
+		map.addAttribute("good", tdGoodsService.findOne(id));
+		return "/client/submit_userinformation";
+	}
+
+	 @RequestMapping("/pay")
+	 public String ordershowpay(ModelMap map)
+	 {
+		 return "/client/pay_order";
+	 }
 	
 }
