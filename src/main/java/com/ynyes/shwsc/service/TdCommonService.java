@@ -55,6 +55,15 @@ public class TdCommonService {
     //团购 zhangji
     @Autowired
     private TdDemandService tdDemandService;
+    
+    public void setHeader(ModelMap map, HttpServletRequest req) {
+        String username = (String) req.getSession().getAttribute("username");
+
+        // 用户名，购物车
+        if (null != username) {
+            map.addAttribute("username", username);
+        }
+    }
 
     public void setCommon(ModelMap map, HttpServletRequest req) {
         // 网站基本信息

@@ -42,20 +42,7 @@ public class TdRegController {
     @Autowired
     private TdCommonService tdCommonService;
     
-    @RequestMapping(value = "/reg/email/{email}", method = RequestMethod.POST)
-	@ResponseBody
-	public Map<String, String> validateEmail(HttpServletRequest req,@PathVariable String email,String param){
-		Map<String, String> res = new HashMap<String, String>();
-		res.put("status", "n");
-		TdUser user = tdUserService.findByEmail(param);
-		if(null != user){
-			res.put("info", "账号己存在,请重新输入!");
-			return res;
-		}
-		
-		res.put("status", "y");
-		return res;
-	}
+  
     
     @RequestMapping(value = "/reg/check/{type}", method = RequestMethod.POST)
     @ResponseBody

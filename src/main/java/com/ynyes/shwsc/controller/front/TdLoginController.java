@@ -40,40 +40,104 @@ public class TdLoginController {
 	@Autowired
 	private TdCommonService tdCommonService;
 	
-	@RequestMapping("/login/validat")
-	@ResponseBody
-	public Map<String,Object> loginValidate(String email,String password,HttpSession session){
-		Map<String,Object> map = new HashMap<String,Object>();
+
+	
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	public String login(HttpServletRequest req, ModelMap map) {
+		String username = (String) req.getSession().getAttribute("username");
+
+		String referer = req.getHeader("referer");
+
+		// 基本信息
+		tdCommonService.setHeader(map, req);
+
+		if (null == username) {
+			return "/client/login";
+		}
+
+		if (null == referer) {
+			referer = "/";
+		}
+		String diysiteUsername = (String) req.getSession().getAttribute("diysiteUsername");
 		
-		if(null == email || null == password){
-			map.put("status", 1);
-			map.put("msg", "用户名或密码为空");
-			return map;
+		TdUser tdUser = tdUserService.findByUsername(diysiteUsername);
+		if(null != tdUser){
+			if (null != tdUser.getRoleId() && tdUser.getRoleId().equals(2L)) {
+				return "redirect:/user/diysite/order/list/0";
+			}
 		}
 		
-		String getEmail = (String)session.getAttribute("email");
-		System.out.println(getEmail);
-		if(null != getEmail){
-			map.put("status", 1);
-			map.put("msg", "已经登陆");
-			return map;
-		}
+		return "redirect:" + referer;
 		
-		TdUser user = tdUserService.findByEmail(email);
-		if(null == user){
-			map.put("status", 1);
-			map.put("msg", "用户不存在");
-			return map;
-		}
-		if(!user.getPassword().equals(password)){
-			map.put("status", 1);
-			map.put("msg", "用户或密码不正确");
-			return map;
-		}
-		map.put("status", 0);
-		session.setAttribute("email", user.getEmail());
-		return map;
+		
 	}
+	
+
+	@RequestMapping(value = "/login/login", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> login(String username, String password, String alipayuser_id,String type, String code,
+			Boolean isSave, HttpServletRequest request) 
+	{
+		Map<String, Object> res = new HashMap<String, Object>();
+		//code = 0 代表错误  1代表正确
+		res.put("code", 1);
+		res.put("msg", "登陆成功！");
+		if (username.isEmpty() || password.isEmpty()) {
+			res.put("code", 0);
+			res.put("msg", "用户名及密码不能为空");
+			return res;
+		}
+		TdUser user = tdUserService.findByUsernameAndIsEnabled(username);
+
+		if (null != user) {
+			if (!user.getPassword().equals(password)) {
+				res.put("code", 0);
+				res.put("msg", "密码错误");
+				return res;
+			}
+		}
+		else
+		{
+			res.put("msg", "用户不存在");
+			res.put("code", 1);
+		}
+		return res;
+	}
+	
+//	@RequestMapping("/login")
+//	@ResponseBody
+//	public Map<String,Object> loginValidate(String username,String password,HttpSession session){
+//		Map<String,Object> map = new HashMap<String,Object>();
+//		
+//		if(null == username || null == password){
+//			map.put("status", 1);
+//			map.put("msg", "用户名或密码为空");
+//			return map;
+//		}
+//		
+//		String getUsername = (String)session.getAttribute("username");
+//		System.out.println(getUsername);
+//		if(null != getUsername){
+//			map.put("status", 1);
+//			map.put("msg", "已经登陆");
+//			return map;
+//		}
+//		
+//		TdUser user = tdUserService.findByEmail(username);
+//		if(null == user){
+//			map.put("status", 1);
+//			map.put("msg", "用户不存在");
+//			return map;
+//		}
+//		if(!user.getPassword().equals(password)){
+//			map.put("status", 1);
+//			map.put("msg", "用户或密码不正确");
+//			return map;
+//		}
+//		map.put("status", 0);
+//		session.setAttribute("username", user.getUsername());
+//		return map;
+//	}
 
 //	@RequestMapping(value = "/login", method = RequestMethod.GET)
 //	public String login(HttpServletRequest req, ModelMap map) {
