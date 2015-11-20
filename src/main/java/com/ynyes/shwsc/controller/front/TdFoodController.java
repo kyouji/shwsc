@@ -53,7 +53,7 @@ public class TdFoodController
 	@RequestMapping()
 	public String foodIndex()
 	{
-		return "client/food";
+		return "client/food_index";
 	}
 	
 	/**
@@ -74,7 +74,7 @@ public class TdFoodController
 		map.addAttribute("goods_page", goods_page.getContent());
 
 
-		return "/client/food_detail";
+		return "/client/food_list";
 	}
 	
 	@RequestMapping("/number/{count}/{typeId}")

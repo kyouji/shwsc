@@ -14,7 +14,7 @@
 <body class="bgc-f2">
     <!-- 头部 -->
     <header>
-      <a class="back" href="javascript:history.back(-1);"></a>
+      <a class="back" href="/food"></a>
       <p><#if good??>${good.categoryTitle}</#if></p>
     </header>
     <!-- 头部 END -->

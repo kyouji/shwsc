@@ -99,8 +99,6 @@
         </ul>
       </section>
       <!-- 给力砍友 END -->
-
-      
     </article>
     <!-- 订单详情 END -->
 

@@ -151,11 +151,12 @@ public class TdOrderController extends AbstractPaytypeController {
      * @return
      */
     @RequestMapping(value = "/buy/{type}")
-    public String orderBuy(@PathVariable String type, Long gid, String zhid, Long quantity,
-            HttpServletRequest req, ModelMap map) {
+    public String orderBuy(@PathVariable String type, Long gid, String zhid, Long quantity,HttpServletRequest req, ModelMap map) {
+    	
         String username = (String) req.getSession().getAttribute("username");
 
-        if (null == username) {
+        if (null == username) 
+        {
             return "redirect:/login";
         }
 
