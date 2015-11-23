@@ -150,219 +150,47 @@ public class TdOrderController extends AbstractPaytypeController {
      * @param map
      * @return
      */
-    @RequestMapping(value = "/buy/{type}")
-    public String orderBuy(@PathVariable String type, Long gid, String zhid, Long quantity,HttpServletRequest req, ModelMap map) {
+    @RequestMapping(value = "/buy")
+    public String orderBuy(Long gid, String zhid, Long quantity,HttpServletRequest req, ModelMap map) {
     	
         String username = (String) req.getSession().getAttribute("username");
 
-        if (null == username) 
+        if (null == username)
         {
             return "redirect:/login";
         }
-
-        if (null == type || null == gid) {
-            map.addAttribute("error", "商品或类型不能为空");
-            return "/client/error_404";
-        }
         
-        TdUser tdUser = tdUserService.findByUsername(username);
+//        TdUser tdUser = tdUserService.findByUsername(username);
 
         List<TdGoodsDto> tdGoodsList = new ArrayList<TdGoodsDto>();
 
-        if (null == quantity) {
+        if (null == quantity)
+        {
 			quantity = 1L;
 		}
-        
-        // 组合购买
-        if (type.equalsIgnoreCase("comb")) {
-            // 购买商品
-            TdGoods goods = tdGoodsService.findOne(gid);
 
-            if (null == goods) {
-                return "/client/error_404";
-            }
+        // 购买商品
+        TdGoods goods = tdGoodsService.findOne(gid);
 
-            // 优惠券
-            // map.addAttribute("coupon_list",
-            // tdCouponService.findByUsernameAndIsUseable(username));
-
-            // 积分限额
-            if (null != tdUser) {
-                if (null != tdUser.getTotalPoints()) {
-                    if (goods.getPointLimited() > tdUser.getTotalPoints()) {
-                        map.addAttribute("total_point_limit",
-                                tdUser.getTotalPoints());
-                    } else {
-                        map.addAttribute("total_point_limit",
-                                goods.getPointLimited());
-                    }
-                }
-            }
-
-            TdGoodsDto buyGoods = new TdGoodsDto();
-
-            buyGoods.setGoodsId(goods.getId());
-            buyGoods.setGoodsTitle(goods.getTitle());
-            buyGoods.setGoodsCoverImageUri(goods.getCoverImageUri());
-            buyGoods.setPrice(goods.getSalePrice());
-            buyGoods.setQuantity(1L);
-            buyGoods.setSaleId(0);
-
-            tdGoodsList.add(buyGoods);
-
-            // 添加组合商品
-            if (null != zhid && !zhid.isEmpty()) {
-
-                String[] zhidArray = zhid.split(",");
-
-                for (String idStr : zhidArray) {
-                    if (!idStr.isEmpty()) {
-                        Long zid = Long.parseLong(idStr);
-
-                        if (null == zid) {
-                            continue;
-                        }
-
-                        TdGoodsCombination combGoods = tdGoodsCombinationService
-                                .findOne(zid);
-
-                        if (null == combGoods) {
-                            continue;
-                        }
-
-                        TdGoodsDto buyZhGoods = new TdGoodsDto();
-
-                        buyZhGoods.setGoodsId(combGoods.getGoodsId());
-                        buyZhGoods.setGoodsTitle(combGoods.getGoodsTitle());
-                        buyZhGoods.setGoodsCoverImageUri(combGoods
-                                .getCoverImageUri());
-                        buyZhGoods.setPrice(combGoods.getCurrentPrice());
-                        buyZhGoods.setQuantity(1L);
-                        buyZhGoods.setSaleId(1);
-
-                        tdGoodsList.add(buyZhGoods);
-                    }
-                }
-            }
-        }
-        // 抢购
-        else if (type.equalsIgnoreCase("qiang")) {
-            // 购买商品
-            TdGoods goods = tdGoodsService.findOne(gid);
-
-            // 检查是否在秒杀
-            if (null == goods 
-                    || null == goods.getIsOnSale()
-                    || !goods.getIsOnSale()
-                    || !tdGoodsService.isFlashSaleTrue(goods)
-                    || null == tdUser
-                    || (!tdUser.getMobile().equals("18288695329") && !tdUser.getMobile().equals("13658889528") && null != tdUser.getLastFlashBuyTime() && tdUser.getLastFlashBuyTime().after(new Date()))) {
-                
-                return "/client/error_404";
-            }
-
-            TdGoodsDto buyGoods = new TdGoodsDto();
-
-            buyGoods.setGoodsId(goods.getId());
-            buyGoods.setGoodsTitle(goods.getTitle());
-            buyGoods.setGoodsCoverImageUri(goods.getCoverImageUri());
-            Double flashSalePrice = tdGoodsService.getFlashPrice(goods);
-
-            if (null == flashSalePrice) {
-                return "/client/error_404";
-            }
-
-            buyGoods.setPrice(flashSalePrice);
-            buyGoods.setQuantity(1L);
-            buyGoods.setSaleId(2);
-
-            tdGoodsList.add(buyGoods);
-        }
-        // 十人团
-        else if (type.equalsIgnoreCase("tentuan")) {
-            // 购买商品
-            TdGoods goods = tdGoodsService.findOne(gid);
-
-            // 检查是否在十人团
-            if (null == goods || null == goods.getIsOnSale()
-                    || !goods.getIsOnSale()
-                    || !tdGoodsService.isGroupSaleTrue(goods)) {
-                map.addAttribute("error", "没有开启十人团或已结束");
-                return "/client/error_404";
-            }
-
-            TdGoodsDto buyGoods = new TdGoodsDto();
-
-            buyGoods.setGoodsId(goods.getId());
-            buyGoods.setGoodsTitle(goods.getTitle());
-            buyGoods.setGoodsCoverImageUri(goods.getCoverImageUri());
-            buyGoods.setPrice(goods.getGroupSalePrice());
-            buyGoods.setQuantity(quantity);
-            buyGoods.setSaleId(3);
-
-            tdGoodsList.add(buyGoods);
-        }
-        // 百人团
-        else if (type.equalsIgnoreCase("baituan")) {
-            // 购买商品
-            TdGoods goods = tdGoodsService.findOne(gid);
-
-            // 检查是否在百人团
-            if (null == goods || null == goods.getIsOnSale()
-                    || !goods.getIsOnSale()
-                    || !tdGoodsService.isGroupSaleHundredTrue(goods)) {
-                map.addAttribute("error", "没有开启百人团或已结束");
-                return "/client/error_404";
-            }
-
-            TdGoodsDto buyGoods = new TdGoodsDto();
-
-            buyGoods.setGoodsId(goods.getId());
-            buyGoods.setGoodsTitle(goods.getTitle());
-            buyGoods.setGoodsCoverImageUri(goods.getCoverImageUri());
-            buyGoods.setPrice(goods.getGroupSalePrePayPrice());
-            buyGoods.setQuantity(quantity);
-            buyGoods.setSaleId(4);
-
-            tdGoodsList.add(buyGoods);
+        if (null == goods) {
+        	return "/client/error_404";
         }
 
-        // 购买商品表
-        map.addAttribute("buy_goods_list", tdGoodsList);
+        // 优惠券
+        // map.addAttribute("coupon_list",tdCouponService.findByUsernameAndIsUseable(username));
 
-        // 将购买的商品保存到session
-        req.getSession().setAttribute("buy_goods_list", tdGoodsList);
-        // 购买类型
-        req.getSession().setAttribute("buyType", type);
+        TdGoodsDto buyGoods = new TdGoodsDto();
 
-        // 线下同盟店
-        map.addAttribute("shop_list", tdDiySiteService.findByIsEnableTrue());
-
-        // 支付方式列表
-        setPayTypes(map, true, false, req);
-
-        // 选中商品
-        // map.addAttribute("selected_goods_list", selectedGoodsList);
-        
-        Date curr = new Date();
-        Calendar cal = Calendar.getInstance();
-        
-        cal.setTime(curr);
-        cal.add(Calendar.DATE, 1);
-        
-        map.addAttribute("tomorrow", cal.getTime());
+        buyGoods.setGoodsId(goods.getId());
+        buyGoods.setGoodsTitle(goods.getTitle());
+        buyGoods.setGoodsCoverImageUri(goods.getCoverImageUri());
+        buyGoods.setPrice(goods.getSalePrice());
+        buyGoods.setQuantity(1L);
+        buyGoods.setSaleId(0);
 
         tdCommonService.setHeader(map, req);
-
-        if (type.equalsIgnoreCase("comb")) {
-            return "/client/order_buy_zh";
-        } else if (type.equalsIgnoreCase("qiang")) {
-            return "/client/order_buy_qiang";
-        } else if (type.equalsIgnoreCase("baituan")) {
-            return "/client/order_buy_bt";
-        } else {
-            return "/client/order_buy_tt";
-        }
+        map.addAttribute("good", tdGoodsService.findOne(gid));
+        return "/client/submit_order";
     }
 
     /**
