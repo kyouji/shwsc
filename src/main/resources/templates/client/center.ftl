@@ -20,8 +20,8 @@
       <div class="head-pho">
         <div class="div1">
           <!-- 图片原始尺寸 150*150-->
-          <a href="基本信息.html"><img src="/client/images/head_portrait.jpg" alt="头像"></a>
-          <div><a href="基本信息.html">
+          <a href="/message"><img src="/client/images/head_portrait.jpg" alt="头像"></a>
+          <div><a href="/message">
             <p class="p1 fz1-5 c-fff">毛豆</p>
             <p class="p2 c-ccc">13628382561</p>
           </a></div>
@@ -96,9 +96,9 @@
 
   <!-- 底部 -->
   <footer>
-    <a href="index.html" class="a1">首页</a>
-    <a href="美食.html" class="a2">美食</a>
-    <a href="#" class="a3 current-3">我</a>
+   <a href="/" class="a1 current-1">首页</a>
+      <a href="/food" class="a2">美食</a>
+      <a href="/center" class="a3">我</a>
   </footer>
   <!-- 底部 END -->
 

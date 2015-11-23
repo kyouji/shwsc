@@ -123,7 +123,8 @@
                 <!-- 修改 -->
                     if (data.code == 1)
                     {
-                        window.location.href="/";
+                    //alert(data.msg);
+                       window.location.href="/center";
                     } 
                     else
                     {

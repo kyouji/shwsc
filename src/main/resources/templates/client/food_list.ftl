@@ -18,16 +18,40 @@
       <a id="title" class="title" href="#"><#if type??>${type.title!'无类别'}</#if><i>&nbsp;&nbsp;&nbsp;&nbsp;</i></a>
     </header>
     <div id="menu-nav-top" class="menu-nav-top">
-      <ul id="menu-nav">
-        <li class="li1"><a href="热门推荐.html">热门推荐</a></li>
-        <li class="li2"><a href="江湖菜.html">江湖菜</a></li>
-        <li class="li3"><a href="#">无肉不欢</a></li>
-        <li class="li4 current"><a href="素食主义.html">素食主义</a></li>
-        <li class="li5"><a href="各地小吃.html">各地小吃</a></li>
-        <li class="li6"><a href="面食.html">面食</a></li>
-        <li class="li7"><a href="闽南菜.html">闽南菜</a></li>
-        <li class="li8"><a href="重庆美食.html">重庆美食</a></li>
-      </ul>
+  <ul class="menu-nav">
+      <li class="li1"><a href="/food/detail/1">
+        <img src="/client/images/icon_menu_nav_1.png" alt="">
+        <div>热门推荐</div>
+      </a></li>
+      <li class="li2"><a href="/food/detail/2">
+        <img src="/client/images/icon_menu_nav_2.png" alt="">
+        <div>江湖菜</div>
+      </a></li>
+      <li class="li3"><a href="/food/detail/3">
+        <img src="/client/images/icon_menu_nav_3.png" alt="">
+        <div>无肉不欢</div>
+      </a></li>
+      <li class="li4 current"><a href="/food/detail/4">
+        <img src="/client/images/icon_menu_nav_4.png" alt="">
+        <div>素食主义</div>
+      </a></li>
+      <li class="li5"><a href="/food/detail/5">
+        <img src="images/icon_menu_nav_5.png" alt="">
+        <div>各地小吃</div>
+      </a></li>
+      <li class="li6"><a href="/food/detail/6">
+        <img src="images/icon_menu_nav_6.png" alt="">
+        <div>面食</div>
+      </a></li>
+      <li class="li7"><a href="/food/detail/7">
+        <img src="images/icon_menu_nav_7.png" alt="">
+        <div>闽南菜</div>
+      </a></li>
+      <li class="li8"><a href="/food/detail/8">
+        <img src="/client/images/icon_menu_nav_8.png" alt="">
+        <div>重庆美食</div>
+      </a></li>
+    </ul>
     </div>
     <script type="text/javascript" src="/client/js/jquery-1.11.3.min.js"></script>
     <script type="text/javascript">

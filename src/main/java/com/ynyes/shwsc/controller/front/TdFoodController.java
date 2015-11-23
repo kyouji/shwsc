@@ -102,7 +102,7 @@ public class TdFoodController
 		map.addAttribute("goods_page",tdGoodsService.findByCategoryIdAndParamValueCollectContainingAndIsOnSaleTrueOrderByIdDesc(typeId,number));
 		
 		
-		return "/client/food_detail";
+		return "/client/food_list";
 	}
 	/**
 	 * 套餐详情

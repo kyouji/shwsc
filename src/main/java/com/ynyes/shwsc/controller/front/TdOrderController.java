@@ -25,7 +25,7 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.sf.json.JSONObject;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mobile.device.Device;
@@ -36,7 +36,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.csii.payment.client.core.CebMerchantSignVerify;
+
 import com.cytm.payment.alipay.AlipayConfig;
 import com.cytm.payment.alipay.Constants;
 import com.cytm.payment.alipay.PaymentChannelAlipay;
@@ -2399,65 +2399,7 @@ public class TdOrderController extends AbstractPaytypeController {
     /*
      * 
      */
-    @RequestMapping(value = "/pay/result_cebpay")
-    public String payResultCEBPay(Device device, ModelMap map, HttpServletRequest req,
-            HttpServletResponse resp) {
-        tdCommonService.setHeader(map, req);
 
-        String plainData = req.getParameter("Plain");
-        String signature = req.getParameter("Signature");
-
-        // 计算得出通知验证结果
-        boolean verify_result = CebMerchantSignVerify
-                .merchantVerifyPayGate_ABA(signature, plainData);
-        String plainObjectStr = "";
-
-        if (null != plainData && plainData.endsWith("~|~")) {
-            plainObjectStr = plainData.substring(0, plainData.length() - 3);
-        }
-
-        plainObjectStr = plainObjectStr.replaceAll("=", "\":\"").replaceAll(
-                "~\\|~", "\",\"");
-        plainObjectStr = "{\"" + plainObjectStr + "\"}";
-
-        JSONObject paymentResult = JSONObject.fromObject(plainObjectStr);
-
-        String orderNo = paymentResult.getString("orderId");
-        orderNo = (orderNo == null) ? "" : (orderNo.length() < 6) ? orderNo
-                : orderNo.substring(0, orderNo.length() - 6);
-        TdOrder order = tdOrderService.findByOrderNumber(orderNo);
-        if (order == null) {
-            // 订单不存在
-        	 // 触屏
-            if (device.isMobile() || device.isTablet()) {
-                return "/touch/order_pay_failed";
-            }
-            return "/client/order_pay_failed";
-        }
-
-        map.put("order", order);
-
-        if (verify_result) {// 验证成功
-            String trade_status = paymentResult.getString("respCode");
-            if ("".equals(trade_status) || "AAAAAAA".equals(trade_status)) {
-                // 订单支付成功
-
-                afterPaySuccess(order);
-                // 触屏
-                if (device.isMobile() || device.isTablet()) {
-                    return "/touch/order_pay_success";
-                }
-                return "/client/order_pay_success";
-            }
-
-        }
-        // 验证失败或者支付失败
-        // 触屏
-        if (device.isMobile() || device.isTablet()) {
-            return "/touch/order_pay_failed";
-        }
-        return "/client/order_pay_failed";
-    }
 
     /*
      * 

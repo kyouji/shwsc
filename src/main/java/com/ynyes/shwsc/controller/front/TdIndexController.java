@@ -84,6 +84,33 @@ public class TdIndexController {
     	return "client/cities";
     }
     
+   //个人中心
+    @RequestMapping("/center")
+    public String center(HttpServletRequest req,ModelMap map)
+    {
+    	return "client/center";
+    }
+    //头像编辑
+    @RequestMapping("/head_portrait")
+    public String head_portrait(HttpServletRequest req,ModelMap map)
+    {
+    	return "client/head_portrait";
+    }
+    
+    //基本信息
+    @RequestMapping("/message")
+    public String message(HttpServletRequest req,ModelMap map)
+    {
+    	return "client/message";
+    }
+    
+    
+    //基本信息编辑
+    @RequestMapping("/message_portrait")
+    public String message_portrait(HttpServletRequest req,ModelMap map)
+    {
+    	return "client/message_portrait";
+    }
     /**
      * 搜索
      * @param req 

@@ -116,7 +116,7 @@
 }
 .select-city section div {
   padding: 3% 5%;
-  font-size: 1.5em;
+  font-size: 1.3em;
   line-height: 1.5;
   background: #fff;
 }
@@ -658,34 +658,31 @@
 }
 .menu-nav li a {
   display: block;
-  padding-top: 70px;
+  padding-top: 16px;
   width: 100%;
   height: 100%;
-  background-repeat: no-repeat;
-  background-position: center 20px;
-  -webkit-background-size: 40px auto;
-          background-size: 40px auto;
   border-right: 1px solid #4a4a4a;
   border-bottom: 1px solid #4a4a4a;
   -webkit-box-sizing: border-box;
      -moz-box-sizing: border-box;
           box-sizing: border-box;
 }
-@media screen and (min-height: 568px){
-  .menu-nav li a {padding-top: 90px;background-position: center 40px;}
+
+.menu-nav li img {
+  display: block;
+  margin: 0 auto;
 }
-@media screen and (min-height: 736px){
-  .menu-nav li a {padding-top: 110px;font-size: 1.3em;background-position: center 50px;}
+.menu-nav li div {
+  margin-top: 10px;
+  line-height: 30px;
 }
 
-.menu-nav li.li1 a {background-image: url(../images/icon_menu_nav_1.png);}
-.menu-nav li.li2 a {background-image: url(../images/icon_menu_nav_2.png);border-right: none;}
-.menu-nav li.li3 a {background-image: url(../images/icon_menu_nav_3.png);}
-.menu-nav li.li4 a {background-image: url(../images/icon_menu_nav_4.png);border-right: none;}
-.menu-nav li.li5 a {background-image: url(../images/icon_menu_nav_5.png);}
-.menu-nav li.li6 a {background-image: url(../images/icon_menu_nav_6.png);border-right: none;}
-.menu-nav li.li7 a {background-image: url(../images/icon_menu_nav_7.png);border-bottom: none;}
-.menu-nav li.li8 a {background-image: url(../images/icon_menu_nav_8.png);border-right: none;border-bottom: none;}
+@media screen and (min-height: 568px){
+  .menu-nav li a {padding-top: 30px;}
+}
+@media screen and (min-height: 736px){
+  .menu-nav li a {padding-top: 46px;}
+}
 
 .menu-nav li.current a {
   background-color: rgba(0,0,0,.5);
@@ -696,11 +693,50 @@
 /*购物车*/
 .shopp-car {padding: 2%;}
 .shopp-car section {
+  position: relative;
   padding: 2% 0;
   margin: 3% auto;
   background: #fff;
   border-radius: 3px;
 }
+.shopp-car section.selected {
+  -webkit-transform: translate(-19%,0);
+  -webkit-transition:all 0.3s linear;
+}
+
+.btn-delete-orderlist {
+  position: absolute;
+  right: -43px;
+  top: 0;
+  z-index: 3;
+  display: none;
+  width: 46px;
+  height: 110px;
+  line-height: 110px;
+  text-align: center;
+  background: #ff9933;
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+@media screen and (min-width: 360px) {
+  .btn-delete-orderlist {height: 110px;line-height: 110px;}
+}
+@media screen and (min-width: 375px) {
+  .btn-delete-orderlist {height: 114px;line-height: 114px;}
+}
+@media screen and (min-width: 414px) {
+  .btn-delete-orderlist {height: 114px;line-height: 114px;}
+}
+@media screen and (min-width: 768px) {
+  .btn-delete-orderlist {height: 159px;line-height: 159px;}
+}
+@media screen and (min-width: 1024px) {
+  .btn-delete-orderlist {height: 137px;line-height: 137px;}
+}
+@media screen and (min-width: 1200px) {
+  .btn-delete-orderlist {height: 171px;line-height: 171px;}
+}
+
 .shopp-car .div1,
 .shopp-car .div2{
   overflow: hidden;
@@ -723,7 +759,7 @@
   height: 60px;
 }
 @media screen and (min-width: 640px) {
-  .shopp-car .div1 .detail {width: 88%;}
+  .shopp-car .div1 .detail {width: 85%;}
 }
 
 .shopp-car .div1 .detail .title .span1 {
@@ -794,8 +830,16 @@
   .shopp-car .div2 .p2 {width: 88%;}
 }
 
-
-
+.shopp-car .div3 {text-align: right;}
+.shopp-car .div3 input {
+  width: 80px;
+  height: 30px;
+  color: #fff;
+  line-height: 30px;
+  background: #ff9933;
+  border: none;
+  border-radius: 30px;
+}
 /*购物车 END*/
 
 
@@ -1637,21 +1681,1066 @@
   background: #fff;
   border: 1px solid #959595;
 }
-.coupon .group-coupon .price {
-  float: left;
-  margin-left: 2%;
-}
+.coupon .group-coupon .price,
 .coupon .group-coupon .coupon-info {
-  float: right;
-  margin-right: 2%;
+  float: left;
+  padding: 5%;
+  width: 40%;
+  text-align: left;
 }
-
+.coupon .group-coupon .price {text-align: right;}
 .coupon-bg {
   text-align: center;
   background: #000;
 }
 /*优惠劵 END*/
 
+/*个人中心*/
+.mine-center .head-info {
+  position: relative;
+  padding: 2%;
+  background: url(../images/mine_center_bg_1.png) no-repeat center top;
+  background-size: cover;
+}
+
+.head-info .head-pho .div1 {
+  overflow: hidden;
+  padding: 2%;
+}
+.head-info .head-pho .div1 img {
+  float: left;
+  width: 60px;
+  height: 60px;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.head-info .head-pho .div1 div {
+  float: left;
+  margin-left: 10px;
+  height: 60px;
+}
+.head-info .head-pho .div1 div p {
+  height: 30px;
+  line-height: 30px;
+  text-align: left;
+}
+.head-info .head-pho .div1 .p2 {
+  padding-left: 20px;
+  background: url(../images/icon_mine_center_phone.png) no-repeat left center;
+}
+
+.head-info .head-pho .div2 {
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
+.head-info .head-pho .div2 span:first-child {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  color: #fff;
+  line-height: 20px;
+  text-align: center;
+  background: rgba(0,0,0,.5);
+  border-radius: 50%;
+}
+
+.head-info .news-tip {
+  position: absolute;
+  top: 50%;
+  right: 10%;
+  z-index: 2;
+  margin-top: -18px;
+}
+.head-info .news-tip a {
+  position: relative;
+  display: block;
+  width: 35px;
+  height: 25px;
+  background: url(../images/icon_news_tips.png) no-repeat;
+  background-size: 35px auto;
+}
+.head-info .news-tip span {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  z-index: 3;
+  width: 10px;
+  height: 10px;
+  background: #cc3333;
+  border-radius: 50%;
+}
+
+.mine-center section {
+  padding: 2%;
+  margin-bottom: 4%;
+  background: #fff;
+}
+.mine-center section a {display: block;}
+.mine-center section div {
+  overflow: hidden;
+  padding-left: 40px;
+  width: 100%;
+  height: 40px;
+  font-size: 1.3em;
+  color: #000;
+  line-height: 40px;
+  text-align: left;
+  background-repeat: no-repeat;
+  background-position: left center;
+  background-size: auto 30px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+.bdbt {border-bottom: 1px solid #ccc;}
+.mine-center section div span {float: right;}
+
+.mine-center .sec1 div {background-image: url(../images/icon_mycenter_pos.png);}
+.mine-center .sec2 div.div1 {background-image: url(../images/icon_mycenter_myorder.png);}
+.mine-center .sec2 div.div2 {background-image: url(../images/icon_mycenter_collect.png);}
+.mine-center .sec2 div.div3 {background-image: url(../images/icon_mycenter_shoppcar.png);}
+.mine-center .sec3 div.div1 {background-image: url(../images/icon_mycenter_coupon.png);}
+.mine-center .sec3 div.div2 {background-image: url(../images/icon_mycenter_activity.png);}
+.mine-center .sec3 div.div3 {background-image: url(../images/icon_mycenter_taste.png);}
+/*个人中心 END*/
+
+/*基本信息*/
+.head-signature {
+  padding: 4% 0;
+  text-align: center;
+  background: #f2f2f2;
+}
+
+.head-signature img {width: 60px;
+  height: 60px;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+.head-signature .div2 {margin-top: 10px;}
+.head-signature .div2 span:first-child {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  color: #fff;
+  line-height: 20px;
+  text-align: center;
+  background: #d8d8d8;
+  border-radius: 50%;
+}
+
+/*基本信息浏览*/
+.base-info-look {}
+.base-info-look {
+  padding: 2%;
+  margin: 4% auto;
+  background: #fff;
+}
+
+.base-info-look .div1 {
+  overflow: hidden;
+  padding: 2% 0;
+  border-bottom: 1px solid #eaeaea;
+}
+.base-info-look .div1 p {float: left;}
+.base-info-look .div1 .edit {
+  float: right;
+  padding: 2px 10px;
+  padding-left: 14px;
+  height: 22px;
+  font-size: 0.8em;
+  color: #666666;
+  line-height: 22px;
+  text-indent: 1em;
+  background: url(../images/icon_edit.png) no-repeat 12px center;
+  -webkit-background-size: 10px auto;
+          background-size: 10px auto;
+  border: 1px solid #eaeaea;
+  border-radius: 22px;
+}
+
+.base-info-look div {overflow: hidden;}
+.base-info-look div label {
+  float: left;
+  width: 20%;
+  height: 20px;
+  line-height: 20px;
+}
+.base-info-look div span {
+  float: right;
+  width: 80%;
+  height: 20px;
+  color: #000;
+  line-height: 20px;
+  text-align: right;
+  border: none;
+}
+.base-info-look div input {
+  float: right;
+  width: 80%;
+  height: 20px;
+  color: #999;
+  line-height: 20px;
+  text-align: right;
+  border: none;
+}
+.base-info-look div select {
+  float: right;
+  color: #999;
+  text-align: right;
+  border: none;
+}
+.base-info-look div option {
+  text-align: right;
+}
+.base-info-look div.div2 {
+  padding: 4% 0;
+  border-bottom: 1px solid #eee;
+}
+.base-info-look div.div3 {
+  padding: 4% 0;
+  border-bottom: 1px solid #eee;
+}
+.base-info-look div.div4 {
+  padding: 4% 0;
+  border-bottom: 1px solid #eee;
+}
+.base-info-look div.div5 {
+  padding: 4% 0;
+  border-bottom: 1px solid #eee;
+}
+.base-info-look div.div6 {padding: 4% 0;}
+
+.head-signature a {display: block;}
+
+/*基本信息 END*/
+
+/*头像编辑*/
+.head-edit {padding: 2%;}
+.head-edit section {
+  overflow: hidden;
+  padding: 4% 0;
+  border-bottom: 1px solid #bac2c5;
+}
+.head-edit section label {
+  float: left;
+  width: 20%;
+  height: 20px;
+  line-height: 20px;
+}
+.head-edit section input {
+  float: right;
+  width: 80%;
+  height: 20px;
+  color: #999999;
+  line-height: 20px;
+  text-align: right;
+  background: none;
+  border: none;
+}
+.head-edit .sec1 label {
+  float: left;
+  width: 20%;
+  height: 60px;
+  line-height: 60px;
+}
+.head-edit .sec1 a {
+  float: right;
+  width: 80%;
+  height: 60px;
+  color: #999999;
+  line-height: 60px;
+  text-align: right;
+}
+.head-edit .sec1 a img {
+  width: 60px;
+  height: 60px;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+/*头像编辑 END*/
+
+
+/*签名编辑*/
+.signature-edit textarea {
+  position: relative;
+  display: block;
+  padding: 2%;
+  margin: 2%;
+  width: 96%;
+  min-height: 150px;
+  text-align: left;
+  border: none;
+  border-radius: 3px;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
+.signature-edit div {
+  position: absolute;
+  bottom: 4%;
+  right: 4%;
+  z-index: 2;
+  font-size: 0.8em;
+  color: #999;
+}
+.signature-edit p {
+  padding: 2%;
+  font-size: 0.8em;
+  color: #999;
+}
+/*签名编辑 END*/
+
+/*评论*/
+.comment textarea {
+  position: relative;
+  display: block;
+  padding: 2%;
+  margin: 2%;
+  width: 96%;
+  min-height: 150px;
+  text-align: left;
+  border: none;
+  border-radius: 3px;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.comment .add-pho {
+  position: absolute;
+  left: 4%;
+  bottom: 23%;
+  z-index: 2;
+}
+@media screen and (min-width: 640px) {
+  .comment .add-pho {bottom: 28%;}
+}
+.comment .add-pho img {
+  width: 40px;
+  height: auto;
+  vertical-align: middle;
+}
+.comment .add-pho .btn-add-photo {
+  display: inline-block;
+  width: 38px;
+  height: 26px;
+  font-size: 1.5em;
+  color: #999;
+  line-height: 26px;
+  vertical-align: middle;
+  border: 1px dotted #ccc;
+}
+
+/*发表按钮*/
+.comment .submit-comment {
+  overflow: hidden;
+  text-align: right;
+  padding: 0 2%;
+}
+.comment .submit-comment input {
+  float: right;
+  width: 30%;
+  height: 30px;
+  line-height: 30px;
+  color: #fff;
+  background: #ff9933;
+  border: none;
+  border-radius: 30px;
+}
+
+/*评论 END*/
+
+/*消息中心*/
+.news-center {
+  overflow: hidden;
+  padding: 2% 0;
+  margin: 2%;
+  width: 96%;
+  border-bottom: 1px solid #e1e1e1;
+}
+.news-center:last-child {border-bottom: none;}
+.news-center .div1 {
+  position: relative;
+  float: left;
+  width: 60px;
+  height: 50px;
+}
+.news-center .div1 span.tips-news-info {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 10px;
+  height: 10px;
+  background: #cc3333;
+  border-radius: 50%;
+}
+
+.news-center .div2 {
+  float: right;
+  width: 80%;
+}
+.news-center .div2 .div2-1 {
+  overflow: hidden;
+  width: 100%;
+  height: 30px;
+  line-height: 30px;
+}
+.news-center .div2 .div2-1 span:first-child {float: left;}
+.news-center .div2 .div2-1 span:last-child {float: right;color: #999;}
+.news-center .div2 .div2-2 {
+  overflow: hidden;
+  width: 100%;
+  height: 17px;
+  color: #999;
+}
+/*消息中心 END*/
+
+/*我的收藏*/
+.box-collect {}
+.box-collect .col-ul {
+  overflow: hidden;
+  width: 100%;
+  height: 50px;
+  line-height: 50px;
+  background: #fff;
+  border-bottom: 1px solid #ccc;
+}
+
+.box-collect .col-ul li {
+  float: left;
+  margin: 10px 0;
+  width: 30%;
+  height: 30px;
+  line-height: 30px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+.box-collect .col-ul li a {
+  display: block;
+  width: 100%;
+  height: 30px;
+  font-size: 1.3em;
+  color: #000;
+  line-height: 30px;
+}
+.box-collect .col-ul li:first-child {
+  margin-left: 20%;
+  border: 1px solid #ff9933;
+  border-right: none;
+  border-top-left-radius: 15px;
+  border-bottom-left-radius: 15px;
+}
+.box-collect .col-ul li:last-child {
+  border: 1px solid #ff9933;
+  border-left: none;
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 15px;
+}
+.box-collect .col-ul li.active {background: #ff9933;}
+.box-collect .col-ul li.active a {color: #fff;}
+
+/*套餐收藏*/
+.box-collect .col-ol {overflow: hidden;}
+.box-collect .col-ol li {overflow: hidden;display: none;}
+.box-collect .col-ol li section {
+  float: left;
+  margin: 2%;
+  width: 46%;
+  text-align: center;
+  background: #fff;
+  border-radius: 5px;
+  -webkit-box-shadow: 0 0 3px rgba(0,0,0,.2);
+          box-shadow: 0 0 3px rgba(0,0,0,.2);
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+.box-collect .col-ol li:first-child {display: block;}
+
+.box-collect .col-ol li img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+.box-collect .col-ol li .div1 {
+  padding: 5px;
+  font-size: 1.2em;
+  font-weight: 700;
+  color: #333;
+  text-align: left;
+}
+.box-collect .col-ol li .div2 {
+  overflow: hidden;
+  padding: 5px;
+}
+.box-collect .col-ol li .div2 .div2-1 {
+  float: left;
+  font-size: 1.1em;
+  color: #ff9933;
+}
+.box-collect .col-ol li .div2 .div2-2 {
+  float: right;
+  font-size: 1.1em;
+  color: #999999;
+}
+
+
+
+
+/*厨师收藏*/
+
+.box-collect .col-ol .group-chef-col article {
+  padding: 2%;
+  border-bottom: 1px solid #ccc;
+}
+.box-collect .col-ol .group-chef-col article a {overflow: hidden;display: block;}
+.box-collect .col-ol .group-chef-col img {
+  float: left;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+}
+
+.box-collect .col-ol .group-chef-col .right-box {
+  float: left;
+  margin-left: 2%;
+}
+.box-collect .col-ol .group-chef-col .right-box .chef-name {
+  font-size: 1.3em;
+  color: #333;
+  text-align: left;
+}
+.box-collect .col-ol .group-chef-col .right-box .chef-level {
+  /*width: 100px;*/
+  height: 30px;
+  background-repeat: no-repeat;
+  background-position: left center;
+  background-size: auto 16px;
+}
+.box-collect .col-ol .group-chef-col .right-box .level-1 {background-image:url(../images/icon_chef_level_1.png);}
+.box-collect .col-ol .group-chef-col .right-box .level-2 {background-image:url(../images/icon_chef_level_2.png);}
+.box-collect .col-ol .group-chef-col .right-box .level-3 {background-image:url(../images/icon_chef_level_3.png);}
+.box-collect .col-ol .group-chef-col .right-box .level-4 {background-image:url(../images/icon_chef_level_4.png);}
+.box-collect .col-ol .group-chef-col .right-box .level-5 {background-image:url(../images/icon_chef_level_5.png);}
+
+.box-collect .col-ol .group-chef-col .right-box .group-serv-num {overflow: hidden;}
+.box-collect .col-ol .group-chef-col .right-box .level {
+  float: left;
+  color: #666;
+}
+.box-collect .col-ol .group-chef-col .right-box .sev-nums {
+  float: left;
+  margin-left: 35px;
+  color: #666;
+}
+
+
+/*我的收藏 END*/
+
+/*厨师列表*/
+.chef-list {
+  width: 100%;
+  -webkit-column-count: 2;
+          column-count: 2
+}
+.chef-list section {
+  margin: 2%;
+  width: 100%;
+  background: #fff;
+}
+.chef-list section a {display: inline-block;}
+.chef-list section div {
+  padding: 1% 2%;
+}
+
+.chef-list section .chef-name i {
+  display: inline-block;
+  margin-left: 10px;
+  width: 65%;
+  height: 20px;
+  background-repeat: no-repeat;
+  background-position: left center;
+  background-size: auto 12px;
+}
+.chef-list section .chef-name i.level-1 {background-image:url(../images/icon_chef_level_1.png);}
+.chef-list section .chef-name i.level-2 {background-image:url(../images/icon_chef_level_2.png);}
+.chef-list section .chef-name i.level-3 {background-image:url(../images/icon_chef_level_3.png);}
+.chef-list section .chef-name i.level-4 {background-image:url(../images/icon_chef_level_4.png);}
+.chef-list section .chef-name i.level-5 {background-image:url(../images/icon_chef_level_5.png);}
+
+.chef-list section div.speci-dishs {
+  padding-bottom: 2%;
+  font-size: 0.8em;
+  color: #999;
+  text-align: left;
+}
+
+/*厨师列表 END*/
+
+/*厨师介绍*/
+.chef-intro {padding: 2%;}
+.chef-intro .chef-info {overflow: hidden;}
+.chef-intro .chef-info .chef-pho-head {
+  float: left;
+  display: block;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+}
+.chef-intro .chef-info .good-at {
+  float: left;
+  margin-left: 2%;
+  width: 75%;
+}
+.chef-intro .chef-info .good-at .chef-name {margin-bottom: 5px;}
+.chef-intro .chef-info .good-at .chef-name i {
+  display: inline-block;
+  margin-left: 10px;
+  width: 50%;
+  height: 20px;
+  background-repeat: no-repeat;
+  background-position: left center;
+  background-size: auto 12px;
+}
+.chef-intro .chef-info .good-at .chef-name i.level-1 {background-image:url(../images/icon_chef_level_1.png);}
+.chef-intro .chef-info .good-at .chef-name i.level-2 {background-image:url(../images/icon_chef_level_2.png);}
+.chef-intro .chef-info .good-at .chef-name i.level-3 {background-image:url(../images/icon_chef_level_3.png);}
+.chef-intro .chef-info .good-at .chef-name i.level-4 {background-image:url(../images/icon_chef_level_4.png);}
+.chef-intro .chef-info .good-at .chef-name i.level-5 {background-image:url(../images/icon_chef_level_5.png);}
+
+.chef-intro .chef-info .good-at .good-at-dishs {
+  overflow: hidden;
+  width: 100%;
+  height: 20px;
+  line-height: 20px;
+  color: #999;
+}
+
+/*服务次数、关注*/
+.chef-intro .serv-numti {
+  overflow: hidden;
+  margin: 2% auto;
+  text-align: right;
+}
+.chef-intro .serv-numti .serv-times {
+  float: right;
+  margin-right: 2%;
+  color: #999;
+  text-align: center;
+}
+.chef-intro .serv-numti .serv-times .div1 {color: #333;}
+.chef-intro .serv-numti .btn-attent {
+  float: right;
+  display: inline-block;
+  width: 70px;
+  height: 30px;
+  line-height: 30px;
+  color: #ff9933;
+  text-align: center;
+  border: 1px solid #ff9933;
+  border-radius: 30px;
+}
+
+/*厨师简介*/
+.chef-intro .chef-summary .title {
+  padding-left: 5px;
+  margin: 2% auto;
+  border-left: 4px solid #ff9933;
+}
+.chef-intro .chef-summary .content {color: #999;}
+
+/*厨师相关证书*/
+.chef-intro .chef-cert {text-align: center;}
+.chef-intro .chef-cert .div1 {
+  font-size: 1.3em;
+  color: #000;
+  line-height: 30px;
+}
+.chef-intro .chef-cert .div2 {
+  font-size: 0.9em;
+  color: #000;
+  line-height: 20px;
+}
+.chef-intro .chef-cert .div3 {
+  margin: 0 auto;
+  width: 14px;
+  height: 14px;
+  color: #ff9933;
+  -webkit-transform: rotate(90deg);
+          transform: rotate(90deg);
+}
+/*厨师介绍 END*/
+
+/*活动*/
+
+
+/*活动套餐*/
+.activity .package {
+  overflow: hidden;
+  margin: 2%;
+  width: 96%;
+  text-align: center;
+  background: #fff;
+  border-radius: 5px;
+}
+.activity .package img {
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+/*介绍*/
+.activity .package .introduction {
+  float: left;
+  margin: 2%;
+  width: 66%;
+  text-align: left;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
+.activity .package .introduction p {
+  margin: 2% auto;
+  color: #a9a9a9;
+}
+.activity .package .introduction .title {
+  overflow: hidden;
+  width: 100%;
+  height: 20px;
+  font-size: 1.2em;
+  font-weight: 700;
+  color: #333333;
+}
+.activity .package .introduction .title a {color: #333;}
+.activity .package .introduction .title span {
+  font-size: 0.9em;
+  font-weight: normal;
+  color: #686868;
+}
+.activity .package .introduction .itdt {
+  overflow: hidden;
+  width: 100%;
+  height: 34px;
+}
+.activity .package .introduction .follow {
+  padding-left: 25px;
+  background: url(../images/icon_follow.png) no-repeat left center;
+  -webkit-background-size: 17px auto;
+          background-size: 17px auto;
+}
+/*价格*/
+.activity .package .price {
+  float: right;
+  margin: 2%;
+  width: 26%;
+  text-align: right;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
+.activity .package .price p {
+  margin: 2% auto;
+  color: #636363;
+}
+.activity .package .price .p1 span {
+  font-size: 1.3em;
+  vertical-align: top;
+}
+.activity .package .price .p2 {
+  font-size: 1.3em;
+  color: #ff9966;
+}
+
+
+/*活动 END*/
+
+/*砍价套餐*/
+.bargain-packages {overflow: hidden;}
+.bargain-packages section {
+  float: left;
+  margin: 2%;
+  width: 46%;
+  text-align: center;
+  background: #fff;
+  border-radius: 5px;
+  -webkit-box-shadow: 0 0 3px rgba(0,0,0,.2);
+          box-shadow: 0 0 3px rgba(0,0,0,.2);
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+.bargain-packages section img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+.bargain-packages section .div1 {
+  padding: 5px;
+  font-size: 1.2em;
+  font-weight: 700;
+  color: #333;
+  text-align: left;
+}
+.bargain-packages section .div2 {padding: 5px;}
+.bargain-packages section .div2 div {
+  font-size: 0.8em;
+  color: #999;
+  text-align: left;
+}
+
+/*砍价套餐 END*/
+
+/*砍价活动*/
+.group-cut-activity {padding: 2%;}
+.top-title {
+  overflow: hidden;
+  padding: 2%;
+  background: #ffffff;
+  border-radius: 3px;
+  -webkit-box-shadow: 0 0 3px rgba(0,0,0,.2);
+          box-shadow: 0 0 3px rgba(0,0,0,.2);
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+.top-title .div1,
+.top-title .div2,
+.top-title .div3 {
+  float: left;
+  width: 25%;
+  height: 40px;
+  text-align: center;
+}
+.top-title .div2 {
+  width: 50%;
+  line-height: 40px;
+  background: #dadada;
+}
+.top-title .div1 .div1-2,
+.top-title .div3 .div3-2,
+.top-title .div2 b {
+  font-weight: normal;
+  color: #ff9933;
+}
+
+/*砍价套餐*/
+.cut-packs {
+  overflow: hidden;
+  margin-top: 2%;
+  width: 100%;
+  text-align: center;
+  background: #fff;
+  border-radius: 5px;
+  -webkit-box-shadow: 0 0 3px rgba(0,0,0,.2);
+          box-shadow: 0 0 3px rgba(0,0,0,.2);
+}
+.cut-packs img {
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+/*介绍*/
+.cut-packs .introduction {
+  padding: 2%;
+  text-align: left;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
+.cut-packs .introduction p {
+  margin: 2% auto;
+  color: #a9a9a9;
+}
+.cut-packs .introduction .title {
+  overflow: hidden;
+  width: 100%;
+  height: 20px;
+  font-size: 1.2em;
+  font-weight: 700;
+  color: #333333;
+}
+.cut-packs .introduction .title a {color: #333;}
+.cut-packs .introduction .title span {
+  font-size: 0.9em;
+  font-weight: normal;
+  color: #686868;
+}
+.cut-packs .introduction .itdt {
+  overflow: hidden;
+  display: inline-block;
+  width: 100%;
+  max-height: 34px;
+}
+.cut-packs .introduction .follow {
+  padding-left: 25px;
+  background: url(../images/icon_follow.png) no-repeat left center;
+  -webkit-background-size: 17px auto;
+          background-size: 17px auto;
+}
+.cut-packs .cut-pack-price {
+  padding: 2%;
+  padding-top: 0;
+  text-align: left;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
+.cut-packs .cut-pack-price .price {
+  display: inline-block;
+  margin-right: 10px;
+  font-size: 1.2em;
+  font-weight: 700;
+  color: #333333;
+}
+.btn-help-cut-price {
+  display: block;
+  margin: 5% auto;
+  width: 70%;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  background: #ff9933;
+  border-radius: 30px;
+}
+.btn-help-cut-price i {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  background: url(../images/icon_cut_price.png) no-repeat center;
+  -webkit-background-size: 20px auto;
+          background-size: 20px auto;
+}
+.btn-buy-now {
+  display: block;
+  margin: 5% auto;
+  width: 70%;
+  height: 30px;
+  color: #000;
+  line-height: 30px;
+  text-align: center;
+  background: #fff;
+  border: 1px solid #bac2c5;
+  border-radius: 30px;
+}
+
+.cutfriend {padding: 2%;}
+
+/*砍价活动 END*/
+
+/*口味和忌口*/
+.taste-diet {padding: 2%;}
+.taste-diet .top-art {overflow: hidden;}
+.taste-diet .top-art .tips {
+  float: left;
+  padding-left: 28px;
+  color: #999;
+  background: url(../images/icon_taste.png) no-repeat left center;
+  -webkit-background-size: auto 17px;
+          background-size: auto 17px;
+}
+
+
+/*编辑按钮*/
+.taste-diet .top-art .edit {
+  float: right;
+  height: 22px;
+  line-height: 22px;
+}
+.taste-diet .top-art .edit a {color: #333;}
+.taste-diet .top-art .edit span {
+  display: inline-block;
+  margin-left: 5px;
+  width: 17px;
+  height: 17px;
+  line-height: 13px;
+  font-weight: 700;
+  color: #f44336;
+  text-align: center;
+  border: 1px solid #b0bec5;
+  border-radius: 50%;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.taste-diet ul {overflow: hidden;}
+.taste-diet ul li {
+  position: relative;
+  float: left;
+  padding: 0 10px;
+  margin: 2% 2% 0 0;
+  height: 30px;
+  line-height: 30px;
+  border: 1px solid #ccc;
+  border-radius: 30px;
+}
+.taste-diet ul li span {
+  position: absolute;
+  right: -3px;
+  top: -3px;
+  z-index: 2;
+  display: none;
+  width: 14px;
+  height: 14px;
+  line-height: 14px;
+  font-size: 0.8em;
+  color: #fff;
+  text-align: center;
+  background: #ff9933;
+  border-radius: 50%;
+}
+.taste-diet ul li.common {border: 1px solid #ff9933;}
+.taste-diet ul li.delete span {display: block;}
+
+/*编辑口味*/
+.taste-diet .write {
+  overflow: hidden;
+  margin-bottom: 4%;
+}
+.taste-diet .write .text-box {
+  float: left;
+  width: 70%;
+  height: 40px;
+  border: 1px solid #ccc;
+  border-radius: 40px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+.taste-diet .write .text-box select {
+  margin-top: 5px;
+  margin-left: 5px;
+  height: 30px;
+  line-height: 30px;
+  background: #dedede;
+  border: none;
+  border-radius: 30px;
+}
+.taste-diet .write .text-box input {
+  margin-top: 5px;
+  width: 70%;
+  height: 30px;
+  line-height: 30px;
+  background: none;
+  border: none;
+}
+
+.taste-diet .write .btn-add-taste {
+  float: right;
+  width: 25%;
+  height: 40px;
+  line-height: 40px;
+  color: #ff9933;
+  text-align: center;
+  background: none;
+  border: 1px solid #ccc;
+  border-radius: 40px;
+}
+/*口味和忌口 END*/
 
 
 
