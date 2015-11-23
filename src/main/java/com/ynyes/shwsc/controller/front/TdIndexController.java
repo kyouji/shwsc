@@ -129,6 +129,45 @@ public class TdIndexController {
     {
     	return "client/kjhdtc";
     }
+    //口味和禁忌
+    @RequestMapping("/kwhjj")
+    public String kwhjj(HttpServletRequest req,ModelMap map)
+    {
+    	return "client/kwhjj";
+    }
+    //口味和禁忌编辑
+    @RequestMapping("/kwhjjbj")
+    public String kwhjjbj(HttpServletRequest req,ModelMap map)
+    {
+    	return "client/kwhjjbj";
+    }
+    //套餐继续砍价
+    @RequestMapping("/tcjxkj")
+    public String tcjxkj(HttpServletRequest req,ModelMap map){
+    	
+    	return "client/tcjxkj";
+    }
+    //套餐具体砍价
+    @RequestMapping("tcjtkj")
+    public String tcjtkj(HttpServletRequest req,ModelMap map)
+    {
+    	return "client/tcjtkj";
+    	
+    }
+    //砍价活动登陆tckj-login
+    @RequestMapping("tckj_login")
+    public String tckj_login(HttpServletRequest req,ModelMap map)
+    {
+    	return "client/tckj-login";
+    	
+    }
+    //好友砍价详情
+    @RequestMapping("hykjxq")
+    public String hykjxq(HttpServletRequest req,ModelMap map)
+    {
+    	return "client/hykjxq";
+    	
+    }
     /**
      * 搜索
      * @param req 
