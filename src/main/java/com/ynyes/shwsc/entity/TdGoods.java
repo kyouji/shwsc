@@ -28,6 +28,41 @@ public class TdGoods {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
+    // 定前须知
+    @Column
+    private String brandTitle;
+    // 是否使用优惠劵
+    @Column
+    private Boolean isRecommendType;
+    
+    // 是否开启砍价
+    @Column
+    private Boolean isNew;
+    
+    // 砍价后最低价
+    @Column(nullable=false, scale=2)
+    private Double marketPrice;
+	 
+    // 赠品数量
+    @Column
+    private Long soldNumber;
+    
+    // 砍价后最低价
+    @Column(scale=2)
+    private Double outFactoryPrice;
+    
+	// 菜品编辑
+	@Column
+	private String afterMarketService;
+	
+	//砍价最大值
+	@Column
+	private double maxno;
+	
+	//砍价最小值
+	@Column
+	private double minno;
+	
 	// 产品Id
 	@Column
 	private Long productId;
@@ -92,9 +127,6 @@ public class TdGoods {
     @Column
     private String detail;
     
-    // 商品售后服务
-    @Column
-    private String afterMarketService;
     
     // 是否上架
     @Column
@@ -104,17 +136,11 @@ public class TdGoods {
     @Column
     private Boolean isRecommendIndex;
     
-    // 是否分类推荐
-    @Column
-    private Boolean isRecommendType;
-    
     // 是否热销
     @Column
     private Boolean isHot;
     
-    // 是否新品
-    @Column
-    private Boolean isNew;
+
     
     // 是否特价
     @Column
@@ -165,17 +191,9 @@ public class TdGoods {
     @Column(scale=2)
     private Double costPrice;
     
-    // 市场价
-    @Column(nullable=false, scale=2)
-    private Double marketPrice;
-    
     // 销售价
     @Column(nullable=false, scale=2)
     private Double salePrice;
-    
-    // 出厂价
-    @Column(scale=2)
-    private Double outFactoryPrice;
     
     // 包含价值，销售靓号时会包含话费
     @Column(scale=2)
@@ -215,10 +233,6 @@ public class TdGoods {
     // 库存数量
     @Column
     private Long leftNumber;
- 
-    // 该版本的已售数量
-    @Column
-    private Long soldNumber;
     
     // 商品价格单位
     @Column
@@ -379,10 +393,6 @@ public class TdGoods {
     @Column
     private Long groupSaleHundredSoldNumber;
     
-    // 品牌
-    @Column
-    private String brandTitle;
-    
     // 品牌ID
     @Column
     private Long brandId;
@@ -459,7 +469,23 @@ public class TdGoods {
     @Column(scale=2)
     private Double trainServiceReturnProfit;
     
-    public Long getId() {
+    public double getMaxno() {
+		return maxno;
+	}
+
+	public void setMaxno(double maxno) {
+		this.maxno = maxno;
+	}
+
+	public double getMinno() {
+		return minno;
+	}
+
+	public void setMinno(double minno) {
+		this.minno = minno;
+	}
+
+	public Long getId() {
         return id;
     }
 

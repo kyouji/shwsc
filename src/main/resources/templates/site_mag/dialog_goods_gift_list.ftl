@@ -103,7 +103,6 @@
             + '<input type="text" name="giftList[${total!'0'}].sortId" class="td-input" value="99" style="width:90%;" /></td>'
             + '<td><input type="text" id="id" name="giftList[${total!'0'}].goodsId" class="td-input" value="' + $("#txtItemZengPin_Id").val() + '" style="width:90%;" /></td>'
             + '<td><input type="text" id="title" name="giftList[${total!'0'}].goodsTitle" class="td-input" value="' + $("#txtItemZengPin_Title").val() + '" style="width:90%;" /></td>'
-            + '<td><input type="text" id="price" name="giftList[${total!'0'}].goodsPrice" class="td-input" value="' + $("#txtItemZengPin_Price").val() + '" style="width:90%;" /></td>'
             + '<td>'
             + '<i class="icon"></i>'
             + '<a title="编辑" class="img-btn edit operator" onclick="show_goods_gift_dialog(this);">编辑</a>'
@@ -162,7 +161,7 @@
         <input type="text" id="txtItemZengPin_Price" class="input normal"> 元
         <span class="Validform_checktip">*</span>
       </dd>
-    </dl>-->
+    </dl>
     <dl>
         <dt>显示图片</dt>
         <dd>
@@ -171,7 +170,7 @@
             <div id="thumb_ImgUrl_show1" class="photo-list thumb_ImgUrl_show">
             </div>
         </dd>
-    </dl>
+    </dl>-->
 </div>
 <#--
 <form name="form1" method="post" action="" id="form1">

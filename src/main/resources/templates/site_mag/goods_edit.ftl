@@ -23,6 +23,15 @@ $(function () {
     //初始化表单验证
     $("#form1").initValidform();
     
+    //初始化编辑器
+    var editor = KindEditor.create('.editor', {
+        width: '98%',
+        height: '350px',
+        resizeType: 1,
+        uploadJson: '/Verwalter/editor/upload?action=EditorFile',
+        fileManagerJson: '/Verwalter/editor/upload?action=EditorFile',
+        allowFileManager: true
+    });
     //初始化上传控件
     $(".upload-img").each(function () {
         $(this).InitSWFUpload({ 
@@ -299,7 +308,7 @@ function del_goods_comb(obj) {
                     <!--<li><a href="javascript:;" onclick="tabs(this);" class="">扩展选项</a></li>
                     <li><a href="javascript:;" onclick="tabs(this);" class="">价格与库存</a></li>
                     <li><a href="javascript:;" onclick="tabs(this);" class="">促销</a></li>-->
-                    <li><a href="javascript:;" onclick="tabs(this);" class="">菜单</a></li>
+                    <li><a href="javascript:;" onclick="tabs(this);" class="">配菜列表</a></li>
                     <li><a href="javascript:;" onclick="tabs(this);" class="">详细描述</a></li>
                     <!--<li><a href="javascript:;" onclick="tabs(this);" class="">组合商品</a></li>
                     <li><a href="javascript:;" onclick="tabs(this);" class="">SEO选项</a></li>-->
@@ -435,9 +444,9 @@ function del_goods_comb(obj) {
     </div>
     <div class="tab-content" style="display: none;">
     <dl>
-            <dt>菜单列表</dt>
+            <dt>配菜列表</dt>
             <dd>
-                <a id="addGift" class="icon-btn add"><i></i><span>添加菜品</span></a>
+                <a id="addGift" class="icon-btn add"><i></i><span>添加列表</span></a>
                 <span class="Validform_checktip"></span>
             </dd>
         </dl>
@@ -451,13 +460,10 @@ function del_goods_comb(obj) {
                                 排序
                             </th>
                             <th width="10%">
-                                菜品名称
+                                配菜名称
                             </th>
-                            <th width="38%">
-                                菜品描述
-                            </th>
-                            <th width="10%">
-                                显示
+                            <th width="48%">
+                                配菜菜单
                             </th>
                             <th width="6%">
                                 操作
@@ -477,9 +483,6 @@ function del_goods_comb(obj) {
                                     <td><input type="text" id="id" name="giftList[${gift_index}].goodsId" class="td-input" value="${gift.goodsId!''}" style="width:90%;"></td>
                                     <td>
                                         <input type="text" id="title" name="giftList[${gift_index}].goodsTitle" class="td-input" value="${gift.goodsTitle!''}" style="width:90%;">
-                                    </td>
-                                    <td>
-                                        <input type="text" id="price" name="giftList[${gift_index}].goodsPrice" class="td-input" value="${gift.goodsPrice!''}" style="width:90%;">
                                     </td>
                                     <td>
                                         <i class="icon"></i>
@@ -560,6 +563,53 @@ function del_goods_comb(obj) {
             </dd>
         </dl>-->
         <dl>
+            <dt>能否使用优惠劵</dt>
+            <dd>
+                <div class="rule-multi-radio">
+                    <span>
+                        <input type="radio" name="isRecommendType" value="1" <#if goods?? && goods.isRecommendType?? && goods.isRecommendType==true>checked="checked"</#if>>
+                        <label>是</label>
+                        <input type="radio" name="isRecommendType" value="0" <#if goods??==false || goods.isRecommendType??==false || goods.isRecommendType==false>checked="checked"</#if>>
+                        <label>否</label>
+                    </span>
+                </div>
+            </dd>
+        </dl>
+        <dl>
+            <dt>能否砍价</dt>
+            <dd>
+                <div class="rule-multi-radio">
+                    <span>
+                        <input type="radio" name="isNew" value="1" <#if goods?? && goods.isNew?? && goods.isNew==true>checked="checked"</#if>>
+                        <label>是</label>
+                        <input type="radio" name="isNew" value="0" <#if goods??==false || goods.isNew??==false || goods.isNew==false>checked="checked"</#if>>
+                        <label>否</label>
+                    </span>
+                </div>
+            </dd>
+        </dl>
+                <dl>
+            <dt>最大砍价值</dt>
+            <dd>
+                <input name="maxno" type="text" value="<#if goods??>${goods.maxno!""}<#else>0</#if>" class="input txt100" datatype="n" sucmsg=" ">
+                <span class="Validform_checktip">*朋友最多能砍的价格</span>
+            </dd>
+        </dl>
+                <dl>
+            <dt>最小砍价值</dt>
+            <dd>
+                <input name="maxno" type="text" value="<#if goods??>${goods.maxno!""}<#else>0</#if>" class="input txt100" datatype="n" sucmsg=" ">
+                <span class="Validform_checktip">*朋友最小能砍的价</span>
+            </dd>
+        </dl>
+        <dl>
+            <dt>砍价最低价格</dt>
+            <dd>
+                <input id="marketPrice" name="marketPrice" type="text" value="<#if goods?? && goods.marketPrice??>${goods.marketPrice?string("0.00")}<#else>0</#if>" class="input normal" sucmsg="" datatype="/^(([1-9]{1}\d*)|([0]{1}))(\.(\d){1,2})?$/">
+                <span class="Validform_checktip">*砍到最低价就不能在砍了</span>
+            </dd>
+        </dl>
+        <dl>
             <dt>菜品数量</dt>
             <dd>
                 <input name="leftNumber" type="text" value="<#if goods?? && goods.leftNumber??>${goods.leftNumber?c!"0"}<#else>99</#if>" class="input normal" datatype="n" sucmsg=" ">
@@ -569,13 +619,7 @@ function del_goods_comb(obj) {
         <dl>
             <dt>主菜名称</dt>
             <dd>
-                <textarea name="detail" class="editor"><#if goods??>${goods.detail!""}</#if></textarea>
-            </dd>
-        </dl>
-        <dl>
-            <dt>配菜</dt>
-            <dd>
-                <textarea name="afterMarketService" class="editor"><#if goods??>${goods.afterMarketService!""}</#if></textarea>
+                <textarea name="detail" ><#if goods??>${goods.detail!""}</#if></textarea>
             </dd>
         </dl>
         <dl>
@@ -589,6 +633,18 @@ function del_goods_comb(obj) {
             <dt>赠品菜名</dt>
             <dd>
                 <input name="flashSaleImage" type="text" value="<#if goods??>${goods.flashSaleImage!""}</#if>" class="input">
+            </dd>
+        </dl>
+        <dl>
+            <dt>定前须知</dt>
+            <dd>
+                <textarea name="brandTitle" class="editor"><#if goods??>${goods.brandTitle!""}</#if></textarea>
+            </dd>
+        </dl>
+        <dl>
+            <dt>菜品编辑</dt>
+            <dd>
+                <textarea name="afterMarketService" class="editor"><#if goods??>${goods.afterMarketService!""}</#if></textarea>
             </dd>
         </dl>
     </div>
@@ -971,159 +1027,7 @@ function del_goods_comb(obj) {
         </dl>
     </div>-->
     
-    <#--<div class="tab-content" style="display: none;">
-        <dl>
-            <dt>赠品</dt>
-            <dd>
-                <a id="addGift" class="icon-btn add"><i></i><span>添加赠品</span></a>
-                <span class="Validform_checktip"></span>
-            </dd>
-        </dl>
-        <dl>
-            <dt></dt>
-            <dd>
-                <table border="0" cellspacing="0" cellpadding="0" class="border-table" width="98%">
-                    <thead>
-                        <tr>
-                            <th width="6%">
-                                排序
-                            </th>
-                            <th width="10%">
-                                商品ID
-                            </th>
-                            <th width="38%">
-                                赠品标题
-                            </th>
-                            <th width="10%">
-                                原价
-                            </th>
-                            <th width="6%">
-                                操作
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody id="var_box_gift">
-                        <input type="hidden" id="totalGift" name="totalGift" value="<#if goods??>${goods.totalGift!'0'}</#if>" />
-                        <#if goods?? && goods.giftList??>
-                            <#list goods.giftList as gift>
-                                <tr class="td_c">
-                                    <td>
-                                        <input name="giftList[${gift_index}].id?c" type="hidden" value="${gift.id?c}">
-                                        <input name="giftList[${gift_index}].coverImageUri" type="hidden" value="${gift.coverImageUri!''}">
-                                        <input type="text" name="giftList[${gift_index}].sortId" class="td-input" value="${gift.sortId!''}" style="width:90%;">
-                                    </td>
-                                    <td><input type="text" id="id" name="giftList[${gift_index}].goodsId" class="td-input" value="${gift.goodsId!''}" style="width:90%;"></td>
-                                    <td>
-                                        <input type="text" id="title" name="giftList[${gift_index}].goodsTitle" class="td-input" value="${gift.goodsTitle!''}" style="width:90%;">
-                                    </td>
-                                    <td>
-                                        <input type="text" id="price" name="giftList[${gift_index}].goodsPrice" class="td-input" value="${gift.goodsPrice?string("0.00")}" style="width:90%;">
-                                    </td>
-                                    <td>
-                                        <i class="icon"></i>
-                                        <a title="编辑" class="img-btn edit operator" onclick="show_goods_gift_dialog(this);">编辑</a>
-                                        <a title="删除" class="img-btn del operator" onclick="del_goods_gift(this);">删除</a>
-                                    </td>
-                                </tr>
-                            </#list>
-                        </#if>
-                    </tbody>
-                </table>
-            </dd>
-        </dl>
-    </div>-->
     
-   <#-- <div class="tab-content" style="display: none;">
-        <dl>
-            <dt>商品组合</dt>
-            <dd>
-                <a id="addCombination" class="icon-btn add"><i></i><span>添加组合</span></a>
-                <span class="Validform_checktip"></span>
-            </dd>
-        </dl>
-        <dl>
-            <dt></dt>
-            <dd>
-                <table border="0" cellspacing="0" cellpadding="0" class="border-table" width="98%">
-                    <thead>
-                        <tr>
-                            <th width="6%">
-                                排序
-                            </th>
-                            <th width="10%">
-                                商品ID
-                            </th>
-                            <th width="38%">
-                                赠品标题
-                            </th>
-                            <th width="10%">
-                                原价
-                            </th>
-                            <th width="10%">
-                                组合价
-                            </th>
-                            <th width="6%">
-                                操作
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody id="var_box_comb">
-                        <input type="hidden" id="totalComb" name="totalComb" value="<#if goods??>${goods.totalComb!'0'}</#if>" />
-                        <#if goods?? && goods.combList??>
-                            <#list goods.combList as item>
-                                <tr class="td_c">
-                                    <td>
-                                        <input name="combList[${item_index}].id?c" type="hidden" value="${item.id?c}">
-                                        <input name="combList[${item_index}].coverImageUri" type="hidden" value="${item.coverImageUri!''}">
-                                        <input type="text" name="combList[${item_index}].sortId" class="td-input" value="${item.sortId!''}" style="width:90%;">
-                                    </td>
-                                    <td><input type="text" id="id" name="combList[${item_index}].goodsId" class="td-input" value="${item.goodsId!''}" style="width:90%;"></td>
-                                    <td>
-                                        <input type="text" id="title" name="combList[${item_index}].goodsTitle" class="td-input" value="${item.goodsTitle!''}" style="width:90%;">
-                                    </td>
-                                    <td>
-                                        <input type="text" id="price" name="combList[${item_index}].goodsPrice" class="td-input" value="${item.goodsPrice?string("0.00")}" style="width:90%;">
-                                    </td>
-                                    <td>
-                                        <input type="text" id="currentPrice" name="combList[${item_index}].currentPrice" class="td-input" value="${item.currentPrice?string("0.00")}" style="width:90%;">
-                                    </td>
-                                    <td>
-                                        <i class="icon"></i>
-                                        <a title="编辑" class="img-btn edit operator" onclick="show_goods_comb_dialog(this);">编辑</a>
-                                        <a title="删除" class="img-btn del operator" onclick="del_goods_comb(this);">删除</a>
-                                    </td>
-                                </tr>
-                            </#list>
-                        </#if>
-                    </tbody>
-                </table>
-            </dd>
-        </dl>
-    </div>-->
-    
-    <#--<div class="tab-content" style="display: none;">
-        <dl>
-            <dt>SEO标题</dt>
-            <dd>
-                <input name="seoTitle" type="text" maxlength="255" id="txtSeoTitle" value="<#if goods??>${goods.seoTitle!""}</#if>" class="input normal" datatype="*0-100" sucmsg=" ">
-                <span class="Validform_checktip">255个字符以内</span>
-            </dd>
-        </dl>
-        <dl>
-            <dt>SEO关健字</dt>
-            <dd>
-                <textarea name="seoKeywords" rows="2" cols="20" id="txtSeoKeywords" class="input" datatype="*0-255" sucmsg=" "><#if goods??>${goods.seoKeywords!""}</#if></textarea>
-                <span class="Validform_checktip">以“,”逗号区分开，255个字符以内</span>
-            </dd>
-        </dl>
-        <dl>
-            <dt>SEO描述</dt>
-            <dd>
-                <textarea name="seoDescription" rows="2" cols="20" id="txtSeoDescription" class="input" datatype="*0-255" sucmsg=" "><#if goods??>${goods.seoDescription!""}</#if></textarea>
-                <span class="Validform_checktip">255个字符以内</span>
-            </dd>
-        </dl>
-    </div>-->
     
     
     
