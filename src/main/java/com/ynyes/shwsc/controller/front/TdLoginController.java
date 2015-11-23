@@ -89,8 +89,10 @@ public class TdLoginController {
 		}
 		TdUser user = tdUserService.findByUsernameAndIsEnabled(username);
 
-		if (null != user) {
-			if (!user.getPassword().equals(password)) {
+		if (null != user) 
+		{
+			if (!user.getPassword().equals(password)) 
+			{
 				res.put("code", 0);
 				res.put("msg", "密码错误");
 				return res;
@@ -101,6 +103,7 @@ public class TdLoginController {
 			res.put("msg", "用户不存在");
 			res.put("code", 1);
 		}
+		request.getSession().setAttribute("username", user.getUsername());
 		return res;
 	}
 	

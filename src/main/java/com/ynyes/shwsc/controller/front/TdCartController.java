@@ -56,7 +56,8 @@ public class TdCartController {
      * @return
      */
     @RequestMapping(value = "/cart/init")
-    public String addCart(Long id, Long quantity, String zhid, Integer m, HttpServletRequest req) {
+    public String addCart(Long id, Long quantity, String zhid, Integer m, HttpServletRequest req,ModelMap map)
+    {
         // 是否已登录
         boolean isLoggedIn = true;
 
@@ -78,47 +79,12 @@ public class TdCartController {
             quantity = 1L;
         }
         
-        if (null != id) {
-            // 这两种商品一个ID号只能购买一次
-            if (id.equals(226L) || id.equals(1644L))
-            {
-                List<TdCartGoods> cartGoodsList = tdCartGoodsService.findByGoodsIdAndUsername(226L, username);
-             
-                // 已经添加了该商品
-                if (null != cartGoodsList && cartGoodsList.size() > 0)
-                {
-                    return "redirect:/cart/add?id=" + id + "&m=" + m + "&r=1";
-                }
-                
-                cartGoodsList = tdCartGoodsService.findByGoodsIdAndUsername(1644L, username);
-                
-                // 已经添加了该商品
-                if (null != cartGoodsList && cartGoodsList.size() > 0)
-                {
-                    return "redirect:/cart/add?id=" + id + "&m=" + m + "&r=1";
-                }
-                
-                List<TdOrder> orderList = tdOrderService.findByUsernameAndGoodsId(username, 226L);
-                
-                // 已经购买了该商品
-                if (null != orderList && orderList.size() > 0)
-                {
-                    return "redirect:/cart/add?id=" + id + "&m=" + m + "&r=1";
-                }
-                
-                orderList = tdOrderService.findByUsernameAndGoodsId(username, 1644L);
-                
-                // 已经购买了该商品
-                if (null != orderList && orderList.size() > 0)
-                {
-                    return "redirect:/cart/add?id=" + id + "&m=" + m + "&r=1";
-                }
-            }
-            
+        if (null != id)
+        {
             TdGoods goods = tdGoodsService.findOne(id);
 
-            if (null != goods) {
-                
+            if (null != goods)
+            {
                 // 购物车项目
                 List<TdCartGoods> oldCartGoodsList = null;
                 
@@ -139,40 +105,18 @@ public class TdCartController {
                     
                     cartGoods.setIsLoggedIn(isLoggedIn);
                     cartGoods.setUsername(username);
-    
+
                     cartGoods.setIsSelected(true);
                     cartGoods.setGoodsId(goods.getId());
-    
+
                     cartGoods.setQuantity(quantity);
-                    
+                
                     tdCartGoodsService.save(cartGoods);
                 }
             }
         }
-
-        return "redirect:/cart/add?id=" + id + "&m=" + m;
-    }
-
-    @RequestMapping(value = "/cart/add")
-    public String cartInit(Long id, Integer m, Integer r, HttpServletRequest req, ModelMap map) {
-        tdCommonService.setHeader(map, req);
-        
-        if (null != r && 1 == r)
-        {
-            map.addAttribute("res", "该商品仅限购买一次");
-        }
-        
-        if (null == m)
-        {
-            m = 0;
-        }
-        
-        if (m.equals(1)) { // 移动端浏览器
-            
-            return "/touch/cart_add_res";
-        }
-        
-        return "/client/cart_add_res";
+        map.addAttribute("good", tdGoodsService.findOne(id));
+		return "/client/submit_order";
     }
 
     @RequestMapping(value = "/cart")
@@ -181,8 +125,7 @@ public class TdCartController {
         String username = (String) req.getSession().getAttribute("username");
 
         // 未登录用户的购物车商品
-        List<TdCartGoods> cartSessionGoodsList = tdCartGoodsService
-                .findByUsername(req.getSession().getId());
+        List<TdCartGoods> cartSessionGoodsList = tdCartGoodsService.findByUsername(req.getSession().getId());
         if (null == username)
         {
             username = req.getSession().getId();
