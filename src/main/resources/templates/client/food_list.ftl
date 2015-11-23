@@ -18,40 +18,40 @@
       <a id="title" class="title" href="#"><#if type??>${type.title!'无类别'}</#if><i>&nbsp;&nbsp;&nbsp;&nbsp;</i></a>
     </header>
     <div id="menu-nav-top" class="menu-nav-top">
-  <ul class="menu-nav">
-      <li class="li1"><a href="/food/detail/1">
-        <img src="/client/images/icon_menu_nav_1.png" alt="">
-        <div>热门推荐</div>
-      </a></li>
-      <li class="li2"><a href="/food/detail/2">
-        <img src="/client/images/icon_menu_nav_2.png" alt="">
-        <div>江湖菜</div>
-      </a></li>
-      <li class="li3"><a href="/food/detail/3">
-        <img src="/client/images/icon_menu_nav_3.png" alt="">
-        <div>无肉不欢</div>
-      </a></li>
-      <li class="li4 current"><a href="/food/detail/4">
-        <img src="/client/images/icon_menu_nav_4.png" alt="">
-        <div>素食主义</div>
-      </a></li>
-      <li class="li5"><a href="/food/detail/5">
-        <img src="images/icon_menu_nav_5.png" alt="">
-        <div>各地小吃</div>
-      </a></li>
-      <li class="li6"><a href="/food/detail/6">
-        <img src="images/icon_menu_nav_6.png" alt="">
-        <div>面食</div>
-      </a></li>
-      <li class="li7"><a href="/food/detail/7">
-        <img src="images/icon_menu_nav_7.png" alt="">
-        <div>闽南菜</div>
-      </a></li>
-      <li class="li8"><a href="/food/detail/8">
-        <img src="/client/images/icon_menu_nav_8.png" alt="">
-        <div>重庆美食</div>
-      </a></li>
-    </ul>
+      <ul id="menu-nav">
+        <li class="li1"><a href="/food/detail/1">
+          <img src="/client/images/icon_menu_nav_top_1.png" alt="">
+          <div>热门推荐</div>
+        </a></li>
+        <li class="li2"><a href="/food/detail/2">
+          <img src="/client/images/icon_menu_nav_top_2.png" alt="">
+          <div>江湖菜</div>
+        </a></li>
+        <li class="li3"><a href="/food/detail/3">
+          <img src="/client/images/icon_menu_nav_top_3.png" alt="">
+          <div>无肉不欢</div>
+        </a></li>
+        <li class="li4 current"><a href="/food/detail/4">
+          <img src="/client/images/icon_menu_nav_top_4.png" alt="">
+          <div>素食主义</div>
+        </a></li>
+        <li class="li5"><a href="/food/detail/5">
+          <img src="/client/images/icon_menu_nav_top_5.png" alt="">
+          <div>各地小吃</div>
+        </a></li>
+        <li class="li6"><a href="/food/detail/6">
+          <img src="/client/images/icon_menu_nav_top_6.png" alt="">
+          <div>面食</div>
+        </a></li>
+        <li class="li7"><a href="/food/detail/7">
+          <img src="/client/images/icon_menu_nav_top_7.png" alt="">
+          <div>闽南菜</div>
+        </a></li>
+        <li class="li8"><a href="/food/detail/8">
+          <img src="/client/images/icon_menu_nav_top_8.png" alt="">
+          <div>重庆美食</div>
+        </a></li>
+      </ul>
     </div>
     <script type="text/javascript" src="/client/js/jquery-1.11.3.min.js"></script>
     <script type="text/javascript">
@@ -67,7 +67,8 @@
       　　　　 event.preventDefault();// 阻止浏览器默认事件，重要 
               var touch = event.targetTouches[0];
               // 把元素放在手指所在的位置
-              obj.style.left = touch.pageX-50 + 'px';
+              $(this).addClass('selected');
+              // obj.style.left = touch.pageX-50 + 'px';
               // obj.style.top = touch.pageY-50 + 'px';
               }
       }, false);

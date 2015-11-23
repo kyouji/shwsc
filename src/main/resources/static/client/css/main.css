@@ -357,9 +357,8 @@
   border-bottom: 1px solid #ccc;
 }
 .food-presentation li {
-/*
-  float: left;
-  width: 50%;   */
+  /*float: left;
+  width: 50%;*/
   padding-bottom: 4px;
   font-size: 1.4em;
   line-height: 1.7;
@@ -2246,6 +2245,7 @@
 /*我的收藏 END*/
 
 /*厨师列表*/
+/*
 .chef-list {
   width: 100%;
   -webkit-column-count: 2;
@@ -2254,6 +2254,16 @@
 .chef-list section {
   margin: 2%;
   width: 100%;
+  background: #fff;
+}*/
+.chef-list {
+  overflow:hidden;
+  width: 100%;
+}
+.chef-list section {
+  float:left;
+  margin: 2%;
+  width: 46%;
   background: #fff;
 }
 .chef-list section a {display: inline-block;}
@@ -2277,7 +2287,10 @@
 .chef-list section .chef-name i.level-5 {background-image:url(../images/icon_chef_level_5.png);}
 
 .chef-list section div.speci-dishs {
+  overflow:hidden;
   padding-bottom: 2%;
+  width:100%;
+  height:30px;
   font-size: 0.8em;
   color: #999;
   text-align: left;

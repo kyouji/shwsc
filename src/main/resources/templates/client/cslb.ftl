@@ -14,7 +14,7 @@
 <body class="bgc-e3e6">
     <!-- 头部 -->
     <header>
-      <a class="back" href="/index"></a>
+      <a class="back" href="/"></a>
       <p>一群厨子</p>
     </header>
     <!-- 头部 END -->
