@@ -111,6 +111,24 @@ public class TdIndexController {
     {
     	return "client/message_portrait";
     }
+    //厨师介绍
+    @RequestMapping("/csjs")
+    public String csjs(HttpServletRequest req,ModelMap map)
+    {
+    	return "client/csjs";
+    }
+    //活动
+    @RequestMapping("/hd")
+    public String hd(HttpServletRequest req,ModelMap map)
+    {
+    	return "client/hd";
+    }
+    //砍价活动套餐
+    @RequestMapping("/kjhdtc")
+    public String kjhdtc(HttpServletRequest req,ModelMap map)
+    {
+    	return "client/kjhdtc";
+    }
     /**
      * 搜索
      * @param req 
