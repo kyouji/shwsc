@@ -37,7 +37,7 @@
     <header>
       <!-- 地区选择 -->
       <a class="btn-select city" id="btn_select" href="/citys">
-      <span class="cur-select">上海市</span>
+      <span class="cur-select">江北区</span>
       </a>
       <!-- 模拟select下拉框js -->
       <script>
@@ -57,7 +57,7 @@
       </script>
       <!-- 搜索框 -->
       <div class="search">
-          <a href="搜索页.html"><i></i></a>
+          <a href="/ssy"><i></i></a>
           <input type="text" placeholder="搜索菜品">
       </div>
       <!-- 电话 -->
@@ -108,7 +108,7 @@
     <#list content_list as item>
     <section class="sct-${item_index + 1}">
     <!-- 图片尺寸 600*315 -->
-    <a style="display:block;" href="/cslb"  <#if item.typeIsNewWindow?string("true","flase") == "true">target="_blank"</#if>><img src="${item.fileUri!''}"/>
+    <a style="display:block;" href="${item.linkUri!''}"  <#if item.typeIsNewWindow?string("true","flase") == "true">target="_blank"</#if>><img src="${item.fileUri!''}"/>
     <!-- 图片尺寸 166*166 -->
     <img class="tips-photo" src="/client/images/index_photo_1.png" alt="">
     <p>${item.title}</p>

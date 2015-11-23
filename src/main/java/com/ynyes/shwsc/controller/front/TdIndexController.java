@@ -71,6 +71,8 @@ public class TdIndexController {
         return "/client/index";
     }
     
+
+    
     /**
      * 城市选择
      * @author mdj
@@ -82,6 +84,12 @@ public class TdIndexController {
     public String chooseCity(HttpServletRequest req,ModelMap map)
     {
     	return "client/cities";
+    }
+    //搜索页
+    @RequestMapping("/ssy")
+    public String ssy(HttpServletRequest req,ModelMap map)
+    {
+    	return "client/ssy";
     }
     //我的订单
     @RequestMapping("/wddd")
