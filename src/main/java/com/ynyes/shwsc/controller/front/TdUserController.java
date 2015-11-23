@@ -6,14 +6,18 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.xml.resolver.apps.resolver;
+import org.neo4j.cypher.internal.compiler.v2_1.ast.rewriters.namedPatternPartRemover;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ynyes.shwsc.entity.TdArticle;
+import com.ynyes.shwsc.entity.TdUser;
 import com.ynyes.shwsc.entity.TdUserComment;
 import com.ynyes.shwsc.service.TdArticleService;
 import com.ynyes.shwsc.service.TdCommonService;
@@ -115,6 +119,26 @@ public class TdUserController {
         map.addAttribute("comment_page", tdUserCommentService.findByUsername(email, 0, ClientConstant.pageSize));
         
         return "/client/user";
+    }
+    
+    @RequestMapping(value = "/user/save",method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object>saveUser(HttpServletRequest request,TdUser user)
+    {
+    	request.getSession().getAttribute("username");
+    	TdUser curentUser = tdUserService.findByUsername("");
+    	if (user != null)
+    	{
+			curentUser.setNickname(user.getNickname());
+			curentUser.setMobile(user.getMobile());
+			curentUser.setDetailAddress(user.getDetailAddress());
+			curentUser.setSex(user.getSex());
+			curentUser.setCareer(user.getCareer());
+		}
+    	
+    	Map<String, Object> res = new HashMap<String,Object>();
+    	res.put("baocun", "成功");
+    	return res;
     }
     
 //    @RequestMapping(value = "/user/order/edit", method = RequestMethod.POST)

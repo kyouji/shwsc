@@ -39,6 +39,10 @@ public class TdUser {
 	@Column
 	private String headImageUri;
 	
+	// 职业
+	@Column
+	private String career;
+	
 	// 用户名
 	@Column(nullable=false, unique=true)
 	private String username;
@@ -219,7 +223,15 @@ public class TdUser {
     @Column
     private Long pointGetByShareGoods;
     
-    public Long getId() {
+    public String getCareer() {
+		return career;
+	}
+
+	public void setCareer(String career) {
+		this.career = career;
+	}
+
+	public Long getId() {
         return id;
     }
 
