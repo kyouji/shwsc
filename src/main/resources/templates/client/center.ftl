@@ -26,20 +26,20 @@
             <p class="p2 c-ccc">13628382561</p>
           </a></div>
         </div>
-        <div class="div2"><a href="基本信息.html">
+        <div class="div2"><a href="/qmbj">
           <span>"</span>
           <span class="c-ccc">美食签名可以提高你的逼格哦~</span>
         </a></div>
       </div>
       <!-- 消息提示 -->
       <div class="news-tip">
-        <a href="消息中心.html"><span></span></a>
+        <a href="/xxzx"><span></span></a>
       </div>
     </div>
 
     <div class="clear"></div>
 
-    <section class="sec1"><a href="常用地址.html">
+    <section class="sec1"><a href="/cydz">
       <div>
         常用地址
         <span class="c-ccc">&gt;</span>
@@ -47,19 +47,19 @@
     </a></section>
 
     <section class="sec2">
-      <a href="我的订单.html">
+      <a href="/wddd">
       <div class="div1 bdbt">
         我的订单
         <span class="c-ccc">&gt;</span>
       </div>
       </a>
-      <a href="我的收藏.html">
+      <a href="/wdsc">
       <div class="div2 bdbt">
         我的收藏
         <span class="c-ccc">&gt;</span>
       </div>
       </a>
-      <a href="购物车.html">
+      <a href="/gwc">
       <div class="div3">
         购物车
         <span class="c-ccc">&gt;</span>
@@ -68,19 +68,19 @@
     </section>
 
     <section class="sec3">
-      <a href="优惠劵.html">
+      <a href="/yhj">
       <div class="div1 bdbt">
         优惠劵
         <span class="c-ccc">&gt;</span>
       </div>
       </a>
-      <a href="活动.html">
+      <a href="/hd">
       <div class="div2 bdbt">
         活动
         <span class="c-ccc">&gt;</span>
       </div>
       </a>
-      <a href="口味和忌口.html">
+      <a href="/kwhjj">
       <div class="div3">
         口味和忌口
         <span class="c-ccc">&gt;</span>

@@ -108,7 +108,7 @@
     <#list content_list as item>
     <section class="sct-${item_index + 1}">
     <!-- 图片尺寸 600*315 -->
-    <a style="display:block;" href="${item.linkUri!''}"  <#if item.typeIsNewWindow?string("true","flase") == "true">target="_blank"</#if>><img src="${item.fileUri!''}"/>
+    <a style="display:block;" href="/cslb"  <#if item.typeIsNewWindow?string("true","flase") == "true">target="_blank"</#if>><img src="${item.fileUri!''}"/>
     <!-- 图片尺寸 166*166 -->
     <img class="tips-photo" src="/client/images/index_photo_1.png" alt="">
     <p>${item.title}</p>

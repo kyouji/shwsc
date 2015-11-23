@@ -14,7 +14,7 @@
 <body>
     <!-- 头部 -->
     <header>
-      <a class="back" href="#"></a>
+      <a class="back" href="/scjs"></a>
       <p>厨师介绍</p>
     </header>
     <!-- 头部 END -->

@@ -83,6 +83,32 @@ public class TdIndexController {
     {
     	return "client/cities";
     }
+    //我的订单
+    @RequestMapping("/wddd")
+    public String wddd(HttpServletRequest req,ModelMap map)
+    {
+    	return "client/wddd";
+    }
+    
+    //我的收藏
+    @RequestMapping("/wdsc")
+    public String wdsc(HttpServletRequest req,ModelMap map)
+    {
+    	return "client/wdsc";
+    }
+    //购物车
+    @RequestMapping("/gwc")
+    public String gwc(HttpServletRequest req,ModelMap map)
+    {
+    	return "client/gwc";
+    }
+    
+    //签名编辑
+    @RequestMapping("/qmbj")
+    public String qmbj(HttpServletRequest req,ModelMap map)
+    {
+    	return "client/qmbj";
+    }
     
    //个人中心
     @RequestMapping("/center")
@@ -110,6 +136,12 @@ public class TdIndexController {
     public String message_portrait(HttpServletRequest req,ModelMap map)
     {
     	return "client/message_portrait";
+    }
+    //厨师列表
+    @RequestMapping("/cslb")
+    public String cslb(HttpServletRequest req,ModelMap map)
+    {
+    	return "client/cslb";
     }
     //厨师介绍
     @RequestMapping("/csjs")
@@ -166,6 +198,27 @@ public class TdIndexController {
     public String hykjxq(HttpServletRequest req,ModelMap map)
     {
     	return "client/hykjxq";
+    	
+    }
+    //消息中心
+    @RequestMapping("xxzx")
+    public String xxzx(HttpServletRequest req,ModelMap map)
+    {
+    	return "client/xxzx";
+    	
+    }
+    //常用地址
+    @RequestMapping("cydz")
+    public String cydz(HttpServletRequest req,ModelMap map)
+    {
+    	return "client/cydz";
+    	
+    }
+    //优惠劵
+    @RequestMapping("yhj")
+    public String yhj(HttpServletRequest req,ModelMap map)
+    {
+    	return "client/yhj";
     	
     }
     /**

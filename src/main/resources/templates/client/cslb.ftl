@@ -14,7 +14,7 @@
 <body class="bgc-e3e6">
     <!-- 头部 -->
     <header>
-      <a class="back" href="/client/index.html"></a>
+      <a class="back" href="/index"></a>
       <p>一群厨子</p>
     </header>
     <!-- 头部 END -->
@@ -27,19 +27,19 @@
         <div class="chef-name c000">李易峰<i class="level-1">&nbsp;</i></div>
         <div class="speci-dishs">五星主厨，擅长川菜、粤菜</div>
       </a></section>
-      <section><a href="厨师介绍.html">
+      <section><a href="/csjs">
         <!-- 图片原始尺寸 290*399-->
         <img width="100%" height="auto" src="/client/images/chef_photo_1.jpg" alt="厨师">
         <div class="chef-name c000">李易峰<i class="level-2">&nbsp;</i></div>
         <div class="speci-dishs">五星主厨，擅长川菜、粤菜、川菜、粤菜</div>
       </a></section>
-      <section><a href="厨师介绍.html">
+      <section><a href="/csjs">
         <!-- 图片原始尺寸 290*399-->
         <img width="100%" height="auto" src="/client/images/chef_photo_1.jpg" alt="厨师">
         <div class="chef-name c000">李易峰<i class="level-3">&nbsp;</i></div>
         <div class="speci-dishs">五星主厨，擅长川菜、粤菜、川菜、粤菜、川菜、粤菜</div>
       </a></section>
-      <section><a href="厨师介绍.html">
+      <section><a href="/csjs">
         <!-- 图片原始尺寸 290*399-->
         <img width="100%" height="auto" src="/client/images/chef_photo_1.jpg" alt="厨师">
         <div class="chef-name c000">李易峰<i class="level-4">&nbsp;</i></div>

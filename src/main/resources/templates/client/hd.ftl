@@ -65,9 +65,9 @@
             <!-- bannner END -->
             <div class="package">
               <!-- 图片尺寸 864*414 -->
-              <a href="#"><img src="/client/images/package_details_photo_1.jpg" alt="江湖逍遥宴"></a>
+              <a href="/kjhdtc"><img src="/client/images/package_details_photo_1.jpg" alt="江湖逍遥宴"></a>
               <div class="introduction">
-                <p class="title"><a href="#">江湖逍遥宴<span>（适合2-4人）</span></a></p>
+                <p class="title"><a href="/kjhdtc">活动一（入口）</span></a></p>
                 <p class="itdt">江湖逍遥宴，滋味刚好。老少皆宜，营养丰富。</p>
               </div>
               <div class="price">
@@ -79,7 +79,7 @@
               <!-- 图片尺寸 864*414 -->
               <a href="#"><img src="/client/images/package_details_photo_1.jpg" alt="江湖逍遥宴"></a>
               <div class="introduction">
-                <p class="title"><a href="#">江湖逍遥宴<span>（适合2-4人）</span></a></p>
+                <p class="title"><a href="#">活动2（入口）<span>（适合2-4人）</span></a></p>
                 <p class="itdt">江湖逍遥宴，滋味刚好。老少皆宜，营养丰富。</p>
               </div>
               <div class="price">
