@@ -24,7 +24,7 @@
     <article class="head-signature">
       <!-- 图片原始尺寸 150*150-->
       <a href="用户头像编辑.html"><img src="/client/images/head_portrait.jpg" alt="头像"></a>
-      <div class="div2"><a href="签名编辑.html">
+      <div class="div2"><a href="/qmbj">
         <span>"</span>
         <span class="c000">美食签名可以提高你的逼格哦~</span>
       </a></div>

@@ -23,13 +23,9 @@
     <div class="addWrap">
       <div class="swipe" id="mySwipe">
         <div class="swipe-wrap">
-          <#if ht_scroll_ad_list??>
-          <#list ht_scroll_ad_list as item>
-          <div>
-            <li><a href="${item.linkUri!''}" target="_blank"><img src="${item.fileUri!''}"/></a></li>
-          </div>
-          </#list>
-          </#if>
+          <div><a href="#"><img class="img-responsive" src="/client/images/1.jpg"/></a></div>
+          <div><a href="#"><img class="img-responsive" src="/client/images/2.jpg"/></a></div>
+          <div><a href="#"><img class="img-responsive" src="/client/images/3.jpg"/></a></div>
         </div>
       </div>
       <ul id="position">
@@ -57,6 +53,25 @@
     <!-- bannner END -->
     
     <!-- 套餐详情 -->
+     <div class="addWrap">
+      <div class="swipe" id="mySwipe">
+        <div class="swipe-wrap">
+           
+          <#if top_ad_list??>
+          <#list top_ad_list as item>
+          <div>
+            <li><a href="${item.linkUri!''}" <#if item.typeIsNewWindow?string("true","flase") == "true">target="_blank"</#if>><img src="${item.fileUri!''}"/></a></li>
+          </div>
+          </#list>
+          </#if>
+        </div>
+      </div>
+      <ul id="position">
+        <li class="cur"></li>
+        <li class=""></li>
+        <li class=""></li>
+      </ul>
+    </div>
     <article class="package-details">
       <section class="package-description">
         <div class="div1">
@@ -88,7 +103,7 @@
       <section class="food-presentation">
             <ul>
               <li class="li1 current">菜品介绍</li>
-              <li class="li2 c-ccc">商家介绍</li>
+            
             </ul>
             <dl>
             <#if good??>

@@ -357,8 +357,9 @@
   border-bottom: 1px solid #ccc;
 }
 .food-presentation li {
+/*
   float: left;
-  width: 50%;
+  width: 50%;   */
   padding-bottom: 4px;
   font-size: 1.4em;
   line-height: 1.7;

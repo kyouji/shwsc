@@ -42,7 +42,7 @@
     <article class="select-city">
       <section class="cur-city">
         <p>当前定位</p>
-        <div>铜梁</div>
+        <div>江北区</div>
       </section>
       <section class="opened-city">
         <p>已开通城区</p>
@@ -51,6 +51,8 @@
         <div>沙坪坝区<i></i></div>
         <div>南岸区<i></i></div>
         <div>渝北区<i></i></div>
+        <div>九龙坡区<i></i></div>
+        <div>大渡口区<i></i></div>
       </section>
     </article>
 
