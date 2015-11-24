@@ -6,7 +6,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.xml.resolver.apps.resolver;
+
 import org.neo4j.cypher.internal.compiler.v2_1.ast.rewriters.namedPatternPartRemover;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

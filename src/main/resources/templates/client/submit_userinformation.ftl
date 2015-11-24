@@ -14,9 +14,8 @@
 <body class="bgc-f2">
     <!-- 头部 -->
     <header>
-      <a class="back" href="/food/buy?id=${good.id!''}"></a>
+      <a class="back" href="#"></a>
       <p>用餐信息</p>
-      <a class="save" href="#">保存</a>
     </header>
     <!-- 头部 END -->
 
@@ -42,6 +41,7 @@
       </section>
       <p>备注</p>
       <textarea placeholder="有什么需要就给厨师留言吧~"></textarea>
+      <input class="btn-submit" type="submit" value="提交">
     </article>
     <!-- 编辑地址 END -->
 

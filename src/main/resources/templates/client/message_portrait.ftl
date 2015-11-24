@@ -18,7 +18,6 @@
     <header>
       <a class="back" href="/message"></a>
       <p>基本信息</p>
-      <a class="save" href="/user/save">保存</a>
     </header>
     <!-- 头部 END -->
 
@@ -34,7 +33,7 @@
     <!-- 头像和签名 END -->
 
     <!-- 基本信息浏览 -->
-    <from id="form1" action="/user/info" method="post">
+    <from id="form1" action="/user/save" method="post">
     <article class="base-info-look">
       <section>
         <div class="div1">
@@ -63,11 +62,10 @@
         <div class="div5">
           <label>职业</label>
           <!-- <span>医生</span> -->
-          <select>
-            <input type="text"  name="career">
-          </select>
+          <input type="text"  name="career">
         </div>
       </section>
+      <input class="btn-submit" type="submit" value="提交">
     </article>
     </from>
     <!-- 基本信息浏览 END -->

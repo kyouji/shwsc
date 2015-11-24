@@ -80,6 +80,15 @@ public class TdIndexController {
      * @param map
      * @return
      */
+    
+    //用餐信息编辑submit_userinformation
+    
+    @RequestMapping("/submit_userinformation")
+    public String submit_userinformation(HttpServletRequest req,ModelMap map)
+    {
+    	return "client/submit_userinformation";
+    }
+    
     @RequestMapping("/citys")
     public String chooseCity(HttpServletRequest req,ModelMap map)
     {

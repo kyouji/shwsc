@@ -46,7 +46,11 @@
           <p class="p1">共<span>1</span>个套餐</p>
           <p class="p2">合计&nbsp;&nbsp;&nbsp;&nbsp;￥<span>298</span></p>
         </div>
-        <a class="btn-delete-orderlist" href="#">删除</a>
+        <div class="div3">
+          <a class="btn-order-now">立即支付</a>
+          <a class="btn-deletelist">删除订单</a>
+        </div>
+        <!-- <a class="btn-delete-orderlist" href="#">删除</a> -->
       </section>
       <section>
         <div class="div1">
@@ -74,10 +78,15 @@
           <p class="p1">共<span>1</span>个套餐</p>
           <p class="p2">合计&nbsp;&nbsp;&nbsp;&nbsp;￥<span>298</span></p>
         </div>
-        <a class="btn-delete-orderlist" href="#">删除</a>
+        <div class="div3">
+          <a class="btn-order-now">立即支付</a>
+          <a class="btn-deletelist">删除订单</a>
+        </div>
+        <!-- <a class="btn-delete-orderlist" href="#">删除</a> -->
       </section>
-      <script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
-      <script type="text/javascript" src="js/jquery.mobile-1.3.2.min.js"></script>
+      <!--
+      <script type="text/javascript" src="/client/js/jquery-1.11.3.min.js"></script>
+      <script type="text/javascript" src="/client/js/jquery.mobile-1.3.2.min.js"></script>
       <script type="text/javascript">
         $(document).ready(function(){
           $(".shopp-car section").on("swipeleft",function(){
@@ -87,12 +96,12 @@
             $(this).removeClass('selected').find(".btn-delete-orderlist").hide();
           });
         });
-      </script>
+      </script>  -->
     </article>
 
     <div class="clear h50"></div>
 
-    <!-- 底部 -->
+    <!-- 底部 --
     <footer>
       <div class="select-all"><input type="checkbox">&nbsp;全选</div>
       <div class="total">合计：￥<span>300</span></div>
