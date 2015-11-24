@@ -183,6 +183,44 @@ public class TdUserController {
     	return "/client/center";
     }
     
+    @RequestMapping(value = "/user/tjxdz",method = RequestMethod.POST)
+    public String saveUserTjxdz(HttpServletRequest request,TdUser user,ModelMap map)
+    {
+    	String userStr = (String)request.getSession().getAttribute("username");
+    	
+    	TdUser curentUser = tdUserService.findByUsername(userStr);
+    	if (user != null)
+    	{
+			curentUser.setShdz(user.getShdz());
+			
+		}
+    	tdUserService.save(curentUser);
+    	
+    	Map<String, Object> res = new HashMap<String,Object>();
+    	res.put("baocun", "成功");
+    	map.addAttribute("user",curentUser);
+    	return "/client/cydz";
+    }
+    
+   /* @RequestMapping(value = "/user/reg",method = RequestMethod.POST)
+    public String saveUserReg(HttpServletRequest request,TdUser user,ModelMap map)
+    {
+    	String userStr = (String)request.getSession().getAttribute("username");
+    	
+    	TdUser curentUser = tdUserService.findByUsername(userStr);
+    	if (user != null)
+    	{
+			curentUser.setQmbj(user.getQmbj());
+			
+		}
+    	tdUserService.save(curentUser);
+    	
+    	Map<String, Object> res = new HashMap<String,Object>();
+    	res.put("baocun", "成功");
+    	map.addAttribute("user",curentUser);
+    	return "/client/center";
+    }*/
+    
 //    @RequestMapping(value = "/user/order/edit", method = RequestMethod.POST)
 //    @ResponseBody
 //    public  Map<String, Object> orderedit(String orderNumber, Long type,

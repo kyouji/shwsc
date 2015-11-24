@@ -7,31 +7,28 @@
 <meta name="copyright" content="" />
 <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
 <!--css-->
-<link rel="stylesheet" type="text/css" href="/client/css/common.css"/>
-<link rel="stylesheet" type="text/css" href="/client/css/main.css"/>
+<link rel="stylesheet" type="text/css" href="css/common.css"/>
+<link rel="stylesheet" type="text/css" href="css/main.css"/>
 <title>叫个厨子</title>
 </head>
 <body class="bgc-f2">
     <!-- 头部 -->
     <header>
-      <a class="back" href="/center"></a>
-      <p>常用地址</p>
-     
+      <a class="back" href="#"></a>
+      <p>编辑地址</p>
+      <a class="save" href="#">保存</a>
     </header>
     <!-- 头部 END -->
 
-    <!-- 常用地址 -->
-    <article class="common-address">
-      <section class="sct1">
-        <p class="p1"><span><#if user??>${user.realName!''}</#if></span><span>${user.mobile!''}</span></p>
-        <p class="p2"><#if user??>${user.shdz!''}</#if></p>
-      </section>
+    <!-- 编辑地址 -->
+    <article class="edit-address">
+      <div  contentEditable="true">输入小区名或大厦名</div>
     </article>
-    <!-- 常用地址 END -->
+    <!-- 编辑地址 END -->
 
     <!-- 底部 -->
     <footer class="bdt-n">
-      <a class="add-address" href="/tjxdz">添加新地址</a>
+      <a class="add-address" href="#">添加新地址</a>
     </footer>
     <!-- 底部 END -->
 

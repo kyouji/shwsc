@@ -22,7 +22,7 @@
           <!-- 图片原始尺寸 150*150-->
           <a href="/message"><img src="/client/images/head_portrait.jpg" alt="头像"></a>
           <div><a href="/message">
-            <p class="p1 fz1-5 c-fff"><#if user??>${user.realname!''}</#if></p>
+            <p class="p1 fz1-5 c-fff"><#if user??>${user.realName!''}</#if></p>
             <p class="p2 c-ccc">${user.mobile!''}</p>
           </a></div>
         </div>

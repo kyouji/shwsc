@@ -185,8 +185,6 @@ public class TdIndexController {
     	}
     	
     	TdUser curentUser = tdUserService.findByUsername(username);
-	
-		
 		map.addAttribute("user", curentUser);
 		return "client/message";
     	
@@ -279,7 +277,13 @@ public class TdIndexController {
     //常用地址
     @RequestMapping("cydz")
     public String cydz(HttpServletRequest req,ModelMap map)
-    {
+    {	
+    	String username=(String)req.getSession().getAttribute("username");
+    	if(username==null){
+    		return "redirect:/login";
+    	}
+    	TdUser curentUser = tdUserService.findByUsername(username);
+		map.addAttribute("user", curentUser);
     	return "client/cydz";
     	
     }
@@ -288,6 +292,20 @@ public class TdIndexController {
     public String yhj(HttpServletRequest req,ModelMap map)
     {
     	return "client/yhj";
+    	
+    }
+    //添加新地址
+    
+    @RequestMapping("tjxdz")
+    public String tjxdz(HttpServletRequest req,ModelMap map)
+    {
+    	
+    	String username=(String)req.getSession().getAttribute("username");
+    	if(username==null){
+    		
+    		return "redirect:/login";
+    	}
+    	return "client/tjxdz";
     	
     }
     /**
