@@ -38,10 +38,10 @@
         <li style="display:block;" class="login">
           <form>
           	<div class="phone-num">
-          	  <input type="text" maxlength="11" id="txt_loginId"  placeholder="手机号">
+          	  <input type="text" maxlength="11" id="txt_loginId" value="18523633632" placeholder="手机号">
           	</div>
           	<div class="password">
-          	  <input type="text"  id="txt_loginPwd"   placeholder="密码">
+          	  <input type="password"  id="txt_loginPwd" value="123123"   placeholder="密码">
           	</div>
 
 			<div class="login-way">

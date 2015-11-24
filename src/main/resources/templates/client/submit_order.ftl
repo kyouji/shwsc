@@ -10,10 +10,16 @@
 <link rel="stylesheet" type="text/css" href="/client/css/common.css"/>
 <link rel="stylesheet" type="text/css" href="/client/css/main.css"/>
 <title>叫个厨子</title>
+<script type="text/javascript">
+  function submitForm()
+  {
+    document.getElementById('form').submit();
+  }
+</script>
 </head>
 <body class="bgc-f2">
     <!-- 头部 -->
-    <header>                
+    <header>
       <a class="back" href="/food/showdishes?goodId=${good.id}"></a>
       <p>提交订单</p>
     </header>
@@ -21,9 +27,10 @@
 
     <!-- 套餐信息 -->
     <article class="submit-order">
-      <div class="go-package-details"><a href="/food/buydetail?id=${good.id}">
+      <#--<div class="go-package-details"><a href="/food/buydetail?id=${good.id}">-->
+      <div class="go-package-details"><a href="javascript:void();">
         <span class="span1">套餐详情</span>
-        <span class="span2">&gt;</span>
+        <!--<span class="span2">&gt;</span>-->
       </a></div>
       <section class="sct1">
         <div class="div1">
@@ -56,38 +63,35 @@
     <!-- 套餐信息 END -->
 
     <!-- 用餐信息 -->
-    <article class="dining-info">
+    <form id="form" action="/order/buysubmit" method="POST">
+    <input type="hidden" name="goodId" value="${good.id}">
+    <input type="hidden" name="quantity" value="1">
+    <article class="dining-info-edit">
+    <section>
       <div class="div1">
         <p class="fz1-3">用餐信息</p>
-        <a class="edit" href="/food/user/information?id=${good.id}">编辑</a>
       </div>
-      <div class="div2">
-        <label>姓名</label>
-        <span></span>
-        <!-- <input type="text"> -->
-      </div>
-      <div class="div3">
-        <label>电话号码</label>
-        <span>13355023236</span>
-        <!-- <input type="text" value="13355023236"> -->
-      </div>
-      <div class="div4">
-        <label>用餐时间</label>
-        <span></span>
-        <!-- <input type="text"> -->
-        <!-- <input type="datetime-local"> -->
-      </div>
-      <div class="div5">
-        <label>用餐地点</label>
-        <span>重庆市沙坪坝区天星桥晒光平1号 21-8</span>
-        <!-- <input type="text" value="重庆市沙坪坝区天星桥晒光平1号 21-8"> -->
-      </div>
-      <div class="div6">
-        <label>备注</label>
-        <span>不要花椒、辣椒</span>
-        <!-- <input type="text" value="不要花椒、辣椒"> -->
-      </div>
+      <div class="div1">
+          <label>姓名</label>
+          <input type="text" name="shippingName" value="邓qq">
+        </div>
+        <div class="div2">
+          <label>电话</label>
+          <input type="text" name="shippingPhone" value="13355023236">
+        </div>
+        <div class="div3">
+          <label>用餐时间</label>
+          <input type="datetime-local" name="appointmentTime">
+        </div>
+        <div class="div4">
+          <label>用餐地点</label>
+          <input type="text" name="shippingAddress" value="重庆市沙坪坝区天星桥晒光平1号 21-8">
+        </div>
+      </section>
+      <p>备注</p>
+      <textarea placeholder="有什么需要就给厨师留言吧~"></textarea>
     </article>
+    </form>
     <!-- 用餐信息 END-->
 
     <div class="clear h50"></div>
@@ -95,7 +99,7 @@
     <!-- 底部 -->
     <footer>
       <div class="total-1">总金额：<span class="cf93">￥<span>128.00</span></span></div>
-      <a class="clearing" href="/food/pay">立即支付</a>
+      <a class="clearing" href="javascript:submitForm();">提交订单</a>
     </footer>
     <!-- 底部 END -->
 

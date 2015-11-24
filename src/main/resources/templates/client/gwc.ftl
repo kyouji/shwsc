@@ -22,7 +22,7 @@
     <article class="shopp-car">
       <section>
         <div class="div1">
-          <input type="checkbox">
+          <!--<input type="checkbox">-->
           <!-- 图片原始尺寸 864*414-->
           <img src="/client/images/package_details_photo_1.jpg" alt="江湖逍遥宴">
           <div class="detail">
@@ -47,14 +47,14 @@
           <p class="p2">合计&nbsp;&nbsp;&nbsp;&nbsp;￥<span>298</span></p>
         </div>
         <div class="div3">
-          <a class="btn-order-now">立即支付</a>
-          <a class="btn-deletelist">删除订单</a>
+          <a class="btn-order-now">提交订单</a>
+          <a class="btn-deletelist">删除</a>
         </div>
         <!-- <a class="btn-delete-orderlist" href="#">删除</a> -->
       </section>
       <section>
         <div class="div1">
-          <input type="checkbox">
+          <!--<input type="checkbox">-->
           <!-- 图片原始尺寸 864*414-->
           <img src="/client/images/package_details_photo_1.jpg" alt="江湖逍遥宴">
           <div class="detail">
@@ -79,8 +79,8 @@
           <p class="p2">合计&nbsp;&nbsp;&nbsp;&nbsp;￥<span>298</span></p>
         </div>
         <div class="div3">
-          <a class="btn-order-now">立即支付</a>
-          <a class="btn-deletelist">删除订单</a>
+          <a class="btn-order-now">提交订单</a>
+          <a class="btn-deletelist">删除</a>
         </div>
         <!-- <a class="btn-delete-orderlist" href="#">删除</a> -->
       </section>

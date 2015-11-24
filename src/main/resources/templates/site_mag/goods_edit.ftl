@@ -632,7 +632,7 @@ function del_goods_comb(obj) {
         <dl>
             <dt>赠品菜名</dt>
             <dd>
-                <input name="flashSaleImage" type="text" value="<#if goods??>${goods.flashSaleImage!""}</#if>" class="input">
+                <textarea name="flashSaleImage" ><#if goods??>${goods.flashSaleImage!""}</#if></textarea>
             </dd>
         </dl>
         <dl>

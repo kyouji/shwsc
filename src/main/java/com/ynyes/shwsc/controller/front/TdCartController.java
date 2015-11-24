@@ -1,7 +1,9 @@
 package com.ynyes.shwsc.controller.front;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ynyes.shwsc.entity.TdCartGoods;
 import com.ynyes.shwsc.entity.TdGoods;
@@ -56,8 +59,11 @@ public class TdCartController {
      * @return
      */
     @RequestMapping(value = "/cart/init")
-    public String addCart(Long id, Long quantity, String zhid, Integer m, HttpServletRequest req,ModelMap map)
+    @ResponseBody
+    public Map<String, Object> addCart(Long id, Long quantity, String zhid, Integer m, HttpServletRequest req,ModelMap map)
     {
+    	Map<String, Object>res = new HashMap<String, Object>();
+    	res.put("code", 1);
         // 是否已登录
         boolean isLoggedIn = true;
 
@@ -94,9 +100,9 @@ public class TdCartController {
                 // 有多项，则在第一项上数量进行相加
                 if (null != oldCartGoodsList && oldCartGoodsList.size() > 0) 
                 {
-                    long oldQuantity = oldCartGoodsList.get(0).getQuantity();
-                    oldCartGoodsList.get(0).setQuantity(oldQuantity + quantity);
-                    tdCartGoodsService.save(oldCartGoodsList.get(0));
+                	res.put("code", 0);
+                    res.put("message", "东西已经在购物车了");
+                    return res;
                 }
                 // 新增购物车项
                 else
@@ -110,13 +116,13 @@ public class TdCartController {
                     cartGoods.setGoodsId(goods.getId());
 
                     cartGoods.setQuantity(quantity);
-                
+                    
                     tdCartGoodsService.save(cartGoods);
                 }
             }
         }
-        map.addAttribute("good", tdGoodsService.findOne(id));
-		return "/client/submit_order";
+        res.put("message", "添加成功");
+		return res;
     }
 
     @RequestMapping(value = "/cart")

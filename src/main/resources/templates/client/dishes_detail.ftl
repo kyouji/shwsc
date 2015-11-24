@@ -9,6 +9,24 @@
 <!--css-->
 <link rel="stylesheet" type="text/css" href="/client/css/common.css"/>
 <link rel="stylesheet" type="text/css" href="/client/css/main.css"/>
+<script type="text/javascript" src="/client/js/jquery-1.9.1.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+   $("#addcart").click(function(){
+        $.ajax({
+            type:"post",
+            url:"/cart/init",
+            data:{id:"${good.id!''}"},
+            success:function(data){
+            alert(data.message);
+            
+            }
+        });
+   });
+});
+</script>
+
 <title>叫个厨子</title>
 </head>
 <body class="bgc-f2">
@@ -230,8 +248,8 @@
 
     <!-- 底部 -->
     <footer class="bdt-n">
-      <div class="shopp-car">(<span>3</span>)</div>
-      <a class="button-buy" href="/cart/init?id=${good.id!''}">立即购买</a>
+      <div class="shopp-car" id="addcart">(<span>3</span>)</div>
+      <a class="button-buy" href="/order/buy?gid=${good.id!''}">立即购买</a>
     </footer>
     <!-- 底部 END -->
 
