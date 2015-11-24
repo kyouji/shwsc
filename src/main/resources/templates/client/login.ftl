@@ -38,10 +38,10 @@
         <li style="display:block;" class="login">
           <form>
           	<div class="phone-num">
-          	  <input type="text" maxlength="11" id="txt_loginId" value="18523633632" placeholder="手机号">
+          	  <input type="text" maxlength="11" id="txt_loginId" value="" placeholder="手机号">
           	</div>
           	<div class="password">
-          	  <input type="password"  id="txt_loginPwd" value="123123"   placeholder="密码">
+          	  <input type="password"  id="txt_loginPwd" value=""   placeholder="密码">
           	</div>
 
 			<div class="login-way">
@@ -61,9 +61,9 @@
         </li>
         <!-- 注册 -->
         <li class="register">
-          <form>
+          <form id="form1" action="user/reg" method="post">
           	<div class="phone-num">
-          	  <input type="text" maxlength="11"  id="mobileNumber" name="mobile" datatype="m"  ajaxurl="/reg/check/mobile"/ placeholder="手机号">
+          	  <input type="text" maxlength="11"  id="mobileNumber" name="username" datatype="m"  ajaxurl="/reg/check/mobile"/ placeholder="手机号">
           	</div>
           	<div class="security-code">
           	  <input type="text" name="smsCode" placeholder="验证码">

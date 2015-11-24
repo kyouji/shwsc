@@ -626,6 +626,7 @@
 
 /*编辑地址*/
 .edit-address {padding: 2%;}
+/*
 .edit-address div {
   display: block;
   float: left;
@@ -640,6 +641,31 @@
   -webkit-box-sizing: border-box;
      -moz-box-sizing: border-box;
           box-sizing: border-box;
+} */
+.edit-address textarea {
+  display: block;
+  float: left;
+  padding: 5px;
+  width: 100%;
+  min-height: 150px;
+  text-align: left;
+  border-radius: 3px;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
+.edit-address .btn-submit {
+	float:left;
+	display: block;
+	margin: 4% auto;
+	margin-left:25%;
+	width: 50%;
+	height: 30px;
+	line-height: 30px;
+	color: #fff;
+	background: #ff9333;
+	border:none;
+	border-radius: 30px;
 }
 /*编辑地址 END*/
 
@@ -1993,6 +2019,19 @@
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
 }
+.head-edit .btn-submit {
+	float:left;
+	display: block;
+	margin: 4% auto;
+	margin-left:25%;
+	width: 50%;
+	height: 30px;
+	line-height: 30px;
+	color: #fff;
+	background: #ff9333;
+	border:none;
+	border-radius: 30px;
+}
 /*头像编辑 END*/
 
 
@@ -2023,6 +2062,19 @@
   padding: 2%;
   font-size: 0.8em;
   color: #999;
+}
+.signature-edit .btn-submit {
+	float:left;
+	display: block;
+	margin: 4% auto;
+	margin-left:25%;
+	width: 50%;
+	height: 30px;
+	line-height: 30px;
+	color: #fff;
+	background: #ff9333;
+	border:none;
+	border-radius: 30px;
 }
 /*签名编辑 END*/
 

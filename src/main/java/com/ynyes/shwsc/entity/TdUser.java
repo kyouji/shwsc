@@ -39,6 +39,9 @@ public class TdUser {
 	@Column
 	private String headImageUri;
 	
+	@Column
+	private String shdz;
+	
 	// 职业
 	@Column
 	private String career;
@@ -620,7 +623,15 @@ public class TdUser {
         this.lastLoginIp = lastLoginIp;
     }
 
-    @Override
+    public String getShdz() {
+		return shdz;
+	}
+
+	public void setShdz(String shdz) {
+		this.shdz = shdz;
+	}
+
+	@Override
 	public String toString() {
 		return "TdUser [id=" + id + ", lastLoginTime=" + lastLoginTime + "]";
 	}
