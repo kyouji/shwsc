@@ -101,7 +101,8 @@ public class TdLoginController {
 		else
 		{
 			res.put("msg", "用户不存在");
-			res.put("code", 1);
+			res.put("code", 0);
+			return res;
 		}
 		request.getSession().setAttribute("username", user.getUsername());
 		return res;

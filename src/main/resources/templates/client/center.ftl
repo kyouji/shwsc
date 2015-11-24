@@ -22,13 +22,13 @@
           <!-- 图片原始尺寸 150*150-->
           <a href="/message"><img src="/client/images/head_portrait.jpg" alt="头像"></a>
           <div><a href="/message">
-            <p class="p1 fz1-5 c-fff">毛豆</p>
-            <p class="p2 c-ccc">13628382561</p>
+            <p class="p1 fz1-5 c-fff"><#if user??>${user.realname!''}</#if></p>
+            <p class="p2 c-ccc">${user.mobile!''}</p>
           </a></div>
         </div>
         <div class="div2"><a href="/qmbj">
           <span>"</span>
-          <span class="c-ccc">美食签名可以提高你的逼格哦~</span>
+          <span class="c-ccc"><#if user??>${user.qmbj!''}</#if></span>
         </a></div>
       </div>
       <!-- 消息提示 -->

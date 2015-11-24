@@ -16,15 +16,18 @@
     <header>
       <a class="back" href="/center"></a>
       <p>编辑签名</p>
-      <a class="save" href="#">保存</a>
+      
     </header>
     <!-- 头部 END -->
 
     <!-- 编辑签名 -->
     <article class="signature-edit">
-      <textarea placeholder="其实一开始要签名我是拒绝的！"></textarea>
+    <form id="form1" action="/user/qmbj" method="post">
+      <textarea placeholder="其实一开始要签名我是拒绝的！" name="qmbj"></textarea>
       <div><span>5</span>/<span>50</span></div>
       <p>签名最多显示两行，请控制行数哦！</p>
+      <input class="btn-submit" type="submit" value="提交">
+      </form>
     </article>
     <!-- 编辑签名 END -->
 

@@ -16,20 +16,23 @@
     <header>
       <a class="back" href="/message"></a>
       <p>头像编辑</p>
-      <a class="save" href="/message">保存</a>
+      
     </header>
     <!-- 头部 END -->
 
     <!-- 头像编辑 -->
     <article class="head-edit">
+    <form action="/save/head" method="post" id="form1">
       <section class="sec1">
         <label>头像</label>
         <a href="#"><img src="/client/images/head_portrait.jpg" alt="头像编辑"></a>
       </section>
       <section class="sec2">
         <label>用户名</label>
-        <input type="text" placeholder="未填写">
+        <input type="text" placeholder="" name="realName">
       </section>
+       <input  class="btn-submit" type="submit" value="提交">
+       </form>
     </article>
     <!-- 头像编辑 END -->
 

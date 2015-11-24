@@ -2,6 +2,7 @@ package com.ynyes.shwsc.controller.front;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.catalina.connector.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mobile.device.Device;
 import org.springframework.stereotype.Controller;
@@ -9,12 +10,14 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.ynyes.shwsc.entity.TdAdType;
+import com.ynyes.shwsc.entity.TdUser;
 import com.ynyes.shwsc.service.TdAdService;
 import com.ynyes.shwsc.service.TdAdTypeService;
 import com.ynyes.shwsc.service.TdArticleCategoryService;
 import com.ynyes.shwsc.service.TdArticleService;
 import com.ynyes.shwsc.service.TdCommonService;
 import com.ynyes.shwsc.service.TdNaviBarItemService;
+import com.ynyes.shwsc.service.TdUserService;
 
 /**
  * 前端首页控制
@@ -23,6 +26,8 @@ import com.ynyes.shwsc.service.TdNaviBarItemService;
 @Controller
 @RequestMapping("/")
 public class TdIndexController {
+	@Autowired
+    private TdUserService tdUserService;
 
     @Autowired
     private TdCommonService tdCommonService;
@@ -122,8 +127,18 @@ public class TdIndexController {
     
     //签名编辑
     @RequestMapping("/qmbj")
-    public String qmbj(HttpServletRequest req,ModelMap map)
+    public String qmbj(HttpServletRequest req,TdUser user)
     {
+    	String username=(String)req.getSession().getAttribute("username");
+    	
+    	
+		//TdUser curentUser =tdUserService.findByUsername(username);
+    	
+    	if(username==null){
+    		
+    		return "redirect:/login";
+    	}
+    	
     	return "client/qmbj";
     }
     
@@ -131,12 +146,32 @@ public class TdIndexController {
     @RequestMapping("/center")
     public String center(HttpServletRequest req,ModelMap map)
     {
+    	String username=(String)req.getSession().getAttribute("username");
+    	if(username==null){
+    		return "redirect:/login";
+    	}
+    	
+    	TdUser curentUser = tdUserService.findByUsername(username);
+	
+		
+		map.addAttribute("user", curentUser);
+    	
     	return "client/center";
     }
     //头像编辑
     @RequestMapping("/head_portrait")
     public String head_portrait(HttpServletRequest req,ModelMap map)
+    	
     {
+    	String username=(String)req.getSession().getAttribute("username");
+    	if(username==null){
+    		
+    		return "redirect:/login";
+    	}
+	TdUser curentUser = tdUserService.findByUsername(username);
+	
+		
+		map.addAttribute("user", curentUser);
     	return "client/head_portrait";
     }
     
@@ -144,7 +179,18 @@ public class TdIndexController {
     @RequestMapping("/message")
     public String message(HttpServletRequest req,ModelMap map)
     {
-    	return "client/message";
+    	String username=(String)req.getSession().getAttribute("username");
+    	if(username==null){
+    		return "redirect:/login";
+    	}
+    	
+    	TdUser curentUser = tdUserService.findByUsername(username);
+	
+		
+		map.addAttribute("user", curentUser);
+		return "client/message";
+    	
+    	
     }
     
     
@@ -152,6 +198,12 @@ public class TdIndexController {
     @RequestMapping("/message_portrait")
     public String message_portrait(HttpServletRequest req,ModelMap map)
     {
+    	String username=(String)req.getSession().getAttribute("username");
+    	if(username==null){
+    		
+    		return "redirect:/login";
+    	}
+    	
     	return "client/message_portrait";
     }
     //厨师列表

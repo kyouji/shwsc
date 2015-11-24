@@ -121,12 +121,12 @@ public class TdUserController {
         return "/client/user";
     }
     
-    @RequestMapping(value = "/user/save",method = RequestMethod.POST)
-    @ResponseBody
-    public Map<String, Object>saveUser(HttpServletRequest request,TdUser user)
+    @RequestMapping(value = "/user/savee",method = RequestMethod.POST)
+    public String saveUser(HttpServletRequest request,TdUser user,ModelMap map)
     {
-    	request.getSession().getAttribute("username");
-    	TdUser curentUser = tdUserService.findByUsername("");
+    	String userStr = (String)request.getSession().getAttribute("username");
+    	
+    	TdUser curentUser = tdUserService.findByUsername(userStr);
     	if (user != null)
     	{
 			curentUser.setNickname(user.getNickname());
@@ -135,10 +135,52 @@ public class TdUserController {
 			curentUser.setSex(user.getSex());
 			curentUser.setCareer(user.getCareer());
 		}
+    	tdUserService.save(curentUser);
+    	
+    	Map<String, Object> res = new HashMap<String,Object>();
+    	res.put("baocun", "成功"); 
+    	map.addAttribute("user",curentUser);
+    	return "/client/message";
+    }
+    
+    
+    @RequestMapping(value = "/user/qmbj",method = RequestMethod.POST)
+    public String saveUserqmbj(HttpServletRequest request,TdUser user,ModelMap map)
+    {
+    	String userStr = (String)request.getSession().getAttribute("username");
+    	
+    	TdUser curentUser = tdUserService.findByUsername(userStr);
+    	if (user != null)
+    	{
+			curentUser.setQmbj(user.getQmbj());
+			
+		}
+    	tdUserService.save(curentUser);
     	
     	Map<String, Object> res = new HashMap<String,Object>();
     	res.put("baocun", "成功");
-    	return res;
+    	map.addAttribute("user",curentUser);
+    	return "/client/center";
+    }
+    //realName
+    
+    @RequestMapping(value = "/save/head",method = RequestMethod.POST)
+    public String saveUserHead(HttpServletRequest request,TdUser user,ModelMap map)
+    {
+    	String userStr = (String)request.getSession().getAttribute("username");
+    	
+    	TdUser curentUser = tdUserService.findByUsername(userStr);
+    	if (user != null)
+    	{
+			curentUser.setRealName(user.getRealName());
+			
+		}
+    	tdUserService.save(curentUser);
+    	
+    	Map<String, Object> res = new HashMap<String,Object>();
+    	res.put("baocun", "成功");
+    	map.addAttribute("user",curentUser);
+    	return "/client/center";
     }
     
 //    @RequestMapping(value = "/user/order/edit", method = RequestMethod.POST)

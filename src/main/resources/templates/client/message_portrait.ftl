@@ -17,6 +17,36 @@
     <!-- 头部 -->
     <header>
       <a class="back" href="/message"></a>
+      
+      <!-- 验证信息的准确性-->
+    <!--  <script type="text/javascript"> 
+	$(function(){
+	    $("#message_yz").click(function(){
+	    	message();
+	    });  
+	});
+
+   function message(){
+   
+   		var re = /^1\d{10}$/;
+        var nickname1 = $("#nickname").val();
+        var mobile1 = $("#mobile").val();
+        var detailAddress1 = $("#detailAddress").val();
+        var sex1 = $("#sex").val();
+        var career1 = $("#career").val();
+        
+        if (nickname1.length==0 || mobile1.length==0 || detailAddress1.length==0 || career1.length==0)
+        {
+            alert("信息不能为空");
+            return;
+        }
+         if (!re.test(mobile)) {
+            alert("请输入正确的手机号");
+            return;
+        }
+     
+    }
+</script> -->
       <p>基本信息</p>
     </header>
     <!-- 头部 END -->
@@ -24,27 +54,27 @@
     <!-- 头像和签名 -->
     <article class="head-signature">
       <!-- 图片原始尺寸 150*150-->
-      <a href="用户头像编辑.html"><img src="/client/images/head_portrait.jpg" alt="头像"></a>
-      <div class="div2"><a href="/qmbj">
+      <a href="/head_portrait"><img src="/client/images/head_portrait.jpg" alt="头像"></a>
+      <div class="div2">
         <span>"</span>
-        <span class="c000">美食签名可以提高你的逼格哦~asdfasdf</span>
-      </a></div>
+        <span class="c000">美食签名可以提高你的逼格哦</span>
+      </div>
     </article>
     <!-- 头像和签名 END -->
 
     <!-- 基本信息浏览 -->
-    <from id="form1" action="/user/save" method="post">
     <article class="base-info-look">
+    <form id="form1" action="/user/savee" method="post">
       <section>
         <div class="div1">
           <label>昵称</label>
           <!-- <span>邓qq</span> -->
-          <input type="text" name="nickname" value="邓qq">
+          <input type="text" name="nickname" value="">
         </div>
         <div class="div2">
           <label>手机号</label>
           <!-- <span>13355023236</span> -->
-          <input type="text" name="mobile" value="13355023236">
+          <input type="text" name="mobile" value="">
         </div>
         <div class="div3">
           <label>地址</label>
@@ -65,9 +95,9 @@
           <input type="text"  name="career">
         </div>
       </section>
-      <input class="btn-submit" type="submit" value="提交">
+      <input  class="btn-submit" type="submit" value="提交">
+    </form>
     </article>
-    </from>
     <!-- 基本信息浏览 END -->
 
 </body>

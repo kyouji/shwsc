@@ -219,11 +219,24 @@ public class TdUser {
     @Column
     private Long sortId;
     
+    @Column
+    private String qmbj;
+    
     // 今日通过分享商品获得的积分
     @Column
     private Long pointGetByShareGoods;
     
-    public String getCareer() {
+    
+    
+    public String getQmbj() {
+		return qmbj;
+	}
+
+	public void setQmbj(String qmbj) {
+		this.qmbj = qmbj;
+	}
+
+	public String getCareer() {
 		return career;
 	}
 

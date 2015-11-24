@@ -26,7 +26,7 @@
      <a href="/head_portrait"> <img src="/client/images/head_portrait.jpg" alt="头像"></a>
       <div class="div2">
         <span>"</span>
-        <span class="c000">美食签名可以提高你的逼格哦~</span>
+        <span class="c000">${user.qmbj!''}</span>
       </div>
     </article>
     <!-- 头像和签名 END -->
@@ -36,27 +36,27 @@
       <section>
         <div class="div1">
           <label>昵称</label>
-          <span>邓qq</span>
+          <span>${user.nickname!''}</span>
           <!-- <input type="text" value="邓qq"> -->
         </div>
         <div class="div2">
-          <label>手机号</label>
-          <span>13355023236</span>
+          <label>手机</label>
+          <span>${user.mobile!''}</span>
           <!-- <input type="text" value="13355023236"> -->
         </div>
         <div class="div3">
           <label>地址</label>
-          <span>重庆市沙坪坝区天星桥晒光平1号 21-8</span>
+          <span>${user.detailAddress!''}</span>
           <!-- <input type="datetime-local"> -->
         </div>
         <div class="div4">
           <label>性别</label>
-          <span>女</span>
+          <span>${user.sex!''}</span>
           <!-- <input type="text" value="重庆市沙坪坝区天星桥晒光平1号 21-8"> -->
         </div>
         <div class="div5">
           <label>职业</label>
-          <span>医生</span>
+          <span>${user.career!''}</span>
           <!-- <input type="text" value="重庆市沙坪坝区天星桥晒光平1号 21-8"> -->
         </div>
       </section>
