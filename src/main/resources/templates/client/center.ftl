@@ -47,7 +47,7 @@
     </a></section>
 
     <section class="sec2">
-      <a href="/wddd">
+      <a href="/user/order">
       <div class="div1 bdbt">
         我的订单
         <span class="c-ccc">&gt;</span>

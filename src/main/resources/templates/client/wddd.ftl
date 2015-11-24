@@ -33,9 +33,9 @@
 
     <!-- 头部 -->
     <header>
-      <a class="back" href="/index"></a>
+      <a class="back" href="/center"></a>
       <p>我的订单</p>
-      <a class="share" href="/wddd" onclick="pupopen()"></a>
+      <a class="share" href="#" onclick="pupopen()"></a>
     </header>
     <!-- 头部 END -->
 
@@ -48,25 +48,25 @@
           <li><a href="#">已付款</a></li>
         </ul>
         <ul class="tab-content">
-          <!-- 待付款 -->
+          <!-- 全部 -->
+          
+          <#if order_page??>
+          <#list order_page.content as item>
           <li>
-            <section class="sct1">
+          <section class="sct1">
               <div class="div1">
                 <!-- 图片原始尺寸 864*414-->
                 <img width="90" height="60" src="/client/images/package_details_photo_1.jpg" alt="江湖逍遥宴">
                 <div class="detail">
                   <div class="title">
-                    <span class="span1">江湖逍遥宴</span>
+                    <span class="span1">江湖逍遥宴3</span>
                     <span class="span2">4-8人</span>
                     <span class="span3">微辣型</span>
                   </div>
                   <div class="number">
                     <p class="p1">￥<span>128.00</span></p>
                     <p class="p2">
-                      <span>数量：</span>
-                      <a class="tw_a1" onclick="document.getElementById('twa-1').innerHTML--">-</a>
-                      <em id="twa-1">1</em>
-                      <a class="tw_a2" onclick="document.getElementById('twa-1').innerHTML++">+</a>
+                      <span>数量：1</span>
                     </p>
                   </div>
                 </div>
@@ -81,95 +81,15 @@
               <a class="" href="#">取消</a>
               <a class="current" href="#">付款</a>
             </div>
-          </li>
-          <!-- 待付款 -->
-          <li>
-            <section class="sct1">
-              <div class="div1">
-                <!-- 图片原始尺寸 864*414-->
-                <img width="90" height="60" src="/client/images/package_details_photo_1.jpg" alt="江湖逍遥宴">
-                <div class="detail">
-                  <div class="title">
-                    <span class="span1">江湖逍遥宴</span>
-                    <span class="span2">4-8人</span>
-                    <span class="span3">微辣型</span>
-                  </div>
-                  <div class="number">
-                    <p class="p1">￥<span>128.00</span></p>
-                    <p class="p2">
-                      <span>数量：</span>
-                      <a class="tw_a1" onclick="document.getElementById('twa-2').innerHTML--">-</a>
-                      <em id="twa-2">1</em>
-                      <a class="tw_a2" onclick="document.getElementById('twa-2').innerHTML++">+</a>
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div class="div2">
-                <p class="p1">共<span>1</span>个套餐</p>
-                <p class="p2">合计&nbsp;&nbsp;&nbsp;&nbsp;￥<span>298</span></p>
-              </div>
-            </section>
-            <div class="order-btn-group">
-              <a class="" href="#">砍价</a>
-              <a class="" href="#">取消</a>
-              <a class="current" href="#">付款</a>
-            </div>
-          </li>
-          <!-- 已付款 -->
-          <li>
-            <section class="sct1">
-              <div class="div1">
-                <!-- 图片原始尺寸 864*414-->
-                <img width="90" height="60" src="/client/images/package_details_photo_1.jpg" alt="江湖逍遥宴">
-                <div class="detail">
-                  <div class="title">
-                    <span class="span1">江湖逍遥宴</span>
-                    <span class="span2">4-8人</span>
-                    <span class="span3">微辣型</span>
-                  </div>
-                  <div class="number">
-                    <p class="p1">￥<span>128.00</span></p>
-                    <p class="p2">
-                      <span>数量：</span>
-                      <a class="tw_a1" onclick="document.getElementById('twa-3').innerHTML--">-</a>
-                      <em id="twa-3">1</em>
-                      <a class="tw_a2" onclick="document.getElementById('twa-3').innerHTML++">+</a>
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div class="div2">
-                <p class="p1">共<span>1</span>个套餐</p>
-                <p class="p2">合计&nbsp;&nbsp;&nbsp;&nbsp;￥<span>298</span></p>
-              </div>
-            </section>
-            <div class="order-btn-group">
-              <a class="" href="#">删除</a>
-              <a class="current" href="#">评价</a>
-            </div>
-          </li>
-        </ul>
-      </div>
-      <script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
-      <script type="text/javascript">
-      $(document).ready(function(){
-        $('.tab-view ul').on('click','a',function(){
-          var $self = $(this);//当前a标签
-          var $active = $self.closest('li');//当前点击li
-          var index = $active.prevAll('li').length;//当前索引
-
-          $active.addClass('active').siblings('li').removeClass('active');
-          $('.tab-content').find('>li')[index==0?'show':'hide']().eq(index).show();
-        });
-      });
-      </script>
+            </li>
+          </#list>
+          </#if>
     </article>
     <!-- 套餐信息 END -->
 
     <div class="clear h50"></div>
 
-    <!-- 底部 -->
+    <!-- 底部 --
     <footer>
       <div class="total-1">总金额：<span class="cf93">￥<span>128.00</span></span></div>
       <a class="clearing" href="#">立即支付</a>

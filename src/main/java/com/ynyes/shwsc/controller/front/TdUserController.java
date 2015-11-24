@@ -1,29 +1,31 @@
 package com.ynyes.shwsc.controller.front;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-
-import org.neo4j.cypher.internal.compiler.v2_1.ast.rewriters.namedPatternPartRemover;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ynyes.shwsc.entity.TdArticle;
+import com.ynyes.shwsc.entity.TdGoods;
+import com.ynyes.shwsc.entity.TdOrder;
+import com.ynyes.shwsc.entity.TdOrderGoods;
 import com.ynyes.shwsc.entity.TdUser;
 import com.ynyes.shwsc.entity.TdUserComment;
 import com.ynyes.shwsc.service.TdArticleService;
 import com.ynyes.shwsc.service.TdCommonService;
 import com.ynyes.shwsc.service.TdCouponService;
 import com.ynyes.shwsc.service.TdDemandService;
-import com.ynyes.shwsc.service.TdDiySiteService;
+import com.ynyes.shwsc.service.TdGoodsService;
 import com.ynyes.shwsc.service.TdOrderGoodsService;
 import com.ynyes.shwsc.service.TdOrderService;
 import com.ynyes.shwsc.service.TdShippingAddressService;
@@ -75,7 +77,7 @@ public class TdUserController {
     private TdUserCommentService tdUserCommentService;
 
     @Autowired
-    private TdDiySiteService tdDiySiteService;
+    private TdGoodsService tdGoodsService;
     /**
      * 投诉service
      * 
@@ -181,6 +183,27 @@ public class TdUserController {
     	res.put("baocun", "成功");
     	map.addAttribute("user",curentUser);
     	return "/client/center";
+    }
+    //我的订单
+    @RequestMapping(value = "/user/order")
+    public String order(HttpServletRequest req, ModelMap map)
+    {
+        String username = (String) req.getSession().getAttribute("username");
+        
+        if (null == username) 
+        {
+            return "redirect:/login";
+        }
+
+        tdCommonService.setCommon(map, req);
+
+        TdUser tdUser = tdUserService.findByUsernameAndIsEnabled(username);
+
+        map.addAttribute("user", tdUser);
+        
+        map.addAttribute("order_page", tdOrderService.findByUsername(tdUser.getUsername(), 0, 10));
+
+        return "/client/wddd";
     }
     
 //    @RequestMapping(value = "/user/order/edit", method = RequestMethod.POST)
@@ -440,38 +463,6 @@ public class TdUserController {
 //        return "/client/user_order_list";
 //    }
 //
-//    @RequestMapping(value = "/user/order")
-//    public String order(Long id, HttpServletRequest req, ModelMap map) {
-//        String username = (String) req.getSession().getAttribute("username");
-//        if (null == username) {
-//            return "redirect:/login";
-//        }
-//
-//        tdCommonService.setCommon(map, req);
-//
-//        TdUser tdUser = tdUserService.findByUsernameAndIsEnabled(username);
-//
-//        map.addAttribute("user", tdUser);
-//
-//        if (null != id) {
-//            map.addAttribute("order", tdOrderService.findOne(id));
-//        }
-//        
-//        TdOrder tdOrder = tdOrderService.findOne(id);
-//        if (null != tdOrder) {
-//        	List<TdGoods> tdGoodslist = new ArrayList<>();
-//            for(TdOrderGoods tdOrderGood : tdOrder.getOrderGoodsList()){
-//             	TdGoods tdGoods = tdGoodsService.findOne(tdOrderGood.getGoodsId());
-//             	if (null != tdGoods) {
-//					tdGoodslist.add(tdGoods);
-//				}
-//            }
-//            map.addAttribute("goods_list", tdGoodslist);
-//		}
-//       
-//
-//        return "/client/user_order_detail";
-//    }
 //
 //    /**
 //     * @author lc

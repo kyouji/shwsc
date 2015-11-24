@@ -37,6 +37,18 @@ public class TdOrder {
     @JoinColumn(name="tdOrderId")
     private List<TdOrderGoods> orderGoodsList;
     
+    //套餐图片url
+    @Column
+    private String ImgUrl;
+
+    //套餐名称
+    @Column 
+    private String goodTitle;
+    
+    //使用人数范围
+    @Column
+    private String peopleRange;
+    
     //车牌
     @Column
     private String carCode;
@@ -290,7 +302,31 @@ public class TdOrder {
     private Double trainService;
     
     
-    public String getSmscode() {
+    public String getImgUrl() {
+		return ImgUrl;
+	}
+
+	public void setImgUrl(String imgUrl) {
+		ImgUrl = imgUrl;
+	}
+
+	public String getGoodTitle() {
+		return goodTitle;
+	}
+
+	public void setGoodTitle(String goodTitle) {
+		this.goodTitle = goodTitle;
+	}
+
+	public String getPeopleRange() {
+		return peopleRange;
+	}
+
+	public void setPeopleRange(String peopleRange) {
+		this.peopleRange = peopleRange;
+	}
+
+	public String getSmscode() {
 		return smscode;
 	}
 

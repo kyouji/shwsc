@@ -239,7 +239,7 @@ public class TdOrderController extends AbstractPaytypeController {
         List<TdOrderGoods> orderGoodsList = new ArrayList<TdOrderGoods>();
         
         
-        // 商品总价
+        // 商品
         TdGoods goods = tdGoodsService.findById(goodId);
         
         if (goods == null)
@@ -321,6 +321,7 @@ public class TdOrderController extends AbstractPaytypeController {
         tdOrder.setOrderGoodsList(orderGoodsList);
         
         tdOrder.setTotalGoodsPrice(totalGoodsPrice);
+        tdOrder.setTotalPrice(totalGoodsPrice);
 
         // 保存订单商品及订单
         tdOrderGoodsService.save(orderGoodsList);

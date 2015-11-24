@@ -105,12 +105,6 @@ public class TdIndexController {
     {
     	return "client/ssy";
     }
-    //我的订单
-    @RequestMapping("/wddd")
-    public String wddd(HttpServletRequest req,ModelMap map)
-    {
-    	return "client/wddd";
-    }
     
     //我的收藏
     @RequestMapping("/wdsc")
