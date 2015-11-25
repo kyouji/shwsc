@@ -49,10 +49,23 @@ public class TdUserCollect {
     @Column
     @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date collectTime;
+    
+    // 收藏类型 1 菜单    2 厨师
+    @Column
+    private Long type;
 	
 	// 排序号
     @Column
     private Long sortId;
+    
+    // 厨师等级
+    @Column
+    private String level;
+    
+    // 厨师服务次数
+    @Column
+    private Long number;
+    
 
     public Long getId() {
         return id;
@@ -117,5 +130,29 @@ public class TdUserCollect {
     public void setGoodsSalePrice(Double goodsSalePrice) {
         this.goodsSalePrice = goodsSalePrice;
     }
+
+	public Long getType() {
+		return type;
+	}
+
+	public void setType(Long type) {
+		this.type = type;
+	}
+
+	public String getLevel() {
+		return level;
+	}
+
+	public void setLevel(String level) {
+		this.level = level;
+	}
+
+	public Long getNumber() {
+		return number;
+	}
+
+	public void setNumber(Long number) {
+		this.number = number;
+	}
     
 }

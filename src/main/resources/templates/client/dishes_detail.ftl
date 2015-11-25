@@ -25,6 +25,19 @@ $(document).ready(function(){
         });
    });
 });
+
+function addCollect(gid)
+{
+    $.ajax({
+        type : "post",
+        url : "/user/collect/add",
+        data :{"goodsId":gid},
+        success:function(data){
+            alert(data.message);
+        }
+    });
+}
+
 </script>
 
 <title>叫个厨子</title>
@@ -120,8 +133,8 @@ $(document).ready(function(){
       <!-- 菜品介绍 -->
       <section class="food-presentation">
             <ul>
-              <li class="li1 current">菜品介绍</li>
-            
+              <li class="li1">菜品介绍</li>
+              <li class="li2" onclick="addCollect(${good.id?c})">收藏</li>
             </ul>
             <dl>
             <#if good??>

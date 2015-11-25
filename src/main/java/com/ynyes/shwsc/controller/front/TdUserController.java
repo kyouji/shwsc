@@ -20,6 +20,7 @@ import com.ynyes.shwsc.entity.TdGoods;
 import com.ynyes.shwsc.entity.TdOrder;
 import com.ynyes.shwsc.entity.TdOrderGoods;
 import com.ynyes.shwsc.entity.TdUser;
+import com.ynyes.shwsc.entity.TdUserCollect;
 import com.ynyes.shwsc.entity.TdUserComment;
 import com.ynyes.shwsc.service.TdArticleService;
 import com.ynyes.shwsc.service.TdCommonService;
@@ -244,6 +245,70 @@ public class TdUserController {
     	map.addAttribute("user",curentUser);
     	return "/client/cydz";
     }
+    
+    @RequestMapping(value = "/user/collect/add", method = RequestMethod.POST)
+	  @ResponseBody
+	  public Map<String, Object> collectAdd(HttpServletRequest req, Long goodsId,
+	          ModelMap map) {
+	
+	      Map<String, Object> res = new HashMap<String, Object>();
+	      res.put("code", 1);
+	
+	      if (null == goodsId) {
+	          res.put("message", "参数错误");
+	          return res;
+	      }
+	
+	      String username = (String) req.getSession().getAttribute("username");
+	
+	      if (null == username) {
+	          res.put("message", "请先登录");
+	          return res;
+	      }
+	
+	      res.put("code", 0);
+	
+	      // 没有收藏
+	      if (null == tdUserCollectService.findByUsernameAndGoodsId(username,
+	              goodsId)) {
+	          TdGoods goods = tdGoodsService.findOne(goodsId);
+	
+	          if (null == goods) {
+	              res.put("message", "商品不存在");
+	              return res;
+	          }
+	          
+	          if (null == goods.getTotalCollects())
+	          {
+	              goods.setTotalCollects(0L);
+	          }
+	          
+	          goods.setTotalCollects(goods.getTotalCollects() + 1L);
+	          
+	          tdGoodsService.save(goods);
+	
+	          TdUserCollect collect = new TdUserCollect();
+	
+	          collect.setUsername(username);
+	          collect.setGoodsId(goods.getId());
+	          collect.setGoodsCoverImageUri(goods.getCoverImageUri());
+	          collect.setGoodsTitle(goods.getTitle());
+	          collect.setGoodsSalePrice(goods.getSalePrice());
+	          collect.setCollectTime(new Date());
+	          collect.setType(1L);
+	
+	          tdUserCollectService.save(collect);
+	
+	          res.put("message", "添加成功");
+	
+	          return res;
+	      }
+	
+	      res.put("message", "您已收藏了该商品");
+	
+	      return res;
+	  }
+    
     
    /* @RequestMapping(value = "/user/reg",method = RequestMethod.POST)
     public String saveUserReg(HttpServletRequest request,TdUser user,ModelMap map)
