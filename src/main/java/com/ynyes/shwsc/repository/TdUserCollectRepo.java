@@ -29,4 +29,7 @@ public interface TdUserCollectRepo extends
     TdUserCollect findByUsernameAndGoodsId(String username, Long goodsId);
     
     Long countByGoodsId(Long goodsId);
+    
+    // add to libiao
+    List<TdUserCollect> findByUsernameAndTypeOrderByIdDesc(String username,Long type);
 }

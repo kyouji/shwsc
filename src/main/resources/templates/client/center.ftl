@@ -39,12 +39,14 @@
 
     <div class="clear"></div>
 
-    <section class="sec1"><a href="/cydz">
-      <div>
-        常用地址
-        <span class="c-ccc">&gt;</span>
-      </div>
-    </a></section>
+    <section class="sec1">
+        <a href="/cydz">
+          <div>
+            常用地址
+            <span class="c-ccc">&gt;</span>
+          </div>
+        </a>
+   </section>
 
     <section class="sec2">
       <a href="/user/order">
