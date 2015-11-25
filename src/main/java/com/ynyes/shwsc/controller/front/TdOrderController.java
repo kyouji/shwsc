@@ -25,8 +25,6 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mobile.device.Device;
 import org.springframework.stereotype.Controller;
@@ -35,7 +33,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 
 import com.cytm.payment.alipay.AlipayConfig;
 import com.cytm.payment.alipay.Constants;
@@ -51,7 +48,6 @@ import com.ynyes.shwsc.entity.TdCouponType;
 import com.ynyes.shwsc.entity.TdDeliveryType;
 import com.ynyes.shwsc.entity.TdDiySite;
 import com.ynyes.shwsc.entity.TdGoods;
-import com.ynyes.shwsc.entity.TdGoodsCombination;
 import com.ynyes.shwsc.entity.TdGoodsDto;
 import com.ynyes.shwsc.entity.TdOrder;
 import com.ynyes.shwsc.entity.TdOrderGoods;
@@ -137,6 +133,30 @@ public class TdOrderController extends AbstractPaytypeController {
     
     private PaymentChannelAlipay paymentChannelAlipay = new PaymentChannelAlipay();
 
+    
+    
+    @RequestMapping(value = "/cancel")
+    public String orderCancel(String orderNumber, Long state,HttpServletRequest req)
+    {
+    	String username = (String) req.getSession().getAttribute("username");
+    	
+    	if (username == null)
+    	{
+    		return "redirect:/login";
+		}
+    	TdOrder tdOrder = tdOrderService.findByOrderNumber(orderNumber);
+		if (null == tdOrder || !tdOrder.getStatusId().equals(2L))
+		{
+			return "redirect:/user/order?state=" + state; 
+		}
+		
+		tdOrder.setStatusId(7L);
+		tdOrderService.save(tdOrder);
+    	
+    	
+    	return "redirect:/user/order?state=" + state;
+    }
+    
 	/**
      * 立即购买
      * 
@@ -228,7 +248,6 @@ public class TdOrderController extends AbstractPaytypeController {
         }
 
         TdUser tdUser = tdUserService.findByUsernameAndIsEnabled(username);
-        
 
         if (null == tdUser)
         {
@@ -301,11 +320,11 @@ public class TdOrderController extends AbstractPaytypeController {
         tdOrder.setUsername(tdUser.getUsername());
         tdOrder.setOrderTime(current);
 
-        tdOrder.setShippingAddress(shippingAddress);
-        tdOrder.setShippingName(shippingName);
-        tdOrder.setShippingPhone(shippingPhone);
-        tdOrder.setImgUrl(goods.getCoverImageUri());
-        tdOrder.setGoodTitle(goods.getTitle());
+        tdOrder.setShippingAddress(shippingAddress);//地址
+        tdOrder.setShippingName(shippingName);//姓名
+        tdOrder.setShippingPhone(shippingPhone);//电话
+        tdOrder.setImgUrl(goods.getCoverImageUri());//图片
+        tdOrder.setGoodTitle(goods.getTitle());//商品title
         
         // 订单号
         tdOrder.setOrderNumber("SX" + curStr + leftPad(Integer.toString(random.nextInt(999)), 3, "0"));
@@ -331,7 +350,7 @@ public class TdOrderController extends AbstractPaytypeController {
         tdOrder = tdOrderService.save(tdOrder);        
         
         // if (tdOrder.getIsOnlinePay()) {
-        return "redirect:/wddd";
+        return "redirect:/user/order";
         // }
 
         // return "redirect:/order/success?orderId=" + tdOrder.getId();
