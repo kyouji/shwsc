@@ -357,17 +357,22 @@
   border-bottom: 1px solid #ccc;
 }
 .food-presentation li {
-  /*float: left;
-  width: 50%;*/
+  float: left;
+  width: 50%;
   padding-bottom: 4px;
   font-size: 1.4em;
   line-height: 1.7;
   text-align: center;
 }
-.food-presentation li.current {
+.food-presentation li.li1 {
   border-bottom: 4px solid #ff9966;
 }
-
+.food-presentation li.li2{
+	margin-left:10%;
+	width:30%;
+	border:1px solid #ff9933;
+	border-radius:34px;
+}
 .food-presentation dt,
 .food-presentation dd {
   margin: 2% auto;
@@ -2247,7 +2252,7 @@
 .box-collect .col-ol li img {
   display: block;
   width: 100%;
-  height: auto;
+  height: 169px;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
 }

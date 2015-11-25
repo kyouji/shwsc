@@ -17,6 +17,7 @@ import com.ynyes.shwsc.service.TdArticleCategoryService;
 import com.ynyes.shwsc.service.TdArticleService;
 import com.ynyes.shwsc.service.TdCommonService;
 import com.ynyes.shwsc.service.TdNaviBarItemService;
+import com.ynyes.shwsc.service.TdUserCollectService;
 import com.ynyes.shwsc.service.TdUserService;
 
 /**
@@ -46,6 +47,9 @@ public class TdIndexController {
     
     @Autowired
     private TdArticleCategoryService tdArticleCategoryService;
+    
+    @Autowired
+    private TdUserCollectService tdUserCollectService;
     
     @RequestMapping("/launch")
     public String Launch()
@@ -106,12 +110,30 @@ public class TdIndexController {
     	return "client/ssy";
     }
     
+    /**
+     * @author libiao
+     * 
+     */
     //我的收藏
     @RequestMapping("/wdsc")
-    public String wdsc(HttpServletRequest req,ModelMap map)
+    public String wdsc(HttpServletRequest req,Integer page, ModelMap map)
     {
+    	String username =(String)req.getSession().getAttribute("username");
+    	if(null == username)
+    	{
+    		return "redirect:/login";
+    	}
+    	
+    	tdCommonService.setHeader(map, req);
+    	// 菜单收藏
+    	map.addAttribute("collect_goods_list", 
+    				tdUserCollectService.findByUsernameAndType(username, 1L));
+    	// 厨师收藏
+    	map.addAttribute("collect_cook_list", 
+    				tdUserCollectService.findByUsernameAndType(username, 2L));
     	return "client/wdsc";
     }
+    
     //购物车
     @RequestMapping("/gwc")
     public String gwc(HttpServletRequest req,ModelMap map)
@@ -265,6 +287,8 @@ public class TdIndexController {
     @RequestMapping("xxzx")
     public String xxzx(HttpServletRequest req,ModelMap map)
     {
+    	
+    	
     	return "client/xxzx";
     	
     }

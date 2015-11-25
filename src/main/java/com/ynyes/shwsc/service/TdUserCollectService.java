@@ -130,6 +130,19 @@ public class TdUserCollectService {
     }
     
     /**
+     * @author libiao
+     * 按收藏类型查找
+     * 
+     */
+    public List<TdUserCollect> findByUsernameAndType(String username,Long type)
+    {
+    	if(null == username){
+    		return null ;
+    	}
+    	return repository.findByUsernameAndTypeOrderByIdDesc(username, type);
+    }
+    
+    /**
      * 保存
      * 
      * @param e

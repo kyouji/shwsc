@@ -23,56 +23,26 @@
     <article class="mine-collect">
       <div class="box-collect">
         <ul class="col-ul">
-          <li class="active"><a href="#">套餐</a></li>
-          <li><a href="#">厨师</a></li>
+          <li class="active"><a href="javascript:;">套餐</a></li>
+          <li><a href="javascript:;">厨师</a></li>
         </ul>
         <ol class="col-ol">
           <!-- 套餐收藏 -->
           <li>
-            <section>
-            <a href="套餐详情.html">
-              <!-- 图片原始尺寸 864*414-->
-              <img src="/client/images/package_details_photo_1.jpg" alt="江湖逍遥宴">
-              <div class="div1">江湖逍遥宴</div>
-              <div class="div2">
-                <div class="div2-1">￥<span>128.00</span></div>
-                <div class="div2-2">9.8分</div>
-              </div>
-            </a>
-            </section>
-            <section>
-            <a href="套餐详情.html">
-              <!-- 图片原始尺寸 864*414-->
-              <img src="/client/images/package_details_photo_1.jpg" alt="江湖逍遥宴">
-              <div class="div1">江湖逍遥宴</div>
-              <div class="div2">
-                <div class="div2-1">￥<span>128.00</span></div>
-                <div class="div2-2">9.8分</div>
-              </div>
-            </a>
-            </section>
-            <section>
-            <a href="套餐详情.html">
-              <!-- 图片原始尺寸 864*414-->
-              <img src="/client/images/package_details_photo_1.jpg" alt="江湖逍遥宴">
-              <div class="div1">江湖逍遥宴</div>
-              <div class="div2">
-                <div class="div2-1">￥<span>128.00</span></div>
-                <div class="div2-2">9.8分</div>
-              </div>
-            </a>
-            </section>
-            <section>
-            <a href="套餐详情.html">
-              <!-- 图片原始尺寸 864*414-->
-              <img src="images/package_details_photo_1.jpg" alt="江湖逍遥宴">
-              <div class="div1">江湖逍遥宴</div>
-              <div class="div2">
-                <div class="div2-1">￥<span>128.00</span></div>
-                <div class="div2-2">9.8分</div>
-              </div>
-            </a>
-            </section>
+          <#if collect_goods_list?? && collect_goods_list?size gt 0>
+          <#list collect_goods_list as cg>
+                <section>
+                    <a href="/food/showdishes?goodId=${cg.goodsId?c}">
+                        <img src="${cg.goodsCoverImageUri!''}" width=471px; height=169px; alt="${cg.goodsTitle!''}">
+                        <div class="div1">${cg.goodsTitle!''}</div>
+                        <div class="div2">
+                            <div class="div2-1">￥<span>${cg.goodsSalePrice?string('0.00')}</span></div>
+                            <div class="div2-2">${cg.collectTime?string('yyyy-MM-dd HH:mm')}</div>
+                        </div>
+                    </a>
+                </section>
+          </#list>
+          </#if>
           </li><!-- 套餐收藏 END -->
 
           <!-- 厨师收藏 -->
@@ -117,7 +87,7 @@
 
         </ol>
       </div>
-      <script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+      <script type="text/javascript" src="/client/js/jquery-1.11.3.min.js"></script>
       <script type="text/javascript">
       $(document).ready(function(){
         $('.col-ul').on('click','a',function(){
