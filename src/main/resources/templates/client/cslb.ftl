@@ -15,36 +15,24 @@
     <!-- 头部 -->
     <header>
       <a class="back" href="/"></a>
-      <p>一群厨子</p>
+      <p>厨师列表</p>
     </header>
     <!-- 头部 END -->
 
     <!-- 厨师列表 -->
     <article class="chef-list">
-      <section><a href="/csjs">
-        <!-- 图片原始尺寸 290*399-->
-        <img width="100%" height="auto" src="/client/images/chef_photo_1.jpg" alt="厨师">
-        <div class="chef-name c000">李易峰<i class="level-1">&nbsp;</i></div>
-        <div class="speci-dishs">五星主厨，擅长川菜、粤菜</div>
-      </a></section>
-      <section><a href="/csjs">
-        <!-- 图片原始尺寸 290*399-->
-        <img width="100%" height="auto" src="/client/images/chef_photo_1.jpg" alt="厨师">
-        <div class="chef-name c000">李易峰<i class="level-2">&nbsp;</i></div>
-        <div class="speci-dishs">五星主厨，擅长川菜、粤菜、川菜、粤菜</div>
-      </a></section>
-      <section><a href="/csjs">
-        <!-- 图片原始尺寸 290*399-->
-        <img width="100%" height="auto" src="/client/images/chef_photo_1.jpg" alt="厨师">
-        <div class="chef-name c000">李易峰<i class="level-3">&nbsp;</i></div>
-        <div class="speci-dishs">五星主厨，擅长川菜、粤菜、川菜、粤菜、川菜、粤菜</div>
-      </a></section>
-      <section><a href="/csjs">
-        <!-- 图片原始尺寸 290*399-->
-        <img width="100%" height="auto" src="/client/images/chef_photo_1.jpg" alt="厨师">
-        <div class="chef-name c000">李易峰<i class="level-4">&nbsp;</i></div>
-        <div class="speci-dishs">五星主厨，擅长川菜、粤菜、川菜、粤菜</div>
-      </a></section>
+    	<#if chef_page??>
+    		<#list chef_page.content as item>
+			      <section>
+			      	<a href="/csjs/${item.id?c!''}?mid=${item.menuId?c!''}">
+				        <!-- 图片原始尺寸 290*399-->
+				        <img width="100%" height="auto" src="${item.imgUrl!}" alt="厨师">
+				        <div class="chef-name c000">${item.title!''}<i class="level-1">&nbsp;</i></div>
+				        <div class="speci-dishs">${item.brief!''}}</div>
+			      	</a></section>
+			      <section><a href="/csjs">
+			  </#list>
+		</#if>	      
     </article>
     <!-- 厨师列表 END -->
 
