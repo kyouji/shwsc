@@ -14,7 +14,7 @@
 <body class="bgc-f2">
   <!-- 头部 -->
   <header>
-    <a class="back" href="#"></a>
+    <a class="back" href="/kwhjj"></a>
     <p>口味和忌口</p>
   </header>
   <!-- 头部 END -->
@@ -22,24 +22,16 @@
   <!-- 口味和忌口 -->
   <article class="taste-diet">
     <div class="write">
+    <form id="form1" action="/user/kwhjj" method="post">
       <div class="text-box">
-        <select>
-          <option value="口味">口味</option>
-          <option value="忌口">忌口</option>
-        </select>
-        <input type="text">
+        <input type="text" placeholder="口味和忌口" name="kwhjj">
       </div>
-      <input class="btn-add-taste" type="submit" value="添加">
+     <input class="btn-add-taste" type="submit" value="添加" >
+     </form>
     </div>
     <ul>
-      <li class="common">辣一点<span>X</span></li>
-      <li class="delete">不要香菜<span>X</span></li>
-      <li>咸一点<span>X</span></li>
-      <li class="common">不要大蒜<span>X</span></li>
-      <li>咸一点<span>X</span></li>
-      <li>不要大蒜<span>X</span></li>
-      <li class="delete">辣一点<span>X</span></li>
-      <li>不要香菜<span>X</span></li>
+    
+      
     </ul>
     <script type="text/javascript" src="/client/js/jquery-1.11.3.min.js"></script>
     <script type="text/javascript">

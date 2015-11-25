@@ -309,7 +309,27 @@ public class TdUserController {
 	      return res;
 	  }
     
-    
+    @RequestMapping(value = "/user/kwhjj",method = RequestMethod.POST)
+    public String saveUserKwhjj(HttpServletRequest request,TdUser user,ModelMap map){
+	
+	String userStr = (String)request.getSession().getAttribute("username");
+	
+	TdUser curentUser = tdUserService.findByUsername(userStr);
+	if (null != user)
+	{
+		curentUser.setKwhjj(user.getKwhjj());
+		
+		
+	}
+	tdUserService.save(curentUser);
+	
+	Map<String, Object> res = new HashMap<String,Object>();
+	res.put("baocun", "鎴愬姛");
+	map.addAttribute("user",curentUser);
+	return "/client/kwhjj";
+
+    }
+
    /* @RequestMapping(value = "/user/reg",method = RequestMethod.POST)
     public String saveUserReg(HttpServletRequest request,TdUser user,ModelMap map)
     {

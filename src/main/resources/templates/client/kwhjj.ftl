@@ -14,7 +14,7 @@
 <body class="bgc-f2">
   <!-- 头部 -->
   <header>
-    <a class="back" href="#"></a>
+    <a class="back" href="/center"></a>
     <p>口味和忌口</p>
   </header>
   <!-- 头部 END -->
@@ -23,17 +23,12 @@
   <article class="taste-diet">
     <div class="top-art">
       <div class="tips">厨师们要注意咯~~</div>
-      <div class="edit"><a href="口味和忌口编辑.html">编辑<span>-</span></a></div>
+      <div class="edit"><a href="/kwhjjbj">编辑<span>-</span></a></div>
     </div>
     <ul>
-      <li class="common">辣一点<span>X</span></li>
-      <li class="delete">不要香菜<span>X</span></li>
-      <li>咸一点<span>X</span></li>
-      <li class="common">不要大蒜<span>X</span></li>
-      <li>咸一点<span>X</span></li>
-      <li>不要大蒜<span>X</span></li>
-      <li class="delete">辣一点<span>X</span></li>
-      <li>不要香菜<span>X</span></li>
+    	
+      <li class="common">${user.kwhjj!''}<span>X</span></li>
+      
     </ul>
     <script type="text/javascript" src="/client/js/jquery-1.11.3.min.js"></script>
     <script type="text/javascript">

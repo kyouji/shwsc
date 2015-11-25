@@ -126,6 +126,23 @@ public class TdRegController {
         session.setAttribute("email", user.getEmail());
         return "/client/person_core";
 	    }
+    
+    @RequestMapping(value = "/user/reg",method = RequestMethod.POST)
+    public String saveUser(HttpServletRequest request,TdUser user,ModelMap map)
+    {
+    	
+    	
+    	user.setUsername(user.getUsername());
+    	user.setPassword(user.getPassword());
+		
+    	tdUserService.save(user);
+    	
+    	Map<String, Object> res = new HashMap<String,Object>();
+    	res.put("baocun", "成功"); 
+    	map.addAttribute("user",user);
+    	return "/client/login";
+    }
+
 	    
 	    @RequestMapping(value="/logutil")
 	    public String LogUtils(){
