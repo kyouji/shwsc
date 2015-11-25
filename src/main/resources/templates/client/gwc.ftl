@@ -20,25 +20,22 @@
     <!-- 头部 END -->
 
     <article class="shopp-car">
-      <section>
+    <#if cart_goods_list??>
+    <#list cart_goods_list as good>
+    <section>
         <div class="div1">
           <!--<input type="checkbox">-->
           <!-- 图片原始尺寸 864*414-->
           <img src="/client/images/package_details_photo_1.jpg" alt="江湖逍遥宴">
           <div class="detail">
             <div class="title">
-              <span class="span1">江湖逍遥宴</span>
-              <span class="span2">4-8人</span>
+              <span class="span1">${good.title!''}</span>
+              <#assign Strlenght = good.paramValueCollect?length>
+              <span class="span2">${good.paramValueCollect[0..Strlenght-2]}人</span>
               <span class="span3">微辣型</span>
             </div>
             <div class="number">
-              <p class="p1">￥<span>128.00</span></p>
-              <p class="p2">
-                <span>数量：</span>
-                <a class="tw_a1" onclick="document.getElementById('twa-1').innerHTML--">-</a>
-                <em id="twa-1">1</em>
-                <a class="tw_a2" onclick="document.getElementById('twa-1').innerHTML++">+</a>
-              </p>
+              <p class="p1">￥<span>${good.salePrice?string("0.00")}</span></p>
             </div>
           </div>
         </div>
@@ -52,38 +49,8 @@
         </div>
         <!-- <a class="btn-delete-orderlist" href="#">删除</a> -->
       </section>
-      <section>
-        <div class="div1">
-          <!--<input type="checkbox">-->
-          <!-- 图片原始尺寸 864*414-->
-          <img src="/client/images/package_details_photo_1.jpg" alt="江湖逍遥宴">
-          <div class="detail">
-            <div class="title">
-              <span class="span1">江湖逍遥宴</span>
-              <span class="span2">4-8人</span>
-              <span class="span3">微辣型</span>
-            </div>
-            <div class="number">
-              <p class="p1">￥<span>128.00</span></p>
-              <p class="p2">
-                <span>数量：</span>
-                <a class="tw_a1" onclick="document.getElementById('twa-2').innerHTML--">-</a>
-                <em id="twa-2">1</em>
-                <a class="tw_a2" onclick="document.getElementById('twa-2').innerHTML++">+</a>
-              </p>
-            </div>
-          </div>
-        </div>
-        <div class="div2">
-          <p class="p1">共<span>1</span>个套餐</p>
-          <p class="p2">合计&nbsp;&nbsp;&nbsp;&nbsp;￥<span>298</span></p>
-        </div>
-        <div class="div3">
-          <a class="btn-order-now">提交订单</a>
-          <a class="btn-deletelist">删除</a>
-        </div>
-        <!-- <a class="btn-delete-orderlist" href="#">删除</a> -->
-      </section>
+      </#list>
+    </#if>
       <!--
       <script type="text/javascript" src="/client/js/jquery-1.11.3.min.js"></script>
       <script type="text/javascript" src="/client/js/jquery.mobile-1.3.2.min.js"></script>

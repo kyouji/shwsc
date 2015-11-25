@@ -43,13 +43,12 @@
     <article class="mine-order">
       <div class="tab-view">
         <ul class="title-1">
-          <li class="active"><a href="#">全部</a></li>
-          <li><a href="#">待付款</a></li>
-          <li><a href="#">已付款</a></li>
+          <li <#if state??&&state==0>class="active"</#if> ><a href="/user/order">全部</a></li>
+          <li <#if state??&&state==2>class="active"</#if> ><a href="/user/order?state=2">待付款</a></li>
+          <li <#if state??&&state==3>class="active"</#if> ><a href="/user/order?state=3">已付款</a></li>
         </ul>
         <ul class="tab-content">
           <!-- 全部 -->
-          
           <#if order_page??>
           <#list order_page.content as item>
           <li>
@@ -59,12 +58,12 @@
                 <img width="90" height="60" src="/client/images/package_details_photo_1.jpg" alt="江湖逍遥宴">
                 <div class="detail">
                   <div class="title">
-                    <span class="span1">江湖逍遥宴3</span>
+                    <span class="span1">${item.goodTitle!''}</span>
                     <span class="span2">4-8人</span>
                     <span class="span3">微辣型</span>
                   </div>
                   <div class="number">
-                    <p class="p1">￥<span>128.00</span></p>
+                    <p class="p1">￥<span>${item.totalPrice}</span></p>
                     <p class="p2">
                       <span>数量：1</span>
                     </p>
@@ -77,9 +76,15 @@
               </div>
             </section>
             <div class="order-btn-group">
-              <a class="" href="#">砍价</a>
-              <a class="" href="#">取消</a>
+               <#if item.statusId == 2>
+              <a class="current" href="#">砍价</a>
+              <a class="current" href="/order/cancel?orderNumber=${item.orderNumber}&state=${state!'0'}">取消</a>
               <a class="current" href="#">付款</a>
+              <#elseif item.statusId == 3>
+              <a href="#">已付款</a>
+              <#elseif item.statusId == 7>
+              <a href="#">已取消</a>
+              </#if>
             </div>
             </li>
           </#list>

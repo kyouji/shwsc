@@ -61,7 +61,7 @@
         <span class="c-ccc">&gt;</span>
       </div>
       </a>
-      <a href="/gwc">
+      <a href="/cart">
       <div class="div3">
         购物车
         <span class="c-ccc">&gt;</span>
