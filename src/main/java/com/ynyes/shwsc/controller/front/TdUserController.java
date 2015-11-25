@@ -185,25 +185,45 @@ public class TdUserController {
     	map.addAttribute("user",curentUser);
     	return "/client/center";
     }
-    //我的订单
+    
+    
+    /**
+     * 我的订单
+     * @param req
+     * @param map
+     * @return
+     */
     @RequestMapping(value = "/user/order")
-    public String order(HttpServletRequest req, ModelMap map)
+    public String order(HttpServletRequest req, ModelMap map,Long state)
     {
         String username = (String) req.getSession().getAttribute("username");
         
-        if (null == username) 
+        if (null == username)
         {
             return "redirect:/login";
         }
 
+        if (state == null)
+        {
+			state = 0L;
+		}
+        
+        
+        
         tdCommonService.setCommon(map, req);
 
         TdUser tdUser = tdUserService.findByUsernameAndIsEnabled(username);
 
         map.addAttribute("user", tdUser);
-        
-        map.addAttribute("order_page", tdOrderService.findByUsername(tdUser.getUsername(), 0, 10));
-
+        if (state == 0)
+        {
+        	map.addAttribute("order_page", tdOrderService.findByUsername(username, 0, 100));
+		}
+        else
+        {
+        	map.addAttribute("order_page", tdOrderService.findByUsernameAndStatusId(username, state, 0, 100));
+        }
+        map.addAttribute("state", state);
         return "/client/wddd";
     }
     
