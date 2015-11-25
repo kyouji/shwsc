@@ -9,7 +9,22 @@
 <!--css-->
 <link rel="stylesheet" type="text/css" href="/client/css/common.css"/>
 <link rel="stylesheet" type="text/css" href="/client/css/main.css"/>
+<script type="text/javascript" src="/client/js/jquery-1.11.3.min.js"></script>
 <title>厨师资料</title>
+<script type="text/javascript">
+function addCollect(artId)
+{
+    $.ajax({
+        type : "post",
+        url : "/user/cook/collect",
+        data : {"artId":artId},
+        success : function(data){
+            alert(data.msg);
+        }
+    });
+}
+
+</script>
 </head>
 <body>
     <!-- 头部 -->
@@ -37,7 +52,7 @@
       </div>
       <!-- 服务次数、关注 -->
       <div class="serv-numti">
-        <a class="btn-attent" href="#">关注</a>
+        <a class="btn-attent" href="jacascript:;" onclick="addCollect(${article.id?c})">关注</a>
         <div class="serv-times">
           <div class="div1"><#if article??>${article.viewCount!''}</#if></div>
           <div class="div2">服务次数</div>
@@ -93,7 +108,7 @@
         <li class=""></li>
       </ul>
     </div>
-    <script src="js/swipe.js"></script> 
+    <script src="/client/js/swipe.js"></script> 
     <script type="text/javascript">
       var bullets = document.getElementById('position').getElementsByTagName('li');
       var banner = Swipe(document.getElementById('mySwipe'), {

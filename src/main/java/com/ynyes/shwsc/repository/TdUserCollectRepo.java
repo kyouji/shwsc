@@ -32,4 +32,6 @@ public interface TdUserCollectRepo extends
     
     // add to libiao
     List<TdUserCollect> findByUsernameAndTypeOrderByIdDesc(String username,Long type);
+    
+    TdUserCollect findByUsernameAndCookId(String username,Long cookId);
 }
