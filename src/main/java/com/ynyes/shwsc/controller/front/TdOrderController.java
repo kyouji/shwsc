@@ -304,6 +304,8 @@ public class TdOrderController extends AbstractPaytypeController {
         tdOrder.setShippingAddress(shippingAddress);
         tdOrder.setShippingName(shippingName);
         tdOrder.setShippingPhone(shippingPhone);
+        tdOrder.setImgUrl(goods.getCoverImageUri());
+        tdOrder.setGoodTitle(goods.getTitle());
         
         // 订单号
         tdOrder.setOrderNumber("SX" + curStr + leftPad(Integer.toString(random.nextInt(999)), 3, "0"));

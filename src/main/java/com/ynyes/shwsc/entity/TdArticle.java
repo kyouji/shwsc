@@ -26,6 +26,10 @@ public class TdArticle {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     
+    
+    //头像
+    @Column
+    private String headImg;
     // 标题
     @Column
     private String title;
@@ -154,7 +158,15 @@ public class TdArticle {
     @Column
     private String tag;
 
-    public Long getId() {
+    public String getHeadImg() {
+		return headImg;
+	}
+
+	public void setHeadImg(String headImg) {
+		this.headImg = headImg;
+	}
+
+	public Long getId() {
         return id;
     }
 
