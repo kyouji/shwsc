@@ -208,16 +208,12 @@ public class TdIndexController {
     }
     //厨师列表
     @RequestMapping("/cslb")
-    public String cslb(Integer page ,HttpServletRequest req,ModelMap map)
+    public String cslb(HttpServletRequest req,ModelMap map)
     {
     	tdCommonService.setCommon(map, req);
     	
-    	if (null == page)
-    	{
-    		page = 0;
-    	}
-    	Page<TdArticle> chefPage = tdArticleService.findByMenuId(10L, page, ClientConstant.pageSize);
-    	map.addAttribute("chef_page", chefPage);
+    	List<TdArticle> chefList = tdArticleService.findByMenuId(10L);
+    	map.addAttribute("chef_list", chefList);
     	return "client/cslb";
     }
     

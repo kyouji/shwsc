@@ -21,8 +21,8 @@
 
     <!-- 厨师列表 -->
     <article class="chef-list">
-    	<#if chef_page??>
-    		<#list chef_page.content as item>
+    	<#if chef_list??>
+    		<#list chef_list as item>
 			      <section>
 			      	<a href="/csjs/${item.id?c!''}?mid=${item.menuId?c!''}">
 				        <!-- 图片原始尺寸 290*399-->
