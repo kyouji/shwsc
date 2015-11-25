@@ -213,6 +213,11 @@ public class TdUserController {
         tdCommonService.setCommon(map, req);
 
         TdUser tdUser = tdUserService.findByUsernameAndIsEnabled(username);
+        
+        if (null == tdUser)
+        {
+            return "redirect:/login";
+        }
 
         map.addAttribute("user", tdUser);
         if (state == 0)

@@ -77,7 +77,7 @@
             </section>
             <div class="order-btn-group">
                <#if item.statusId == 2>
-              <a class="current" href="#">砍价</a>
+               <#if item.isCut?string("yes","no") == "yes"><a class="current" href="#">砍价</a></#if>
               <a class="current" href="/order/cancel?orderNumber=${item.orderNumber}&state=${state!'0'}">取消</a>
               <a class="current" href="#">付款</a>
               <#elseif item.statusId == 3>
