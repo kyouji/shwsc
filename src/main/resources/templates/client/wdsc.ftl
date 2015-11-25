@@ -47,42 +47,24 @@
 
           <!-- 厨师收藏 -->
           <li class="group-chef-col">
-            <article><a href="厨师介绍.html">
-              <!-- 图片原始尺寸 150*150 -->
-              <img class="head-portrait" src="images/head_portrait.jpg" alt="头像">
-              <div class="right-box">
-                <div class="chef-name">静香</div>
-                <div class="chef-level level-1"></div>
-                <div class="group-serv-num">
-                  <div class="level">国家二级厨师</div>
-                  <div class="sev-nums">服务次数：<span>333</span></div>
-                </div>
-              </div>
-            </a></article>
-            <article><a href="厨师介绍.html">
-              <!-- 图片原始尺寸 150*150 -->
-              <img class="head-portrait" src="images/head_portrait.jpg" alt="头像">
-              <div class="right-box">
-                <div class="chef-name">静香</div>
-                <div class="chef-level level-3"></div>
-                <div class="group-serv-num">
-                  <div class="level">国家二级厨师</div>
-                  <div class="sev-nums">服务次数：<span>333</span></div>
-                </div>
-              </div>
-            </a></article>
-            <article><a href="厨师介绍.html">
-              <!-- 图片原始尺寸 150*150 -->
-              <img class="head-portrait" src="images/head_portrait.jpg" alt="头像">
-              <div class="right-box">
-                <div class="chef-name">静香</div>
-                <div class="chef-level level-5"></div>
-                <div class="group-serv-num">
-                  <div class="level">国家二级厨师</div>
-                  <div class="sev-nums">服务次数：<span>333</span></div>
-                </div>
-              </div>
-            </a></article>
+          <#if collect_cook_list?? && collect_cook_list?size gt 0>
+          <#list collect_cook_list as cc>
+                <article>
+                    <a href="/csjs/${cc.cookId?c}">
+                      <!-- 图片原始尺寸 150*150 -->
+                     <img src="${cc.goodsCoverImageUri!''}" width=471px; height=169px; alt="${cc.goodsTitle!''}">
+                      <div class="right-box">
+                        <div class="chef-name">${cc.goodsTitle!''}</div>
+                        <p>${cc.collectTime?string('yyyy-MM-dd HH:mm')}</p>
+                        <div class="group-serv-num">
+                          <div class="level">${cc.level!''}</div>
+                          <div class="sev-nums">服务次数：<span>${cc.number!'0'}</span></div>
+                        </div>
+                      </div>
+                    </a>
+                </article>
+          </#list>
+          </#if>
           </li><!-- 厨师收藏 END -->
 
         </ol>

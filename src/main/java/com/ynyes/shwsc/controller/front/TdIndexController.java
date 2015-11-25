@@ -287,20 +287,20 @@ public class TdIndexController {
         // 最近添加
         map.addAttribute("latest_info_page", tdArticleService.findByMenuIdAndIsEnableOrderByIdDesc(mid, 0, ClientConstant.pageSize));
         
-    	return "client/csjs";
+    	return "/client/csjs";
     }
     
     //活动
     @RequestMapping("/hd")
     public String hd(HttpServletRequest req,ModelMap map)
     {
-    	return "client/hd";
+    	return "/client/hd";
     }
     //砍价活动套餐
     @RequestMapping("/kjhdtc")
     public String kjhdtc(HttpServletRequest req,ModelMap map)
     {
-    	return "client/kjhdtc";
+    	return "/client/kjhdtc";
     }
     //口味和禁忌
     @RequestMapping("/kwhjj")
