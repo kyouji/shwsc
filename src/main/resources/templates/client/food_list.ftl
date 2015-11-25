@@ -93,7 +93,7 @@
       <section class="package"><a style="display:block;" href="/food/showdishes?goodId=${item.id}">
         <img src="${item.coverImageUri!''}" alt="江湖逍遥宴"></a>
         <div class="introduction">
-            <#assign Strlenght = item.paramValueCollect?length>
+          <#assign Strlenght = item.paramValueCollect?length>
           <p class="title"><a href="#">${item.title!''}<span>（${item.paramValueCollect[0..Strlenght-2]}人）</span></a></p>
           <p class="itdt">${item.subTitle!''}</p>
           <p class="follow">${item.totalclicks!'0'}</p>

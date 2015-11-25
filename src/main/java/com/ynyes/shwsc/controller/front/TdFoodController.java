@@ -93,7 +93,7 @@ public class TdFoodController
 			map.addAttribute("choosed_number", -1);
 			map.addAttribute("type",tdProductCategoryService.findOne(typeId));
 			map.addAttribute("goods_page", goods_page.getContent());
-			return "/client/food_detail";
+			return "/client/food_list";
 		}
 		String number = strings[count];
 		map.addAttribute("choosed_number", count + 1);

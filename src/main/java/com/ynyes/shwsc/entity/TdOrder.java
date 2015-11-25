@@ -37,6 +37,14 @@ public class TdOrder {
     @JoinColumn(name="tdOrderId")
     private List<TdOrderGoods> orderGoodsList;
     
+    //能否砍价
+    @Column
+    private Boolean isCut;
+    
+    //能否使用优惠劵
+    @Column
+    private boolean isCupon;
+    
     //套餐图片url
     @Column
     private String ImgUrl;
@@ -302,7 +310,24 @@ public class TdOrder {
     private Double trainService;
     
     
-    public String getImgUrl() {
+    public Boolean getIsCut() {
+		return isCut;
+	}
+
+	public void setIsCut(Boolean isCut) {
+		this.isCut = isCut;
+	}
+
+	public boolean isCupon() {
+		return isCupon;
+	}
+
+	public void setIsCupon(boolean isCupon) {
+		this.isCupon = isCupon;
+	}
+
+	public String getImgUrl() 
+	{
 		return ImgUrl;
 	}
 

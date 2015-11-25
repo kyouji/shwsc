@@ -154,8 +154,7 @@ public class TdCartController {
             for (TdCartGoods cg1 : cartUserGoodsList) 
             {
                 // 删除重复的商品
-                List<TdCartGoods> findList = tdCartGoodsService
-                        .findByGoodsIdAndUsername(cg1.getGoodsId(), username);
+                List<TdCartGoods> findList = tdCartGoodsService.findByGoodsIdAndUsername(cg1.getGoodsId(), username);
 
                 if (null != findList && findList.size() > 1) 
                 {
@@ -163,8 +162,26 @@ public class TdCartController {
                 }
             }
         }
-
         List<TdCartGoods> resList = tdCartGoodsService.findByUsername(username);
+        
+        List<TdGoods> tdGoodsList = new ArrayList<>();
+        for (TdCartGoods tdCartGoods : resList) 
+        { 
+			TdGoods tdGoods = tdGoodService.findOne(tdCartGoods.getGoodsId());
+			if (null != tdGoods) {
+				List<TdGoodsGift> tdGoodGiftUserList = tdGoods.getGiftList();
+				if (tdGoodGiftUserList != null && tdGoodGiftUserList.size()>=1)
+				{
+					tdGoodsList.add(tdGoods);
+				}
+			}			
+		}
+        
+        if (tdGoodsList != null && tdGoodsList.size()>=1)
+        {
+        	map.addAttribute("goods_list",tdGoodsList);
+		}
+
         
         map.addAttribute("cart_goods_list", tdCartGoodsService.updateGoodsInfo(resList));
         
@@ -307,26 +324,26 @@ public class TdCartController {
         return "/client/cart_goods";
     }
 
-    @RequestMapping(value = "/cart/del", method = RequestMethod.POST)
+    @RequestMapping(value = "/cart/del")
     public String cartDel(Long id, HttpServletRequest req, ModelMap map) {
 
         String username = (String) req.getSession().getAttribute("username");
 
-        if (null == username) {
+        if (null == username)
+        {
             username = req.getSession().getId();
         }
 
-        if (null != id) {
-            TdCartGoods cartGoods = tdCartGoodsService.findOne(id);
+        if (null != id) {TdCartGoods cartGoods = tdCartGoodsService.findOne(id);
 
-            if (cartGoods.getUsername().equalsIgnoreCase(username)) {
+            if (cartGoods.getUsername().equalsIgnoreCase(username)) 
+            {
                 tdCartGoodsService.delete(cartGoods);
             }
         }
 
-        map.addAttribute("cart_goods_list",
-                tdCartGoodsService.updateGoodsInfo(tdCartGoodsService.findByUsername(username)));
+        map.addAttribute("cart_goods_list", tdCartGoodsService.updateGoodsInfo(tdCartGoodsService.findByUsername(username)));
 
-        return "/client/cart_goods";
+        return "/client/gwc";
     }
 }

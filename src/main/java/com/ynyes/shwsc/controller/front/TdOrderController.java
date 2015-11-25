@@ -325,6 +325,8 @@ public class TdOrderController extends AbstractPaytypeController {
         tdOrder.setShippingPhone(shippingPhone);//电话
         tdOrder.setImgUrl(goods.getCoverImageUri());//图片
         tdOrder.setGoodTitle(goods.getTitle());//商品title
+        tdOrder.setIsCut(goods.getIsNew());//是否砍价
+        tdOrder.setIsCupon(goods.getIsRecommendType());//是否使用使用卷
         
         // 订单号
         tdOrder.setOrderNumber("SX" + curStr + leftPad(Integer.toString(random.nextInt(999)), 3, "0"));
