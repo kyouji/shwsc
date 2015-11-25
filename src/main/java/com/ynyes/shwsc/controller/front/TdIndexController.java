@@ -1,15 +1,22 @@
 package com.ynyes.shwsc.controller.front;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.catalina.connector.Request;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.mobile.device.Device;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.ynyes.shwsc.entity.TdAdType;
+import com.ynyes.shwsc.entity.TdArticle;
+import com.ynyes.shwsc.entity.TdArticleCategory;
+import com.ynyes.shwsc.entity.TdNavigationMenu;
 import com.ynyes.shwsc.entity.TdUser;
 import com.ynyes.shwsc.service.TdAdService;
 import com.ynyes.shwsc.service.TdAdTypeService;
@@ -19,6 +26,7 @@ import com.ynyes.shwsc.service.TdCommonService;
 import com.ynyes.shwsc.service.TdNaviBarItemService;
 import com.ynyes.shwsc.service.TdUserCollectService;
 import com.ynyes.shwsc.service.TdUserService;
+import com.ynyes.shwsc.util.ClientConstant;
 
 /**
  * 前端首页控制
@@ -222,16 +230,66 @@ public class TdIndexController {
     }
     //厨师列表
     @RequestMapping("/cslb")
-    public String cslb(HttpServletRequest req,ModelMap map)
+    public String cslb(Integer page ,HttpServletRequest req,ModelMap map)
     {
+    	tdCommonService.setCommon(map, req);
+    	
+    	if (null == page)
+    	{
+    		page = 0;
+    	}
+    	Page<TdArticle> chefPage = tdArticleService.findByMenuId(10L, page, ClientConstant.pageSize);
+    	map.addAttribute("chef_page", chefPage);
     	return "client/cslb";
     }
+    
     //厨师介绍
-    @RequestMapping("/csjs")
-    public String csjs(HttpServletRequest req,ModelMap map)
-    {
+    @RequestMapping("/csjs/{id}")
+    public String csjs(@PathVariable Long id, Long mid, ModelMap map, HttpServletRequest req){
+        
+	    tdCommonService.setCommon(map, req);
+	    
+        if (null == id || null == mid)
+        {
+            return "/client/error_404";
+        }
+        
+//        String username = (String) req.getSession().getAttribute("username");
+//        
+//        // 读取浏览记录
+//        if (null == username)
+//        {
+//            map.addAttribute("recent_page", tdUserRecentVisitService.findByUsernameOrderByVisitTimeDesc(req.getSession().getId(), 0, ClientConstant.pageSize));
+//        }
+//        else
+//        {
+//            map.addAttribute("recent_page", tdUserRecentVisitService.findByUsernameOrderByVisitTimeDesc(username, 0, ClientConstant.pageSize));
+//        }
+//        
+//        TdNavigationMenu menu = tdNavigationMenuService.findOne(mid);
+//        
+//        map.addAttribute("menu_name", menu.getTitle());
+//        
+//        List<TdArticleCategory> catList = tdArticleCategoryService.findByMenuId(mid);
+//        
+//        map.addAttribute("info_category_list", catList);
+        map.addAttribute("mid", mid);
+        
+        TdArticle tdArticle = tdArticleService.findOne(id);
+        
+        if (null != tdArticle)
+        {
+            map.addAttribute("article", tdArticle);
+            map.addAttribute("prev_info", tdArticleService.findPrevOne(id, tdArticle.getCategoryId(), tdArticle.getMenuId()));
+            map.addAttribute("next_info", tdArticleService.findNextOne(id, tdArticle.getCategoryId(), tdArticle.getMenuId()));
+        }
+        
+        // 最近添加
+        map.addAttribute("latest_info_page", tdArticleService.findByMenuIdAndIsEnableOrderByIdDesc(mid, 0, ClientConstant.pageSize));
+        
     	return "client/csjs";
     }
+    
     //活动
     @RequestMapping("/hd")
     public String hd(HttpServletRequest req,ModelMap map)

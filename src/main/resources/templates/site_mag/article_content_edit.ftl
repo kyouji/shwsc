@@ -14,12 +14,12 @@
 <script type="text/javascript" charset="utf-8" src="/mag/js/kindeditor-min.js"></script>
 <script type="text/javascript" charset="utf-8" src="/mag/js/zh_CN.js"></script>
 <script type="text/javascript" src="/mag/js/layout.js"></script>
-<script type="text/javascript" src="/mag/js/spectrum.js"></script>
+<#--<script type="text/javascript" src="/mag/js/spectrum.js"></script>-->
 
 <link href="/mag/style/WdatePicker.css" rel="stylesheet" type="text/css">
 <link href="/mag/style/style.css" rel="stylesheet" type="text/css">
 <link href="/mag/style/default.css" rel="stylesheet">
-<link href="/mag/style/spectrum.css" rel="stylesheet">
+<#--<link href="/mag/style/spectrum.css" rel="stylesheet">-->
 <script type="text/javascript">
     $(function () {
         //初始化表单验证
@@ -63,6 +63,7 @@
                 $(".thumb_ImgUrl_show").show();
             }
         });
+
         
         //设置封面图片的样式
         $(".photo-list ul li .img-box img").each(function () {
@@ -102,7 +103,7 @@
                 <ul>
                     <li><a href="javascript:;" onclick="tabs(this);" class="selected">基本信息</a></li>
                     <li><a href="javascript:;" onclick="tabs(this);" class="">详细描述</a></li>
-                    <li><a href="javascript:;" onclick="tabs(this);" class="">SEO选项</a></li>
+                    <#--<li><a href="javascript:;" onclick="tabs(this);" class="">SEO选项</a></li> -->
                 </ul>
             </div>
         </div>
@@ -131,6 +132,21 @@
                 </#if>
             </dd>
         </dl>-->
+        <#-- zhangji -->
+       			 <select name="categoryId" id="ddlCategoryId" style="display:none;" datatype="*" sucmsg=" " nullmsg="请选择！" class="Validform_error" style="display: none;">
+                        <#if article??>
+                        <#else>
+                        <option value="">请选择类别...</option>
+                        </#if>
+                        <#if category_list??>
+                            <#list category_list as c>
+                            	<#if c_index == 0>
+                                <option value="${c.id?c!""}" selected="selected"><#if c.layerCount?? && c.layerCount gt 1><#list 1..(c.layerCount-1) as a>　</#list>├ </#if>${c.title!""}</option>
+                            	</#if>
+                            </#list>
+                        </#if>
+                    </select>
+            <#-- zhangji  end-->            
         <dl>
             <dt>显示状态</dt>
             <dd>
@@ -168,12 +184,26 @@
         </dl>
         
         <dl>
-            <dt>厨师等级,性别</dt>
+            <dt>性别</dt>
             <dd>
-                <input name="titleColor" type="text" value="<#if article??>${article.titleColor!""}</#if>" id="titleColor" class="input normal" >
+                <input name="seoTitle" type="text" value="<#if article??>${article.seoTitle!""}</#if>" id="seoTitle" class="input normal" >
                 <span class="Validform_checktip"></span>
             </dd>
         </dl>
+        <dl>
+            <dt>厨师等级</dt>
+            <dd>
+                <input name="seoKeywords" type="text" value="<#if article??>${article.seoKeywords!""}</#if>" id="seoKeywords" class="input normal" >
+                <span class="Validform_checktip"></span>
+            </dd>
+        </dl>   
+        <dl>
+            <dt>特长</dt>
+            <dd>
+                <input name="seoDescription" type="text" value="<#if article??>${article.seoDescription!""}</#if>" id="seoDescription" class="input normal" >
+                <span class="Validform_checktip"></span>
+            </dd>
+        </dl>     
         <dl>
             <dt>首页展示图片</dt>
             <dd>
@@ -191,7 +221,7 @@
         <dl>
             <dt>厨师头像</dt>
             <dd>
-                <input name="imgUrl" type="text" id="txtImgUrl" value="<#if article??>${article.imgUrl!""}</#if>" class="input normal upload-path">
+                <input name="headImg" type="text" id="txtImgUrl" value="<#if article??>${article.headImg!""}</#if>" class="input normal upload-path">
                 <div class="upload-box upload-img"></div>
                 <div class="photo-list thumb_ImgUrl_show" style="display: none;">
                     <ul>
@@ -205,7 +235,7 @@
         <dl>
             <dt>服务次数</dt>
             <dd>
-                <input name="viewCount" type="text"  value="<#if article??>${article.viewCount!"0"}</#if>" id="txtClick" class="input txt100" datatype="n" sucmsg=" ">
+                <input name="viewCount" type="text"  value="<#if article??>${article.viewCount!"0"}<#else>0</#if>" id="txtClick" class="input txt100" datatype="n" sucmsg=" ">
                 <span class="Validform_checktip"></span>
             </dd>
         </dl>
@@ -266,6 +296,7 @@
             </dd>
         </dl>
     </div>
+    <#--
     <div class="tab-content" style="display: none;">
         <dl>
             <dt>SEO标题</dt>
@@ -289,7 +320,7 @@
             </dd>
         </dl>
     </div>
-    
+    -->
     <!--/内容-->
     <!--工具栏-->
     <div class="page-footer">

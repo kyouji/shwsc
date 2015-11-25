@@ -9,7 +9,7 @@
 <!--css-->
 <link rel="stylesheet" type="text/css" href="/client/css/common.css"/>
 <link rel="stylesheet" type="text/css" href="/client/css/main.css"/>
-<title>叫个厨子</title>
+<title>厨师资料</title>
 </head>
 <body>
     <!-- 头部 -->
@@ -22,39 +22,41 @@
     <!-- 厨师介绍 -->
 
     <!-- 图片原始尺寸 1200*1545-->
-    <img src="/client/images/chef_pho_1.jpg" alt="厨师照片">
+    <img src="<#if article??>${article.imgUrl!''}</#if>" alt="厨师照片">
     <article class="chef-intro">
       <!-- 厨师信息介绍 -->
       <div class="chef-info">
         <!-- 图片原始尺寸 150*150-->
-        <img class="chef-pho-head" src="/client/images/head_portrait.jpg" alt="厨师头像">
+        <img class="chef-pho-head" src="<#if article??>${article.headImg!''}</#if>" alt="头像">
         <div class="good-at">
-          <div class="chef-name fz1-3 c000">李易峰<i class="level-5">&nbsp;</i></div>
-          <div class="good-at-dishs">国家二级厨师，女</div>
-          <div class="good-at-dishs">擅长法餐、意大利餐</div>
+          <div class="chef-name fz1-3 c000"><#if article??>${article.title!''}</#if><#--<i class="level-5">&nbsp;</i>--></div>
+          <div class="good-at-dishs"><#if article??>${article.seoTitle!''}</#if></div>
+          <div class="good-at-dishs"><#if article??>${article.seoKeywords!''}</#if></div>
+          <div class="good-at-dishs"><#if article??>${article.seoDescription!''}</#if></div>
         </div>
       </div>
       <!-- 服务次数、关注 -->
       <div class="serv-numti">
         <a class="btn-attent" href="#">关注</a>
         <div class="serv-times">
-          <div class="div1">22</div>
+          <div class="div1"><#if article??>${article.viewCount!''}</#if></div>
           <div class="div2">服务次数</div>
         </div>
       </div>
       <!-- 厨师简介 -->
       <div class="chef-summary">
         <div class="title fz1-3 c-000">厨师简介</div>
-        <div class="content">有着16年行业经验的张先生，是一位西餐全能的美食匠人尤其擅长法餐、意大利餐。曾于2001年赴英国四星级酒店工作。回国后，先后在北京香格里拉大酒店、港澳中心等地就职。</div>
+        <div class="content"><#if article??>${article.brief!''}</#if></div>
       </div>
 
       <div style="margin:4% auto;width:20%;height:1px;background:#ff9933;"></div>
 
       <!-- 厨师相关证书 -->
       <div class="chef-cert">
-        <div class="div1">厨师相关证书</div>
-        <div class="div2">更加放心的保障</div>
-        <div class="div3">&gt;</div>
+      	
+        <div class="div1"><#if article??>${article.content!''}</#if></div>
+        <#--<div class="div2">更加放心的保障</div>
+        <div class="div3">&gt;</div>-->
       </div>
 
     </article>
