@@ -347,6 +347,6 @@ public class TdCartController {
 
         map.addAttribute("cart_goods_list", tdCartGoodsService.updateGoodsInfo(tdCartGoodsService.findByUsername(username)));
 
-        return "/client/gwc";
+        return "redirect:/cart";
     }
 }

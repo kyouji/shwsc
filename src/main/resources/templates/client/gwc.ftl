@@ -34,7 +34,7 @@
             </div>
             <div class="title">
               <span class="span2">${good.paramValueCollect[0..Strlenght-2]}人</span>
-              <span class="span3">微辣型</span>
+              <#--<span class="span3">微辣型</span>-->
             </div>
             <div class="number">
               <p class="p1">￥<span>${good.salePrice?string("0.00")}</span></p>
@@ -42,8 +42,8 @@
           </div>
         </div>
         <div class="div2">
-          <p class="p1">共<span>1</span>个套餐</p>
-          <p class="p2">合计&nbsp;&nbsp;&nbsp;&nbsp;￥<span>298</span></p>
+          <#--<p class="p1">共<span>1</span>个套餐</p>
+          <p class="p2">合计&nbsp;&nbsp;&nbsp;&nbsp;￥<span>298</span></p>-->
         </div>
         <div class="div3">
           <a class="btn-order-now" href="/food/buy?id=${good.id}">提交订单</a>

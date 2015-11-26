@@ -119,7 +119,7 @@ function addCollect(gid)
             <p class="p2">适合${good.paramValueCollect[0..Strlenght-2]}人</p>
           </div>
         </div>
-        ${good.brandTitle}
+        ${good.brandTitle!''}
       </section>
 
       <!-- 菜品介绍 -->
