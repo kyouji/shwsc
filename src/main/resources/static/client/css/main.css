@@ -609,6 +609,7 @@
 }
 .common-address section {
   padding: 2%;
+  margin-bottom: 2%;
   background: #fff;
   border-radius: 4px;
 }
@@ -647,6 +648,31 @@
      -moz-box-sizing: border-box;
           box-sizing: border-box;
 } */
+.edit-address .address-formlist div {
+  margin-bottom:3%;
+  width:100%;
+  height: 30px;
+  line-height:30px;
+}
+.edit-address .address-formlist label {
+  float:left;
+  width:20%;
+  height: 30px;
+  line-height:30px;
+  font-size:1.3em;
+  text-align: right;
+}
+.edit-address .address-formlist .pople-info {
+  float:left;
+  width:78%;
+  height: 30px;
+  line-height:30px;
+  font-size:1.3em;
+  text-align: left;
+  border: 1px solid #ddd;
+}
+
+
 .edit-address textarea {
   display: block;
   float: left;

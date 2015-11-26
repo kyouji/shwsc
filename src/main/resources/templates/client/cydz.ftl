@@ -22,11 +22,14 @@
 
     <!-- 常用地址 -->
     <article class="common-address">
+    <#if shipping??><#list shipping as item>
+    <#if item.detailAddress??>
       <section class="sct1">
-      <#if shipping??><#list shipping as item>
        <p class="p1"><span>${item.receiverName!''}</span><span></span><span>${item.receiverMobile!''}</span></p>
-        <p class="p2">${item.detailAddress!''}</p></#list></#if>
+        <p class="p2">${item.detailAddress!''}</p>
       </section>
+      </#if>
+      </#list></#if>
     </article>
     <!-- 常用地址 END -->
 
