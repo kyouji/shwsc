@@ -13,7 +13,7 @@
 </head>
 <body class="bgc-f2">
 
-  <!--弹窗-->
+  <!--弹窗
   <div id="bg"></div>
   <div id="popbox">
     <p class="share-friend">分享到朋友圈帮你砍价</p>
@@ -29,13 +29,13 @@
           document.getElementById("popbox").style.display="none" ;
       }
   </script>
-  <!--弹窗 END-->
+   弹窗 END-->
 
     <!-- 头部 -->
     <header>
       <a class="back" href="/center"></a>
       <p>我的订单</p>
-      <a class="share" href="#" onclick="pupopen()"></a>
+      <!--<a class="share" href="#" onclick="pupopen()"></a>-->
     </header>
     <!-- 头部 END -->
 
@@ -81,7 +81,7 @@
                <#if item.statusId == 2>
                <#if item.isCut?string("yes","no") == "yes"><a class="current" href="#">砍价</a></#if>
               <a class="current" href="/order/cancel?orderNumber=${item.orderNumber}&state=${state!'0'}">取消</a>
-              <a class="current" href="#">付款</a>
+              <a class="current" href="/order/dopay?orderId=${item.id}">付款</a>
               <#elseif item.statusId == 3>
               <a href="#">已付款</a>
               <#elseif item.statusId == 7>

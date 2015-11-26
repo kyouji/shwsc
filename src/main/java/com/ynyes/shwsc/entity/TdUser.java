@@ -35,6 +35,8 @@ public class TdUser {
 	@JoinColumn(name="userId")
 	private List<TdShippingAddress> shippingAddressList;
 	
+	@Column
+	private String openid;
 	
 	// 用户头像
 	@Column
@@ -232,7 +234,15 @@ public class TdUser {
     
     
     
-    public String getQmbj() {
+    public String getOpenid() {
+		return openid;
+	}
+
+	public void setOpenid(String openid) {
+		this.openid = openid;
+	}
+
+	public String getQmbj() {
 		return qmbj;
 	}
 

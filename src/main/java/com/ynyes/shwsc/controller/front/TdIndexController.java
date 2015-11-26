@@ -219,7 +219,6 @@ public class TdIndexController {
 		map.addAttribute("user", curentUser);
 		return "client/message";
     	
-    	
     }
     
     
