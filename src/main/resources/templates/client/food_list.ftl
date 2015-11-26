@@ -83,7 +83,7 @@
           
           <#if people_number??>
           <#list people_number as item>
-          <a href="/food/number/${item_index}/<#if type??>${type.id!'0'}</#if>" <#if choosed_number??&& choosed_number == (item_index + 1)> class="current"</#if>>${item}人</a>
+          <a href="/food/number/${item_index}/<#if type??>${type.id?c!'0'}</#if>" <#if choosed_number??&& choosed_number == (item_index + 1)> class="current"</#if>>${item}人</a>
           </#list>
           </#if>
         </div>

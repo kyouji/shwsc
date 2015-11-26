@@ -19,8 +19,11 @@ $(document).ready(function(){
             url:"/cart/init",
             data:{id:"${good.id!''}"},
             success:function(data){
-            alert(data.message);
-            
+                alert(data.message);
+                if(data.code != 0)
+                {
+                    document.getElementById('cartGoodNumber').innerHTML++;
+                }
             }
         });
    });
@@ -250,7 +253,7 @@ function addCollect(gid)
 
     <!-- 底部 -->
     <footer class="bdt-n">
-      <div class="shopp-car" id="addcart">(<span>3</span>)</div>
+      <div class="shopp-car" id="addcart">(<span id="cartGoodNumber"><#if cart_good_number??>${cart_good_number!'00'}</#if></span>)</div>
       <a class="button-buy" href="/order/buy?gid=${good.id!''}">立即购买</a>
     </footer>
     <!-- 底部 END -->

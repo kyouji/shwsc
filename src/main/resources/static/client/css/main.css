@@ -788,7 +788,7 @@
 .shopp-car .div1 .detail {
   float: right;
   width: 66%;
-  height: 60px;
+ /* height: 60px; */
 }
 @media screen and (min-width: 640px) {
   .shopp-car .div1 .detail {width: 85%;}
@@ -808,22 +808,24 @@
   border-radius: 4px;
 }
 
+.shopp-car .div1 .detail .title {margin-bottom:8px;}
+
 .shopp-car .div1 .detail .number {
   overflow: hidden;
-  margin-top: 8px;
+ /* margin-top: 8px; */
 }
 .shopp-car .div1 .detail .number .p1 {
   float: left;
-  height: 34px;
-  line-height: 34px;
+  height: 24px;
+  line-height: 24px;
   font-size: 1em;
   color: #ff9933;
 }
 .shopp-car .div1 .detail .number .p2 {
   float: left;
   margin-left: 8px;
-  height: 34px;
-  line-height: 34px;
+  height: 24px;
+  line-height: 24px;
 }
 .shopp-car .div1 .detail .number .p2 span {float: left;}
 .shopp-car .div1 .detail .number .p2 a,
@@ -897,6 +899,59 @@
 }
 .submit-order .go-package-details a .span1 {float: left;}
 .submit-order .go-package-details a .span2 {float: right;color: #cccccc;}
+
+.dining-info-edit .taste-group {
+  overflow: hidden;
+  padding: 2% 0;
+  border-bottom: 1px solid #eaeaea;
+}
+.dining-info-edit .taste-group li {
+  display: inline-block;
+  margin-right: 10px;
+}
+.dining-info-edit .taste-group li a {
+  display: block;
+  width: 45px;
+  height: 22px;
+  font-size: 0.8em;
+  line-height: 22px;
+  border: 1px solid #b7b7b7;
+  border-radius: 20px;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
+.dining-info-edit .taste-group li a.current {
+  color: #fff;
+  background: #ff9933;
+  border: none;
+}
+.dining-info-edit .chef-recommended {
+  padding-left: 8%;
+  height: 30px;
+  line-height: 30px;
+  background: url(../images/icon_hot_chef.png) no-repeat 2% center;
+  -webkit-background-size: 12px auto;
+  background-size: 12px auto;
+}
+
+.dining-info-edit .service-way {
+  overflow: hidden;
+  padding: 2%;
+  padding-bottom: 4%;
+}
+.dining-info-edit .service-way p {
+  overflow:hidden;
+  display: inline-block;
+  padding: 0;
+  margin:0;
+  margin-right: 20px;
+}
+.dining-info-edit .service-way p input {
+  float:left;
+  width:20px;
+}
+
 
 .submit-order .sct1 .div1,
 .submit-order .sct1 .div2{
@@ -1247,7 +1302,7 @@
 .mine-order .sct1 .div1 .detail {
   float: right;
   width: 67%;
-  height: 60px;
+ /* height: 60px; */
 }
 @media screen and (min-width: 640px) {
   .mine-order .sct1 .div1 .detail {width: 80%;}
@@ -1267,22 +1322,24 @@
   border-radius: 4px;
 }
 
+.mine-order .sct1 .div1 .detail .title {margin-bottom:8px;}
+
 .mine-order .sct1 .div1 .detail .number {
   overflow: hidden;
-  margin-top: 8px;
+ /* margin-top: 8px; */
 }
 .mine-order .sct1 .div1 .detail .number .p1 {
   float: left;
-  height: 34px;
-  line-height: 34px;
+  height: 24px;
+  line-height: 24px;
   font-size: 1em;
   color: #ff9933;
 }
 .mine-order .sct1 .div1 .detail .number .p2 {
   float: left;
   margin-left: 8px;
-  height: 34px;
-  line-height: 34px;
+  height: 24px;
+  line-height: 24px;
 }
 .mine-order .sct1 .div1 .detail .number .p2 span {float: left;}
 .mine-order .sct1 .div1 .detail .number .p2 a,

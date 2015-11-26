@@ -28,6 +28,21 @@ public class TdOrder {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     
+    @Column
+    private Long quantity;
+    
+    //单价
+    @Column(scale=2)
+    private Double GoodsPrice; 
+    
+    //口味
+    @Column
+    private Long taste;
+    
+    //餐具
+    @Column
+    private Long tool;
+    
     // 订单号
     @Column(unique=true)
     private String orderNumber;
@@ -310,7 +325,43 @@ public class TdOrder {
     private Double trainService;
     
     
-    public Boolean getIsCut() {
+    public Long getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(Long quantity) {
+		this.quantity = quantity;
+	}
+
+	public Long getTaste() {
+		return taste;
+	}
+
+	public void setTaste(Long taste) {
+		this.taste = taste;
+	}
+
+	public Long getTool() {
+		return tool;
+	}
+
+	public void setTool(Long tool) {
+		this.tool = tool;
+	}
+
+	public Double getGoodsPrice() {
+		return GoodsPrice;
+	}
+
+	public void setGoodsPrice(Double goodsPrice) {
+		GoodsPrice = goodsPrice;
+	}
+
+	public void setCupon(boolean isCupon) {
+		this.isCupon = isCupon;
+	}
+
+	public Boolean getIsCut() {
 		return isCut;
 	}
 
