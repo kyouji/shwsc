@@ -23,6 +23,7 @@ import com.ynyes.shwsc.service.TdArticleCategoryService;
 import com.ynyes.shwsc.service.TdArticleService;
 import com.ynyes.shwsc.service.TdCommonService;
 import com.ynyes.shwsc.service.TdGoodsService;
+import com.ynyes.shwsc.service.TdKeywordsService;
 import com.ynyes.shwsc.service.TdNaviBarItemService;
 import com.ynyes.shwsc.service.TdShippingAddressService;
 import com.ynyes.shwsc.service.TdUserCollectService;
@@ -65,6 +66,9 @@ public class TdIndexController {
     
     @Autowired
     private TdGoodsService tdGoodsService;
+    
+    @Autowired
+    private TdKeywordsService tdKeywordsService;
     
     @RequestMapping("/launch")
     public String Launch()
@@ -122,6 +126,8 @@ public class TdIndexController {
     @RequestMapping("/ssy")
     public String ssy(HttpServletRequest req,ModelMap map)
     {
+    	map.addAttribute("keywords_list",
+    			tdKeywordsService.findByIsEnableTrueOrderBySortIdAsc());
     	return "client/ssy";
     }
     
@@ -219,7 +225,6 @@ public class TdIndexController {
 		map.addAttribute("user", curentUser);
 		return "client/message";
     	
-    	
     }
     
     
@@ -309,11 +314,10 @@ public class TdIndexController {
     	tdCommonService.setCommon(map, req);
     	
     	// 列表页轮播广告
-        TdAdType adType = tdAdTypeService.findByTitle("列表页轮播广告");
+        TdAdType adType = tdAdTypeService.findByTitle("活动页广告");
 
         if (null != adType) {
-            map.addAttribute("ad_list", tdAdService
-                   .findByTypeIdAndIsValidTrueOrderBySortIdAsc(adType.getId()));
+            map.addAttribute("ad_list", tdAdService.findByTypeIdAndIsValidTrueOrderBySortIdAsc(adType.getId()));
         }
         
     	map.addAttribute("new_goods_list",tdGoodsService.findByIsNew());

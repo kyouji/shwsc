@@ -10,6 +10,7 @@
 <link rel="stylesheet" type="text/css" href="/client/css/common.css"/>
 <link rel="stylesheet" type="text/css" href="/client/css/main.css"/>
 <title>叫个厨子-${setting.seoTitle!''}</title>
+<script type="text/javascript" src="/client/js/jquery-1.11.3.min.js"></script>
 </head>
 <body>
   <!--弹窗-->
@@ -36,10 +37,11 @@
     <!-- 头部 -->
     <header>
       <!-- 地区选择 -->
+      <#--
       <a class="btn-select city" id="btn_select" href="/citys">
       <span class="cur-select">江北区</span>
       </a>
-      <!-- 模拟select下拉框js -->
+      <!-- 模拟select下拉框js --
       <script>
         var $$ = function (id) {
           return document.getElementById(id);
@@ -55,10 +57,12 @@
           }
         } 
       </script>
+      -->
       <!-- 搜索框 -->
       <div class="search">
-          <a href="/ssy"><i></i></a>
-          <input type="text" placeholder="搜索菜品">
+          <a href="/ssy"><i></i>
+          <input name="keywords" type="text" placeholder="搜索菜品" id="key"">
+          </a>
       </div>
       <!-- 电话 -->
       <a class="phone" href="#" onclick="pupopen()"></a>
