@@ -82,7 +82,7 @@ function __doPostBack(eventTarget, eventArgument) {
                         </select>
                     </div>
                     </th>
-    <th align="left" width="10%"><div class="rule-single-select">
+    <#--<th align="left" width="10%"><div class="rule-single-select">
                         <select name="diysiteId" onchange="javascript:setTimeout(__doPostBack('changeDiysite',''), 0)">
                             <option value="0" <#if !diysiteId?? || diysiteId==0>selected="selected"</#if>>所有同盟店</option>
                             <#if tdDiySite_list??>
@@ -92,13 +92,14 @@ function __doPostBack(eventTarget, eventArgument) {
                             </#if>                             
                         </select>
                     </div>
-                    </th>
-    <th align="left" width="11%">姓名</th>
-    <th align="left" width="11%">电话</th>
-    <th align="left" width="11%">车牌</th>
-    <th align="left" width="11%">领用时间</th>
+                    </th>-->
+    <th align="left" width="15%">种类</th>                
+    <th align="left" width="15%">姓名</th>
+    <th align="left" width="15%">电话</th>
+    <#--<th align="left" width="11%">车牌</th>-->
+    <th align="left" width="15%">领用时间</th>
     <th align="left" width="17%">有效截止时间</th>
-    <th align="left" width="8%">消费密码</th>
+    <#--<th align="left" width="8%">消费密码</th>-->
     <th align="left" width="8%"><div class="rule-single-select">
                         <select name="isUsed" onchange="javascript:setTimeout(__doPostBack('',''), 0)">
                             <option value="0" <#if !isUsed?? || isUsed==0>selected="selected"</#if>>是否核销</option>                           
@@ -123,14 +124,29 @@ function __doPostBack(eventTarget, eventArgument) {
                     <input type="hidden" name="listId" id="listId" value="${item.id?c}">
                 </td>
                 <td>${item.typeTitle!""}</td>
-                <td>${item.diySiteTitle!""}</td>
+                <td>
+	                <#switch item.typeCategoryId>
+		                <#case 0>
+		                	全场通用券
+		                	<#break>	
+		                <#case 1>
+		                	分品类满减券
+		                	<#break>	
+		                <#case 2>
+		                	不分品类满减券
+		                	<#break>	
+		                <#default>
+		                	无类别	
+	                </#switch>	
+                </td>
+                <#--<td>${item.diySiteTitle!""}</td>-->
                 <td>${item.username!""}</td>
                 <td>${item.mobile!""}</td>
-                <td>${item.carCode!""}</td>
+                <#--<td>${item.carCode!""}</td>-->
                 <td><#if item.getTime??>${item.getTime?string("yyyy-MM-dd HH:mm:ss")}</#if></td>
                 <td><#if item.expireTime??>${item.expireTime?string("yyyy-MM-dd HH:mm:ss")}</#if></td>
-                <td><#if item.consumerPassword??>${item.consumerPassword!''}</#if></td>
-                <td>
+               <#--<td><#if item.consumerPassword??>${item.consumerPassword!''}</#if></td>-->
+               <td>
                     <#if item.isUsed??>
                         <#if item.isUsed>
                             已核销

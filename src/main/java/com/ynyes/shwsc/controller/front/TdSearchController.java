@@ -49,14 +49,9 @@ public class TdSearchController {
     
     // 组成：[排序字段]-[销量排序标志]-[价格排序标志]-[上架时间排序标志]-[是否有货]-[页号]_[价格低值]-[价格高值]
     @RequestMapping(value="/search", method = RequestMethod.GET)
-    public String list(String keywords, Integer page, HttpServletRequest req, ModelMap map){
+    public String list(String keywords,  HttpServletRequest req, ModelMap map){
         
         tdCommonService.setCommon(map, req);
-        
-        if (null == page || page < 0)
-        {
-            page = 0;
-        }
         
         if (null != keywords)
         {
@@ -78,30 +73,11 @@ public class TdSearchController {
                 tdKeywordsService.save(key);
             }
             
-            map.addAttribute("goods_page", tdGoodsService.searchGoods(keywords.trim(), page, ClientConstant.pageSize));
+            map.addAttribute("goods_list", tdGoodsService.searchGoods(keywords.trim()));
         }
         
-        // 商城资讯
-        List<TdArticleCategory> articleCatList = tdArticleCategoryService
-                .findByMenuId(10L);
-
-        if (null != articleCatList && articleCatList.size() > 0) {
-            Long articleCatId = articleCatList.get(0).getId();
-
-            map.addAttribute("news_page", tdArticleService
-                    .findByMenuIdAndCategoryIdAndIsEnableOrderByIdDesc(10L,
-                            articleCatId, 0, ClientConstant.pageSize));
-        }
-        
-        map.addAttribute("pageId", page);
         map.addAttribute("keywords", keywords);
         
-        // 热卖推荐
-        map.addAttribute("hot_sale_list", tdGoodsService.findByIsRecommendTypeTrueAndIsOnSaleTrueOrderByIdDesc(0, 10).getContent());   
-        
-        // 销量排行
-        map.addAttribute("most_sold_list", tdGoodsService.findByIsOnSaleTrueOrderBySoldNumberDesc(0, 10).getContent());   
-        
-        return "/client/search_result";
+        return "/client/search_list";
     }
 }

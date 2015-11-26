@@ -74,8 +74,8 @@
                       <!-- 图片尺寸 864*414 -->
                       <a href="/kjhdtc"><img src="${goods.coverImageUri!''}" alt="${goods.title!''}"></a>
                       <div class="introduction">
-                        <p class="title"><a href="/kjhdtc">活动一（入口）</span></a></p>
-                        <p class="itdt">${goods.title!''}</p>
+                        <p class="title"><a href="/kjhdtc">${goods.title!''}</span></a></p>
+                        <p class="itdt">${goods.detail!''}</p>
                       </div>
                       <div class="price">
                         <p class="p1">适合<em>${goods.paramValueCollect!''}</em>人</p>

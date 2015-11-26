@@ -185,6 +185,7 @@ $(function () {
         </span></dd>
     </dl>
     <!--lichong -->
+  <!--
   <dl>
     <dt>用户粮草</dt>
     <dd><span><#if user??>${user.totalPoints!"0"}</#if></span></dd>
@@ -195,7 +196,8 @@ $(function () {
         <input name="totalPoints1" id="totalPoints" type="text" class="input" value="<#if user?? && user.totalPoints??>${user.totalPoints?c}<#else>0</#if>">
         <input name="btnEditRemark" type="button" id="btnEditRemark" class="ibtn" value="确认修改" style="margin-top: -3px;">
     </dd>
-  </dl> 
+  </dl>
+  
   <dl>
     <dt>安装信息</dt>
     <dd>
@@ -221,6 +223,7 @@ $(function () {
         </#if>
     </dd>
   </dl>
+  -->
   <!--  <dl>
     <dt>修改备注</dt>
     <dd>       
@@ -270,6 +273,7 @@ $(function () {
       </div>
     </dd>
   </dl>
+  <#--
   <dl>
     <dt>禁止抢拍时间</dt>
     <dd>
@@ -279,7 +283,8 @@ $(function () {
       </div>
       <span>该时间之前不可进行抢拍，为空时表示不禁止该用户抢拍</span>
     </dd>
-  </dl>  
+  </dl>
+  -->  
 </div>
 <!--/基本资料-->
 
@@ -302,6 +307,15 @@ $(function () {
     <dd><input name="mobile" type="text" value="<#if user??>${user.mobile!""}</#if>" class="input normal" ignore="ignore" datatype="m" sucmsg=" " ></dd>
   </dl>
   <dl>
+    <dt>上次登录时间</dt>
+    <dd><span><#if user??>${user.lastLoginTime!""}</#if></span></dd>
+  </dl>
+  <dl>
+    <dt>上次登录IP</dt>
+    <dd><span><#if user??>${user.lastLoginIp!""}</#if></span></dd>
+  </dl>
+  <#--
+  <dl>
     <dt>累计消费额</dt>
     <dd><span><#if user??>${user.totalSpendCash!""}</#if></span></dd>
   </dl>
@@ -313,6 +327,7 @@ $(function () {
     <dt>用户等级名称</dt>
     <dd><span><#if user??>${user.userLevelTitle!"0"}</#if></span></dd>
   </dl>
+  
   <dl>
     <dt>上次登录时间</dt>
     <dd><span><#if user??>${user.lastLoginTime!""}</#if></span></dd>
@@ -337,6 +352,7 @@ $(function () {
     <dt>订单数量</dt>
     <dd><span><#if user??>${user_total_orders!"0"}</#if></span></dd>
   </dl>
+  -->
 </div>
 <!--/安全设置-->
 <#--

@@ -248,4 +248,8 @@ public interface TdGoodsRepo extends
     // libiao  查询所有设置砍价的菜品
     List<TdGoods> findByIsNewTrue();
     
+    List<TdGoods> findByTitleContainingIgnoreCaseAndIsOnSaleTrueOrSubTitleContainingIgnoreCaseAndIsOnSaleTrueOrParamValueCollectContainingIgnoreCaseAndIsOnSaleTrueOrDetailContainingIgnoreCaseAndIsOnSaleTrue(String key1,
+            String key2,
+            String key3,
+            String key4);
 }
