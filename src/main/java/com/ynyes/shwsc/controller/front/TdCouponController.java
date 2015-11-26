@@ -173,6 +173,7 @@ public class TdCouponController {
 	    getCoupon.setTypePicUri(leftCoupon.getTypePicUri());
 	    getCoupon.setTypeTitle(leftCoupon.getTypeTitle());
 	    getCoupon.setUsername(username);
+	    getCoupon.setMobile(user.getMobile());
 	    
 	    tdCouponService.save(getCoupon);
 	    
