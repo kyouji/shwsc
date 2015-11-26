@@ -24,6 +24,9 @@ public class TdShippingAddress {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
+	@Column
+	private Long userId;
+	
 	// 国家
 	@Column
 	private String country;
@@ -60,7 +63,7 @@ public class TdShippingAddress {
     @Column
     private String receiverEmail;
     
-    // 收货人电话区号
+    // 口味和禁忌
     @Column
     private String receiverTeleAreaCode;
 	
@@ -89,7 +92,17 @@ public class TdShippingAddress {
     @Column
     private String receiverCartype;
 
-    public Long getId() {
+    
+    
+    public Long getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Long userId) {
+		this.userId = userId;
+	}
+
+	public Long getId() {
         return id;
     }
 

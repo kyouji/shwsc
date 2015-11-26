@@ -23,8 +23,9 @@
     <!-- 常用地址 -->
     <article class="common-address">
       <section class="sct1">
-        <p class="p1"><span><#if user??>${user.realName!''}</#if></span><span>${user.mobile!''}</span></p>
-        <p class="p2"><#if user??>${user.shdz!''}</#if></p>
+      <#if shipping??><#list shipping as item>
+       <p class="p1"><span>${item.receiverName!''}</span><span></span><span>${item.receiverMobile!''}</span></p>
+        <p class="p2">${item.detailAddress!''}</p></#list></#if>
       </section>
     </article>
     <!-- 常用地址 END -->

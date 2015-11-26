@@ -66,11 +66,10 @@
           	  <input type="text" maxlength="11"  id="mobileNumber" name="username" datatype="m"  ajaxurl="/reg/check/mobile"/ placeholder="手机号">
           	</div>
           	<div class="security-code">
-          	  <input type="text" name="smsCode" placeholder="验证码">
-          	  <a class="btn-get-code" href="#">获取验证码</a>
+          	  <input type="text" name="smsCode" placeholder="密码">
           	</div>
           		<div class="password">
-          	  <input type="text" name="password" placeholder="密码">
+          	  <input type="text" name="password" placeholder="再次输入密码">
           	</div>
           	<input class="btn-register" type="submit" value="注 册">
           	<div class="sec1 c999">新用户注册即送20元优惠券</div>
