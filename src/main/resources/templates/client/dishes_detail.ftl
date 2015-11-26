@@ -193,7 +193,7 @@ function addCollect(gid)
       <section class="inventory">
         <div class="div1">
             <div class="fz1-2">
-            <p class="p1 ">须知</p>
+            <p class="p1 "></p>
             <p class="p2">${good.brandTitle}</p>
           </div>
           <div class="fz1-4 c000">
@@ -205,8 +205,8 @@ function addCollect(gid)
             <p class="p2">${good.detail!''}</p>
           </div>
           <div class="fz1-2">
-            <p class="p1 fs-il">配菜</p>
-            <p class="p2">${good.afterMarketService!''}</p>
+            <p class="p1 fs-il"></p>
+            <p class="p2 c-ccc">${good.afterMarketService!''}</p>
           </div>
         </div>
         <div class="div2">

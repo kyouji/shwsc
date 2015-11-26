@@ -37,10 +37,11 @@
     <!-- 头部 -->
     <header>
       <!-- 地区选择 -->
+      <#--
       <a class="btn-select city" id="btn_select" href="/citys">
       <span class="cur-select">江北区</span>
       </a>
-      <!-- 模拟select下拉框js -->
+      <!-- 模拟select下拉框js --
       <script>
         var $$ = function (id) {
           return document.getElementById(id);
@@ -56,6 +57,7 @@
           }
         } 
       </script>
+      -->
       <!-- 搜索框 -->
       <div class="search">
           <a href="/ssy"><i></i>
