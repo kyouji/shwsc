@@ -306,11 +306,10 @@ public class TdIndexController {
     	tdCommonService.setCommon(map, req);
     	
     	// 列表页轮播广告
-        TdAdType adType = tdAdTypeService.findByTitle("列表页轮播广告");
+        TdAdType adType = tdAdTypeService.findByTitle("活动页广告");
 
         if (null != adType) {
-            map.addAttribute("ad_list", tdAdService
-                   .findByTypeIdAndIsValidTrueOrderBySortIdAsc(adType.getId()));
+            map.addAttribute("ad_list", tdAdService.findByTypeIdAndIsValidTrueOrderBySortIdAsc(adType.getId()));
         }
         
     	map.addAttribute("new_goods_list",tdGoodsService.findByIsNew());
