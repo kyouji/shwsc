@@ -70,7 +70,7 @@
     </section>
 
     <section class="sec3">
-      <a href="/yhj">
+      <a href="/coupon/list">
       <div class="div1 bdbt">
         优惠劵
         <span class="c-ccc">&gt;</span>

@@ -22,6 +22,7 @@ import com.ynyes.shwsc.service.TdAdTypeService;
 import com.ynyes.shwsc.service.TdArticleCategoryService;
 import com.ynyes.shwsc.service.TdArticleService;
 import com.ynyes.shwsc.service.TdCommonService;
+import com.ynyes.shwsc.service.TdGoodsService;
 import com.ynyes.shwsc.service.TdNaviBarItemService;
 import com.ynyes.shwsc.service.TdShippingAddressService;
 import com.ynyes.shwsc.service.TdUserCollectService;
@@ -61,6 +62,9 @@ public class TdIndexController {
     
     @Autowired
     private TdShippingAddressService tdShippingAddressService;
+    
+    @Autowired
+    private TdGoodsService tdGoodsService;
     
     @RequestMapping("/launch")
     public String Launch()
@@ -233,16 +237,12 @@ public class TdIndexController {
     }
     //厨师列表
     @RequestMapping("/cslb")
-    public String cslb(Integer page ,HttpServletRequest req,ModelMap map)
+    public String cslb(HttpServletRequest req,ModelMap map)
     {
     	tdCommonService.setCommon(map, req);
     	
-    	if (null == page)
-    	{
-    		page = 0;
-    	}
-    	Page<TdArticle> chefPage = tdArticleService.findByMenuId(10L, page, ClientConstant.pageSize);
-    	map.addAttribute("chef_page", chefPage);
+    	List<TdArticle> chefList = tdArticleService.findByMenuId(10L);
+    	map.addAttribute("chef_list", chefList);
     	return "client/cslb";
     }
     
@@ -293,10 +293,31 @@ public class TdIndexController {
     	return "/client/csjs";
     }
     
+    /**
+     * @author libiao
+     * 
+     */
     //活动
     @RequestMapping("/hd")
     public String hd(HttpServletRequest req,ModelMap map)
     {
+    	String username =(String)req.getSession().getAttribute("username");
+    	if(null == username)
+    	{
+    		return "redirect:/login";
+    	}
+    	tdCommonService.setCommon(map, req);
+    	
+    	// 列表页轮播广告
+        TdAdType adType = tdAdTypeService.findByTitle("列表页轮播广告");
+
+        if (null != adType) {
+            map.addAttribute("ad_list", tdAdService
+                   .findByTypeIdAndIsValidTrueOrderBySortIdAsc(adType.getId()));
+        }
+        
+    	map.addAttribute("new_goods_list",tdGoodsService.findByIsNew());
+    	
     	return "/client/hd";
     }
     //砍价活动套餐

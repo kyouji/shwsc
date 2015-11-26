@@ -1197,6 +1197,11 @@ public class TdGoodsService {
 
         return repository.findByProductIdAndIsOnSaleTrue(productId);
     }
+    
+    public List<TdGoods> findByIsNew()
+    {
+    	return repository.findByIsNewTrue();
+    }
 
     /**
      * 删除

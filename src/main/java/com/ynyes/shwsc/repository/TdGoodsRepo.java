@@ -245,5 +245,7 @@ public interface TdGoodsRepo extends
     
     Page<TdGoods> findByReturnPriceNotAndTitleContainingAndIsOnSaleTrue(double returnPrice, String keywords, Pageable page);
     
+    // libiao  查询所有设置砍价的菜品
+    List<TdGoods> findByIsNewTrue();
     
 }

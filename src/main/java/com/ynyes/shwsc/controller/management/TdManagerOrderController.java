@@ -1625,7 +1625,7 @@ public class TdManagerOrderController {
     public Double countprice(List<TdOrder> list){
     	Double price = new Double(0.00);       
     	for (int i = 0; i < list.size(); i++) {
-    		price += list.get(i).getTotalPrice();
+//    		price += list.get(i).getTotalPrice();
     	}
     	return price;
     }
@@ -1636,7 +1636,7 @@ public class TdManagerOrderController {
     			
 			}
     		else{
-    			sales += list.get(i).getTotalPrice();
+//    			sales += list.get(i).getTotalPrice();
     		}
     	}
     	return sales;

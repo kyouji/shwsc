@@ -126,7 +126,8 @@ public class TdCartController {
     }
 
     @RequestMapping(value = "/cart")
-    public String cart(HttpServletRequest req, ModelMap map) {
+    public String cart(HttpServletRequest req, ModelMap map) 
+    {
 
         String username = (String) req.getSession().getAttribute("username");
 
@@ -165,15 +166,14 @@ public class TdCartController {
         List<TdCartGoods> resList = tdCartGoodsService.findByUsername(username);
         
         List<TdGoods> tdGoodsList = new ArrayList<>();
-        for (TdCartGoods tdCartGoods : resList) 
+        for (int i = 0; i < resList.size() ;i++)
         { 
+        	TdCartGoods tdCartGoods = resList.get(i);
 			TdGoods tdGoods = tdGoodService.findOne(tdCartGoods.getGoodsId());
-			if (null != tdGoods) {
-				List<TdGoodsGift> tdGoodGiftUserList = tdGoods.getGiftList();
-				if (tdGoodGiftUserList != null && tdGoodGiftUserList.size()>=1)
-				{
-					tdGoodsList.add(tdGoods);
-				}
+			if (null != tdGoods) 
+			{
+				map.addAttribute("cartId_" + i,	tdCartGoods.getId());
+				tdGoodsList.add(tdGoods);
 			}			
 		}
         
@@ -333,8 +333,11 @@ public class TdCartController {
         {
             username = req.getSession().getId();
         }
-
-        if (null != id) {TdCartGoods cartGoods = tdCartGoodsService.findOne(id);
+        
+        
+        if (null != id)
+        {
+        	TdCartGoods cartGoods = tdCartGoodsService.findOne(id);
 
             if (cartGoods.getUsername().equalsIgnoreCase(username)) 
             {

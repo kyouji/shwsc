@@ -57,6 +57,10 @@ public class TdCoupon {
     @Column
     private Long diySiteId;
     
+	// 满减券金额
+	@Column(scale=2)
+    private Double canUsePrice;
+	
     // 所属同盟店
     @Column
     private String diySiteTitle;
@@ -304,7 +308,15 @@ public class TdCoupon {
         this.typeCategoryId = typeCategoryId;
     }
 
-    public String getTag() {
+    public Double getCanUsePrice() {
+		return canUsePrice;
+	}
+
+	public void setCanUsePrice(Double canUsePrice) {
+		this.canUsePrice = canUsePrice;
+	}
+
+	public String getTag() {
         return tag;
     }
 

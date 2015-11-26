@@ -11,10 +11,33 @@
 <link rel="stylesheet" type="text/css" href="/client/css/main.css"/>
 <title>叫个厨子</title>
 <script type="text/javascript">
-  function submitForm()
-  {
+  var price = ${good.salePrice};
+  var number=1;
+function submitForm()
+{
     document.getElementById('form').submit();
-  }
+}
+function addNumber()
+{
+    number++;
+    document.getElementById('twa-1').innerHTML++;
+    document.getElementById('twa-2').innerHTML++;
+    document.getElementById('total').innerHTML=price*number;
+    document.getElementById('totalPrice').innerHTML=price*number;
+    document.getElementById('buynumber').value = number;
+}
+function desNumber()
+{
+    if(number == 1)
+    return;
+    
+    number--;
+    document.getElementById('twa-1').innerHTML--;
+    document.getElementById('twa-2').innerHTML--;
+    document.getElementById('total').innerHTML=price*number;
+    document.getElementById('totalPrice').innerHTML=price*number;
+    document.getElementById('buynumber').value = number;
+}
 </script>
 </head>
 <body class="bgc-f2">
@@ -41,22 +64,21 @@
               <span class="span1">${good.title!''}</span>
               <#assign Strlenght = good.paramValueCollect?length>
               <span class="span2">${good.paramValueCollect[0..Strlenght-2]}人</span>
-              <span class="span3">微辣型</span>
             </div>
             <div class="number">
               <p class="p1">￥<span><#if good.salePrice??>${good.salePrice?string("0.00")}<#else>0</#if></span></p>
               <p class="p2">
                 <span>数量：</span>
-                <a class="tw_a1" onclick="document.getElementById('twa-1').innerHTML--">-</a>
+                <a class="tw_a1" onclick="desNumber();">-</a>
                 <em id="twa-1">1</em>
-                <a class="tw_a2" onclick="document.getElementById('twa-1').innerHTML++">+</a>
+                <a class="tw_a2" onclick="addNumber();">+</a>
               </p>
             </div>
           </div>
         </div>
         <div class="div2">
-          <p class="p1">共<span>1</span>个套餐</p>
-          <p class="p2">合计&nbsp;&nbsp;&nbsp;&nbsp;￥<span>298</span></p>
+          <p class="p1">共<span id="twa-2">1</span>个套餐</p>
+          <p class="p2">合计&nbsp;&nbsp;&nbsp;&nbsp;￥<span id="total">298</span></p>
         </div>
       </section>
     </article>
@@ -65,11 +87,22 @@
     <!-- 用餐信息 -->
     <form id="form" action="/order/buysubmit" method="POST">
     <input type="hidden" name="goodId" value="${good.id}">
-    <input type="hidden" name="quantity" value="1">
+    <input type="hidden" name="range" value="${good.paramValueCollect[0..Strlenght-2]}">
+    <input type="hidden" name="quantity" id="buynumber" value="1">
     <article class="dining-info-edit">
     <section>
       <div class="div1">
         <p class="fz1-3">用餐信息</p>
+      </div>
+      <ul class="taste-group">
+        <li><input type="radio" value="0" name="taste">微辣</li>
+        <li><input type="radio" value="1" name="taste">中辣</li>
+        <li><input type="radio" value="2" name="taste">特辣</li>
+      </ul>
+      <p class="chef-recommended">推荐厨师：李浩</p>
+      <div class="service-way">
+        <p class="p1"><input type="radio" value="0" name="tool">&nbsp;&nbsp;平台配送餐具</p>
+        <p class="p2 c999"><input type="radio" value="1" name="tool">&nbsp;&nbsp;厨师自带厨具</p>
       </div>
       <div class="div1">
           <label>姓名</label>
@@ -98,7 +131,7 @@
 
     <!-- 底部 -->
     <footer>
-      <div class="total-1">总金额：<span class="cf93">￥<span>128.00</span></span></div>
+      <div class="total-1">总金额：<span class="cf93">￥<span id="totalPrice">128.00</span></span></div>
       <a class="clearing" href="javascript:submitForm();">提交订单</a>
     </footer>
     <!-- 底部 END -->

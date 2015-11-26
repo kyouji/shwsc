@@ -1,31 +1,25 @@
 package com.ynyes.shwsc.controller.front;
 
-import java.awt.MenuBar;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.poi.hssf.model.Model;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.google.zxing.qrcode.decoder.Mode;
-import com.ynyes.shwsc.entity.TdAdType;
+import com.ynyes.shwsc.entity.TdCartGoods;
 import com.ynyes.shwsc.entity.TdGoods;
 import com.ynyes.shwsc.entity.TdParameter;
 import com.ynyes.shwsc.service.TdAdService;
 import com.ynyes.shwsc.service.TdAdTypeService;
+import com.ynyes.shwsc.service.TdCartGoodsService;
 import com.ynyes.shwsc.service.TdGoodsService;
-import com.ynyes.shwsc.service.TdParameterCategoryService;
 import com.ynyes.shwsc.service.TdParameterService;
 import com.ynyes.shwsc.service.TdProductCategoryService;
-
-import scala.collection.generic.BitOperations.Int;
 
 @Controller
 @RequestMapping("/food")
@@ -33,6 +27,9 @@ public class TdFoodController
 {
 	@Autowired
 	private TdAdTypeService tdAdTypeService;
+	
+	@Autowired
+	private TdCartGoodsService tdCartGoodsService;
 	
 	@Autowired
 	private TdAdService tdAdService;
@@ -109,8 +106,47 @@ public class TdFoodController
 	 * @return
 	 */
 	@RequestMapping("/showdishes")
-	public String dishesDetail(ModelMap map,Long goodId)
+	public String dishesDetail(ModelMap map,Long goodId,HttpServletRequest req)
 	{
+		String username = (String) req.getSession().getAttribute("username");
+
+		if (username == null)
+		{
+			username =req.getSession().getId();
+		}
+		List<TdCartGoods> cartSessionGoodsList = tdCartGoodsService.findByUsername(req.getSession().getId());
+		if (null == username)
+		{
+			username = req.getSession().getId();
+		}
+		else
+		{
+			// 合并商品
+			// 已登录用户的购物车
+			List<TdCartGoods> cartUserGoodsList = tdCartGoodsService
+					.findByUsername(username);
+			for (TdCartGoods cg : cartSessionGoodsList)
+			{
+				// 将未登录用户的购物车加入已登录用户购物车中
+				cg.setUsername(username);
+				cartUserGoodsList.add(cg);
+			}
+
+			cartUserGoodsList = tdCartGoodsService.save(cartUserGoodsList);
+
+			for (TdCartGoods cg1 : cartUserGoodsList) 
+			{
+				// 删除重复的商品
+				List<TdCartGoods> findList = tdCartGoodsService.findByGoodsIdAndUsername(cg1.getGoodsId(), username);
+
+				if (null != findList && findList.size() > 1) 
+				{
+					tdCartGoodsService.delete(findList.subList(1,findList.size()));
+				}
+			}
+		}
+		List<TdCartGoods> resList = tdCartGoodsService.findByUsername(username);
+		map.addAttribute("cart_good_number",resList.size());
 		map.addAttribute("good", tdGoodsService.findOne(goodId));
 		return "/client/dishes_detail";
 	}

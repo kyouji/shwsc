@@ -52,7 +52,7 @@
             $(".thumb_ImgUrl_show").html("<ul><li><div class='img-box1'><img src='" + txtPic + "' bigsrc='" + txtPic + "' /></div></li></ul>");
             $(".thumb_ImgUrl_show").show();
         }
-
+        
         $("#txtImgUrl").blur(function () {
             var txtPic = $("#txtImgUrl").val();
             if (txtPic == "" || txtPic == null) {
@@ -63,8 +63,29 @@
                 $(".thumb_ImgUrl_show").show();
             }
         });
-
         
+        <#--  zhangji-->
+        //（缩略图）
+        var txtPic2 = $("#txtImgUrl2").val();
+        if (txtPic2 == "" || txtPic2 == null) {
+            $(".thumb_ImgUrl_show2").hide();
+        }
+        else {
+            $(".thumb_ImgUrl_show2").html("<ul><li><div class='img-box2'><img src='" + txtPic2 + "' bigsrc='" + txtPic2 + "' /></div></li></ul>");
+            $(".thumb_ImgUrl_show2").show();
+        }
+        
+        $("#txtImgUrl2").blur(function () {
+            var txtPic2 = $("#txtImgUrl2").val();
+            if (txtPic2 == "" || txtPic2 == null) {
+                $(".thumb_ImgUrl_show2").hide();
+            }
+            else {
+                $(".thumb_ImgUrl_show2").html("<ul><li><div class='img-box2'><img src='" + txtPic2 + "' bigsrc='" + txtPic2 + "' /></div></li></ul>");
+                $(".thumb_ImgUrl_show2").show();
+            }
+        });
+        <#-- zhangji end-->
         //设置封面图片的样式
         $(".photo-list ul li .img-box img").each(function () {
             if ($(this).attr("src") == $("#hidFocusPhoto").val()) {
@@ -221,12 +242,12 @@
         <dl>
             <dt>厨师头像</dt>
             <dd>
-                <input name="headImg" type="text" id="txtImgUrl" value="<#if article??>${article.headImg!""}</#if>" class="input normal upload-path">
+                <input name="headImg" type="text" id="txtImgUrl2" value="<#if article??>${article.headImg!""}</#if>" class="input normal upload-path">
                 <div class="upload-box upload-img"></div>
-                <div class="photo-list thumb_ImgUrl_show" style="display: none;">
+                <div class="photo-list thumb_ImgUrl_show2" style="display: none;">
                     <ul>
                         <li>
-                            <div class="img-box1"></div>
+                            <div class="img-box2"></div>
                         </li>
                     </ul>
                 </div>
