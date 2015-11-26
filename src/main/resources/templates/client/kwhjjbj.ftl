@@ -21,14 +21,14 @@
 
   <!-- 口味和忌口 -->
   <article class="taste-diet">
+  <form id="form1" action="/user/kwhjj" method="post">
     <div class="write">
-    <form id="form1" action="/user/kwhjj" method="post">
       <div class="text-box">
-        <input type="text" placeholder="口味和忌口" name="kwhjj">
+        <input type="text" placeholder="口味和忌口" name="receiverTeleAreaCode">
       </div>
      <input class="btn-add-taste" type="submit" value="添加" >
-     </form>
     </div>
+    </form>
     <ul>
     
       

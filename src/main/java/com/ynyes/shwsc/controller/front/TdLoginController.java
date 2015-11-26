@@ -87,7 +87,7 @@ public class TdLoginController {
 			res.put("msg", "用户名及密码不能为空");
 			return res;
 		}
-		TdUser user = tdUserService.findByUsernameAndIsEnabled(username);
+		TdUser user = tdUserService.findByUsername(username);
 
 		if (null != user) 
 		{
