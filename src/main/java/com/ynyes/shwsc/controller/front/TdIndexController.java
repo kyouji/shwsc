@@ -15,8 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.ynyes.shwsc.entity.TdAdType;
 import com.ynyes.shwsc.entity.TdArticle;
-import com.ynyes.shwsc.entity.TdArticleCategory;
-import com.ynyes.shwsc.entity.TdNavigationMenu;
+import com.ynyes.shwsc.entity.TdShippingAddress;
 import com.ynyes.shwsc.entity.TdUser;
 import com.ynyes.shwsc.service.TdAdService;
 import com.ynyes.shwsc.service.TdAdTypeService;
@@ -25,6 +24,7 @@ import com.ynyes.shwsc.service.TdArticleService;
 import com.ynyes.shwsc.service.TdCommonService;
 import com.ynyes.shwsc.service.TdGoodsService;
 import com.ynyes.shwsc.service.TdNaviBarItemService;
+import com.ynyes.shwsc.service.TdShippingAddressService;
 import com.ynyes.shwsc.service.TdUserCollectService;
 import com.ynyes.shwsc.service.TdUserService;
 import com.ynyes.shwsc.util.ClientConstant;
@@ -59,6 +59,9 @@ public class TdIndexController {
     
     @Autowired
     private TdUserCollectService tdUserCollectService;
+    
+    @Autowired
+    private TdShippingAddressService tdShippingAddressService;
     
     @Autowired
     private TdGoodsService tdGoodsService;
@@ -306,11 +309,10 @@ public class TdIndexController {
     	tdCommonService.setCommon(map, req);
     	
     	// 列表页轮播广告
-        TdAdType adType = tdAdTypeService.findByTitle("列表页轮播广告");
+        TdAdType adType = tdAdTypeService.findByTitle("活动页广告");
 
         if (null != adType) {
-            map.addAttribute("ad_list", tdAdService
-                   .findByTypeIdAndIsValidTrueOrderBySortIdAsc(adType.getId()));
+            map.addAttribute("ad_list", tdAdService.findByTypeIdAndIsValidTrueOrderBySortIdAsc(adType.getId()));
         }
         
     	map.addAttribute("new_goods_list",tdGoodsService.findByIsNew());
@@ -331,11 +333,9 @@ public class TdIndexController {
     	if(username==null){
     		return "redirect:/login";
     	}
-    	
     	TdUser curentUser = tdUserService.findByUsername(username);
-	
-		
-		map.addAttribute("user", curentUser);
+    	List<TdShippingAddress> kwhjj=curentUser.getShippingAddressList();
+		map.addAttribute("kwhjj", kwhjj);
     	return "client/kwhjj";
     }
     //口味和禁忌编辑
@@ -343,11 +343,9 @@ public class TdIndexController {
     public String kwhjjbj(HttpServletRequest req,ModelMap map)
     {	
     	String username=(String)req.getSession().getAttribute("username");
-    	if(username==null){
+    	if(username==null){	
     		return "redirect:/login";
     	}
-    	TdUser curentUser = tdUserService.findByUsername(username);
-		map.addAttribute("user", curentUser);
     	return "client/kwhjjbj";
     }
     //套餐继续砍价
@@ -398,7 +396,8 @@ public class TdIndexController {
     		return "redirect:/login";
     	}
     	TdUser curentUser = tdUserService.findByUsername(username);
-		map.addAttribute("user", curentUser);
+    	List<TdShippingAddress> shipping=curentUser.getShippingAddressList();
+		map.addAttribute("shipping", shipping);
     	return "client/cydz";
     	
     }

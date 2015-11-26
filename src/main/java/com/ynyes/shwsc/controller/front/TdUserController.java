@@ -21,6 +21,7 @@ import com.ynyes.shwsc.entity.TdCouponType;
 import com.ynyes.shwsc.entity.TdGoods;
 import com.ynyes.shwsc.entity.TdOrder;
 import com.ynyes.shwsc.entity.TdOrderGoods;
+import com.ynyes.shwsc.entity.TdShippingAddress;
 import com.ynyes.shwsc.entity.TdUser;
 import com.ynyes.shwsc.entity.TdUserCollect;
 import com.ynyes.shwsc.entity.TdUserComment;
@@ -238,24 +239,28 @@ public class TdUserController {
         map.addAttribute("state", state);
         return "/client/wddd";
     }
-    
+    //添加新地址
     @RequestMapping(value = "/user/tjxdz",method = RequestMethod.POST)
-    public String saveUserTjxdz(HttpServletRequest request,TdUser user,ModelMap map)
+    public String saveUserTjxdz(HttpServletRequest request,TdShippingAddress shippingAddress,TdUser user,ModelMap map)
     {
     	String userStr = (String)request.getSession().getAttribute("username");
-    	
     	TdUser curentUser = tdUserService.findByUsername(userStr);
-    	if (user != null)
+    	Long Id=curentUser.getId();
+    	//TdShippingAddress shipping=tdShippingAddressService.findOne(Id);
+    	
+    	if (null != user )
     	{
-			curentUser.setShdz(user.getShdz());
-			
+    		shippingAddress.setUserId(Id);;
+    		shippingAddress.setDetailAddress(shippingAddress.getDetailAddress());
+    		shippingAddress.setReceiverName(shippingAddress.getReceiverName());
+    		shippingAddress.setReceiverMobile(shippingAddress.getReceiverMobile());
 		}
-    	tdUserService.save(curentUser);
+    	tdShippingAddressService.save(shippingAddress);
     	
     	Map<String, Object> res = new HashMap<String,Object>();
     	res.put("baocun", "成功");
-    	map.addAttribute("user",curentUser);
-    	return "/client/cydz";
+    	map.addAttribute("shippingAddress",shippingAddress);
+    	return "redirect:/ cydz";
     }
     
     @RequestMapping(value = "/user/collect/add", method = RequestMethod.POST)
@@ -375,23 +380,25 @@ public class TdUserController {
     }
     
     @RequestMapping(value = "/user/kwhjj",method = RequestMethod.POST)
-    public String saveUserKwhjj(HttpServletRequest request,TdUser user,ModelMap map){
+    public String saveUserKwhjj(HttpServletRequest request,TdShippingAddress shippingAddress,TdUser user,ModelMap map){
 	
-	String userStr = (String)request.getSession().getAttribute("username");
-	
-	TdUser curentUser = tdUserService.findByUsername(userStr);
-	if (null != user)
-	{
-		curentUser.setKwhjj(user.getKwhjj());
-		
-		
-	}
-	tdUserService.save(curentUser);
-	
-	Map<String, Object> res = new HashMap<String,Object>();
-	res.put("baocun", "鎴愬姛");
-	map.addAttribute("user",curentUser);
-	return "/client/kwhjj";
+    	String userStr = (String)request.getSession().getAttribute("username");
+    	TdUser curentUser = tdUserService.findByUsername(userStr);
+    	Long Id=curentUser.getId();
+    	//TdShippingAddress shipping=tdShippingAddressService.findOne(Id);
+    	
+    	if (null != user )
+    	{
+    		shippingAddress.setUserId(Id);
+    		shippingAddress.setReceiverTeleAreaCode(shippingAddress.getReceiverTeleAreaCode());
+		}
+    	tdShippingAddressService.save(shippingAddress);
+    	
+    	Map<String, Object> res = new HashMap<String,Object>();
+    	res.put("baocun", "成功");
+    	map.addAttribute("shippingAddress",shippingAddress);
+    	
+	return "redirect:/kwhjj";
 
     }
 

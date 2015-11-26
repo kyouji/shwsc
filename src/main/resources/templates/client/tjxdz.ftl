@@ -23,7 +23,9 @@
     <!-- 编辑地址 -->
     <article class="edit-address">
     <form id="form1" action="/user/tjxdz" method="post">
-      <textarea  name="shdz"></textarea>
+    	收货人：<input type="text"  name="receiverName"><br>
+    	电话：<input type="text"  name="receiverMobile">
+      <textarea  name="detailAddress"></textarea>
       <input class="btn-submit" type="submit" value="提交">
       </form>
     </article>

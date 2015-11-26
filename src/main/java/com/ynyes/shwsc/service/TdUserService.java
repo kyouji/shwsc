@@ -285,6 +285,16 @@ public class TdUserService {
         return repository.findByUsernameIgnoreCase(username);
     }
     
+    public TdUser findById(Long id)
+    {
+        if (null == id)
+        {
+            return null;
+        }
+        
+        return repository.findById(id);
+    }
+    
     public TdUser findByUsernameAndIdNot(String username, Long id)
     {
         if (null == username || null == id)

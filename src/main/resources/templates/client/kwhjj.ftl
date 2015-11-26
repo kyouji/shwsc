@@ -27,7 +27,13 @@
     </div>
     <ul>
     	
-      <li class="common">${user.kwhjj!''}<span>X</span></li>
+    	<#if kwhjj??>
+    	<#list kwhjj as item>
+    	<#if item.receiverTeleAreaCode??>
+      <li class="delete">${item.receiverTeleAreaCode!''}<span>X</span></li>
+      </#if>
+      </#list>
+      </#if>
       
     </ul>
     <script type="text/javascript" src="/client/js/jquery-1.11.3.min.js"></script>
