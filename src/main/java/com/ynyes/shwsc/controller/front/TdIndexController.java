@@ -23,6 +23,7 @@ import com.ynyes.shwsc.service.TdAdTypeService;
 import com.ynyes.shwsc.service.TdArticleCategoryService;
 import com.ynyes.shwsc.service.TdArticleService;
 import com.ynyes.shwsc.service.TdCommonService;
+import com.ynyes.shwsc.service.TdGoodsService;
 import com.ynyes.shwsc.service.TdNaviBarItemService;
 import com.ynyes.shwsc.service.TdUserCollectService;
 import com.ynyes.shwsc.service.TdUserService;
@@ -59,6 +60,9 @@ public class TdIndexController {
     @Autowired
     private TdUserCollectService tdUserCollectService;
     
+    @Autowired
+    private TdGoodsService tdGoodsService;
+    
     @RequestMapping("/launch")
     public String Launch()
     {
@@ -73,7 +77,7 @@ public class TdIndexController {
         
         // 首页大图轮播广告
         TdAdType adType = tdAdTypeService.findByTitle("首页顶部轮播");
-        if (adType != null)
+        if (null!=adType)
         {
 			map.addAttribute("top_ad_list", tdAdService.findByTypeIdAndIsValidTrueOrderBySortIdAsc(adType.getId()));
 		}
@@ -283,31 +287,67 @@ public class TdIndexController {
         // 最近添加
         map.addAttribute("latest_info_page", tdArticleService.findByMenuIdAndIsEnableOrderByIdDesc(mid, 0, ClientConstant.pageSize));
         
-    	return "client/csjs";
+    	return "/client/csjs";
     }
     
+    /**
+     * @author libiao
+     * 
+     */
     //活动
     @RequestMapping("/hd")
     public String hd(HttpServletRequest req,ModelMap map)
     {
-    	return "client/hd";
+    	String username =(String)req.getSession().getAttribute("username");
+    	if(null == username)
+    	{
+    		return "redirect:/login";
+    	}
+    	tdCommonService.setCommon(map, req);
+    	
+    	// 列表页轮播广告
+        TdAdType adType = tdAdTypeService.findByTitle("列表页轮播广告");
+
+        if (null != adType) {
+            map.addAttribute("ad_list", tdAdService
+                   .findByTypeIdAndIsValidTrueOrderBySortIdAsc(adType.getId()));
+        }
+        
+    	map.addAttribute("new_goods_list",tdGoodsService.findByIsNew());
+    	
+    	return "/client/hd";
     }
     //砍价活动套餐
     @RequestMapping("/kjhdtc")
     public String kjhdtc(HttpServletRequest req,ModelMap map)
     {
-    	return "client/kjhdtc";
+    	return "/client/kjhdtc";
     }
     //口味和禁忌
     @RequestMapping("/kwhjj")
     public String kwhjj(HttpServletRequest req,ModelMap map)
     {
+    	String username=(String)req.getSession().getAttribute("username");
+    	if(username==null){
+    		return "redirect:/login";
+    	}
+    	
+    	TdUser curentUser = tdUserService.findByUsername(username);
+	
+		
+		map.addAttribute("user", curentUser);
     	return "client/kwhjj";
     }
     //口味和禁忌编辑
     @RequestMapping("/kwhjjbj")
     public String kwhjjbj(HttpServletRequest req,ModelMap map)
-    {
+    {	
+    	String username=(String)req.getSession().getAttribute("username");
+    	if(username==null){
+    		return "redirect:/login";
+    	}
+    	TdUser curentUser = tdUserService.findByUsername(username);
+		map.addAttribute("user", curentUser);
     	return "client/kwhjjbj";
     }
     //套餐继续砍价
@@ -342,7 +382,10 @@ public class TdIndexController {
     public String xxzx(HttpServletRequest req,ModelMap map)
     {
     	
-    	
+    	String username=(String)req.getSession().getAttribute("username");
+    	if(username==null){
+    		return "redirect:/login";
+    	}
     	return "client/xxzx";
     	
     }

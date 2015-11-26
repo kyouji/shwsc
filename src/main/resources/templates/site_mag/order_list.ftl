@@ -73,13 +73,11 @@ function __doPostBack(eventTarget, eventArgument) {
                     <li>
                         <a onclick="return ExePostBack('btnConfirm','确认后将进入待发货状态，是否继续？');" class="save" href="javascript:__doPostBack('btnConfirm','')"><i></i><span>确认订单</span></a>
                     </li>
-                    <#elseif statusId?? && 7==statusId>
-                    <#if tdManagerRole?? && tdManagerRole.isSys>
+                    </#if>
                     <li>
                         <a onclick="return ExePostBack('btnDelete','删除后订单将无法恢复，是否继续？');" class="del" href="javascript:__doPostBack('btnDelete','')"><i></i><span>删除订单</span></a>
                     </li>
-                    </#if>
-                    </#if>
+                    <#--
                     <li>
                         <a class="all"><span>订单总额：￥${price!0.00}</span></a>
                     </li>
@@ -105,8 +103,9 @@ function __doPostBack(eventTarget, eventArgument) {
                     	<a class="all" href="javascript:__doPostBack('export','')"><span>导出本页</span></a>
                     
                     </li>
+                    -->
                 </ul>
-                
+                    <#--
                     <div class="rule-single-select">
                         <select name="timeId" onchange="javascript:setTimeout(__doPostBack('btnTime',''), 0)">
                             <option value="0" <#if !time_id?? || time_id==0>selected="selected"</#if>>所有订单</option>
@@ -118,6 +117,7 @@ function __doPostBack(eventTarget, eventArgument) {
                             <option value="12" <#if time_id==12>selected="selected"</#if>>最近一年</option> 
                         </select>
                     </div>
+                    -->
             </div>
             <div class="r-list">
                 <input name="keywords" type="text" class="keyword" value="<#if keywords??>${keywords!''}</#if>">
@@ -141,11 +141,13 @@ function __doPostBack(eventTarget, eventArgument) {
             会员账号
         </th>
         <th align="left" width="10%">
-            支付方式
+            菜品
         </th>
+        <#--
         <th align="left" width="10%">
             预约门店
         </th>
+        -->
         <th width="8%">
             订单状态
         </th>
@@ -172,8 +174,16 @@ function __doPostBack(eventTarget, eventArgument) {
                 <td>
                     <a href="/Verwalter/order/edit?id=${order.id?c}&statusId=${statusId!'0'}">${order.orderNumber!""}</a></td>
                 <td>${order.username!""}</td>
-                <td>${order.payTypeTitle!""}</td>
+                <td>
+                <#if order.orderGoodsList??>
+                <#list order.orderGoodsList as og>
+                    ${og.goodsTitle!''}
+                </#list>
+                </#if>
+                </td>
+                <#--
                 <td>${order.shopTitle!""}</td>
+                -->
                 <td align="center">
                     <#if order.statusId??>
                         <#if 1==order.statusId>
@@ -193,7 +203,7 @@ function __doPostBack(eventTarget, eventArgument) {
                         </#if>
                     </#if>
                 </td>
-                <td align="center" width="10%">￥<font color="#C30000">${order.totalPrice?string("#.00")}</font></td>
+                <td align="center" width="10%">￥<font color="#C30000">${order.totalGoodsPrice?string("#.00")}</font></td>
                 <td>${order.orderTime?string("yyyy-MM-dd HH:mm:ss")}</td>
                 <td align="center">
                     <a href="/Verwalter/order/edit?id=${order.id?c}&statusId=${statusId!"0"}">详细</a>

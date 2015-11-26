@@ -19,8 +19,11 @@ $(document).ready(function(){
             url:"/cart/init",
             data:{id:"${good.id!''}"},
             success:function(data){
-            alert(data.message);
-            
+                alert(data.message);
+                if(data.code != 0)
+                {
+                    document.getElementById('cartGoodNumber').innerHTML++;
+                }
             }
         });
    });
@@ -116,18 +119,7 @@ function addCollect(gid)
             <p class="p2">适合${good.paramValueCollect[0..Strlenght-2]}人</p>
           </div>
         </div>
-        <div class="div2">
-          <p class="p1">定前须知</p>
-          <p class="p2">周一至周五提前<strong>24小时</strong>预订<br>周六、周日提前<strong>48小时</strong>预订<br>我们将在您用餐<strong>3小时</strong>左右收走餐具</p>
-        </div>
-        <div class="div3">
-          <p class="p1">定前须知</p>
-          <ul>
-            <li class="li1 ">精选食材</li>
-            <li class="li2 c-ccc">厨师上门服务</li>
-            <li class="li3 c-ccc">餐具上门回收</li>
-          </ul>
-        </div>
+        ${good.brandTitle}
       </section>
 
       <!-- 菜品介绍 -->
@@ -261,7 +253,7 @@ function addCollect(gid)
 
     <!-- 底部 -->
     <footer class="bdt-n">
-      <div class="shopp-car" id="addcart">(<span>3</span>)</div>
+      <div class="shopp-car" id="addcart">(<span id="cartGoodNumber"><#if cart_good_number??>${cart_good_number!'00'}</#if></span>)</div>
       <a class="button-buy" href="/order/buy?gid=${good.id!''}">立即购买</a>
     </footer>
     <!-- 底部 END -->

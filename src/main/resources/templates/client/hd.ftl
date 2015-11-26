@@ -9,12 +9,13 @@
 <!--css-->
 <link rel="stylesheet" type="text/css" href="/client/css/common.css"/>
 <link rel="stylesheet" type="text/css" href="/client/css/main.css"/>
+<script type="text/javascript" src="/client/js/jquery-1.11.3.min.js"></script>
 <title>叫个厨子</title>
 </head>
 <body class="bgc-f2">
     <!-- 头部 -->
     <header>
-      <a class="back" href="/index"></a>
+      <a class="back" href="javascript:history.go(-1);"></a>
       <p>活动</p>
     </header>
     <!-- 头部 END -->
@@ -23,8 +24,10 @@
     <article class="mine-collect">
       <div class="box-collect">
         <ul class="col-ul">
-          <li class="active"><a href="#">砍价</a></li>
+          <li class="active"><a href="javascript:;">砍价</a></li>
+          <#--
           <li><a href="#">众筹</a></li>
+          -->
         </ul>
         <ol class="col-ol">
           <!-- 砍价 -->
@@ -34,9 +37,11 @@
               <div class="addWrap">
                 <div class="swipe" id="mySwipe">
                   <div class="swipe-wrap">
-                    <div><a href="#"><img class="img-responsive" src="/client/images/1.jpg"/></a></div>
-                    <div><a href="#"><img class="img-responsive" src="/client/images/2.jpg"/></a></div>
-                    <div><a href="#"><img class="img-responsive" src="/client/images/3.jpg"/></a></div>
+                  <#if ad_list?? && ad_list?size gt 0>
+                  <#list ad_list as ad>
+                        <div><a href="${ad.linkUri!''}"><img class="img-responsive" src="${ad.fileUri!''}"/></a></div>
+                  </#list>
+                  </#if>
                   </div>
                 </div>
                 <ul id="position">
@@ -63,30 +68,22 @@
               </script>
             </div>
             <!-- bannner END -->
-            <div class="package">
-              <!-- 图片尺寸 864*414 -->
-              <a href="/kjhdtc"><img src="/client/images/package_details_photo_1.jpg" alt="江湖逍遥宴"></a>
-              <div class="introduction">
-                <p class="title"><a href="/kjhdtc">活动一（入口）</span></a></p>
-                <p class="itdt">江湖逍遥宴，滋味刚好。老少皆宜，营养丰富。</p>
-              </div>
-              <div class="price">
-                <p class="p1">适合<em>2</em>-<em>4</em>人</p>
-                <p class="p2">￥<span>298.00</span></p>
-              </div>
-            </div>
-            <div class="package">
-              <!-- 图片尺寸 864*414 -->
-              <a href="#"><img src="/client/images/package_details_photo_1.jpg" alt="江湖逍遥宴"></a>
-              <div class="introduction">
-                <p class="title"><a href="#">活动2（入口）<span>（适合2-4人）</span></a></p>
-                <p class="itdt">江湖逍遥宴，滋味刚好。老少皆宜，营养丰富。</p>
-              </div>
-              <div class="price">
-                <p class="p1">适合<em>2</em>-<em>4</em>人</p>
-                <p class="p2">￥<span>298.00</span></p>
-              </div>
-            </div>
+            <#if new_goods_list?? && new_goods_list?size gt 0>
+            <#list new_goods_list as goods>
+                   <div class="package">
+                      <!-- 图片尺寸 864*414 -->
+                      <a href="/kjhdtc"><img src="${goods.coverImageUri!''}" alt="${goods.title!''}"></a>
+                      <div class="introduction">
+                        <p class="title"><a href="/kjhdtc">活动一（入口）</span></a></p>
+                        <p class="itdt">${goods.title!''}</p>
+                      </div>
+                      <div class="price">
+                        <p class="p1">适合<em>${goods.paramValueCollect!''}</em>人</p>
+                        <p class="p2">￥<span>${goods.salePrice?string('0.00')}</span></p>
+                      </div>
+                    </div>
+            </#list>
+            </#if>
           </li>
           <!-- 众筹 -->
           <li></li>

@@ -235,6 +235,9 @@ public class TdOrderController extends AbstractPaytypeController {
     						String userRemarkInfo, //用户留言
     						Long goodId,	//商品id
 				            Long quantity, // 购买数量
+				            Long taste, //口味
+				            Long tool, //用餐工具
+				            String peopleRange,//使用人数范围
 				            HttpServletRequest req,
 				            ModelMap map)
     {
@@ -269,6 +272,14 @@ public class TdOrderController extends AbstractPaytypeController {
         if (quantity == null)
         {
 			quantity = 0L;
+		}
+        if (taste == null)
+        {
+			taste = 0L;
+		}
+        if (tool == null)
+        {
+        	tool = 0L;
 		}
         
         Double totalGoodsPrice = 0.0;
@@ -319,12 +330,17 @@ public class TdOrderController extends AbstractPaytypeController {
         // 基本信息
         tdOrder.setUsername(tdUser.getUsername());
         tdOrder.setOrderTime(current);
-
         tdOrder.setShippingAddress(shippingAddress);//地址
         tdOrder.setShippingName(shippingName);//姓名
         tdOrder.setShippingPhone(shippingPhone);//电话
         tdOrder.setImgUrl(goods.getCoverImageUri());//图片
         tdOrder.setGoodTitle(goods.getTitle());//商品title
+        tdOrder.setIsCut(goods.getIsNew());//是否砍价
+        tdOrder.setIsCupon(goods.getIsRecommendType());//是否使用使用卷
+        tdOrder.setQuantity(quantity);
+        tdOrder.setTaste(taste);
+        tdOrder.setTool(tool);
+        tdOrder.setPeopleRange(peopleRange);
         
         // 订单号
         tdOrder.setOrderNumber("SX" + curStr + leftPad(Integer.toString(random.nextInt(999)), 3, "0"));
@@ -342,6 +358,7 @@ public class TdOrderController extends AbstractPaytypeController {
         tdOrder.setOrderGoodsList(orderGoodsList);
         
         tdOrder.setTotalGoodsPrice(totalGoodsPrice);
+        tdOrder.setGoodsPrice(goods.getSalePrice());
         tdOrder.setTotalPrice(totalGoodsPrice);
 
         // 保存订单商品及订单

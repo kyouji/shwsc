@@ -142,6 +142,15 @@ public class TdUserCollectService {
     	return repository.findByUsernameAndTypeOrderByIdDesc(username, type);
     }
     
+    public TdUserCollect findByUsernameAndCookId(String username,Long cookId)
+    {
+    	if(null ==username)
+    	{
+    		return null ;
+    	}
+    	return repository.findByUsernameAndCookId(username, cookId);
+    }
+    
     /**
      * 保存
      * 

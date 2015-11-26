@@ -55,29 +55,31 @@
           <section class="sct1">
               <div class="div1">
                 <!-- 图片原始尺寸 864*414-->
-                <img width="90" height="60" src="/client/images/package_details_photo_1.jpg" alt="江湖逍遥宴">
+                <img width="90" height="60" src="${item.imgUrl!'/client/images/package_details_photo_1.jpg'}" alt="江湖逍遥宴">
                 <div class="detail">
                   <div class="title">
-                    <span class="span1">${item.goodTitle!''}</span>
-                    <span class="span2">4-8人</span>
-                    <span class="span3">微辣型</span>
+                    <span class="span1">${item.goodTitle!''}</span> 
+                  </div>
+                  <div class="title">
+                    <span class="span2">${item.peopleRange!'1~3'}人</span>
+                    <span class="span3"><#if item.taste==0>微辣型<#elseif item.taste==1>中辣型<#elseif item.taste==2>特辣型<#else>随意</#if></span>
                   </div>
                   <div class="number">
-                    <p class="p1">￥<span>${item.totalPrice}</span></p>
+                    <p class="p1">￥<span>${item.goodsPrice?string('0.00')}</span></p>
                     <p class="p2">
-                      <span>数量：1</span>
+                      <span>数量：${item.quantity!'1'}</span>
                     </p>
                   </div>
                 </div>
               </div>
               <div class="div2">
-                <p class="p1">共<span>1</span>个套餐</p>
-                <p class="p2">合计&nbsp;&nbsp;&nbsp;&nbsp;￥<span>298</span></p>
+                <p class="p1">共<span>${item.quantity!'1'}</span>个套餐</p>
+                <p class="p2">合计&nbsp;&nbsp;&nbsp;&nbsp;￥<span>${item.totalPrice}</span></p>
               </div>
             </section>
             <div class="order-btn-group">
                <#if item.statusId == 2>
-              <a class="current" href="#">砍价</a>
+               <#if item.isCut?string("yes","no") == "yes"><a class="current" href="#">砍价</a></#if>
               <a class="current" href="/order/cancel?orderNumber=${item.orderNumber}&state=${state!'0'}">取消</a>
               <a class="current" href="#">付款</a>
               <#elseif item.statusId == 3>

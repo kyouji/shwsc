@@ -20,8 +20,8 @@
     <!-- 头部 END -->
 
     <article class="shopp-car">
-    <#if cart_goods_list??>
-    <#list cart_goods_list as good>
+    <#if goods_list??>
+    <#list goods_list as good>
     <section>
         <div class="div1">
           <!--<input type="checkbox">-->
@@ -30,7 +30,9 @@
           <div class="detail">
             <div class="title">
               <span class="span1">${good.title!''}</span>
-              <#assign Strlenght = good.paramValueCollect?length>
+              <#assign Strlenght = good.paramValueCollect?length>          
+            </div>
+            <div class="title">
               <span class="span2">${good.paramValueCollect[0..Strlenght-2]}人</span>
               <span class="span3">微辣型</span>
             </div>
@@ -44,8 +46,8 @@
           <p class="p2">合计&nbsp;&nbsp;&nbsp;&nbsp;￥<span>298</span></p>
         </div>
         <div class="div3">
-          <a class="btn-order-now">提交订单</a>
-          <a class="btn-deletelist">删除</a>
+          <a class="btn-order-now" href="/food/buy?id=${good.id}">提交订单</a>
+          <a class="btn-deletelist" href="/cart/del?id=<#if ("cartId_" + good_index)?eval??>${("cartId_" + good_index)?eval?c}</#if>">删除</a>
         </div>
         <!-- <a class="btn-delete-orderlist" href="#">删除</a> -->
       </section>

@@ -66,6 +66,10 @@ public class TdUserCollect {
     @Column
     private Long number;
     
+    // 厨师Id
+    @Column
+    private Long cookId;
+    
 
     public Long getId() {
         return id;
@@ -153,6 +157,14 @@ public class TdUserCollect {
 
 	public void setNumber(Long number) {
 		this.number = number;
+	}
+
+	public Long getCookId() {
+		return cookId;
+	}
+
+	public void setCookId(Long cookId) {
+		this.cookId = cookId;
 	}
     
 }

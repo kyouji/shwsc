@@ -220,6 +220,11 @@ public class TdUserController {
         tdCommonService.setCommon(map, req);
 
         TdUser tdUser = tdUserService.findByUsernameAndIsEnabled(username);
+        
+        if (null == tdUser)
+        {
+            return "redirect:/login";
+        }
 
         map.addAttribute("user", tdUser);
         if (state == 0)
@@ -254,8 +259,8 @@ public class TdUserController {
     }
     
     @RequestMapping(value = "/user/collect/add", method = RequestMethod.POST)
-	  @ResponseBody
-	  public Map<String, Object> collectAdd(HttpServletRequest req, Long goodsId,
+	@ResponseBody
+	public Map<String, Object> collectAdd(HttpServletRequest req, Long goodsId,
 	          ModelMap map) {
 	
 	      Map<String, Object> res = new HashMap<String, Object>();
@@ -314,9 +319,82 @@ public class TdUserController {
 	      res.put("message", "您已收藏了该商品");
 	
 	      return res;
-	  }
+	}
     
+    @RequestMapping(value="/user/cook/collect",method=RequestMethod.POST)
+    @ResponseBody
+    public Map<String,Object> cookCollect(Long artId,HttpServletRequest req)
+    {
+    	Map<String,Object> res = new HashMap<>();
+    	res.put("code", 1);
+    	
+    	if(null == artId)
+    	{
+    		res.put("msg", "参数错误");
+    		return res;
+    	}
+    	
+    	String username=(String)req.getSession().getAttribute("username");
+    	if(null == username)
+    	{
+    		res.put("msg", "请先登录！");
+    		return res;
+    	}
+    	
+    	res.put("cede", 0);
+    	
+    	// 没有收藏
+    	if(null == tdUserCollectService.findByUsernameAndCookId(username, artId))
+    	{
+    		TdArticle article = tdArticleService.findOne(artId);
+    		if(null == article)
+    		{
+    			res.put("msg","厨师不存在");
+    			return res;
+    		}
+    		
+    		TdUserCollect collect = new TdUserCollect();
+    		
+    		collect.setUsername(username);
+    		collect.setGoodsTitle(article.getTitle());
+    		collect.setGoodsCoverImageUri(article.getHeadImg());
+    		collect.setLevel(article.getSeoKeywords());
+    		collect.setNumber(article.getViewCount());
+    		collect.setCookId(artId);
+    		collect.setType(2L);
+    		collect.setCollectTime(new Date());
+    		
+    		tdUserCollectService.save(collect);
+    		
+    		res.put("msg", "收藏成功！");
+    		return res;
+    	}
+    	
+    	res.put("msg", "您也收藏此厨师！");
+    	return res;
+    }
     
+    @RequestMapping(value = "/user/kwhjj",method = RequestMethod.POST)
+    public String saveUserKwhjj(HttpServletRequest request,TdUser user,ModelMap map){
+	
+	String userStr = (String)request.getSession().getAttribute("username");
+	
+	TdUser curentUser = tdUserService.findByUsername(userStr);
+	if (null != user)
+	{
+		curentUser.setKwhjj(user.getKwhjj());
+		
+		
+	}
+	tdUserService.save(curentUser);
+	
+	Map<String, Object> res = new HashMap<String,Object>();
+	res.put("baocun", "鎴愬姛");
+	map.addAttribute("user",curentUser);
+	return "/client/kwhjj";
+
+    }
+
    /* @RequestMapping(value = "/user/reg",method = RequestMethod.POST)
     public String saveUserReg(HttpServletRequest request,TdUser user,ModelMap map)
     {

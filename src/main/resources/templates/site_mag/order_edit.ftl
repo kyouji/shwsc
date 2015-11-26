@@ -358,13 +358,15 @@
             <div class="content-tab-ul-wrap">
                 <ul>
                     <li>
-                        <a href="javascript:;" onclick="tabs(this);" class="selected">订单详细信息</a></li>
+                        <a href="javascript:;" onclick="tabs(this);" class="selected">订单详细信息</a>
+                        </li>
                 </ul>
             </div>
         </div>
     </div>
     <div class="tab-content">
         <dl>
+        <#--
             <dd style="margin-left: 50px; text-align: center;">
                 <div class="order-flow" style="width: 850px">
                     <#if order.statusId == 1>
@@ -632,6 +634,7 @@
                     </#if>
                 </div>
             </dd>
+            -->
         </dl>
         <dl>
             <dt>订单号</dt>
@@ -709,6 +712,22 @@
                             </div>
                         </td>
                     </tr>
+                    <tr>
+                        <th width="20%">
+                            姓名
+                        </th>
+                        <td>
+                            <div class="position">
+                                <span id="spanAcceptName">${order.shippingName!""}</span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            电话
+                        </th>
+                        <td><span id="spanMobile">${order.shippingPhone!""}</span></td>
+                    </tr>
                     <#--
                     <tr>
                         <th>
@@ -723,7 +742,7 @@
                             </div>
                         </td>
                     </tr>
-                    -->
+                    
                     <tr>
                         <th>
                             支付手续费
@@ -747,6 +766,7 @@
                             </div>
                         </td>
                     </tr>
+                   
                     <tr>
                         <th>
                             订单总金额
@@ -790,17 +810,18 @@
                         </th>
                         <td><#if order.trainService??>${order.trainService?string('0.00')}<#else>0</#if></td>
                     </tr>
-                    
+                     -->
                 </tbody>
                 </table>
             </dd>
         </dl>
-        
+        <#--
         <dl>
             <dt>安装信息</dt>
             <dd>
                 <table border="0" cellspacing="0" cellpadding="0" class="border-table" width="98%">
                 <tbody>
+                
                     <tr>
                         <th width="20%">
                             同盟店
@@ -810,26 +831,7 @@
                             <span id="spanAddress">${order.shopTitle!""}</span>
                         </td>
                     </tr>
-                    <tr>
-                        <th width="20%">
-                            姓名
-                        </th>
-                        <td>
-                            <div class="position">
-                                <span id="spanAcceptName">${order.shippingName!""}</span>
-                                <#if order.statusId lt 4>
-                                <input name="btnEditAcceptInfo" type="button" id="btnEditAcceptInfo" class="ibtn" value="修改">
-                                </#if>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            电话
-                        </th>
-                        <td><span id="spanMobile">${order.shippingPhone!""}</span></td>
-                    </tr>
-                   
+                    
                     <tr>
                         <th>
                             车型
@@ -862,12 +864,11 @@
                             <span><#if order.smscode??>${order.smscode!''}</#if></span>
                         </td>
                     </tr>
-                    
                 </tbody>
                 </table>
             </dd>
         </dl>
-        
+        -->
                     <#--
         <dl>
             <dt>收货信息</dt>
@@ -929,6 +930,7 @@
     </div>
     <!--/内容-->
     <!--工具栏-->
+    <#--
     <div class="page-footer">
         <div class="btn-list">
             <#if order.statusId==1>
@@ -952,6 +954,7 @@
         <div class="clear">
         </div>
     </div>
+    -->
     <!--/工具栏-->
     </form>
 

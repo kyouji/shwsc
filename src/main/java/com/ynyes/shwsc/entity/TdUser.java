@@ -35,6 +35,10 @@ public class TdUser {
 	@JoinColumn(name="userId")
 	private List<TdShippingAddress> shippingAddressList;
 	
+	//口味和禁忌
+	@Column
+	private String kwhjj;
+	
 	// 用户头像
 	@Column
 	private String headImageUri;
@@ -286,8 +290,16 @@ public class TdUser {
     public void setHeadImageUri(String headImageUri) {
         this.headImageUri = headImageUri;
     }
+    
+    public String getKwhjj() {
+		return kwhjj;
+	}
 
-    public String getUsername() {
+	public void setKwhjj(String kwhjj) {
+		this.kwhjj = kwhjj;
+	}
+
+	public String getUsername() {
         return username;
     }
 
