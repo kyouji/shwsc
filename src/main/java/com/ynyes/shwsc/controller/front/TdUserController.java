@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ynyes.shwsc.entity.TdArticle;
+import com.ynyes.shwsc.entity.TdCoupon;
+import com.ynyes.shwsc.entity.TdCouponType;
 import com.ynyes.shwsc.entity.TdGoods;
 import com.ynyes.shwsc.entity.TdOrder;
 import com.ynyes.shwsc.entity.TdOrderGoods;
@@ -25,6 +27,7 @@ import com.ynyes.shwsc.entity.TdUserComment;
 import com.ynyes.shwsc.service.TdArticleService;
 import com.ynyes.shwsc.service.TdCommonService;
 import com.ynyes.shwsc.service.TdCouponService;
+import com.ynyes.shwsc.service.TdCouponTypeService;
 import com.ynyes.shwsc.service.TdDemandService;
 import com.ynyes.shwsc.service.TdGoodsService;
 import com.ynyes.shwsc.service.TdOrderGoodsService;
@@ -79,6 +82,10 @@ public class TdUserController {
 
     @Autowired
     private TdGoodsService tdGoodsService;
+    
+    //zhangji 优惠券
+    @Autowired
+    TdCouponTypeService tdCouponTypeService;
     /**
      * 投诉service
      * 

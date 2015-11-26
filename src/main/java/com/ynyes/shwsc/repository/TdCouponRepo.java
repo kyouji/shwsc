@@ -34,6 +34,8 @@ public interface TdCouponRepo extends
     
     List<TdCoupon> findByTypeIdAndIsDistributtedFalse(Long typeId);
     
+    List<TdCoupon> findByIsDistributtedFalseOrderBySortIdAsc();
+    
     TdCoupon findTopByTypeIdAndDiySiteIdAndIsDistributtedFalse(Long typeId, Long diySiteId);
     
     List<TdCoupon> findByTypeIdAndIsDistributtedTrueOrderByIdDesc(Long typeId);

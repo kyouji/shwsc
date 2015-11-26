@@ -167,6 +167,12 @@ public class TdCouponService {
         return repository.findTypeIdDistinctByIsDistributtedFalse();
     }
     
+    //列表查找，可领取优惠券 zhangji
+    public List<TdCoupon> findByIsDistributtedFalseOrderBySortIdAsc()
+    {
+        return repository.findByIsDistributtedFalseOrderBySortIdAsc();
+    }
+    
     public List<TdCoupon> findByTypeIdAndIsDistributtedFalse(Long typeId)
     {
         return repository.findByTypeIdAndIsDistributtedFalse(typeId);

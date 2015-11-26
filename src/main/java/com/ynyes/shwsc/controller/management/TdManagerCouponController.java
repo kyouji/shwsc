@@ -1,24 +1,11 @@
 package com.ynyes.shwsc.controller.management;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.io.FileUtils;
-import org.apache.poi.hssf.usermodel.HSSFCell;
-import org.apache.poi.hssf.usermodel.HSSFCellStyle;
-import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -35,15 +22,14 @@ import com.ynyes.shwsc.entity.TdCouponType;
 import com.ynyes.shwsc.entity.TdDiySite;
 import com.ynyes.shwsc.entity.TdManager;
 import com.ynyes.shwsc.entity.TdManagerRole;
+import com.ynyes.shwsc.entity.TdProductCategory;
 import com.ynyes.shwsc.service.TdCouponService;
 import com.ynyes.shwsc.service.TdCouponTypeService;
 import com.ynyes.shwsc.service.TdDiySiteService;
-import com.ynyes.shwsc.service.TdGoodsService;
 import com.ynyes.shwsc.service.TdManagerLogService;
 import com.ynyes.shwsc.service.TdManagerRoleService;
 import com.ynyes.shwsc.service.TdManagerService;
 import com.ynyes.shwsc.service.TdProductCategoryService;
-import com.ynyes.shwsc.service.TdUserService;
 import com.ynyes.shwsc.util.SiteMagConstant;
 
 /**
@@ -70,12 +56,6 @@ public class TdManagerCouponController {
     
     @Autowired
     private TdProductCategoryService tdProductCategoryService;
-    
-    @Autowired
-    private TdUserService tdUserService;
-    
-    @Autowired
-    private TdGoodsService tdGoodsService;
     
     @Autowired
     TdManagerRoleService tdManagerRoleService;
@@ -206,8 +186,17 @@ public class TdManagerCouponController {
         } else {
             tdManagerLogService.addLog("edit", "用户修改优惠券类型", req);
         }
-
+        
         tdCouponTypeService.save(tdCouponType);       
+        
+        //同步优惠券数据
+        List<TdCoupon> couponList = tdCouponService.findByTypeIdAndIsDistributtedFalse(tdCouponType.getId());
+        for (TdCoupon item : couponList)
+        {
+        	item.setCanUsePrice(tdCouponType.getCanUsePrice());
+        	item.setTypeTitle(tdCouponType.getTitle());
+        	tdCouponService.save(item);
+        }
         return "redirect:/Verwalter/coupon/type/list";
     }
     
@@ -301,7 +290,7 @@ public class TdManagerCouponController {
         
         map.addAttribute("__VIEWSTATE", __VIEWSTATE);
         
-        map.addAttribute("diy_site_list", tdDiySiteService.findByIsEnableTrue());
+        map.addAttribute("product_category_list", tdProductCategoryService.findAll());
         
         List<TdCouponType> couponTypeList = null;
         
@@ -312,13 +301,12 @@ public class TdManagerCouponController {
         if (null != id)
         {
             map.addAttribute("coupon", tdCouponService.findOne(id));
-            return "/site_mag/coupon_edit";
+            return "/site_mag/coupon_edit_hasId";
         }
         return "/site_mag/coupon_edit";
     }
     
-    @SuppressWarnings("deprecation")
-	@RequestMapping(value="/distributed/list")
+    @RequestMapping(value="/distributed/list")
     public String distributedList(Integer page,
                           Integer size,
                           String __EVENTTARGET,
@@ -332,9 +320,6 @@ public class TdManagerCouponController {
                           String keywords,
                           Long isUsed,
                           Long typeId,
-                          String exportUrl,
-                          String exportAllUrl,
-                          HttpServletResponse resp,
                           HttpServletRequest req){
         
         String username = (String) req.getSession().getAttribute("manager");
@@ -361,16 +346,6 @@ public class TdManagerCouponController {
             {
                 btnSave(listId, listSortId);
                 tdManagerLogService.addLog("edit", "修改优惠券", req);
-            }
-            else if (__EVENTTARGET.equalsIgnoreCase("export"))
-            {
-            	exportUrl = SiteMagConstant.backupPath;
-                tdManagerLogService.addLog("export", "导出优惠券领取记录", req);
-            }
-            else if (__EVENTTARGET.equalsIgnoreCase("exportAll"))
-            {
-            	exportAllUrl = SiteMagConstant.backupPath;
-                tdManagerLogService.addLog("exportAll", "导出全部优惠券领取记录", req);
             }
             else if (__EVENTTARGET.equalsIgnoreCase("changeDiysite")) {
 		   
@@ -404,56 +379,6 @@ public class TdManagerCouponController {
         	typeId =0L;
         }
         
-        
-        /**
-  		 * @author lc
-  		 * @注释：根据不同条件导出excel文件
-  		 */
-          // 第一步，创建一个webbook，对应一个Excel文件  
-          HSSFWorkbook wb = new HSSFWorkbook();  
-          // 第二步，在webbook中添加一个sheet,对应Excel文件中的sheet  
-          HSSFSheet sheet = wb.createSheet("order");  
-          // 第三步，在sheet中添加表头第0行,注意老版本poi对Excel的行数列数有限制short  
-          HSSFRow row = sheet.createRow((int) 0);  
-          // 第四步，创建单元格，并设置值表头 设置表头居中  
-          HSSFCellStyle style = wb.createCellStyle();  
-          style.setAlignment(HSSFCellStyle.ALIGN_CENTER); // 创建一个居中格式
-          
-          HSSFCell cell = row.createCell((short) 0);  
-          cell.setCellValue("优惠券类型");  
-          cell.setCellStyle(style);  
-          cell = row.createCell((short) 1);  
-          cell.setCellValue("所属同盟店");  
-          cell.setCellStyle(style);  
-          cell = row.createCell((short) 2);  
-          cell.setCellValue("姓名");  
-          cell.setCellStyle(style);  
-          cell = row.createCell((short) 3);  
-          cell.setCellValue("电话");  
-          cell.setCellStyle(style);
-          cell = row.createCell((short) 4);  
-          cell.setCellValue("车牌");  
-          cell.setCellStyle(style);
-          cell = row.createCell((short) 5);  
-          cell.setCellValue("领用时间");  
-          cell.setCellStyle(style);
-          cell = row.createCell((short) 6);  
-          cell.setCellValue("有效截止时间");  
-          cell.setCellStyle(style);
-          cell = row.createCell((short) 7);  
-          cell.setCellValue("消费密码");  
-          cell.setCellStyle(style);
-          cell = row.createCell((short) 8);  
-          cell.setCellValue("是否核销");  
-          cell.setCellStyle(style);
-          
-        if (null != exportAllUrl) {//导出全部
-			List<TdCoupon> tdCouponslist = tdCouponService.findByIsDistributtedTrueOrderByIdDesc();
-			if (ImportAllData(tdCouponslist, row, cell, sheet)) {
-				download(wb, username, resp);
-			}
-		}
-        
         Page<TdCoupon> couponPage = null;
         
         if (null == keywords) {//无搜索
@@ -462,20 +387,10 @@ public class TdManagerCouponController {
 					if(typeId.equals(0L)){//类型
 						couponPage = tdCouponService.findByIsDistributtedTrueOrderByIdDesc(page, size);			        
 						map.addAttribute("coupon_page", couponPage);
-						if (null != exportUrl) {                          	
-                          	if (ImportData(couponPage, row, cell, sheet)) {
-                          		download(wb, username, resp);
-    						}                         	                           
-    					}
 					}
 					else{
 						couponPage = tdCouponService.findByTypeIdAndIsDistributtedTrueOrderByIdDesc(typeId,page,size);
 						map.addAttribute("coupon_page", couponPage);
-						if (null != exportUrl) {                          	
-                          	if (ImportData(couponPage, row, cell, sheet)) {
-                          		download(wb, username, resp);
-    						}                         	                           
-    					}
 					}
 				}
 				else{
@@ -483,40 +398,20 @@ public class TdManagerCouponController {
 						if(typeId.equals(0L)){//类型
 							couponPage = tdCouponService.findByIsDistributtedTrueAndIsUsedTrueOrderByIdDesc(page, size);
 							map.addAttribute("coupon_page", couponPage);
-							if (null != exportUrl) {                          	
-	                          	if (ImportData(couponPage, row, cell, sheet)) {
-	                          		download(wb, username, resp);
-	    						}                         	                           
-	    					}
 						}
 						else{
 							couponPage = tdCouponService.findByTypeIdAndIsDistributtedTrueAndIsUsedTrueOrderByIdDesc(typeId,page, size);
 							map.addAttribute("coupon_page", couponPage);
-							if (null != exportUrl) {                          	
-	                          	if (ImportData(couponPage, row, cell, sheet)) {
-	                          		download(wb, username, resp);
-	    						}                         	                           
-	    					}
 						}
 					}
 					if (isUsed.equals(2L)) {
 						if(typeId.equals(0L)){//类型
 							couponPage = tdCouponService.findByIsDistributtedTrueAndIsUsedFalseOrderByIdDesc(page, size);
 							map.addAttribute("coupon_page", couponPage);
-							if (null != exportUrl) {                          	
-	                          	if (ImportData(couponPage, row, cell, sheet)) {
-	                          		download(wb, username, resp);
-	    						}                         	                           
-	    					}
 						}
 						else{
 							couponPage = tdCouponService.findByTypeIdAndIsDistributtedTrueAndIsUsedFalseOrderByIdDesc(typeId,page, size);
 							map.addAttribute("coupon_page", couponPage);
-							if (null != exportUrl) {                          	
-	                          	if (ImportData(couponPage, row, cell, sheet)) {
-	                          		download(wb, username, resp);
-	    						}                         	                           
-	    					}
 						}
 					}
 				}
@@ -526,19 +421,9 @@ public class TdManagerCouponController {
 					if(typeId.equals(0L)){//类型
 						couponPage = tdCouponService.findByIsDistributtedTrueAndDiySiteIdOrderByIdDesc(diysiteId, page, size);			        
 						map.addAttribute("coupon_page", couponPage);
-						if (null != exportUrl) {                          	
-                          	if (ImportData(couponPage, row, cell, sheet)) {
-                          		download(wb, username, resp);
-    						}                         	                           
-    					}
 					}else{
 						couponPage = tdCouponService.findBytypeIdAndIsDistributtedTrueAndDiySiteIdOrderByIdDesc(typeId,diysiteId, page, size);			        
 						map.addAttribute("coupon_page", couponPage);
-						if (null != exportUrl) {                          	
-                          	if (ImportData(couponPage, row, cell, sheet)) {
-                          		download(wb, username, resp);
-    						}                         	                           
-    					}
 					}
 				}
 				else{
@@ -546,38 +431,18 @@ public class TdManagerCouponController {
 						if(typeId.equals(0L)){//类型
 							couponPage = tdCouponService.findByIsDistributtedTrueAndDiySiteIdAndIsUsedTrueOrderByIdDesc(diysiteId, page, size);
 							map.addAttribute("coupon_page", couponPage);
-							if (null != exportUrl) {                          	
-	                          	if (ImportData(couponPage, row, cell, sheet)) {
-	                          		download(wb, username, resp);
-	    						}                         	                           
-	    					}
 						}else{
 							couponPage = tdCouponService.findBytypeIdAndIsDistributtedTrueAndDiySiteIdAndIsUsedTrueOrderByIdDesc(typeId,diysiteId, page, size);
 							map.addAttribute("coupon_page", couponPage);
-							if (null != exportUrl) {                          	
-	                          	if (ImportData(couponPage, row, cell, sheet)) {
-	                          		download(wb, username, resp);
-	    						}                         	                           
-	    					}
 						}
 					}
 					if (isUsed.equals(2L)) {
 						if(typeId.equals(0L)){//类型
 							couponPage = tdCouponService.findByIsDistributtedTrueAndDiySiteIdAndIsUsedFalseOrderByIdDesc(diysiteId, page, size);
 							map.addAttribute("coupon_page", couponPage);
-							if (null != exportUrl) {                          	
-	                          	if (ImportData(couponPage, row, cell, sheet)) {
-	                          		download(wb, username, resp);
-	    						}                         	                           
-	    					}
 						}else{
 							couponPage = tdCouponService.findBytypeIdAndIsDistributtedTrueAndDiySiteIdAndIsUsedFalseOrderByIdDesc(typeId,diysiteId, page, size);
 							map.addAttribute("coupon_page", couponPage);
-							if (null != exportUrl) {                          	
-	                          	if (ImportData(couponPage, row, cell, sheet)) {
-	                          		download(wb, username, resp);
-	    						}                         	                           
-	    					}
 						}
 					}
 				}
@@ -589,19 +454,9 @@ public class TdManagerCouponController {
 					if(typeId.equals(0L)){//类型
 						couponPage = tdCouponService.findByIsDistributtedTrueAndContainingKeywords(keywords, page, size);			        
 						map.addAttribute("coupon_page", couponPage);
-						if (null != exportUrl) {                          	
-                          	if (ImportData(couponPage, row, cell, sheet)) {
-                          		download(wb, username, resp);
-    						}                         	                           
-    					}
 					}else{
 						couponPage = tdCouponService.findBytypeIdAndIsDistributtedTrueAndContainingKeywords(typeId,keywords, page, size);			        
 						map.addAttribute("coupon_page", couponPage);
-						if (null != exportUrl) {                          	
-                          	if (ImportData(couponPage, row, cell, sheet)) {
-                          		download(wb, username, resp);
-    						}                         	                           
-    					}
 					}
 				}
 				else{
@@ -609,38 +464,18 @@ public class TdManagerCouponController {
 						if(typeId.equals(0L)){//类型
 							couponPage = tdCouponService.findByIsDistributtedTrueAndIsUsedTrueAndContainingKeywords(keywords, page, size);
 							map.addAttribute("coupon_page", couponPage);
-							if (null != exportUrl) {                          	
-	                          	if (ImportData(couponPage, row, cell, sheet)) {
-	                          		download(wb, username, resp);
-	    						}                         	                           
-	    					}
 						}else{
 							couponPage = tdCouponService.findBytypeIdAndIsDistributtedTrueAndIsUsedTrueAndContainingKeywords(typeId,keywords, page, size);
 							map.addAttribute("coupon_page", couponPage);
-							if (null != exportUrl) {                          	
-	                          	if (ImportData(couponPage, row, cell, sheet)) {
-	                          		download(wb, username, resp);
-	    						}                         	                           
-	    					}
 						}
 					}
 					if (isUsed.equals(2L)) {
 						if(typeId.equals(0L)){//类型
 							couponPage = tdCouponService.findByIsDistributtedTrueAndIsUsedFalseAndContainingKeywords(keywords, page, size);
 							map.addAttribute("coupon_page", couponPage);
-							if (null != exportUrl) {                          	
-	                          	if (ImportData(couponPage, row, cell, sheet)) {
-	                          		download(wb, username, resp);
-	    						}                         	                           
-	    					}
 						}else{
 							couponPage = tdCouponService.findBytypeIdAndIsDistributtedTrueAndIsUsedFalseAndContainingKeywords(typeId,keywords, page, size);
 							map.addAttribute("coupon_page", couponPage);
-							if (null != exportUrl) {                          	
-	                          	if (ImportData(couponPage, row, cell, sheet)) {
-	                          		download(wb, username, resp);
-	    						}                         	                           
-	    					}
 						}
 					}
 				}
@@ -650,19 +485,9 @@ public class TdManagerCouponController {
 					if(typeId.equals(0L)){//类型
 						couponPage = tdCouponService.findByIsDistributtedTrueAndDiySiteIdAndContainingKeywordsOrderBySortIdAsc(diysiteId,keywords, page, size);			        
 						map.addAttribute("coupon_page", couponPage);
-						if (null != exportUrl) {                          	
-                          	if (ImportData(couponPage, row, cell, sheet)) {
-                          		download(wb, username, resp);
-    						}                         	                           
-    					}
 					}else{
 						couponPage = tdCouponService.findBytypeIdAndIsDistributtedTrueAndDiySiteIdAndContainingKeywordsOrderBySortIdAsc(typeId,diysiteId,keywords, page, size);			        
 				        map.addAttribute("coupon_page", couponPage);
-				        if (null != exportUrl) {                          	
-                          	if (ImportData(couponPage, row, cell, sheet)) {
-                          		download(wb, username, resp);
-    						}                         	                           
-    					}
 					}
 				}
 				else{
@@ -670,38 +495,18 @@ public class TdManagerCouponController {
 						if(typeId.equals(0L)){//类型
 							couponPage = tdCouponService.findByIsDistributtedTrueAndAndIsUsedTrueAndDiySiteIdAndContainingKeywordsOrderBySortIdAsc(diysiteId,keywords, page, size);
 							map.addAttribute("coupon_page", couponPage);
-							if (null != exportUrl) {                          	
-	                          	if (ImportData(couponPage, row, cell, sheet)) {
-	                          		download(wb, username, resp);
-	    						}                         	                           
-	    					}
 						}else{
 							couponPage = tdCouponService.findBytypeIdAndIsDistributtedTrueAndAndIsUsedTrueAndDiySiteIdAndContainingKeywordsOrderBySortIdAsc(typeId,diysiteId,keywords, page, size);
 							map.addAttribute("coupon_page", couponPage);
-							if (null != exportUrl) {                          	
-	                          	if (ImportData(couponPage, row, cell, sheet)) {
-	                          		download(wb, username, resp);
-	    						}                         	                           
-	    					}
 						}
 					}
 					if (isUsed.equals(2L)) {
 						if(typeId.equals(0L)){
 							couponPage = tdCouponService.findByIsDistributtedTrueAndAndIsUsedFalseAndDiySiteIdAndContainingKeywordsOrderBySortIdAsc(diysiteId,keywords, page, size);
 							map.addAttribute("coupon_page", couponPage);
-							if (null != exportUrl) {                          	
-	                          	if (ImportData(couponPage, row, cell, sheet)) {
-	                          		download(wb, username, resp);
-	    						}                         	                           
-	    					}
 						}else{
 							couponPage = tdCouponService.findBytypeIdAndIsDistributtedTrueAndAndIsUsedFalseAndDiySiteIdAndContainingKeywordsOrderBySortIdAsc(typeId,diysiteId,keywords, page, size);
 							map.addAttribute("coupon_page", couponPage);
-							if (null != exportUrl) {                          	
-	                          	if (ImportData(couponPage, row, cell, sheet)) {
-	                          		download(wb, username, resp);
-	    						}                         	                           
-	    					}
 						}
 					}
 				}
@@ -725,174 +530,10 @@ public class TdManagerCouponController {
         return "/site_mag/coupon_distributed_list";
     }
     
-    /**
-	 * @author lc
-	 * @注释：将page中的订单数据存入excel表格中
-	 */
-    @SuppressWarnings("deprecation")
-	public boolean ImportData(Page<TdCoupon> tdCouponPage, HSSFRow row, HSSFCell cell, HSSFSheet sheet){
-    	
-    	for (int i = 0; i < tdCouponPage.getContent().size(); i++)  
-        {  
-    	 				
-            row = sheet.createRow((int) i + 1);  
-            TdCoupon tdCoupon = tdCouponPage.getContent().get(i);  
-            
-            // 第四步，创建单元格，并设置值  
-            if (null != tdCoupon.getTypeTitle()) {
-            	row.createCell((short) 0).setCellValue(tdCoupon.getTypeTitle());
-			}           
-            
-            if (null != tdCoupon.getDiySiteTitle()) {
-            	row.createCell((short) 1).setCellValue(tdCoupon.getDiySiteTitle());
-			}
-            
-            if (null != tdCoupon.getUsername()) {
-            	row.createCell((short) 2).setCellValue(tdCoupon.getUsername());
-			}
-            
-            if (null != tdCoupon.getMobile()) {
-            	row.createCell((short) 3).setCellValue(tdCoupon.getMobile());
-			}
-            
-            if (null != tdCoupon.getCarCode()) {
-            	row.createCell((short) 4).setCellValue(tdCoupon.getCarCode());
-			}
-            
-            if (null != tdCoupon.getGetTime()) {
-            	cell = row.createCell((short) 5);
-            	cell.setCellValue(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(tdCoupon.getGetTime()));
-			}
-            
-            if (null != tdCoupon.getExpireTime()) {
-            	cell = row.createCell((short) 6);
-            	cell.setCellValue(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(tdCoupon.getExpireTime()));
-			}
-            
-            if (null != tdCoupon.getConsumerPassword()) {
-            	row.createCell((short) 7).setCellValue(tdCoupon.getConsumerPassword());
-			}
-            
-            if (null != tdCoupon.getIsUsed()) {
-            	if (tdCoupon.getIsUsed()) {
-            		row.createCell((short) 8).setCellValue("已核销");
-				}else{
-					row.createCell((short) 8).setCellValue("未核销");
-				}
-            	
-			}           
-         
-        } 
-    	return true;
-    }
-    
-    /**
-	 * @author lc
-	 * @注释：将list中的数据存入excel表格中
-	 */
-    @SuppressWarnings("deprecation")
-	public boolean ImportAllData(List<TdCoupon> tdCouponPage, HSSFRow row, HSSFCell cell, HSSFSheet sheet){
-    	
-    	for (int i = 0; i < tdCouponPage.size(); i++)  
-        {  
-    	 				
-            row = sheet.createRow((int) i + 1);  
-            TdCoupon tdCoupon = tdCouponPage.get(i);  
-            
-            // 第四步，创建单元格，并设置值  
-            if (null != tdCoupon.getTypeTitle()) {
-            	row.createCell((short) 0).setCellValue(tdCoupon.getTypeTitle());
-			}           
-            
-            if (null != tdCoupon.getDiySiteTitle()) {
-            	row.createCell((short) 1).setCellValue(tdCoupon.getDiySiteTitle());
-			}
-            
-            if (null != tdCoupon.getUsername()) {
-            	row.createCell((short) 2).setCellValue(tdCoupon.getUsername());
-			}
-            
-            if (null != tdCoupon.getMobile()) {
-            	row.createCell((short) 3).setCellValue(tdCoupon.getMobile());
-			}
-            
-            if (null != tdCoupon.getCarCode()) {
-            	row.createCell((short) 4).setCellValue(tdCoupon.getCarCode());
-			}
-            
-            if (null != tdCoupon.getGetTime()) {
-            	cell = row.createCell((short) 5);
-            	cell.setCellValue(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(tdCoupon.getGetTime()));
-			}
-            
-            if (null != tdCoupon.getExpireTime()) {
-            	cell = row.createCell((short) 6);
-            	cell.setCellValue(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(tdCoupon.getExpireTime()));
-			}
-            
-            if (null != tdCoupon.getConsumerPassword()) {
-            	row.createCell((short) 7).setCellValue(tdCoupon.getConsumerPassword());
-			}
-            
-            if (null != tdCoupon.getIsUsed()) {
-            	if (tdCoupon.getIsUsed()) {
-            		row.createCell((short) 8).setCellValue("已核销");
-				}else{
-					row.createCell((short) 8).setCellValue("未核销");
-				}
-            	
-			}           
-         
-        } 
-    	return true;
-    }
-    
-    /**
-	 * @author lc
-	 * @注释：文件写入和下载
-	 */
-    public Boolean download(HSSFWorkbook wb, String exportUrl, HttpServletResponse resp){
-    	 try  
-         {  
-	          FileOutputStream fout = new FileOutputStream(exportUrl+"distributedCoupon.xls");  
-//	          OutputStreamWriter writer = new OutputStreamWriter(fout, "utf8");	                       	     
-	          wb.write(fout);  
-	          fout.close();
-         }catch (Exception e)  
-         {  
-             e.printStackTrace();  
-         } 
-    	 OutputStream os;
-		 try {
-				os = resp.getOutputStream();
-				File file = new File(exportUrl + "distributedCoupon.xls");
-                 
-             if (file.exists())
-                 {
-                   try {
-                         resp.reset();
-                         resp.setHeader("Content-Disposition", "attachment; filename="
-                                 + "distributedCoupon.xls");
-                         resp.setContentType("application/octet-stream; charset=utf-8");
-                         os.write(FileUtils.readFileToByteArray(file));
-                         os.flush();
-                     } finally {
-                         if (os != null) {
-                             os.close();
-                         }
-                     }
-             }
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-		 }
-		 return true;	
-    }
-    
     @RequestMapping(value="/save")
     public String orderEdit(TdCoupon tdCoupon,
                         String __VIEWSTATE,
-                        Long[] leftNumbers,
+                        Long leftNumber,
                         Long typeId,
                         ModelMap map,
                         HttpServletRequest req){
@@ -908,11 +549,40 @@ public class TdManagerCouponController {
         {
             tdManagerLogService.addLog("add", "用户添加优惠券", req);
             
-            tdCoupon.setIsUsed(false);
-            tdCoupon.setGetTime(new Date());
-            tdCoupon.setIsDistributted(false);
+           
             
-            tdCouponService.save(tdCoupon);
+            if ( null != leftNumber 
+                    && null != typeId)
+            {
+            	/**
+				 * @author lc
+				 * @注释：如果不是免费洗车券和免费打蜡券就不存在同盟店
+				 */
+            	TdCouponType tdCouponType = tdCouponTypeService.findOne(typeId);
+                         
+            
+
+				TdCoupon coupon = tdCouponService.findTopByTypeIdAndIsDistributtedFalse(typeId);
+                
+                if (null == coupon)
+                {
+                    coupon = new TdCoupon();                        
+                    coupon.setLeftNumber(leftNumber);
+                    coupon.setTypeId(typeId);
+                    coupon.setCanUsePrice(tdCouponType.getCanUsePrice());
+                    coupon.setSortId(99L);
+                    coupon.setPrice(tdCouponType.getPrice());
+                }
+                else
+                {
+                    coupon.setLeftNumber(coupon.getLeftNumber() + leftNumber);
+                }
+                
+                tdCouponService.save(coupon);
+			
+            }          
+				
+            
         }
         else
         {

@@ -34,33 +34,9 @@ $(function () {
         $(".thumb_ImgUrl_show").html("<ul><li><div class='img-box1'><img src='" + txtPic + "' bigsrc='" + txtPic + "' /></div></li></ul>");
         $(".thumb_ImgUrl_show").show();
     }
-    
-    // 选择文章
-    $("#chooseArticle").click(function(){
-        showDialogChooseArticle();
-    });
-    
-    // 选择文章
-    function showDialogChooseArticle(obj) {
-        var objNum = arguments.length;
-        
-        var chooseArticleDialog = $.dialog({
-            id: 'chooseArticleDialogId',
-            lock: true,
-            max: false,
-            min: false,
-            title: "商品选择",
-            content: 'url:/Verwalter/article/dialog/list',
-            width: 800,
-            height: 550
-        });
-        
-        //如果是修改状态，将对象传进去
-        if (objNum == 1) {
-            chooseArticleDialog.data = obj;
-        }
-    }
 });
+
+
 </script>
 </head>
 
@@ -96,34 +72,56 @@ $(function () {
 
 <div class="tab-content">
   <dl>
-    <dt>商品ID</dt>
+    <dt>优惠券类型</dt>
     <dd>
-        <input id="goodsId" type="text" name="articleId" class="input txt100" value="<#if coupon??>${coupon.articleId!''}</#if>" datatype="*"/>
-        <a id="chooseArticle" class="icon-btn add"><i></i><span>选择商品</span></a>
-        <span class="Validform_checktip"></span>
+        <div class="rule-single-select">
+            <select id="type" name="typeId" datatype="*" sucmsg=" "  onchange="getType();" >
+                <#if !coupon??>
+                <option value="">请选择类型...</option>
+                </#if>             
+                <#if coupon_type_list??>
+                    <#list coupon_type_list as c>
+                        <option value="${c.id?c!""}" <#if coupon?? && coupon.typeId==c.id>selected="selected"</#if>>${c.title!""}</option>                                                                  
+                    </#list>                                                                                
+                </#if>
+                <input type="hidden" name="typetitle" id="typetitle" value="">
+            </select> 
+        </div>
     </dd>
   </dl>
   <dl>
-    <dt>优惠券名称</dt>
+    <dt>所属类别</dt>
     <dd>
-        <input name="typeTitle" type="text" value="<#if coupon??>${coupon.typeTitle!""}</#if>" class="input normal" datatype="*" sucmsg=" ">
-        <span class="Validform_checktip">*</span>
+        <div class="rule-single-select">
+            <select name="diySiteId" datatype="*" sucmsg=" " disabled="disabled">
+                <#if product_category_list??>
+                    <#list product_category_list as item>
+                        <option value="${item.id?c!""}" <#if coupon?? && coupon.diySiteId?? && coupon.diySiteId==item.id>selected="selected"</#if>>${item.title!""}</option>
+                    </#list>
+                </#if>
+            </select>
+        </div>
     </dd>
   </dl>
+    
   <dl>
-    <dt>优惠码</dt>
+    <dt>剩余数量</dt>
     <dd>
-        <input name="consumerPassword" type="text" value="<#if coupon??>${coupon.consumerPassword!''}</#if>" class="input normal" datatype="*2-100" sucmsg=" ">
-        <span class="Validform_checktip">*标题最多100个字符</span>
+      <input name="leftNumber" type="text" value="<#if coupon??&&coupon.leftNumber??>${coupon.leftNumber?c!""}<#else>1</#if>" class="input small" datatype="n" sucmsg=" ">
+      <span class="Validform_checktip"></span>
     </dd>
   </dl>
   <dl>
     <dt>排序数字</dt>
     <dd>
-        <input name="sortId" type="text" value="<#if goods??>${goods.sortId!""}<#else>99</#if>" id="txtSortId" class="input txt100" datatype="n" sucmsg=" ">
-        <span class="Validform_checktip">*数字，越小越向前</span>
+      <input name="sortId" type="text" value="<#if coupon??>${coupon.sortId!""}<#else>99</#if>" class="input small" datatype="n" sucmsg=" ">
+      <span class="Validform_checktip">*数字，越小越向前</span>
     </dd>
   </dl>
+
+  
+
+  
   
 </div>
 <!--/内容-->
