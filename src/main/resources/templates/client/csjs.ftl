@@ -29,7 +29,7 @@ function addCollect(artId)
 <body>
     <!-- 头部 -->
     <header>
-      <a class="back" href="/scjs"></a>
+      <a class="back" href="javascript:history.go(-1);"></a>
       <p>厨师介绍</p>
     </header>
     <!-- 头部 END -->

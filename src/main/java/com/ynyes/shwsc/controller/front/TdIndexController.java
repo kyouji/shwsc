@@ -23,6 +23,7 @@ import com.ynyes.shwsc.service.TdAdTypeService;
 import com.ynyes.shwsc.service.TdArticleCategoryService;
 import com.ynyes.shwsc.service.TdArticleService;
 import com.ynyes.shwsc.service.TdCommonService;
+import com.ynyes.shwsc.service.TdGoodsService;
 import com.ynyes.shwsc.service.TdNaviBarItemService;
 import com.ynyes.shwsc.service.TdUserCollectService;
 import com.ynyes.shwsc.service.TdUserService;
@@ -58,6 +59,9 @@ public class TdIndexController {
     
     @Autowired
     private TdUserCollectService tdUserCollectService;
+    
+    @Autowired
+    private TdGoodsService tdGoodsService;
     
     @RequestMapping("/launch")
     public String Launch()
@@ -290,10 +294,31 @@ public class TdIndexController {
     	return "/client/csjs";
     }
     
+    /**
+     * @author libiao
+     * 
+     */
     //活动
     @RequestMapping("/hd")
     public String hd(HttpServletRequest req,ModelMap map)
     {
+    	String username =(String)req.getSession().getAttribute("username");
+    	if(null == username)
+    	{
+    		return "redirect:/login";
+    	}
+    	tdCommonService.setCommon(map, req);
+    	
+    	// 列表页轮播广告
+        TdAdType adType = tdAdTypeService.findByTitle("列表页轮播广告");
+
+        if (null != adType) {
+            map.addAttribute("ad_list", tdAdService
+                   .findByTypeIdAndIsValidTrueOrderBySortIdAsc(adType.getId()));
+        }
+        
+    	map.addAttribute("new_goods_list",tdGoodsService.findByIsNew());
+    	
     	return "/client/hd";
     }
     //砍价活动套餐
