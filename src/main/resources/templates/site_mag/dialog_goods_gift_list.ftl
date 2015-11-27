@@ -142,14 +142,14 @@
 <div class="div-content">
     <input type="hidden" id="txtItemZengPin_CoverImageUri" class="input normal">
     <dl>
-      <dt>菜品名称</dt>
+      <dt>配菜名称</dt>
       <dd>
         <input type="text" id="txtItemZengPin_Id" class="input normal">
         <span class="Validform_checktip">*</span>
       </dd>
     </dl> 
     <dl>
-      <dt>菜品描述</dt>
+      <dt>配菜菜单</dt>
       <dd>
         <input type="text" id="txtItemZengPin_Title" class="input normal">
         <span class="Validform_checktip">*</span>

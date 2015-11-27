@@ -182,6 +182,7 @@ function addCollect(gid)
             </#if>
             </#list>
             -->
+            ${good.afterMarketService!''}
         </div>
         </dl>
       </section>
@@ -202,7 +203,14 @@ function addCollect(gid)
           </div>
           <div class="fz1-2">
             <p class="p1 fs-il">配菜</p>
-            <p class="p2 c-ccc">${good.afterMarketService!''}</p>
+            <p class="p2 c-ccc">
+            <#if good.giftList??>
+            <#list good.giftList as item>
+            ${item.goodsTitle!''}
+            <#break>
+            </#list>
+            </#if>
+            </p>
           </div>
         </div>
         <div class="div2">
@@ -241,7 +249,7 @@ function addCollect(gid)
     <!-- 底部 -->
     <footer class="bdt-n">
       <div class="shopp-car" id="addcart">(<span id="cartGoodNumber"><#if cart_good_number??>${cart_good_number!'00'}</#if></span>)</div>
-      <a class="button-buy" href="/order/buy?gid=${good.id!''}">立即购买</a>
+      <a class="button-buy" href="/order/buy?gid=${good.id?c!''}">立即购买</a>
     </footer>
     <!-- 底部 END -->
 

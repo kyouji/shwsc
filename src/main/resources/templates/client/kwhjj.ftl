@@ -27,11 +27,11 @@
     </div>
     <ul>
     	
-    	<#if kwhjj??>
-    	<#list kwhjj as item>
+	 <#if kwhjj??>
+	 <#list kwhjj as item>
     	<#if item.receiverTeleAreaCode??>
-      <li class="delete">${item.receiverTeleAreaCode!''}<span>X</span></li>
-      </#if>
+            <li class="delete">${item.receiverTeleAreaCode!''}<span>X</span></li>
+        </#if>
       </#list>
       </#if>
       

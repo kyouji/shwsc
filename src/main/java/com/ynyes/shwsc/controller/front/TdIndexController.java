@@ -233,11 +233,11 @@ public class TdIndexController {
     public String message_portrait(HttpServletRequest req,ModelMap map)
     {
     	String username=(String)req.getSession().getAttribute("username");
-    	if(username==null){
-    		
+    	if(username==null)
+    	{
     		return "redirect:/login";
     	}
-    	
+    	map.addAttribute("user", tdUserService.findByUsername(username));
     	return "client/message_portrait";
     }
     //厨师列表

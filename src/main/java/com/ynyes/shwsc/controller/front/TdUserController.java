@@ -328,7 +328,7 @@ public class TdUserController {
 	    	List<TdShippingAddress> shipping=curentUser.getShippingAddressList();
 			map.addAttribute("shipping", shipping);
 			
-	      return "/client/tjxdz";
+	      return "/client/cydz";
 	}
     
     @RequestMapping(value = "/user/collect/add", method = RequestMethod.POST)

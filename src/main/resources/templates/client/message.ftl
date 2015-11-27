@@ -16,7 +16,7 @@
     <header>
       <a class="back" href="/center"></a>
       <p>基本信息</p>
-      <a class="save" href="message_portrait">编辑</a>
+      <a class="save" href="/message_portrait">编辑</a>
     </header>
     <!-- 头部 END -->
 

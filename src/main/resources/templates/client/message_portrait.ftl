@@ -69,30 +69,30 @@
         <div class="div1">
           <label>昵称</label>
           <!-- <span>邓qq</span> -->
-          <input type="text" name="nickname" value="">
+          <input type="text" name="nickname" value="${user.nickname!''}">
         </div>
         <div class="div2">
           <label>手机号</label>
           <!-- <span>13355023236</span> -->
-          <input type="text" name="mobile" value="">
+          <input type="text" name="mobile" value="${user.mobile!''}">
         </div>
         <div class="div3">
           <label>地址</label>
           <!-- <span>重庆市沙坪坝区天星桥晒光平1号 21-8</span> -->
-          <input type="text" name="detailAddress">
+          <input type="text" name="detailAddress" value="${user.detailAddress!''}">
         </div>
         <div class="div4">
           <label>性别</label>
           <!-- <span>女</span> -->
           <select  name="sex">
-            <option value="man">男</option>
-            <option value="woman">女</option>
+            <option value="男">男</option>
+            <option value="女">女</option>
           </select>
         </div>
         <div class="div5">
           <label>职业</label>
           <!-- <span>医生</span> -->
-          <input type="text"  name="career">
+          <input type="text" name="career" value="${user.career!''}">
         </div>
       </section>
       <input  class="btn-submit" type="submit" value="提交">

@@ -46,8 +46,8 @@ function setDefault(id)
     <article class="common-address">
     <#if shipping??><#list shipping as item>
     <#if item.detailAddress??>
-      <section class="sct1" onclick="javascript:setDefault(${item.id?c});">
-       <p class="p1"><span>${item.receiverName!''}</span><span></span><span>${item.receiverMobile!''}</span><span style="float:right;"><a style="color:#999;" href="/user/address/delete/${item.id?c}">删除</a></span></p>
+      <section class="sct1" >
+       <p class="p1"><span>${item.receiverName!''}</span><span></span><span>${item.receiverMobile!''}</span><span style="float:right;"><a style="color:#999;margin-right:8px;" onclick="javascript:setDefault(${item.id?c});"> 设置默认</a><a style="color:#999;" href="/user/address/delete/${item.id?c}">删除</a></span></p>
         <p class="p2"><#if item.isDefaultAddress??&&item.isDefaultAddress>（默认）</#if>	${item.detailAddress!''}</p>
       </section>
       </#if>
