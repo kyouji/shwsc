@@ -58,7 +58,7 @@ function desNumber()
       <section class="sct1">
         <div class="div1">
           <!-- 图片原始尺寸 864*414-->
-          <img width="90" height="60" src="/client/images/package_details_photo_1.jpg" alt="江湖逍遥宴">
+          <img width="90" height="60" src="<#if good.coverImageUri??&&good.coverImageUri != "">${good.coverImageUri}<#else>/client/images/package_details_photo_1.jpg</#if>" alt="${good.title!''}">
           <div class="detail">
             <div class="title">
               <span class="span1">${good.title!''}</span>

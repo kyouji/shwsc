@@ -54,9 +54,9 @@ function request(couponId)
 		            <sup class="fz1-5">￥</sup>
 		          </div>
 		          <div class="coupon-info">
-		            <div class="fz1-5 fw700">${item.typeTitle!''}<#if item.leftNumber??>（<span>${item.leftNumber?c!''}</span>）</#if></div>
+		            <div class="fz1-5 fw700">${item.typeTitle!''}</div>
 		            <#if item.canUsePrice??&&item.canUsePrice gt 0>
-		            <div>满<span>${item.canUsePrice?c!'0'}</span>元使用</div>
+		            <div>满<span>${item.canUsePrice?c!'0'}</span>元使用<#if item.leftNumber??>（<span>${item.leftNumber?c!''}</span>）</#if></div>
 		            <#else>
 		            <div>通用优惠券</div>
 		            </#if>
