@@ -222,38 +222,22 @@ function addCollect(gid)
       </section>
       <!-- 评论 -->
       <section class="review">
-        <div class="title">评论（共<span>3</span>条）</div>
+        <div class="title">评论（共<span><#if comment_list??>${comment_list?size!'0'}<#else>0</#if></span>条）</div>
         <ul>
-          <li>
-            <div class="div1">
-              <img class="head-portrait" src="/client/images/head_portrait.jpg" alt="头像">
-              <div>
-                <p class="p1"><span>毛豆齐</span><i class="rating-3"></i></p>
-                <p class="p2">味道不错，厨师的手艺和素质很高！赞赞赞!</p>
-              </div>
-            </div>
-            <div class="div2">2015-09-10</div>
-          </li>
-          <li>
-            <div class="div1">
-              <img class="head-portrait" src="/client/images/head_portrait.jpg" alt="头像">
-              <div>
-                <p class="p1"><span>毛豆齐</span><i class="rating-2"></i></p>
-                <p class="p2">味道不错，厨师的手艺和素质很高！赞赞赞!</p>
-              </div>
-            </div>
-            <div class="div2">2015-09-10</div>
-          </li>
-          <li>
-            <div class="div1">
-              <img class="head-portrait" src="/client/images/head_portrait.jpg" alt="头像">
-              <div>
-                <p class="p1"><span>毛豆齐</span><i class="rating-4"></i></p>
-                <p class="p2">味道不错，厨师的手艺和素质很高！赞赞赞!</p>
-              </div>
-            </div>
-            <div class="div2">2015-09-10</div>
-          </li>
+          <#if comment_list??>
+          <#list comment_list as comm>
+                <li>
+                <div class="div1">
+                  <img class="head-portrait" src="${comm.userHeadUri!'/client/images/head_portrait.jpg'}" alt="头像">
+                  <div>
+                    <p class="p1"><span>${comm.username!''}</span><i class="rating-3"></i></p>
+                    <p class="p2">${comm.content!''}</p>
+                  </div>
+                </div>
+                <div class="div2">${comm.commentTime?string('yyyy-MM-dd')}</div>
+              </li>
+          </#list>
+          </#if>
         </ul>
       </section>
     </article>

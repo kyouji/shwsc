@@ -401,6 +401,80 @@ public class TdUserController {
 	return "redirect:/kwhjj";
 
     }
+    
+    /**
+     * 评价   @author libiao
+     * 
+     */
+    @RequestMapping(value="/user/comment")
+    public String comment(Long id,HttpServletRequest req, ModelMap map)
+    {
+    	String username = (String)req.getSession().getAttribute("username");
+    	if(null == username)
+    	{
+    		return "redirect:/login";
+    	}
+    	if(null == id)
+    	{
+    		return "/client/error_404";
+    	}
+    	
+    	map.addAttribute("order",
+    			tdOrderService.findOne(id));
+    	return "/client/order_comment";
+    }
+    
+    
+    /**
+     * 发表评价   @author libiao
+     * 
+     */
+    @RequestMapping(value="/user/comment",method=RequestMethod.POST)
+    public String commentAdd(Long id,String content,HttpServletRequest req,ModelMap map)
+    {
+    	String username =(String)req.getSession().getAttribute("username");
+    	if(null == username)
+    	{
+    		return "redirect:/login";
+    	}
+    	
+    	if(null == id)
+    	{
+    		return "client/error_404";
+    	}
+    	TdUser user = tdUserService.findByUsername(username);
+    	TdOrder order = tdOrderService.findOne(id);
+    	if(null != order)
+    	{
+    		for (TdOrderGoods orderGoods : order.getOrderGoodsList()) {
+				if(!orderGoods.getIsCommented())
+				{
+					TdUserComment comment = new TdUserComment();
+					comment.setContent(content);
+					comment.setUsername(username);
+					comment.setCommentTime(new Date());
+					comment.setIsReplied(false);
+					comment.setGoodsId(orderGoods.getGoodsId());
+					comment.setGoodsTitle(orderGoods.getGoodsTitle());
+					comment.setGoodsCoverImageUri(orderGoods.getGoodsCoverImageUri());
+					comment.setOrderNumber(order.getOrderNumber());
+					comment.setUserHeadUri(user.getHeadImageUri());
+					comment.setStatusId(1L);
+					
+					// 保存评价
+					comment = tdUserCommentService.save(comment);
+					
+					// 修改订单商品评价状态
+					orderGoods.setIsCommented(true);
+					orderGoods.setCommentId(comment.getId());
+					tdOrderGoodsService.save(orderGoods);
+				}
+				break;
+			}
+    	}
+    	
+    	return "redirect:/user/order";
+    }
 
    /* @RequestMapping(value = "/user/reg",method = RequestMethod.POST)
     public String saveUserReg(HttpServletRequest request,TdUser user,ModelMap map)

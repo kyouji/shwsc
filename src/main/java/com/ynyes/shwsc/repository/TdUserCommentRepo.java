@@ -72,4 +72,7 @@ public interface TdUserCommentRepo extends
 	 * @注释：
 	 */
     List<TdUserComment> findByDiysiteIdOrderByIdDesc(Long diysiteId);
+    
+    // libiao
+    List<TdUserComment> findByGoodsIdOrderByIdDesc(Long goodsId);
 }
