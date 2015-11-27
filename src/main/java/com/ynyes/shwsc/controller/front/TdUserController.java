@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -250,7 +251,7 @@ public class TdUserController {
     	
     	if (null != user )
     	{
-    		shippingAddress.setUserId(Id);;
+    		shippingAddress.setUserId(Id);
     		shippingAddress.setDetailAddress(shippingAddress.getDetailAddress());
     		shippingAddress.setReceiverName(shippingAddress.getReceiverName());
     		shippingAddress.setReceiverMobile(shippingAddress.getReceiverMobile());
@@ -262,6 +263,73 @@ public class TdUserController {
     	map.addAttribute("shippingAddress",shippingAddress);
     	return "redirect:/ cydz";
     }
+    
+    //设默认地址
+    @RequestMapping(value = "/user/address/setDefault", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> setDefault(HttpServletRequest req, Long id,
+	          ModelMap map) {
+	      Map<String, Object> res = new HashMap<String, Object>();
+	      res.put("code", 1);
+	
+	      if (null == id) {
+	          res.put("message", "参数错误");
+	          return res;
+	      }
+	
+	      String username = (String) req.getSession().getAttribute("username");
+	
+	      if (null == username) {
+	          res.put("msg", "请先登录");
+	          return res;
+	      }
+	      
+	      TdShippingAddress address = tdShippingAddressService.findOne(id);
+	      if (null == address)
+	      {
+	          res.put("message", "参数错误");
+	          return res;
+	      }
+	      
+	      //用户所有地址列表
+	      List<TdShippingAddress> addressList = tdShippingAddressService
+	    		  .findByUserId(tdUserService
+	    				  .findByUsername(username).getId());
+	      for (TdShippingAddress item : addressList)
+	      {
+	    	  if (item.getId() == id)
+	    	  {
+	    		  item.setIsDefaultAddress(true);
+	    	  }
+	    	  else{
+	    		  item.setIsDefaultAddress(false);
+	    	  }
+	    	  tdShippingAddressService.save(item);
+	      }
+	      res.put("code", 0);
+	      return res;
+	}
+    
+    //删除地址
+    @RequestMapping(value = "/user/address/delete/{id}")
+	public String addressDelete(HttpServletRequest req, @PathVariable Long id,
+	          ModelMap map) {
+	      String username = (String) req.getSession().getAttribute("username");
+	
+	      if (null == username) {
+	          return "redirect:/login";
+	      }
+	      
+	      TdShippingAddress address = tdShippingAddressService.findOne(id);
+	      	
+	      tdShippingAddressService.delete(address);
+
+	    	TdUser curentUser = tdUserService.findByUsername(username);
+	    	List<TdShippingAddress> shipping=curentUser.getShippingAddressList();
+			map.addAttribute("shipping", shipping);
+			
+	      return "/client/tjxdz";
+	}
     
     @RequestMapping(value = "/user/collect/add", method = RequestMethod.POST)
 	@ResponseBody

@@ -73,6 +73,16 @@ public class TdShippingAddressService {
         return repository.findOne(id);
     }
     
+    public TdShippingAddress findByUserIdAndIsDefaultAddressTrue(Long userId)
+    {
+        if (null ==userId)
+        {
+            return null;
+        }
+        
+        return repository.findByUserIdAndIsDefaultAddressTrue(userId);
+    }
+    
     /**
      * 查找
      * 
@@ -83,6 +93,19 @@ public class TdShippingAddressService {
     {
         return (List<TdShippingAddress>) repository.findAll(ids);
     }
+    
+    
+    /**
+     * 查找用户所有地址
+     * @author Zhangji
+     * @param userId
+     * @return
+     */
+    public List<TdShippingAddress> findByUserId(Long userId)
+    {
+        return (List<TdShippingAddress>) repository.findByUserId(userId);
+    }
+    
     
     public List<TdShippingAddress> findAll()
     {

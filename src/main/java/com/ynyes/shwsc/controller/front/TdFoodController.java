@@ -14,13 +14,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.ynyes.shwsc.entity.TdCartGoods;
 import com.ynyes.shwsc.entity.TdGoods;
 import com.ynyes.shwsc.entity.TdParameter;
+import com.ynyes.shwsc.entity.TdShippingAddress;
+import com.ynyes.shwsc.entity.TdUser;
 import com.ynyes.shwsc.service.TdAdService;
 import com.ynyes.shwsc.service.TdAdTypeService;
 import com.ynyes.shwsc.service.TdCartGoodsService;
 import com.ynyes.shwsc.service.TdGoodsService;
 import com.ynyes.shwsc.service.TdParameterService;
 import com.ynyes.shwsc.service.TdProductCategoryService;
+import com.ynyes.shwsc.service.TdShippingAddressService;
 import com.ynyes.shwsc.service.TdUserCommentService;
+import com.ynyes.shwsc.service.TdUserService;
 
 @Controller
 @RequestMapping("/food")
@@ -46,6 +50,12 @@ public class TdFoodController
 	
 	@Autowired
 	private TdUserCommentService tdUserCommentService;
+	
+	@Autowired
+	TdShippingAddressService tdShippingAddressService;
+	
+	@Autowired
+	TdUserService tdUserService;
 	
 	/**
 	 * 美食首页
@@ -165,9 +175,17 @@ public class TdFoodController
 	 * @return
 	 */
 	@RequestMapping("/buy")
-	public String buy(ModelMap map,Long id)
+	public String buy(ModelMap map,Long id , HttpServletRequest req)
 	{
+		String username = (String) req.getSession().getAttribute("username");
+		TdUser user = tdUserService.findByUsername(username);
+		if (username == null)
+		{
+			username =req.getSession().getId();
+		}
 		map.addAttribute("good", tdGoodsService.findOne(id));
+		TdShippingAddress address = tdShippingAddressService.findByUserIdAndIsDefaultAddressTrue(user.getId());
+		map.addAttribute("address", address);
 		return "/client/submit_order";
 	}
 	

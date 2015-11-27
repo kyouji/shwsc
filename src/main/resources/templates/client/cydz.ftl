@@ -9,7 +9,29 @@
 <!--css-->
 <link rel="stylesheet" type="text/css" href="/client/css/common.css"/>
 <link rel="stylesheet" type="text/css" href="/client/css/main.css"/>
+<script src="/client/js/jquery-1.9.1.min.js"></script>
 <title>叫个厨子</title>
+<script>
+function setDefault(id)
+{
+	    $.ajax({
+        type:"post",
+        url:"user/address/setDefault",
+        data:{"id":id},
+        success:function(data){
+			if (data.code == 0)
+			{
+				alert("设置成功！");
+				location.reload();
+			}
+			else
+			{
+                 alert(data.msg);
+			}
+        }
+    });
+}
+</script>
 </head>
 <body class="bgc-f2">
     <!-- 头部 -->
@@ -24,9 +46,9 @@
     <article class="common-address">
     <#if shipping??><#list shipping as item>
     <#if item.detailAddress??>
-      <section class="sct1">
-       <p class="p1"><span>${item.receiverName!''}</span><span></span><span>${item.receiverMobile!''}</span></p>
-        <p class="p2">${item.detailAddress!''}</p>
+      <section class="sct1" onclick="javascript:setDefault(${item.id?c});">
+       <p class="p1"><span>${item.receiverName!''}</span><span></span><span>${item.receiverMobile!''}</span><span style="float:right;"><a style="color:#999;" href="/user/address/delete/${item.id?c}">删除</a></span></p>
+        <p class="p2"><#if item.isDefaultAddress??&&item.isDefaultAddress>（默认）</#if>	${item.detailAddress!''}</p>
       </section>
       </#if>
       </#list></#if>

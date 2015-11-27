@@ -129,11 +129,11 @@ function desNumber()
       </div>
       <div class="div1">
           <label>姓名</label>
-          <input type="text" id="nameId" name="shippingName" placeholder="请填写收货人">
+          <input type="text" id="nameId" name="shippingName" value="<#if address??>${address.receiverName!''}</#if>" placeholder="请填写收货人">
         </div>
         <div class="div2">
           <label>电话</label>
-          <input type="text" id="phoneId" name="shippingPhone" placeholder="请填写电话">
+          <input type="text" id="phoneId" name="shippingPhone" value="<#if address??>${address.receiverMobile!''}</#if>" placeholder="请填写电话">
         </div>
         <div class="div3">
           <label>用餐时间</label>
@@ -141,7 +141,7 @@ function desNumber()
         </div>
         <div class="div4">
           <label>用餐地点</label>
-          <input type="text" id="addressId" name="shippingAddress" placeholder="请填写地址">
+          <input type="text" id="addressId" name="shippingAddress" value="<#if address??>${address.detailAddress!''}</#if>"  placeholder="请填写地址">
         </div>
       </section>
       <p>备注</p>
