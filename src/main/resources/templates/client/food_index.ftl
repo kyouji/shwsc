@@ -26,7 +26,7 @@
         <img src="/client/images/icon_menu_nav_3.png" alt="">
         <div>无肉不欢</div>
       </a></li>
-      <li class="li4 current"><a href="/food/detail/4">
+      <li class="li4"><a href="/food/detail/4">
         <img src="/client/images/icon_menu_nav_4.png" alt="">
         <div>素食主义</div>
       </a></li>

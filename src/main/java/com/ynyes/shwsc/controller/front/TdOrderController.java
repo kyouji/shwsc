@@ -290,6 +290,7 @@ public class TdOrderController extends AbstractPaytypeController {
         ordergoods.setGoodsCoverImageUri(goods.getCoverImageUri());
         ordergoods.setPrice(goods.getSalePrice());
         ordergoods.setQuantity(quantity);
+        ordergoods.setIsCommented(false);
         
         totalGoodsPrice = quantity * goods.getSalePrice();
 

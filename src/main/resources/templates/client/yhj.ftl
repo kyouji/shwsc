@@ -37,14 +37,14 @@ function request(couponId)
 <body class="bgc-ccc">
     <!-- 头部 -->
     <header>
-      <a class="back" href="/index"></a>
+      <a class="back" href="/center"></a>
       <p>优惠劵</p>
     </header>
     <!-- 头部 END -->
 
     <!-- 优惠劵 -->
     <article class="coupon">
-      <div class="time"><#if today??>${today?string("yyyy-MM-dd")}</#if></div>
+      <!--<div class="time"><#if today??>时间：${today?string("yyyy-MM-dd")}</#if></div>-->
       <ul class="group-coupon">
       	<#if coupon_list??>
       		<#list coupon_list as item>

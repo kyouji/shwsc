@@ -89,7 +89,7 @@ public class TdLoginController {
 			res.put("msg", "用户名及密码不能为空");
 			return res;
 		}
-		if (isMobileNO(username))
+		if (!isMobileNO(username))
 		{
 			res.put("code", 0);
 			res.put("msg", "手机号码不对！");

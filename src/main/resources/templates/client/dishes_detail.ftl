@@ -54,7 +54,7 @@ function addCollect(gid)
     <!-- 头部 END -->
 
     <!-- banner -->
-    <div class="addWrap">
+    <!--<div class="addWrap">
       <div class="swipe" id="mySwipe">
         <div class="swipe-wrap">
           <div><a href="#"><img class="img-responsive" src="/client/images/1.jpg"/></a></div>
@@ -67,7 +67,7 @@ function addCollect(gid)
         <li class=""></li>
         <li class=""></li>
       </ul>
-    </div>
+    </div>-->
     <script src="/client/js/swipe.js"></script> 
     <script type="text/javascript">
       var bullets = document.getElementById('position').getElementsByTagName('li');
@@ -131,26 +131,19 @@ function addCollect(gid)
               <li class="li2" onclick="addCollect(${good.id?c})">收藏</li>
             </ul>
             <dl>
-            <#if good??>
-            <#list good.giftList as item>
             <dt>
                 <div class="img-group">
                     <!-- 图片原始尺寸 600*315 -->
-                    <img class="mn-cr" src="${item.goodsPrice}" alt="主菜">
+                    <img class="mn-cr" src="${good.coverImageUri!''}" alt="主菜">
                     <!-- 图片原始尺寸 95*56 -->
                     <img width="60" height="35" class="main-course" src="/client/images/icon_main_course.png" alt="">
                 </div>
                 <div class="dishes">
-                    <p class="p1">${item.goodsId}</p>
-                    <p class="p2">${item.goodsTitle}</p>
-                    <p class="p3"><i></i><span>32</span></p>
+                    <p class="p1">${good.goodsId!''}</p>
+                    <p class="p2">${good.goodsTitle!''}</p>
                 </div>
                 <p class="explanation"></p>
-            </dt>  
-            <#break>
-            </#list>
-            </#if>
-        <#assign totalGift = good.giftList?size>
+            </dt>
         <#--
         <#list good.giftList as item>
         <#if item_index gte 1 && item_index lte (totalGift - 3)>
@@ -208,14 +201,14 @@ function addCollect(gid)
             <p class="p2">${good.detail!''}</p>
           </div>
           <div class="fz1-2">
-            <p class="p1 fs-il"></p>
+            <p class="p1 fs-il">配菜</p>
             <p class="p2 c-ccc">${good.afterMarketService!''}</p>
           </div>
         </div>
         <div class="div2">
           <div class="fz1-4 c000">
             <p class="p1">赠品</p>
-            <p class="p2 c-ccc"><span>2${good.soldNumber!'0'}</span>份<br></p>
+            <p class="p2 c-ccc"><span>${good.soldNumber!'0'}</span>份<br></p>
           </div>
           <div class="acd fz1-2 c999">${good.flashSaleImage!''}</div>
         </div>

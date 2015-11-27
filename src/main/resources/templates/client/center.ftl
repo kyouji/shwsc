@@ -32,9 +32,9 @@
         </a></div>
       </div>
       <!-- 消息提示 -->
-      <div class="news-tip">
+      <!--<div class="news-tip">
         <a href="/xxzx"><span></span></a>
-      </div>
+      </div>-->
     </div>
 
     <div class="clear"></div>
