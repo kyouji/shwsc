@@ -23,8 +23,10 @@
     <!-- 编辑地址 -->
     <article class="edit-address">
     <form id="form1" action="/user/tjxdz" method="post">
-    	收货人：<input type="text"  name="receiverName"><br>
-    	电话：<input type="text"  name="receiverMobile">
+    <div class="address-formlist">
+      <div><label>收货人：</label><input class="pople-info" type="text"  name="receiverName"></div>
+      <div><label>电话：</label><input class="pople-info" type="text"  name="receiverMobile"></div>
+    <div>
       <textarea  name="detailAddress"></textarea>
       <input class="btn-submit" type="submit" value="提交">
       </form>

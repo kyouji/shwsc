@@ -1073,19 +1073,16 @@ public class TdGoodsService {
                         pageRequest);
     }
 
-    public Page<TdGoods> searchGoods(String keywords, int page, int size) {
+    public List<TdGoods> searchGoods(String keywords) {
         if (null == keywords) {
             return null;
         }
         
         keywords = keywords.replace(" ", "%");
 
-        PageRequest pageRequest = new PageRequest(page, size, new Sort(
-                Direction.DESC, "id"));
-
         return repository
                 .findByTitleContainingIgnoreCaseAndIsOnSaleTrueOrSubTitleContainingIgnoreCaseAndIsOnSaleTrueOrParamValueCollectContainingIgnoreCaseAndIsOnSaleTrueOrDetailContainingIgnoreCaseAndIsOnSaleTrue(
-                        keywords, keywords, keywords, keywords, pageRequest);
+                        keywords, keywords, keywords, keywords);
     }
 
     /**

@@ -119,7 +119,9 @@ function addCollect(gid)
             <p class="p2">适合${good.paramValueCollect[0..Strlenght-2]}人</p>
           </div>
         </div>
+
         ${good.brandTitle!''}
+
       </section>
 
       <!-- 菜品介绍 -->
@@ -143,16 +145,17 @@ function addCollect(gid)
                     <p class="p2">${item.goodsTitle}</p>
                     <p class="p3"><i></i><span>32</span></p>
                 </div>
-                <p class="explanation">依旧是虾控最爱的一道快手菜，这次用的虾个头比较大，满满的都是肉,好星湖哈哈。用自己种的香菜做点缀成就感好大</p>
+                <p class="explanation"></p>
             </dt>  
             <#break>
             </#list>
             </#if>
         <#assign totalGift = good.giftList?size>
+        <#--
         <#list good.giftList as item>
         <#if item_index gte 1 && item_index lte (totalGift - 3)>
         <dd>
-            <!-- 图片原始尺寸 600*315 -->
+            <!-- 图片原始尺寸 600*315 
             <img src="${item.goodsPrice}" alt="主菜">
             <div>
               <p class="p1">${item.goodsId}</p>
@@ -161,11 +164,13 @@ function addCollect(gid)
         </dd>
         </#if>
         </#list>
+        -->
         <div class="food-more">
+        <#--
             <#list good.giftList as item>
             <#if item_index == (totalGift - 2)>
             <div class="div1">
-                <!-- 图片原始尺寸 600*315 -->
+                <!-- 图片原始尺寸 600*315 -
                 <img src="${item.goodsPrice}" alt="主菜">
                 <div>
                   <p class="p1">${item.goodsId}</p>
@@ -174,7 +179,7 @@ function addCollect(gid)
             </div>
             <#elseif item_index == (totalGift - 1)>
             <div class="div2">
-                <!-- 图片原始尺寸 600*315 -->
+                <!-- 图片原始尺寸 600*315 -
                 <img src="${item.goodsPrice}" alt="主菜">
                 <div>
                   <p class="p1">${item.goodsId}</p>
@@ -183,12 +188,17 @@ function addCollect(gid)
             </div>
             </#if>
             </#list>
+            -->
         </div>
         </dl>
       </section>
       <!-- 套餐清单 -->
       <section class="inventory">
         <div class="div1">
+            <div class="fz1-2">
+            <p class="p1 "></p>
+            <p class="p2">${good.brandTitle}</p>
+          </div>
           <div class="fz1-4 c000">
             <p class="p1">菜品</p>
             <p class="p2 c-ccc"><span>${good.leftNumber!'0'}</span>份</p>
@@ -198,8 +208,8 @@ function addCollect(gid)
             <p class="p2">${good.detail!''}</p>
           </div>
           <div class="fz1-2">
-            <p class="p1 fs-il">配菜</p>
-            <p class="p2">${good.afterMarketService!''}</p>
+            <p class="p1 fs-il"></p>
+            <p class="p2 c-ccc">${good.afterMarketService!''}</p>
           </div>
         </div>
         <div class="div2">
