@@ -173,6 +173,7 @@ public class TdRegController {
     	user.setUsername(username);
     	user.setPassword(password);
 		user.setMobile(password);  //zhangji
+		user.setStatusId(0L);
     	tdUserService.save(user);
     	
 //    	Map<String, Object> res = new HashMap<String,Object>();
