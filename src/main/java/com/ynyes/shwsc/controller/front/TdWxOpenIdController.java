@@ -40,31 +40,6 @@ public class TdWxOpenIdController
 		    String accessToken = JSONObject.fromObject(result).getString("access_token");
 		    System.out.println("Madejing: access_token = " + accessToken);
 			req.getSession().setAttribute("openid", openid);
-			
-			String userInfoUrl  = "https://api.weixin.qq.com/sns/userinfo?access_token=" + accessToken + "&openid=" + openid + "&lang=zh_CN";
-			
-			String userInfoResult = com.ynyes.shwsc.util.HttpRequest.sendGet(userInfoUrl, null);
-			System.out.println("Madejing: userInfoResult:" + userInfoResult);
-			String headUrlStr = JSONObject.fromObject(userInfoResult).getString("headimgurl");
-			System.out.println("Madejing: headimgurl = " + headUrlStr);
-			String nickname = JSONObject.fromObject(userInfoResult).getString("nickname");
-			System.out.println("Madejing: nickname = " + nickname);
-			map.addAttribute("nickname", nickname);
-			TdUser user = tdUserService.findByUsername(openid);
-			if (user == null)
-			{
-				user = new TdUser();
-				user.setNickname(nickname);
-				user.setHeadImageUri(headUrlStr);
-				user.setUsername(openid);
-				user.setRoleId(0L);
-				user.setStatusId(1L);
-				user.setPassword("123123");
-			}
-			user.setLastLoginTime(new Date());
-			tdUserService.save(user);
-			req.getSession().setAttribute("openid", user.getUsername());
-			req.getSession().setAttribute("username", user.getUsername());
 		}
 	}
 }

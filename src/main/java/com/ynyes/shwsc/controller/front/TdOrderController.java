@@ -6,7 +6,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -17,8 +16,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import javax.net.ssl.HttpsURLConnection;
 import javax.servlet.ServletOutputStream;
@@ -74,6 +71,8 @@ import com.ynyes.shwsc.service.TdShippingAddressService;
 import com.ynyes.shwsc.service.TdUserPointService;
 import com.ynyes.shwsc.service.TdUserService;
 import com.ynyes.shwsc.util.QRCodeUtils;
+
+import net.sf.json.JSONObject;
 
 /**
  * 订单
@@ -965,13 +964,14 @@ public class TdOrderController extends AbstractPaytypeController {
 
         tdCommonService.setHeader(map, req);
 
-        if (null == orderId) {
+        if (null == orderId)
+        {
             return "/client/error_404";
         }
 
         map.addAttribute("order", tdOrderService.findOne(orderId));
 
-        return "/client/order_pay";
+        return null;
     }
 
     /**
@@ -983,8 +983,7 @@ public class TdOrderController extends AbstractPaytypeController {
      * @return
      */
     @RequestMapping(value = "/dopay")
-    public String payOrder(Long orderId, ModelMap map,
-            HttpServletRequest req)
+    public String payOrder(Long orderId, ModelMap map,HttpServletRequest req,Long state,String code)
     {
         String username = (String) req.getSession().getAttribute("username");
 
@@ -993,20 +992,36 @@ public class TdOrderController extends AbstractPaytypeController {
             return "redirect:/login";
         }
         TdUser user = tdUserService.findByUsername(username);
-        
-        if (user.getOpenid() == null)
-        {
-			
-		}
 
         tdCommonService.setHeader(map, req);
 
-        if (null == orderId) 
+        String openId = "";
+        if (null == state) 
         {
             return "/client/error_404";
         }
+        if (user.getOpenid() == null)
+        {
+            if (code != null)
+        	{
+        		System.out.println("Madejing: code = " + code);
+        		
+    			String accessTokenUrl = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=wxb8723d9b73bb0fb5&secret=45725ddd60c7ac33d91ea1caa843a2dc&code=" + code + "&grant_type=authorization_code";
+    			
+    			System.out.println("Madejing: accessTokenUrl = " + accessTokenUrl);
+    			
+    			String result = com.ynyes.shwsc.util.HttpRequest.sendGet(accessTokenUrl, null);
+    			
+    			System.out.println("madjeing: result =" + result);
+    			
+    		    openId = JSONObject.fromObject(result).getString("openid");
+    		    user.setOpenid(JSONObject.fromObject(result).getString("openid"));
+    		    System.out.println("Madejing: openid = " + openId);
+    		}
+		}
 
-        TdOrder order = tdOrderService.findOne(orderId);
+
+        TdOrder order = tdOrderService.findOne(state);
 
         if (null == order)
         {
@@ -1017,9 +1032,10 @@ public class TdOrderController extends AbstractPaytypeController {
         // 普通 订单提交后24小时内
         Date cur = new Date();
         long temp = cur.getTime() - order.getOrderTime().getTime();
-        if (temp > 1000 * 3600 * 24)
+        if (temp > 1000 * 3600 / 2)
         {
         	order.setStatusId(7L);
+        	tdOrderService.save(order);
         	return "/client/wddd";
         }
 
@@ -1033,7 +1049,7 @@ public class TdOrderController extends AbstractPaytypeController {
         req.setAttribute("totalPrice", amount);
 
         String payForm = "";
-
+        map.addAttribute("order", order);
         map.addAttribute("order_number", order.getOrderNumber());
 		map.addAttribute("total_price", order.getTotalPrice());
 
@@ -1054,7 +1070,7 @@ public class TdOrderController extends AbstractPaytypeController {
 		signMap.addAttribute("spbill_create_ip", "116.55.230.178");
 		signMap.addAttribute("notify_url", "http://chuzi.peoit.com/order/wx_notify");
 		signMap.addAttribute("trade_type", "JSAPI");
-		signMap.addAttribute("openid", username);
+		signMap.addAttribute("openid", user.getOpenid());
 
 		String mysign = Signature.getSign(signMap);
 
@@ -1071,13 +1087,13 @@ public class TdOrderController extends AbstractPaytypeController {
 				+ "<nonce_str>"
 				+ noncestr
 				+ "</nonce_str>\n"
-				+ "<notify_url>http://www.cbs023.com/order/wx_notify</notify_url>\n"
+				+ "<notify_url>http://chuzi.peoit.com/order/wx_notify</notify_url>\n"
 				+ "<out_trade_no>" + order.getOrderNumber() + "</out_trade_no>\n"
 				+ "<spbill_create_ip>116.55.230.178</spbill_create_ip>\n"
 				+ "<total_fee>" + Math.round(order.getTotalPrice() * 100)
 				+ "</total_fee>\n" + "<trade_type>JSAPI</trade_type>\n"
 				+ "<sign>" + mysign + "</sign>\n"
-				+ "<openid>" + username + "</openid>\n" + "</xml>\n";
+				+ "<openid>" + user.getOpenid() + "</openid>\n" + "</xml>\n";
 		System.out.print("MDJ: xml=" + content + "\n");
 
 		String return_code = null;
@@ -1091,8 +1107,7 @@ public class TdOrderController extends AbstractPaytypeController {
 			urlCon.setDoInput(true);
 			urlCon.setDoOutput(true);
 			urlCon.setRequestMethod("POST");
-			urlCon.setRequestProperty("Content-Length",
-					String.valueOf(content.getBytes().length));
+			urlCon.setRequestProperty("Content-Length",String.valueOf(content.getBytes().length));
 			urlCon.setUseCaches(false);
 			// 设置为gbk可以解决服务器接收时读取的数据中文乱码问题
 			urlCon.getOutputStream().write(content.getBytes("utf-8"));
@@ -1160,7 +1175,7 @@ public class TdOrderController extends AbstractPaytypeController {
 				map.addAttribute("package", packageString);
 				map.addAttribute("signType", signType);
 				map.addAttribute("paySign", returnsign);
-				map.addAttribute("orderId", orderId);
+				map.addAttribute("orderId", state);
 			}
 		}
 		catch (IOException e)
@@ -1171,7 +1186,7 @@ public class TdOrderController extends AbstractPaytypeController {
 
         map.addAttribute("payForm", payForm);
 
-        return "/client/order_pay_form";
+        return "/client/pay_order";
     }
 
     @RequestMapping(value = "/wx_return")

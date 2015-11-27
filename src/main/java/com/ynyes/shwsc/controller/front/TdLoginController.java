@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Random;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -87,6 +89,12 @@ public class TdLoginController {
 			res.put("msg", "用户名及密码不能为空");
 			return res;
 		}
+		if (isMobileNO(username))
+		{
+			res.put("code", 0);
+			res.put("msg", "手机号码不对！");
+			return res;
+		}
 		TdUser user = tdUserService.findByUsername(username);
 
 		if (null != user) 
@@ -107,6 +115,11 @@ public class TdLoginController {
 		request.getSession().setAttribute("username", user.getUsername());
 		return res;
 	}
+	public boolean isMobileNO(String mobiles) {
+		Pattern p = Pattern.compile("^(0|86|17951)?(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$");
+		Matcher m = p.matcher(mobiles);
+		return m.matches();
+		}
 	
 //	@RequestMapping("/login")
 //	@ResponseBody
