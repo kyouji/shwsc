@@ -15,6 +15,29 @@
   var number=1;
 function submitForm()
 {
+    var name = document.getElementById("nameId").value.replace(/[]/g,"");
+    if(name.length==0||name=="点击")
+    {
+            alert("请填写收货人姓名!");
+            return;
+    }
+    var phone = document.getElementById("phoneId").value.replace(/[]/g,"");
+    if(phone.length==0||phone=="点击")
+    {
+        alert("请输入手机!");
+        return;
+    }
+    if(phone.length != 11)
+    {
+        alert("请输入正确的手机!");
+        return;
+    }
+    var address = document.getElementById("addressId").value.replace(/[]/g,"");
+    if(address.length==0||address=="点击")
+    {
+            alert("请输入收件人地址!");
+            return;
+    }
     document.getElementById('form').submit();
 }
 function addNumber()
@@ -106,11 +129,11 @@ function desNumber()
       </div>
       <div class="div1">
           <label>姓名</label>
-          <input type="text" name="shippingName" placeholder="请填写收货人" value="邓qq">
+          <input type="text" id="nameId" name="shippingName" placeholder="请填写收货人">
         </div>
         <div class="div2">
           <label>电话</label>
-          <input type="text" name="shippingPhone" placeholder="请填写电话" value="13355023236">
+          <input type="text" id="phoneId" name="shippingPhone" placeholder="请填写电话">
         </div>
         <div class="div3">
           <label>用餐时间</label>
@@ -118,7 +141,7 @@ function desNumber()
         </div>
         <div class="div4">
           <label>用餐地点</label>
-          <input type="text" name="shippingAddress" placeholder="请填写地址" value="重庆市沙坪坝区天星桥晒光平1号 21-8">
+          <input type="text" id="addressId" name="shippingAddress" placeholder="请填写地址">
         </div>
       </section>
       <p>备注</p>
@@ -131,7 +154,7 @@ function desNumber()
 
     <!-- 底部 -->
     <footer>
-      <div class="total-1">总金额：<span class="cf93">￥<span id="totalPrice">128.00</span></span></div>
+      <div class="total-1">总金额：<span class="cf93">￥<span id="totalPrice">${good.salePrice?string("0.00")}</span></span></div>
       <a class="clearing" href="javascript:submitForm();">提交订单</a>
     </footer>
     <!-- 底部 END -->
