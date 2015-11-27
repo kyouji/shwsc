@@ -20,6 +20,7 @@ import com.ynyes.shwsc.service.TdCartGoodsService;
 import com.ynyes.shwsc.service.TdGoodsService;
 import com.ynyes.shwsc.service.TdParameterService;
 import com.ynyes.shwsc.service.TdProductCategoryService;
+import com.ynyes.shwsc.service.TdUserCommentService;
 
 @Controller
 @RequestMapping("/food")
@@ -42,6 +43,9 @@ public class TdFoodController
 	
 	@Autowired
 	private TdProductCategoryService tdProductCategoryService;
+	
+	@Autowired
+	private TdUserCommentService tdUserCommentService;
 	
 	/**
 	 * 美食首页
@@ -148,6 +152,9 @@ public class TdFoodController
 		List<TdCartGoods> resList = tdCartGoodsService.findByUsername(username);
 		map.addAttribute("cart_good_number",resList.size());
 		map.addAttribute("good", tdGoodsService.findOne(goodId));
+		map.addAttribute("comment_list",
+						tdUserCommentService.findByGoodsId(goodId));
+		
 		return "/client/dishes_detail";
 	}
 

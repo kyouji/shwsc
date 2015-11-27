@@ -83,7 +83,16 @@
               <a class="current" href="/order/cancel?orderNumber=${item.orderNumber}&state=${state!'0'}">取消</a>
               <a class="current" href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxb8723d9b73bb0fb5&redirect_uri=http://chuzi.peoit.com/order/dopay&response_type=code&scope=snsapi_base&state=${item.id}#wechat_redirect">付款</a>
               <#elseif item.statusId == 3>
-              <a href="#">已付款</a>
+              <a href="javascript:;">已付款</a>
+                  <#if item.orderGoodsList??>
+                  <#list item.orderGoodsList as og>
+                      <#if og.isCommented>
+                      <a class="current" href="javascript:;">已评价</a>
+                      <#else>
+                      <a class="current" href="/user/comment?id=${item.id?c}">评价</a>
+                      </#if>
+                  </#list>
+                  </#if>
               <#elseif item.statusId == 7>
               <a href="#">已取消</a>
               </#if>

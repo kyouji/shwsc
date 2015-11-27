@@ -294,4 +294,9 @@ public class TdUserCommentService {
         
         return (List<TdUserComment>) repository.save(entities);
     }
+    
+    public List<TdUserComment> findByGoodsId(Long goodsId)
+    {
+    	return repository.findByGoodsIdOrderByIdDesc(goodsId);
+    }
 }

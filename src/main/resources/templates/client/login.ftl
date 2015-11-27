@@ -12,6 +12,8 @@
 <link rel="stylesheet" type="text/css" href="/client/css/common.css"/>
 <link rel="stylesheet" type="text/css" href="/client/css/main.css"/>
 <title>叫个厨子</title>
+<script type="text/javascript" src="/client/js/jquery-1.11.3.min.js" ></script>
+<script type="text/javascript" src="/client/js/Validform_v5.3.2_min.js" ></script>
 
 </head>
 <body>
@@ -36,7 +38,7 @@
       <ul class="group-login-register">
 	    <!-- 登录 -->
         <li style="display:block;" class="login">
-          <form>
+          <form id="form1">
           	<div class="phone-num">
           	  <input type="text" maxlength="11" id="txt_loginId" value="" placeholder="手机号">
           	</div>
