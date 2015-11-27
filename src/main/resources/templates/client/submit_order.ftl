@@ -95,22 +95,22 @@ function desNumber()
         <p class="fz1-3">用餐信息</p>
       </div>
       <ul class="taste-group">
-        <li><input type="radio" value="0" name="taste">微辣</li>
+        <li><input type="radio" value="0" checked="true" name="taste">微辣</li>
         <li><input type="radio" value="1" name="taste">中辣</li>
         <li><input type="radio" value="2" name="taste">特辣</li>
       </ul>
       <p class="chef-recommended">推荐厨师：李浩</p>
       <div class="service-way">
-        <p class="p1"><input type="radio" value="0" name="tool">&nbsp;&nbsp;平台配送餐具</p>
+        <p class="p1"><input type="radio" value="0" checked="true" name="tool">&nbsp;&nbsp;平台配送餐具</p>
         <p class="p2 c999"><input type="radio" value="1" name="tool">&nbsp;&nbsp;厨师自带厨具</p>
       </div>
       <div class="div1">
           <label>姓名</label>
-          <input type="text" name="shippingName" value="邓qq">
+          <input type="text" name="shippingName" placeholder="请填写收货人" value="邓qq">
         </div>
         <div class="div2">
           <label>电话</label>
-          <input type="text" name="shippingPhone" value="13355023236">
+          <input type="text" name="shippingPhone" placeholder="请填写电话" value="13355023236">
         </div>
         <div class="div3">
           <label>用餐时间</label>
@@ -118,7 +118,7 @@ function desNumber()
         </div>
         <div class="div4">
           <label>用餐地点</label>
-          <input type="text" name="shippingAddress" value="重庆市沙坪坝区天星桥晒光平1号 21-8">
+          <input type="text" name="shippingAddress" placeholder="请填写地址" value="重庆市沙坪坝区天星桥晒光平1号 21-8">
         </div>
       </section>
       <p>备注</p>

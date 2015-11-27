@@ -2,6 +2,8 @@ package com.ynyes.shwsc.controller.front;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,9 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.ynyes.shwsc.entity.TdSetting;
 import com.ynyes.shwsc.entity.TdUser;
-import com.ynyes.shwsc.entity.TdUserPoint;
 import com.ynyes.shwsc.service.TdCommonService;
 import com.ynyes.shwsc.service.TdSettingService;
 import com.ynyes.shwsc.service.TdUserPointService;
@@ -128,19 +128,70 @@ public class TdRegController {
 	    }
     
     @RequestMapping(value = "/user/reg",method = RequestMethod.POST)
-    public String saveUser(HttpServletRequest request,TdUser user,ModelMap map)
+    @ResponseBody
+    public Map<String, Object> saveUser(HttpServletRequest request, 
+								    		String username,
+								    		String password,
+								    		String password2,
+								    		ModelMap map)
     {
-    	
-    	
-    	user.setUsername(user.getUsername());
-    	user.setPassword(user.getPassword());
-		
+        Map<String, Object> res = new HashMap<String, Object>();
+        res.put("code", 1);
+        
+        if (null == username || username.equals(""))
+        {
+        	res.put("msg", "用户名不能为空！");
+        	return res;
+        }
+        
+        if (null == password || password.equals(""))
+        {
+        	res.put("msg", "密码不能为空！");
+        	return res;
+        }
+        
+        if (null == password2 || password2.equals("") || !password2.equals(password) )
+        {
+        	res.put("msg", "两次密码不一致！");
+        	return res;
+        }
+        
+        if (!isMobile(username))
+        {
+        	res.put("msg", "请输入正确的手机号！");
+        	return res;
+        }
+        
+        TdUser exist = tdUserService.findByUsername(username);
+        if (null != exist)
+        {
+        	res.put("msg", "该手机已被注册！");
+        	return res;
+        }
+        
+    	TdUser user  =  new TdUser();
+    	user.setUsername(username);
+    	user.setPassword(password);
+		user.setMobile(password);  //zhangji
     	tdUserService.save(user);
     	
-    	Map<String, Object> res = new HashMap<String,Object>();
+//    	Map<String, Object> res = new HashMap<String,Object>();
     	res.put("baocun", "成功"); 
     	map.addAttribute("user",user);
-    	return "/client/login";
+    	
+        res.put("code", 0);
+        return res;
+    }
+
+	   //验证手机号
+    public static boolean isMobile(String str) {   
+        Pattern p = null;  
+        Matcher m = null;  
+        boolean b = false;   
+        p = Pattern.compile("^(0|86|17951)?(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$"); // 验证手机号  
+        m = p.matcher(str);  
+        b = m.matches();   
+        return b;  
     }
 
 	    

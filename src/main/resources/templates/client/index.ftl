@@ -84,9 +84,15 @@
         </div>
       </div>
       <ul id="position">
-        <li class="cur"></li>
-        <li class=""></li>
-        <li class=""></li>
+        <#if top_ad_list??>
+          <#list top_ad_list as item>
+          <#if item_index == 0>
+          <li class="cur"></li>
+          <#else>
+          <li class=""></li>
+          </#if>
+          </#list>
+          </#if>
       </ul>
     </div>
     <script src="/client/js/swipe.js"></script> 

@@ -8,13 +8,38 @@
 <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
 <!--css-->
 
-<script src="/client/js/jquery-1.9.1.min.js"></script>
 <link rel="stylesheet" type="text/css" href="/client/css/common.css"/>
 <link rel="stylesheet" type="text/css" href="/client/css/main.css"/>
-<title>叫个厨子</title>
-<script type="text/javascript" src="/client/js/jquery-1.11.3.min.js" ></script>
-<script type="text/javascript" src="/client/js/Validform_v5.3.2_min.js" ></script>
 
+<script src="/client/js/jquery-1.9.1.min.js"></script>
+<title>叫个厨子</title>
+<script>
+//注册 zhangji
+function reg()
+{
+	var username = $("#regUsername").val();
+	var password = $("#regPassword").val();
+	var password2 = $("#regPassword2").val();
+
+    $.ajax({
+        type:"post",
+        url:"user/reg",
+        data:{"username":username,"password":password,"password2":password2},
+        success:function(data){
+			if (data.code == 0)
+			{
+				alert("注册成功！");
+				location.reload();
+			}
+			else
+			{
+                 alert(data.msg);
+			}
+           
+        }
+    });
+}
+</script>
 </head>
 <body>
   <!-- 登录注册 -->
@@ -40,21 +65,21 @@
         <li style="display:block;" class="login">
           <form id="form1">
           	<div class="phone-num">
-          	  <input type="text" maxlength="11" id="txt_loginId" value="" placeholder="手机号">
+          	  <input type="text" maxlength="11" id="txt_loginId" value="" placeholder="手机号" />
           	</div>
           	<div class="password">
-          	  <input type="password"  id="txt_loginPwd" value=""   placeholder="密码">
+          	  <input type="password"  id="txt_loginPwd" value=""   placeholder="密码" />
           	</div>
 
 			<div class="login-way">
 			  <input class="checkbox" type="checkbox">
 			  <div class="group-login-way">
-			  	<p class="p1 c999">其他方式登录</p>
+			  	<#--<p class="p1 c999">其他方式登录</p>
 			  	<p class="p2">
 			  	  <a href="#">QQ</a>/
 			  	  <a href="#">微信</a>/
 			  	  <a href="#">微博</a>
-			  	</p>
+			  	</p>-->
 			  </div>
 			  <input class="btn-login" type="button"  id="btn_login"  value="登 录">
 			</div>
@@ -65,15 +90,15 @@
         <li class="register">
           <form id="form1" action="user/reg" method="post">
           	<div class="phone-num">
-          	  <input type="text" maxlength="11"  id="mobileNumber" name="username" datatype="m"  ajaxurl="/reg/check/mobile"/ placeholder="手机号">
+          	  <input type="text" maxlength="11"  id="regUsername" name="username"    placeholder="手机号">
           	</div>
           	<div class="security-code">
-          	  <input type="text" name="smsCode" placeholder="密码">
+          	  <input type="password" id="regPassword"  name="password" placeholder="密码" />
           	</div>
           		<div class="password">
-          	  <input type="text" name="password" placeholder="再次输入密码">
+          	  <input type="password"  id="regPassword2"   placeholder="再次输入密码" />
           	</div>
-          	<input class="btn-register" type="submit" value="注 册">
+          	<input class="btn-register" type="button" onclick="javasript:reg();" value="注 册">
           	<div class="sec1 c999">新用户注册即送20元优惠券</div>
           	<div class="sec1 c999"><input type="checkbox">我已阅读并同意《叫个厨子》相关条例</div>
           	<div class="sec2 c999">已注册，直接<a id="click-login" href="#">登录</a></div>

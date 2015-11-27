@@ -99,7 +99,7 @@
           <p class="follow">${item.totalclicks!'0'}</p>
         </div>
         <div class="price">
-          <p class="p1"><span>9.8</span>分</p>
+          <!--<p class="p1"><span>9.8</span>分</p>-->
           <p class="p2">￥<span><#if item.salePrice??>${item.salePrice?string("0.00")}<#else>0</#if></span></p>
         </div>
       

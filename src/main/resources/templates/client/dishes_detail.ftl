@@ -187,14 +187,14 @@ function addCollect(gid)
       </section>
       <!-- 套餐清单 -->
       <section class="inventory">
-        <div class="div1">
-            <div class="fz1-2">
+         <div class="div1">
+            <#--<div class="fz1-2">
             <p class="p1 "></p>
             <p class="p2">${good.brandTitle}</p>
-          </div>
-          <div class="fz1-4 c000">
-            <p class="p1">菜品</p>
-            <p class="p2 c-ccc"><span>${good.leftNumber!'0'}</span>份</p>
+            </div>-->
+            <div class="fz1-4 c000">
+              <p class="p1">菜品</p>
+              <p class="p2 c-ccc"><span>${good.leftNumber!'0'}</span>份</p>
           </div>
           <div class="fz1-2">
             <p class="p1 fs-il">主菜</p>

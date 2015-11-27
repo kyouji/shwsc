@@ -45,9 +45,15 @@
                   </div>
                 </div>
                 <ul id="position">
-                  <li class="cur"></li>
-                  <li class=""></li>
-                  <li class=""></li>
+                  <#if top_ad_list??>
+                      <#list top_ad_list as item>
+                      <#if item_index == 0>
+                      <li class="cur"></li>
+                      <#else>
+                      <li class=""></li>
+                      </#if>
+                  </#list>
+                  </#if>
                 </ul>
               </div>
               <script src="/client/js/swipe.js"></script> 
@@ -72,7 +78,7 @@
             <#list new_goods_list as goods>
                    <div class="package">
                       <!-- 图片尺寸 864*414 -->
-                      <a href="/kjhdtc"><img src="${goods.coverImageUri!''}" alt="${goods.title!''}"></a>
+                      <a href="/food/showdishes?goodId=${goods.id}"><img src="${goods.coverImageUri!''}" alt="${goods.title!''}"></a>
                       <div class="introduction">
                         <p class="title"><a href="/kjhdtc">${goods.title!''}</span></a></p>
                         <p class="itdt">${goods.detail!''}</p>
