@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.ynyes.shwsc.entity.TdUserMessage;
 import com.ynyes.shwsc.entity.TdCoupon;
 import com.ynyes.shwsc.entity.TdCouponType;
 import com.ynyes.shwsc.entity.TdUser;
@@ -23,6 +24,7 @@ import com.ynyes.shwsc.service.TdCommonService;
 import com.ynyes.shwsc.service.TdCouponService;
 import com.ynyes.shwsc.service.TdCouponTypeService;
 import com.ynyes.shwsc.service.TdDiySiteService;
+import com.ynyes.shwsc.service.TdUserMessageService;
 import com.ynyes.shwsc.service.TdUserRecentVisitService;
 import com.ynyes.shwsc.service.TdUserService;
 //import com.ynyes.shwsc.util.SMSUtil;
@@ -52,6 +54,9 @@ public class TdCouponController {
 	
 	@Autowired
     private TdUserRecentVisitService tdUserRecentVisitService;
+	
+	@Autowired
+	TdUserMessageService tdUserMessageService;
     
 	@RequestMapping("/list")
     public String infoList(Integer page, 
@@ -176,6 +181,17 @@ public class TdCouponController {
 	    getCoupon.setMobile(user.getMobile());
 	    
 	    tdCouponService.save(getCoupon);
+	    
+        //站内信
+	    TdUserMessage message = new TdUserMessage();
+        message.setUserId(user.getId());
+        message.setName(user.getNickname());
+        message.setContent("您有一张价值"+getCoupon.getPrice()+"元的优惠券到账啦！");
+        message.setTitle("通知消息");
+        message.setStatus(0L);
+        message.setTime(new Date());
+        tdUserMessageService.save(message);
+	    
 	    
 	    res.put("code", 0);
 	    

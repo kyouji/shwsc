@@ -179,22 +179,7 @@ public class TdIndexController {
     	return "client/qmbj";
     }
     
-   //个人中心
-    @RequestMapping("/center")
-    public String center(HttpServletRequest req,ModelMap map)
-    {
-    	String username=(String)req.getSession().getAttribute("username");
-    	if(username==null){
-    		return "redirect:/login";
-    	}
-    	
-    	TdUser curentUser = tdUserService.findByUsername(username);
-	
-		
-		map.addAttribute("user", curentUser);
-    	
-    	return "client/center";
-    }
+
     //头像编辑
     @RequestMapping("/head_portrait")
     public String head_portrait(HttpServletRequest req,ModelMap map)
@@ -380,18 +365,7 @@ public class TdIndexController {
     	return "client/hykjxq";
     	
     }
-    //消息中心
-    @RequestMapping("xxzx")
-    public String xxzx(HttpServletRequest req,ModelMap map)
-    {
-    	
-    	String username=(String)req.getSession().getAttribute("username");
-    	if(username==null){
-    		return "redirect:/login";
-    	}
-    	return "client/xxzx";
-    	
-    }
+
     //常用地址
     @RequestMapping("cydz")
     public String cydz(HttpServletRequest req,ModelMap map)

@@ -172,7 +172,7 @@ public class TdRegController {
     	TdUser user  =  new TdUser();
     	user.setUsername(username);
     	user.setPassword(password);
-		user.setMobile(password);  //zhangji
+		user.setMobile(username);  //zhangji
 		user.setStatusId(0L);
     	tdUserService.save(user);
     	

@@ -20,48 +20,30 @@
     <!-- 头部 END -->
 
     <!-- 消息中心 -->
-    <article class="news-center">
-      <div class="div1">
-        <!-- 图片原始尺寸 77*77 -->
-        <img width="50" height="50" src="/client/images/icon_news_center.png" alt="">
-        <span class="tips-news-info"></span>
-      </div>
-      <div class="div2">
-        <div class="div2-1">
-          <span>通知消息</span>
-          <span>10:13</span>
-        </div>
-        <div class="div2-2">您有一张价值10元的优惠券到账啦！集齐10张可以...</div>
-      </div>
-    </article>
-    <article class="news-center">
-      <div class="div1">
-        <!-- 图片原始尺寸 77*77 -->
-        <img width="50" height="50" src="/client/images/icon_news_foods.png" alt="">
-        <span></span>
-      </div>
-      <div class="div2">
-        <div class="div2-1">
-          <span>通知消息</span>
-          <span>2015-11-20</span>
-        </div>
-        <div class="div2-2">您有一张价值10元的优惠券到账啦！集齐10张可以...</div>
-      </div>
-    </article>
-    <article class="news-center">
-      <div class="div1">
-        <!-- 图片原始尺寸 77*77 -->
-        <img width="50" height="50" src="/client/images/icon_news_center.png" alt="">
-        <span class="tips-news-info"></span>
-      </div>
-      <div class="div2">
-        <div class="div2-1">
-          <span>通知消息</span>
-          <span>10:13</span>
-        </div>
-        <div class="div2-2">您有一张价值10元的优惠券到账啦！集齐10张可以...</div>
-      </div>
-    </article>
+   <#if message_list??>
+       <#list message_list as item>    
+		    <article class="news-center">
+		      <div class="div1">
+		        <!-- 图片原始尺寸 77*77 -->
+		        <img width="50" height="50" src="/client/images/icon_news_center.png" alt="">
+		        <span class="tips-news-info"></span>
+		      </div>
+		      <div class="div2">
+		        <div class="div2-1">
+		          <span>${item.title!''}</span>
+		          <span>${item.time?string("HH:mm")!''}</span>
+		        </div>
+		        <div class="div2-2">
+		            <#if item.content?length lt 25>
+		              ${item.content!''}
+		            <#else>
+		              ${item.content[0..24]}...
+		            </#if>    
+		        </div>
+		      </div>
+		    </article>
+		</#list>
+	</#if>	    
     <!-- 消息中心 END -->
 
 </body>

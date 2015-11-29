@@ -26,7 +26,7 @@ function request(couponId)
 			}
 			else
 			{
-				alert(data.msg);
+				alert(data.message);
 			}
            
         }

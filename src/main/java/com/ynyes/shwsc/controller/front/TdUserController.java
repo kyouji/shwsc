@@ -26,6 +26,7 @@ import com.ynyes.shwsc.entity.TdShippingAddress;
 import com.ynyes.shwsc.entity.TdUser;
 import com.ynyes.shwsc.entity.TdUserCollect;
 import com.ynyes.shwsc.entity.TdUserComment;
+import com.ynyes.shwsc.entity.TdUserMessage;
 import com.ynyes.shwsc.service.TdArticleService;
 import com.ynyes.shwsc.service.TdCommonService;
 import com.ynyes.shwsc.service.TdCouponService;
@@ -39,6 +40,7 @@ import com.ynyes.shwsc.service.TdUserCashRewardService;
 import com.ynyes.shwsc.service.TdUserCollectService;
 import com.ynyes.shwsc.service.TdUserCommentService;
 import com.ynyes.shwsc.service.TdUserConsultService;
+import com.ynyes.shwsc.service.TdUserMessageService;
 import com.ynyes.shwsc.service.TdUserPointService;
 import com.ynyes.shwsc.service.TdUserRecentVisitService;
 import com.ynyes.shwsc.service.TdUserReturnService;
@@ -84,6 +86,9 @@ public class TdUserController {
 
     @Autowired
     private TdGoodsService tdGoodsService;
+    
+    @Autowired
+    TdUserMessageService tdUserMessageService;
     
     //zhangji 优惠券
     @Autowired
@@ -131,6 +136,27 @@ public class TdUserController {
         map.addAttribute("comment_page", tdUserCommentService.findByUsername(email, 0, ClientConstant.pageSize));
         
         return "/client/user";
+    }
+    
+    //个人中心
+    @RequestMapping("/center")
+    public String center(HttpServletRequest req,ModelMap map)
+    {
+    	String username=(String)req.getSession().getAttribute("username");
+    	if(username==null){
+    		return "redirect:/login";
+    	}
+    	
+    	TdUser curentUser = tdUserService.findByUsername(username);
+	
+		
+		map.addAttribute("user", curentUser);
+		
+    	List<TdUserMessage> messageList = tdUserMessageService
+    			.findByUserIdAndStatusOrderByTimeAsc(tdUserService.findByUsername(username).getId(), 0L);
+    	map.addAttribute("toRead", messageList);
+    	
+    	return "client/center";
     }
     
     @RequestMapping(value = "/user/savee",method = RequestMethod.POST)
@@ -257,6 +283,21 @@ public class TdUserController {
     		shippingAddress.setReceiverMobile(shippingAddress.getReceiverMobile());
 		}
     	tdShippingAddressService.save(shippingAddress);
+    	
+	      //用户所有地址列表
+	      List<TdShippingAddress> addressList = tdShippingAddressService
+	    		  .findByUserId(curentUser.getId());
+	      for (TdShippingAddress item : addressList)
+	      {
+	    	  if (item.getId() == Id)
+	    	  {
+	    		  item.setIsDefaultAddress(true);
+	    	  }
+	    	  else{
+	    		  item.setIsDefaultAddress(false);
+	    	  }
+	    	  tdShippingAddressService.save(item);
+	      }
     	
     	Map<String, Object> res = new HashMap<String,Object>();
     	res.put("baocun", "成功");
@@ -542,6 +583,24 @@ public class TdUserController {
     	}
     	
     	return "redirect:/user/order";
+    }
+    
+    //消息中心
+    @RequestMapping("xxzx")
+    public String xxzx(HttpServletRequest req,ModelMap map)
+    {
+    	
+    	String username=(String)req.getSession().getAttribute("username");
+    	TdUser user = tdUserService.findByUsername(username);
+    	if(username==null){
+    		return "redirect:/login";
+    	}
+    	
+    	List<TdUserMessage> messageList = tdUserMessageService.findByUserIdOrderByTimeAsc(user.getId());
+    	map.addAttribute("message_list", messageList);
+    	
+    	return "client/xxzx";
+    	
     }
 
    /* @RequestMapping(value = "/user/reg",method = RequestMethod.POST)
